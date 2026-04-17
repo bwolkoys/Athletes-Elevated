@@ -181,9 +181,9 @@ export default function Page() {
 
         <div className="relative z-10 hidden items-center justify-center px-[8vw] py-[60px] lg:flex lg:pr-0">
           <div className="relative flex flex-col items-center">
-            <div className="mb-10 flex h-[340px] w-[340px] max-w-[90%] items-center justify-center rounded-full border border-[#69aaf6]/20 bg-white/5 text-center text-sm uppercase tracking-[0.2em] text-white/60 shadow-[0_0_60px_rgba(105,170,246,0.25)]">
+            {/* <div className="mb-10 flex h-[340px] w-[340px] max-w-[90%] items-center justify-center rounded-full border border-[#69aaf6]/20 bg-white/5 text-center text-sm uppercase tracking-[0.2em] text-white/60 shadow-[0_0_60px_rgba(105,170,246,0.25)]">
               Replace with logo image
-            </div>
+            </div> */}
 
             <div className="relative h-[420px] w-[420px]">
               <div className="absolute left-[10px] top-10 h-0 w-0 border-x-[200px] border-b-[340px] border-x-transparent border-b-[#69aaf6]/12" />
@@ -378,9 +378,9 @@ export default function Page() {
             <div className={`${bebas.className} mb-6 text-[clamp(60px,6vw,90px)] leading-[0.92] text-[#122863]`}>
               BUILT FOR <span className="text-[#69aaf6]">WHAT&apos;S NEXT</span>
             </div>
-            <p className="max-w-[380px] text-base font-light leading-[1.7] text-[#64748b]">
+            {/* <p className="max-w-[380px] text-base font-light leading-[1.7] text-[#64748b]">
               This version is App Router safe, keeps your page as a Server Component, and uses Tailwind classes throughout.
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
@@ -415,17 +415,3 @@ export default function Page() {
   );
 }
 
-/* Add this to app/globals.css
-html {
-  scroll-behavior: smooth;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-*/
