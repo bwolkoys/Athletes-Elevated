@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Bebas_Neue, DM_Sans, DM_Serif_Display } from 'next/font/google';
+import NewsletterForm from '../app/src/components/newsletterForm';
 
 const bebas = Bebas_Neue({ subsets: ['latin'], weight: '400' });
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] });
@@ -100,7 +101,7 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
         light ? 'text-[#a8ccf8]' : 'text-[#69aaf6]'
       }`}
     >
-      <span className={`h-[2px] w-7 ${light ? 'bg-[#a8ccf8]' : 'bg-[#69aaf6]'}`} />
+      <span className={`h-0.5 w-7 ${light ? 'bg-[#a8ccf8]' : 'bg-[#69aaf6]'}`} />
       {children}
     </div>
   );
@@ -123,7 +124,7 @@ function OutlineButton({ href, children, external = false }: { href: string; chi
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className="inline-flex items-center gap-2 rounded border border-white/30 px-8 py-[14px] text-[13px] font-medium uppercase tracking-[0.08em] text-white transition hover:border-[#69aaf6] hover:text-[#69aaf6]"
+      className="inline-flex items-center gap-2 rounded border border-white/30 px-8 py-3.5 text-[13px] font-medium uppercase tracking-[0.08em] text-white transition hover:border-[#69aaf6] hover:text-[#69aaf6]"
     >
       {children}
     </Link>
@@ -134,7 +135,7 @@ export default function Page() {
   return (
     <main className={`${dmSans.className} overflow-x-hidden bg-white text-[#1a2340]`}>
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#69aaf6]/15 bg-[rgba(18,40,99,0.96)] backdrop-blur-xl">
-        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center justify-between px-[5vw]">
+        <div className="mx-auto flex h-18 max-w-400 items-center justify-between px-[5vw]">
           <Link href="#" className={`${bebas.className} text-[22px] leading-none tracking-[0.06em] text-white`}>
             ATHLETES <span className="text-[#69aaf6]">ELEVATED</span>
           </Link>
@@ -144,7 +145,7 @@ export default function Page() {
             <li><Link href="#serve" className="text-[13px] font-medium uppercase tracking-[0.06em] text-white/70 transition hover:text-[#69aaf6]">Who We Serve</Link></li>
             <li><Link href="#impact" className="text-[13px] font-medium uppercase tracking-[0.06em] text-white/70 transition hover:text-[#69aaf6]">Impact</Link></li>
             <li>
-              <Link href="#newsletter" className="rounded bg-[#69aaf6] px-5 py-[9px] text-[13px] font-semibold uppercase tracking-[0.06em] text-[#0d1e4a] transition hover:-translate-y-px hover:bg-[#a8ccf8]">
+              <Link href="#newsletter" className="rounded bg-[#69aaf6] px-5 py-[2.25 text-[13px] font-semibold uppercase tracking-[0.06em] text-[#0d1e4a] transition hover:-translate-y-px hover:bg-[#a8ccf8]">
                 Join The List
               </Link>
             </li>
@@ -152,13 +153,13 @@ export default function Page() {
         </div>
       </nav>
 
-      <section className="relative grid min-h-screen items-center overflow-hidden bg-[#0d1e4a] pt-[72px] lg:grid-cols-2">
+      <section className="relative grid min-h-screen items-center overflow-hidden bg-[#0d1e4a] pt-18 lg:grid-cols-2">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_70%_50%,rgba(105,170,246,0.08)_0%,transparent_70%),radial-gradient(ellipse_40%_40%_at_20%_80%,rgba(105,170,246,0.05)_0%,transparent_60%)]" />
-        <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(rgba(105,170,246,1)_1px,transparent_1px),linear-gradient(90deg,rgba(105,170,246,1)_1px,transparent_1px)] [background-size:80px_80px]" />
+        <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(105,170,246,1)_1px,transparent_1px),linear-gradient(90deg,rgba(105,170,246,1)_1px,transparent_1px)]" />
 
         <div className="relative z-10 px-[8vw] py-16 lg:pr-[5vw]">
           <div className="mb-7 inline-flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#69aaf6]">
-            <span className="h-[2px] w-8 bg-[#69aaf6]" />
+            <span className="h-0.5 w-8 bg-[#69aaf6]" />
             Built for Athletes. Powered by Purpose.
           </div>
 
@@ -167,7 +168,7 @@ export default function Page() {
             <span className="block text-[#69aaf6]">meets purpose.</span>
           </h1>
 
-          <p className="mb-11 max-w-[460px] text-lg font-light leading-[1.6] text-white/65">
+          <p className="mb-11 max-w-115 text-lg font-light leading-[1.6] text-white/65">
             Athletes Elevated supports the people behind the results — connecting athletes, brands, and communities around shared values of integrity, impact, and growth.
           </p>
 
@@ -179,25 +180,25 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="relative z-10 hidden items-center justify-center px-[8vw] py-[60px] lg:flex lg:pr-0">
+        <div className="relative z-10 hidden items-center justify-center px-[8vw] py-15 lg:flex lg:pr-0">
           <div className="relative flex flex-col items-center">
             {/* <div className="mb-10 flex h-[340px] w-[340px] max-w-[90%] items-center justify-center rounded-full border border-[#69aaf6]/20 bg-white/5 text-center text-sm uppercase tracking-[0.2em] text-white/60 shadow-[0_0_60px_rgba(105,170,246,0.25)]">
               Replace with logo image
             </div> */}
 
-            <div className="relative h-[420px] w-[420px]">
-              <div className="absolute left-[10px] top-10 h-0 w-0 border-x-[200px] border-b-[340px] border-x-transparent border-b-[#69aaf6]/12" />
-              <div className="absolute left-[60px] top-[90px] h-0 w-0 border-x-[150px] border-b-[260px] border-x-transparent border-b-[#69aaf6]/18" />
-              <div className="absolute left-[120px] top-[164px] h-0 w-0 border-x-[90px] border-b-[156px] border-x-transparent border-b-[#69aaf6]" />
-              <div className="absolute left-[150px] top-[212px] h-0 w-0 border-x-[60px] border-b-[104px] border-x-transparent border-b-[#0d1e4a]" />
+            <div className="relative h-105 w-105">
+              <div className="absolute left-2.5 top-10 h-0 w-0 border-x-200 border-b-340 border-x-transparent border-b-[#69aaf6]/12" />
+              <div className="absolute left-15 top-22.5 h-0 w-0 border-x-150 border-b-260 border-x-transparent border-b-[#69aaf6]/18" />
+              <div className="absolute left-30 top-41 h-0 w-0 border-x-90 border-b-156 border-x-transparent border-b-[#69aaf6]" />
+              <div className="absolute left-37.5 top-53 h-0 w-0 border-x-60 border-b-104 border-x-transparent border-b-[#0d1e4a]" />
 
-              <div className="absolute bottom-[-10px] left-[-30px] flex gap-[2px]">
+              <div className="absolute bottom-2.5 left-7.5 flex gap-0.5">
                 {[
                   ['3', 'Nonprofits Supported'],
                   ['100%', 'Donations Pass-Through'],
                   ['2026', 'Big Things Coming'],
                 ].map(([value, label]) => (
-                  <div key={label} className="min-w-[110px] border border-[#69aaf6]/20 bg-[rgba(18,40,99,0.9)] px-6 py-5">
+                  <div key={label} className="min-w-27.5 border border-[#69aaf6]/20 bg-[rgba(18,40,99,0.9)] px-6 py-5">
                     <span className={`${bebas.className} block text-[40px] leading-none text-[#69aaf6]`}>{value}</span>
                     <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.12em] text-white/50">{label}</span>
                   </div>
@@ -208,7 +209,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div className="overflow-hidden bg-[#69aaf6] py-[14px]">
+      <div className="overflow-hidden bg-[#69aaf6] py-3.5">
         <div className="flex min-w-max animate-[marquee_25s_linear_infinite] whitespace-nowrap">
           {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
             <span key={`${item}-${i}`} className={`${bebas.className} inline-flex items-center gap-12 px-12 text-[15px] tracking-[0.12em] text-[#0d1e4a] after:content-['▲'] after:text-[10px] after:opacity-50`}>
@@ -218,18 +219,18 @@ export default function Page() {
         </div>
       </div>
 
-      <section id="values" className="px-[8vw] py-[120px]">
+      <section id="values" className="px-[8vw] py-30">
         <SectionLabel>Guided by Values</SectionLabel>
         <h2 className={`${dmSerif.className} mb-4 text-[clamp(36px,4vw,54px)] leading-[1.1] text-[#1a2340]`}>
           What we stand for
         </h2>
-        <p className="max-w-[540px] text-[17px] font-light leading-[1.7] text-[#64748b]">
+        <p className="max-w-135 text-[17px] font-light leading-[1.7] text-[#64748b]">
           Every relationship we build starts with a shared commitment to the things that actually last.
         </p>
 
-        <div className="mt-16 grid grid-cols-1 gap-[2px] md:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-0.5 md:grid-cols-3">
           {values.map((value) => (
-            <div key={value.number} className="relative overflow-hidden border border-[#122863]/10 bg-white px-10 py-[52px] transition hover:-translate-y-1 hover:border-[#69aaf6]">
+            <div key={value.number} className="relative overflow-hidden border border-[#122863]/10 bg-white px-10 py-13 transition hover:-translate-y-1 hover:border-[#69aaf6]">
               <span className={`${bebas.className} pointer-events-none absolute right-6 top-4 text-[80px] leading-none text-[#122863]/5`}>
                 {value.number}
               </span>
@@ -246,32 +247,32 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="serve" className="bg-[#f5f8ff] px-[8vw] py-[120px]">
+      <section id="serve" className="bg-[#f5f8ff] px-[8vw] py-30">
         <SectionLabel>Who We Serve</SectionLabel>
         <h2 className={`${dmSerif.className} mb-4 text-[clamp(36px,4vw,54px)] leading-[1.1] text-[#1a2340]`}>
           Everyone plays a role
           <br />
           in elevation
         </h2>
-        <p className="max-w-[540px] text-[17px] font-light leading-[1.7] text-[#64748b]">
+        <p className="max-w-135 text-[17px] font-light leading-[1.7] text-[#64748b]">
           Athletes Elevated is built for the people who move sport forward.
         </p>
 
         <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {serveCards.map((card) => (
-            <div key={card.eyebrow} className={`relative overflow-hidden px-12 py-[60px] ${card.bg}`}>
-              <svg viewBox="0 0 280 280" fill="none" className="absolute -bottom-[60px] right-[-40px] h-[280px] w-[280px] opacity-[0.06]">
+            <div key={card.eyebrow} className={`relative overflow-hidden px-12 py-15 ${card.bg}`}>
+              <svg viewBox="0 0 280 280" fill="none" className="absolute -bottom-15 right-10 h-70 w-70 opacity-[0.06]">
                 <polygon points="140,20 270,250 10,250" fill="white" />
               </svg>
               <span className="mb-5 block text-[11px] font-bold uppercase tracking-[0.2em] text-[#69aaf6]">{card.eyebrow}</span>
               <h3 className={`${dmSerif.className} mb-2 whitespace-pre-line text-[34px] leading-[1.1] text-white`}>{card.title}</h3>
               <span className="mb-6 block text-sm font-medium tracking-[0.04em] text-[#a8ccf8]">{card.subtitle}</span>
-              <p className="mb-9 max-w-[380px] text-[15px] font-light leading-[1.75] text-white/60">{card.body}</p>
+              <p className="mb-9 max-w-95 text-[15px] font-light leading-[1.75] text-white/60">{card.body}</p>
               <Link
                 href={card.href}
                 target={card.href.startsWith('http') ? '_blank' : undefined}
                 rel={card.href.startsWith('http') ? 'noreferrer' : undefined}
-                className="inline-flex items-center gap-2 border-b border-[#69aaf6]/40 pb-1 text-xs font-semibold uppercase tracking-[0.1em] text-[#69aaf6] transition hover:border-white hover:text-white"
+                className="inline-flex items-center gap-2 border-b border-[#69aaf6]/40 pb-1 text-xs font-semibold uppercase tracking-widest text-[#69aaf6] transition hover:border-white hover:text-white"
               >
                 {card.cta} →
               </Link>
@@ -280,31 +281,31 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="impact" className="bg-[#0d1e4a] px-[8vw] py-[120px]">
+      <section id="impact" className="bg-[#0d1e4a] px-[8vw] py-30">
         <SectionLabel>Impact</SectionLabel>
         <h2 className={`${dmSerif.className} mb-4 text-[clamp(36px,4vw,54px)] leading-[1.1] text-white`}>
           Nonprofits we champion
         </h2>
-        <p className="max-w-[540px] text-[17px] font-light leading-[1.7] text-white/60">
+        <p className="max-w-135 text-[17px] font-light leading-[1.7] text-white/60">
           100% of donations go directly to organizations making a tangible difference.
         </p>
 
-        <div className="mt-16 grid grid-cols-1 gap-[2px] md:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-0.5 md:grid-cols-3">
           {nonprofits.map((item) => (
-            <div key={item.name} className="group relative border border-[#69aaf6]/10 bg-white/[0.04] px-9 py-12 transition hover:border-[#69aaf6]/30 hover:bg-[#69aaf6]/[0.06]">
-              <div className="absolute left-0 top-0 h-[3px] w-full origin-left scale-x-0 bg-[#69aaf6] transition duration-300 group-hover:scale-x-100" />
+            <div key={item.name} className="group relative border border-[#69aaf6]/10 bg-white/4 px-9 py-12 transition hover:border-[#69aaf6]/30 hover:bg-[#69aaf6]/6">
+              <div className="absolute left-0 top-0 h-0.75 w-full origin-left scale-x-0 bg-[#69aaf6] transition duration-300 group-hover:scale-x-100" />
               <h3 className={`${dmSerif.className} mb-4 text-[22px] leading-[1.2] text-white`}>{item.name}</h3>
               <p className="mb-7 text-sm font-light leading-[1.75] text-white/50">{item.body}</p>
-              <Link href={item.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 border border-[#69aaf6]/30 px-[18px] py-[9px] text-[11px] font-bold uppercase tracking-[0.15em] text-[#69aaf6] transition hover:bg-[#69aaf6] hover:text-[#0d1e4a]">
+              <Link href={item.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 border border-[#69aaf6]/30 px-4.5 py-2.25 text-[11px] font-bold uppercase tracking-[0.15em] text-[#69aaf6] transition hover:bg-[#69aaf6] hover:text-[#0d1e4a]">
                 Donate →
               </Link>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 inline-flex flex-wrap items-center gap-4 border-l-[3px] border-l-[#69aaf6] bg-[#69aaf6]/[0.08] px-8 py-6">
+        <div className="mt-10 inline-flex flex-wrap items-center gap-4 border-l-[3px] border-l-[#69aaf6] bg-[#69aaf6]/8 px-8 py-6">
           <span className={`${bebas.className} text-5xl leading-none text-[#69aaf6]`}>100%</span>
-          <span className="max-w-[460px] text-[13px] font-light leading-[1.5] text-white/60">
+          <span className="max-w-115 text-[13px] font-light leading-normal text-white/60">
             <strong className="block font-medium text-white">Donations pass-through</strong>
             Every dollar donated goes directly to the nonprofit — no platform fees, no overhead deductions.
           </span>
@@ -322,9 +323,9 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative flex flex-wrap items-center justify-between gap-12 overflow-hidden bg-[#122863] px-[8vw] py-[100px]">
-        <div className="absolute right-[-60px] top-[-60px] h-[400px] w-[400px] rotate-45 border border-[#69aaf6]/10" />
-        <div className="absolute right-[60px] top-0 h-[200px] w-[200px] rotate-45 border border-[#69aaf6]/[0.07]" />
+      <section className="relative flex flex-wrap items-center justify-between gap-12 overflow-hidden bg-[#122863] px-[8vw] py-25">
+        <div className="absolute right-15 top-15 h-100 w-100 rotate-45 border border-[#69aaf6]/10" />
+        <div className="absolute right-15 top-0 h-50 w-50 rotate-45 border border-[#69aaf6]/[0.07]" />
 
         <div className="relative z-10">
           <SectionLabel light>Get Involved</SectionLabel>
@@ -343,18 +344,19 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="newsletter" className="px-[8vw] py-[120px]">
+      <section id="newsletter" className="px-[8vw] py-30">
         <div className="grid grid-cols-1 items-start gap-20 lg:grid-cols-2">
           <div>
             <SectionLabel>Newsletter</SectionLabel>
             <h2 className={`${dmSerif.className} mb-4 text-[clamp(36px,4vw,54px)] leading-[1.1] text-[#1a2340]`}>
               Stay connected
             </h2>
-            <p className="max-w-[540px] text-[17px] font-light leading-[1.7] text-[#64748b]">
+            <p className="max-w-135 text-[17px] font-light leading-[1.7] text-[#64748b]">
               Join our list to hear what&apos;s taking shape and where we&apos;re headed next.
             </p>
+            <NewsletterForm />
 
-            <form className="mt-10 flex flex-col gap-4" action="#">
+            {/* <form className="mt-10 flex flex-col gap-4" action="#">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <input placeholder="First name" className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-[18px] py-[14px] text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white" />
                 <input placeholder="Last name" className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-[18px] py-[14px] text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white" />
@@ -371,7 +373,7 @@ export default function Page() {
               <button type="submit" className="self-start rounded bg-[#69aaf6] px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#0d1e4a] transition hover:-translate-y-0.5 hover:bg-[#a8ccf8]">
                 Join The List
               </button>
-            </form>
+            </form> */}
           </div>
 
           <div className="pt-5">
@@ -385,13 +387,13 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="bg-[#0d1e4a] px-[8vw] pb-8 pt-[60px]">
+      <footer className="bg-[#0d1e4a] px-[8vw] pb-8 pt-15">
         <div className="flex flex-wrap items-start justify-between gap-12 border-b border-[#69aaf6]/10 pb-12">
           <div>
             <div className={`${bebas.className} mb-3 text-[28px] tracking-[0.06em] text-white`}>
               ATHLETES <span className="text-[#69aaf6]">ELEVATED</span>
             </div>
-            <p className="max-w-[260px] text-sm font-light leading-[1.6] text-white/40">
+            <p className="max-w-65 text-sm font-light leading-[1.6] text-white/40">
               Built for athletes, powered by purpose, and focused on meaningful community impact.
             </p>
           </div>
@@ -406,7 +408,7 @@ export default function Page() {
 
         <div className="flex flex-wrap items-center justify-between gap-6 pt-7">
           <p className="text-xs text-white/25">© 2026 Athletes Elevated. All rights reserved.</p>
-          <p className="max-w-[480px] text-[11px] italic leading-[1.5] text-white/20">
+          <p className="max-w-120 text-[11px] italic leading-normal text-white/20">
             Placeholder footer copy. Replace this with the exact disclaimer from your original file if you want a character-for-character migration.
           </p>
         </div>
