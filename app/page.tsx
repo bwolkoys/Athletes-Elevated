@@ -182,9 +182,6 @@ export default function Page() {
 
         <div className="relative z-10 hidden items-center justify-center px-[8vw] py-15 lg:flex lg:pr-0">
           <div className="relative flex flex-col items-center">
-            {/* <div className="mb-10 flex h-[340px] w-[340px] max-w-[90%] items-center justify-center rounded-full border border-[#69aaf6]/20 bg-white/5 text-center text-sm uppercase tracking-[0.2em] text-white/60 shadow-[0_0_60px_rgba(105,170,246,0.25)]">
-              Replace with logo image
-            </div> */}
 
             <div className="relative h-105 w-105">
               <div className="absolute left-2.5 top-10 h-0 w-0 border-x-200 border-b-340 border-x-transparent border-b-[#69aaf6]/12" />
@@ -192,7 +189,7 @@ export default function Page() {
               <div className="absolute left-30 top-41 h-0 w-0 border-x-90 border-b-156 border-x-transparent border-b-[#69aaf6]" />
               <div className="absolute left-37.5 top-53 h-0 w-0 border-x-60 border-b-104 border-x-transparent border-b-[#0d1e4a]" />
 
-              <div className="absolute bottom-2.5 left-7.5 flex gap-0.5">
+              <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-0.5">
                 {[
                   ['3', 'Nonprofits Supported'],
                   ['100%', 'Donations Pass-Through'],
