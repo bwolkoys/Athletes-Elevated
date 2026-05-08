@@ -129,6 +129,12 @@ export default function ForAthletesPage() {
  
       {/* ── NAV ───────────────────────────────────────────────────────────── */}
       <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-400 ${scrolled ? 'bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(9,40,102,.08)]' : 'bg-transparent'}`}>
+        {/* urgency bar */}
+        <div className="bg-[#52aafc] py-2 text-center">
+          <span className="font-[family-name:var(--font-barlow)] text-[11px] font-bold uppercase tracking-[0.28em] text-[#092866]">
+            🎬 HERO Documentary — Waitlist now open · Filming in progress
+          </span>
+        </div>
         <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-6 md:px-12">
           <Link href="/" className="font-[family-name:var(--font-barlow)] text-[21px] font-extrabold uppercase tracking-[0.06em] text-[#092866]">
             ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
@@ -148,48 +154,53 @@ export default function ForAthletesPage() {
       </nav>
  
       {/* ══════════════════════════════════════════════════════
-          1. HERO — light, full viewport, big headline left
-             photo placeholders float right, stat strip bottom
+          1. HERO — full-bleed photo placeholder, headline
+             overlaid bottom-left, stat strip at bottom
       ══════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-white pt-[68px]">
+      <section className="relative flex min-h-screen flex-col justify-end overflow-hidden pt-[100px]">
  
-        {/* spinning rings */}
-        <div className="pointer-events-none absolute -right-48 -top-48 h-[650px] w-[650px] rounded-full border border-[#52aafc]/10"
+        {/* full-bleed photo placeholder background */}
+        <div className="absolute inset-0 z-0"
+          style={{background:'linear-gradient(135deg,#c5ddf8 0%,#93c2f4 40%,#5fa8e8 100%)'}}>
+          {/* placeholder label */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-[family-name:var(--font-barlow)] text-[13px] font-semibold uppercase tracking-[0.3em] text-white/40">
+              Full-bleed athlete photo goes here
+            </span>
+          </div>
+        </div>
+ 
+        {/* dark gradient overlay — bottom heavy so headline is readable */}
+        <div className="absolute inset-0 z-10"
+          style={{background:'linear-gradient(to top, rgba(9,40,102,.92) 0%, rgba(9,40,102,.6) 40%, rgba(9,40,102,.1) 80%, transparent 100%)'}} />
+ 
+        {/* spinning rings — subtle, top right */}
+        <div className="pointer-events-none absolute -right-48 -top-48 z-10 h-[650px] w-[650px] rounded-full border border-white/[.06]"
           style={{animation:'spin 50s linear infinite'}} />
-        <div className="pointer-events-none absolute -right-28 -top-28 h-[420px] w-[420px] rounded-full border border-[#092866]/[.05]"
-          style={{animation:'spin 80s linear infinite reverse'}} />
  
-        {/* diagonal blue wash */}
-        <div className="pointer-events-none absolute right-0 top-0 h-[62vh] w-[45vw]"
-          style={{background:'linear-gradient(215deg,#daeeff 0%,#c2d9f7 55%,transparent 100%)',clipPath:'polygon(100% 0,100% 100%,24% 100%,0 0)'}} />
- 
-        {/* main copy */}
-        <div className="relative z-10 flex flex-1 flex-col justify-center px-6 pt-14 md:px-12 lg:px-20">
-          <div className="mb-7 flex items-center gap-3"
+        {/* main copy — pinned bottom left */}
+        <div className="relative z-20 px-6 pb-0 pt-20 md:px-12 lg:px-20">
+          <div className="mb-6 flex items-center gap-3"
             style={{animation: loaded ? 'slide-up .6s ease .1s both':'none',opacity: loaded?undefined:0}}>
-            <span className="h-[2px] w-10 bg-[#52aafc]" />
+            <span className="h-[2px] w-10 bg-[#52aafc]" style={{boxShadow:'0 0 10px rgba(82,170,252,.8)'}} />
             <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">For Athletes</span>
           </div>
  
-          <h1 className="font-[family-name:var(--font-barlow)] text-[clamp(56px,11vw,152px)] font-extrabold uppercase leading-[0.85] tracking-[-0.01em] text-[#092866]">
+          <h1 className="font-[family-name:var(--font-barlow)] text-[clamp(56px,11vw,152px)] font-extrabold uppercase leading-[0.85] tracking-[-0.01em] text-white">
             <div className="ww block"><span className="w" style={{animationDelay: loaded?'.12s':'999s'}}>You</span></div>
             <div className="ww block"><span className="w" style={{animationDelay: loaded?'.24s':'999s'}}>Are</span></div>
+            <div className="ww block"><span className="w" style={{animationDelay: loaded?'.38s':'999s'}}>More</span></div>
             <div className="ww block">
-              <span className="w" style={{animationDelay: loaded?'.38s':'999s'}}>More</span>
+              <span className="w text-[#52aafc]" style={{animationDelay: loaded?'.52s':'999s',textShadow:'0 0 80px rgba(82,170,252,.7)'}}>Than</span>
             </div>
+            <div className="ww block"><span className="w text-white" style={{animationDelay: loaded?'.65s':'999s'}}>Your</span></div>
             <div className="ww block">
-              <span className="w text-[#52aafc]" style={{animationDelay: loaded?'.52s':'999s',textShadow:'0 0 80px rgba(82,170,252,.5)'}}>Than</span>
-            </div>
-            <div className="ww block">
-              <span className="w" style={{animationDelay: loaded?'.65s':'999s'}}>Your</span>
-            </div>
-            <div className="ww block">
-              <span className="w text-[#52aafc]" style={{animationDelay: loaded?'.78s':'999s',textShadow:'0 0 80px rgba(82,170,252,.5)'}}>Sport.</span>
+              <span className="w text-[#52aafc]" style={{animationDelay: loaded?'.78s':'999s',textShadow:'0 0 80px rgba(82,170,252,.7)'}}>Sport.</span>
             </div>
           </h1>
  
-          <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-[420px] text-[16px] font-light leading-[1.85] text-[#092866]/48"
+          <div className="mt-8 flex flex-col gap-8 pb-10 lg:flex-row lg:items-end lg:justify-between">
+            <p className="max-w-[420px] text-[16px] font-light leading-[1.85] text-white/65"
               style={{animation: loaded?'slide-up .7s ease .8s both':'none',opacity: loaded?undefined:0}}>
               We built Athletes Elevated for the people behind the results — connecting you with tools, brands, and communities that understand performance goes far beyond the final score.
             </p>
@@ -200,44 +211,40 @@ export default function ForAthletesPage() {
                 Get Involved →
               </button>
               <Link href="#hero-doc"
-                className="btn-ghost inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
+                className="inline-flex items-center gap-2 border border-white/30 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-all hover:border-[#52aafc] hover:text-[#52aafc]">
                 Watch HERO ↓
               </Link>
             </div>
           </div>
         </div>
  
-        {/* floating photo placeholders — desktop */}
-        <div className="pointer-events-none absolute bottom-28 right-8 hidden flex-col gap-4 lg:flex"
-          style={{animation: loaded?'fade .9s ease .65s both':'none',opacity: loaded?undefined:0}}>
-          <div className="ph h-[190px] w-[150px] rounded-sm" style={{animation:'float 5s ease-in-out infinite'}} />
-          <div className="ph h-[124px] w-[150px] rounded-sm opacity-60" style={{animation:'float 5s ease-in-out 1s infinite'}} />
-        </div>
-        <div className="pointer-events-none absolute bottom-40 right-52 hidden lg:block"
-          style={{animation: loaded?'fade .9s ease .82s both':'none',opacity: loaded?undefined:0}}>
-          <div className="ph h-[108px] w-[172px] rounded-sm opacity-40" style={{animation:'float 7s ease-in-out .5s infinite'}} />
-        </div>
- 
-        {/* stat strip */}
-        <div className="relative z-10 grid grid-cols-3 border-t border-[#092866]/8"
-          style={{animation: loaded?'fade .8s ease 1.05s both':'none',opacity: loaded?undefined:0}}>
-          {[['3','Nonprofits supported'],['100%','Donations pass-through'],['Jan 2026','HERO launches']].map(([v,l])=>(
-            <div key={l} className="border-r border-[#092866]/8 px-6 py-6 last:border-r-0 md:px-10">
-              <div className="font-[family-name:var(--font-barlow)] text-[clamp(24px,3vw,46px)] font-extrabold leading-none text-[#52aafc]">{v}</div>
-              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#092866]/36">{l}</div>
+        {/* stat strip — on top of gradient */}
+        <div className="relative z-20 grid grid-cols-2 border-t border-white/[.12] md:grid-cols-4"
+          style={{animation: loaded?'fade .8s ease 1.05s both':'none',opacity: loaded?undefined:0,background:'rgba(9,40,102,.7)',backdropFilter:'blur(12px)'}}>
+          {[
+            ['3+',    'Nonprofits supported'],
+            ['100%',  'Donations pass-through'],
+            ['5',     'Heroes already filmed'],
+            ['Jan 2026','HERO launches'],
+          ].map(([v,l])=>(
+            <div key={l} className="border-r border-white/[.1] px-6 py-6 last:border-r-0 md:px-10">
+              <div className="font-[family-name:var(--font-barlow)] text-[clamp(24px,3vw,46px)] font-extrabold leading-none text-[#52aafc]"
+                style={{textShadow:'0 0 20px rgba(82,170,252,.4)'}}>{v}</div>
+              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/45">{l}</div>
             </div>
           ))}
         </div>
       </section>
  
-      {/* MARQUEE */}
-      <div className="overflow-hidden bg-[#52aafc] py-[13px]">
-        <div className="flex whitespace-nowrap" style={{animation:'marquee 24s linear infinite',width:'max-content'}}>
-          {['Athletes Elevated','Performance With Purpose','HERO','Athlink','Teams Elevated','Community','Impact','Athlete First',
-            'Athletes Elevated','Performance With Purpose','HERO','Athlink','Teams Elevated','Community','Impact','Athlete First',
-            'Athletes Elevated','Performance With Purpose','HERO','Athlink','Teams Elevated','Community','Impact','Athlete First'].map((t,i)=>(
-            <span key={i} className="inline-flex items-center gap-7 px-7 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.2em] text-[#06080f]">
-              {t}<span className="h-[4px] w-[4px] rounded-full bg-[#06080f]/30" />
+      {/* ══════════════════════════════════════════════════════
+          SPORT TAGS TICKER — between hero and values
+      ══════════════════════════════════════════════════════ */}
+      <div className="overflow-hidden border-b border-[#092866]/8 bg-white py-4">
+        <div className="flex whitespace-nowrap" style={{animation:'marquee 30s linear infinite',width:'max-content'}}>
+          {['Football','Soccer','Basketball','Baseball','Track & Field','Tennis','Golf','Volleyball','Lacrosse','Swimming','Wrestling','Hockey','Softball','Rugby','Rowing','Gymnastics','MMA','Cycling',
+            'Football','Soccer','Basketball','Baseball','Track & Field','Tennis','Golf','Volleyball','Lacrosse','Swimming','Wrestling','Hockey','Softball','Rugby','Rowing','Gymnastics','MMA','Cycling'].map((sport,i)=>(
+            <span key={i} className="inline-flex items-center gap-5 px-5 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.2em] text-[#092866]/35 transition-colors hover:text-[#52aafc]">
+              {sport} <span className="h-[4px] w-[4px] rounded-full bg-[#52aafc]/40" />
             </span>
           ))}
         </div>
