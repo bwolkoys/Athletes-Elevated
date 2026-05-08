@@ -1,502 +1,560 @@
-import Link from "next/link";
-import { Barlow_Condensed, Montserrat } from "next/font/google";
-import NewsletterForm from "../app/src/components/newsletterForm";
-import HeroSection from "./heroSection";
+'use client';
 
-const barlow = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-barlow",
-});
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-montserrat",
-});
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Barlow_Condensed, Montserrat } from 'next/font/google';
 
-const tickerItems = [
-  "Community Connection",
-  "Impact",
-  "Growth",
-  "Athlete First",
-  "Performance With Purpose",
+const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['400','600','700','800'], variable: '--font-barlow' });
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','600'], variable: '--font-montserrat' });
+
+const NONPROFITS = [
+  { name:'Park City Community Foundation', desc:'Strengthening local nonprofits across Park City and Summit County.', href:'https://parkcitycf.fcsuite.com/erp/donate' },
+  { name:'West Ham United Foundation', desc:'Using the power of football to help communities thrive in East London.', href:'https://www.whufc.com/en/the-club/community/foundation' },
+  { name:'McKenna Claire Foundation', desc:'Advancing research for pediatric brain cancer — no family should face this alone.', href:'https://mckennaclairefoundation.org/donate/' },
 ];
 
-const values = [
-  {
-    number: "01",
-    tag: "Athlete First",
-    title: "Built around people",
-    body: "We show up for the human behind the results.",
-    icon: (
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-    ),
-  },
-  {
-    number: "02",
-    tag: "Success × Impact",
-    title: "Performance with purpose",
-    body: "Success is even sweeter when it lifts others. We tie performance to something bigger than a result.",
-    icon: (
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    ),
-  },
-  {
-    number: "03",
-    tag: "Community Connection",
-    title: "Stronger together",
-    body: "Strong communities make strong athletes — and athletes strengthen their communities right back.",
-    icon: (
-      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-    ),
-  },
-];
+const PARTNERS = ['Essex Mortgage','Salt Box PC','Holistic Beverages','TBX Golf','Essex Shield','Bloom Intelligence','Dos Amigos',"Mother's Comfort Foods"];
 
-const serveCards = [
-  {
-    eyebrow: "For Athletes",
-    title: "Chase your potential.\nBuild your legacy.",
-    subtitle: "Discipline. Courage. Growth.",
-    body: "For those putting in the daily work — building a life around discipline, courage, and growth. We show up for you beyond the highlight reel.",
-    href: "#newsletter",
-    cta: "Get Involved",
-    // primary navy
-    bg: "bg-[#092866]",
-  },
-  {
-    eyebrow: "For Brands",
-    title: "Be part of the journey,\nnot just the moment.",
-    subtitle: "Real. Lasting. Aligned.",
-    body: "Partners who want to support athletes in real, lasting ways. We're building a network of people and brands who believe in what athletes stand for.",
-    href: "https://www.wixforms.com/f/7396687400686060560",
-    cta: "Partner With Us",
-    // mid blue — creates contrast between the two cards
-    bg: "bg-[#006aac]",
-  },
-];
+const FILMED = ['Steve Young','Jerry Rice','Nick Faldo','Picabo Street','West Ham United'];
+const CYCLING_WORDS = ['COMMUNITIES','PURPOSE','ATHLETES','THE FUTURE','IMPACT'];
 
-const nonprofits = [
-  {
-    name: "Park City Community Foundation",
-    body: "Strengthening local nonprofits and addressing urgent community needs across Park City and Summit County.",
-    href: "https://parkcitycf.fcsuite.com/erp/donate",
-  },
-  {
-    name: "West Ham United Foundation",
-    body: "Using the power of football to help communities thrive across East London and beyond.",
-    href: "https://www.whufc.com/en/the-club/community/foundation",
-  },
-  {
-    name: "McKenna Claire Foundation",
-    body: "Advancing research and awareness for pediatric brain cancer — because no family should face this alone.",
-    href: "https://mckennaclairefoundation.org/donate/",
-  },
-];
+export default function HomePage() {
+  const [scrolled, setScrolled] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [activeFilmed, setActiveFilmed] = useState(0);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [wordVisible, setWordVisible] = useState(true);
 
-const partners = [
-  "Essex Mortgage",
-  "Salt Box PC",
-  "Holistic Beverages",
-  "TBX Golf",
-  "Essex Shield",
-  "Bloom Intelligence",
-  "Dos Amigos",
-  "Mother's Comfort Foods",
-];
+  useEffect(() => {
+    setTimeout(() => setLoaded(true), 80);
 
-// ── Shared sub-components ─────────────────────────────────────────────────────
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+      { threshold: 0.05 }
+    );
+    document.querySelectorAll('.sr').forEach((el) => io.observe(el));
 
-function SectionLabel({
-  children,
-  light = false,
-}: {
-  children: React.ReactNode;
-  light?: boolean;
-}) {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // cycle words — fade out, swap, fade in
+    const cycle = setInterval(() => {
+      setWordVisible(false);
+      setTimeout(() => {
+        setWordIndex(i => (i + 1) % CYCLING_WORDS.length);
+        setWordVisible(true);
+      }, 350);
+    }, 2200);
+
+    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); clearInterval(cycle); };
+  }, []);
+
   return (
-    <div
-      className={`mb-5 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] ${
-        light ? "text-[#52aafc]" : "text-[#52aafc]"
-      }`}
-    >
-      {/* 3px tall rule to match brand weight */}
-      <span className="h-.75 w-7 bg-[#52aafc] shrink-0" />
-      {children}
-    </div>
-  );
-}
+    <div className={`${barlow.variable} ${montserrat.variable} font-(family-name:--font-montserrat) bg-white text-[#092866] overflow-x-hidden`}>
 
-function PrimaryButton({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      className="
-        inline-flex items-center gap-2 bg-[#52aafc] px-8 py-4
-        text-[13px] font-semibold uppercase tracking-widest text-[#092866]
-        transition-all duration-200
-        hover:-translate-y-0.5 hover:bg-[#7dc0fd] hover:shadow-[0_8px_24px_rgba(82,170,252,0.35)]
-        active:translate-y-0 active:shadow-none
-      "
-    >
-      {children}
-    </Link>
-  );
-}
+      <style>{`
+        @keyframes marquee   { to { transform: translateX(-50%); } }
+        @keyframes marquee-d { to { transform: translateX(50%); } }
+        @keyframes glow-orb  { 0%,100%{opacity:.08;transform:scale(1)} 50%{opacity:.03;transform:scale(1.12)} }
+        @keyframes word-in   { from{opacity:0;transform:translateY(115%) skewY(4deg)} to{opacity:1;transform:translateY(0) skewY(0)} }
+        @keyframes slide-up  { from{opacity:0;transform:translateY(44px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes slide-r   { from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes fade      { from{opacity:0} to{opacity:1} }
+        @keyframes count-up  { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+        @keyframes line-grow { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+        @keyframes float     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+        @keyframes spin-ring { to{transform:rotate(360deg)} }
+        @keyframes shimmer   { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
 
-function OutlineButton({
-  href,
-  children,
-  external = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
-      className="
-        inline-flex items-center gap-2 border border-white/25 px-8 py-3.5
-        text-[13px] font-medium uppercase tracking-widest text-white
-        transition-all duration-200
-        hover:border-[#52aafc] hover:text-[#52aafc] hover:bg-[#52aafc]/8
-      "
-    >
-      {children}
-    </Link>
-  );
-}
+        .sr { opacity:0; transform:translateY(32px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
+        .sr.in { opacity:1; transform:translateY(0); }
+        .sr-l { opacity:0; transform:translateX(-36px); transition:opacity .8s ease, transform .8s ease; }
+        .sr-l.in { opacity:1; transform:translateX(0); }
+        .sr-r { opacity:0; transform:translateX(36px); transition:opacity .8s ease, transform .8s ease; }
+        .sr-r.in { opacity:1; transform:translateX(0); }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+        .ww { overflow:hidden; display:inline-block; vertical-align:bottom; }
+        .w  { display:inline-block; animation: word-in .9s cubic-bezier(.22,1,.36,1) both; }
 
-export default function Page() {
-  return (
-    <main
-      className={`${montserrat.variable} ${barlow.variable} font-(family-name:--font-montserrat) overflow-x-hidden bg-white text-[#231f20]`}
-    >
-      {/* ── NAV ────────────────────────────────────────────────────────────── */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#52aafc]/15 bg-[rgba(9,40,102,0.97)] backdrop-blur-xl">
-        <div className="mx-auto flex h-18 max-w-350 items-center justify-between px-[5vw]">
-          {/* wordmark — Barlow Condensed 800 to match brand "ELEVATED" weight */}
-          <Link
-            href="#"
-            className="font-(family-name:--font-barlow) text-[22px] font-extrabold leading-none tracking-[0.06em] text-white transition-opacity hover:opacity-80"
-          >
+        .btn-blue {
+          background:#52aafc; color:#06080f;
+          transition:transform .2s, box-shadow .2s;
+        }
+        .btn-blue:hover {
+          transform:translateY(-2px);
+          box-shadow:0 0 40px rgba(82,170,252,.55), 0 8px 24px rgba(82,170,252,.3);
+        }
+        .btn-ghost {
+          border:1px solid rgba(82,170,252,.3); color:white;
+          transition:border-color .2s, color .2s, box-shadow .2s;
+        }
+        .btn-ghost:hover { border-color:#52aafc; color:#52aafc; box-shadow:0 0 20px rgba(82,170,252,.15); }
+
+        /* ecosystem horizontal scroll */
+        .eco-track { display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -ms-overflow-style:none; }
+        .eco-track::-webkit-scrollbar { display:none; }
+        .eco-item { flex:0 0 320px; scroll-snap-align:start; border:1px solid rgba(9,40,102,.1); transition:border-color .3s, transform .4s cubic-bezier(.22,1,.36,1); }
+        .eco-item:hover { border-color:rgba(82,170,252,.6); transform:translateY(-6px); }
+        .eco-item:hover .eco-bar { transform:scaleX(1); }
+        .eco-bar { transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,1,.36,1); }
+
+        /* filmed tab */
+        .filmed-tab { transition:color .2s, border-color .2s; }
+        .filmed-tab.active { color:#52aafc; border-left-color:#52aafc; }
+
+        /* np card */
+        .np-card { transition:transform .35s cubic-bezier(.22,1,.36,1), border-color .3s; border:1px solid rgba(9,40,102,.08); }
+        .np-card:hover { transform:translateY(-4px); border-color:rgba(82,170,252,.5); }
+        .np-card:hover .np-line { transform:scaleX(1); }
+        .np-line { transform:scaleX(0); transform-origin:left; transition:transform .4s ease; }
+
+        /* nav */
+        .nav-lnk::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#52aafc; transition:width .3s; }
+        .nav-lnk:hover::after { width:100%; }
+
+        /* grain */
+        .grain { background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E"); }
+      `}</style>
+
+      {/* ═══ NAV ════════════════════════════════════════════════════════════ */}
+      <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(9,40,102,.08)]' : 'bg-transparent'}`}>
+        <div className="mx-auto flex h-17.5 max-w-360 items-center justify-between px-6 md:px-12">
+          <Link href="/" className="font-(family-name:--font-barlow) text-[22px] font-extrabold uppercase tracking-[0.06em]">
             ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
           </Link>
-
           <ul className="hidden items-center gap-9 md:flex">
-            {(["Values", "Who We Serve", "Impact"] as const).map((label) => (
-              <li key={label}>
-                <Link
-                  href={`#${
-                    label === "Who We Serve" ? "serve" : label.toLowerCase()
-                  }`}
-                  className="
-                    text-[13px] font-medium uppercase tracking-[0.08em] text-white/60
-                    relative after:absolute after:-bottom-0.5 after:left-0 after:h-0.5
-                    after:w-0 after:bg-[#52aafc] after:transition-all after:duration-250
-                    hover:text-[#52aafc] hover:after:w-full transition-colors duration-200
-                  "
-                >
-                  {label}
-                </Link>
-              </li>
+            {[['For Athletes','/athletes'],['Ecosystem','/ecosystem'],['Impact','/impact'],['For Brands','/brands']].map(([l,h])=>(
+              <li key={l}><Link href={h} className="nav-lnk relative text-[12px] font-medium uppercase tracking-widest text-[#092866]/55 transition-colors hover:text-white">{l}</Link></li>
             ))}
-            <li>
-              <Link
-                href="#newsletter"
-                className="
-                  bg-[#52aafc] px-5 py-2.5 text-[13px] font-semibold uppercase
-                  tracking-[0.08em] text-[#092866]
-                  transition-all duration-200
-                  hover:-translate-y-px hover:bg-[#7dc0fd] hover:shadow-[0_4px_16px_rgba(82,170,252,0.4)]
-                "
-              >
-                Join The List
-              </Link>
-            </li>
           </ul>
+          <Link href="/athletes" className="btn-blue px-5 py-2.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
+            Get Involved
+          </Link>
         </div>
       </nav>
 
-      <HeroSection />
+      {/* ═══ 1. HERO — movie title card, off-center bleeding headline ════════ */}
+      <section className="grain relative flex min-h-screen flex-col justify-end overflow-hidden bg-white pt-17.5">
 
-      {/* ── TICKER — blue background per brand ─────────────────────────────── */}
-      <div className="overflow-hidden bg-[#52aafc] py-3.5">
-        <div className="flex min-w-max animate-[marquee_25s_linear_infinite] whitespace-nowrap">
-          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
-            <span
-              key={`${item}-${i}`}
-              className="font-(family-name:--font-barlow) inline-flex items-center gap-10 px-10 text-[15px] font-bold tracking-[0.14em] uppercase text-[#092866] after:content-['▲'] after:text-[9px] after:opacity-40"
-            >
-              {item}
+        {/* glow orbs */}
+        <div className="pointer-events-none absolute right-[-10%] top-[-5%] h-175 w-175brounded-full"
+          style={{background:'radial-gradient(circle,rgba(82,170,252,.05) 0%,transparent 65%)',animation:'glow-orb 9s ease-in-out infinite'}} />
+        <div className="pointer-events-none absolute left-[-5%] bottom-[10%] h-125 w-125 rounded-full"
+          style={{background:'radial-gradient(circle,rgba(9,40,102,.06) 0%,transparent 70%)',animation:'glow-orb 12s ease-in-out 2s infinite'}} />
+
+        {/* right column — vertical label */}
+        <div className="absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex"
+          style={{animation: loaded ? 'fade .8s ease 1.2s both' : 'none', opacity: loaded ? undefined : 0}}>
+          <div className="h-16 w-px bg-[#52aafc]/30" />
+          <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-[#092866]/40"
+            style={{writingMode:'vertical-rl',textOrientation:'mixed'}}>
+            Scroll to explore
+          </span>
+          <div className="h-16 w-px bg-[#52aafc]/30" />
+          <div className="h-2 w-2 rounded-full bg-[#52aafc]" style={{animation:'pulse-dot 1.5s ease-in-out infinite'}} />
+        </div>
+
+        {/* main headline — massive, bleeds right */}
+        <div className="relative z-10 px-6 pb-0 pt-20 md:px-12 lg:px-16">
+          <div style={{animation: loaded ? 'slide-up .6s ease .1s both' : 'none', opacity: loaded ? undefined : 0}}
+            className="mb-8 inline-flex items-center gap-3">
+            <span className="h-0.5 w-10 bg-[#52aafc]" style={{boxShadow:'0 0 10px rgba(82,170,252,.8)'}} />
+            <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
+              Athletes · Brands · Community · Impact
+            </span>
+          </div>
+
+          <h1 className="font-(family-name:--font-barlow) font-extrabold uppercase leading-[0.85] tracking-[-0.02em]"
+            style={{fontSize:'clamp(72px,14vw,200px)'}}>
+            {/* ELEVATE — static first line */}
+            <div className="ww block">
+              <span className="w text-[#092866]" style={{animationDelay: loaded ? '.1s':'999s'}}>ELEV</span>
+              <span className="w text-[#52aafc]" style={{animationDelay: loaded ? '.18s':'999s', textShadow:'0 0 100px rgba(82,170,252,.7)'}}>ATE</span>
+            </div>
+            {/* cycling word — second line */}
+            <div className="block" style={{minHeight:'1em'}}>
+              <span
+                className="block text-[#092866]/80"
+                style={{
+                  transition:'opacity .35s ease, transform .35s ease',
+                  opacity: wordVisible ? 1 : 0,
+                  transform: wordVisible ? 'translateY(0)' : 'translateY(14px)',
+                }}
+              >
+                {CYCLING_WORDS[wordIndex]}
+              </span>
+            </div>
+          </h1>
+        </div>
+
+        {/* bottom bar — description left, CTAs right, stats center */}
+        <div className="relative z-10 mt-0 grid grid-cols-1 gap-0 border-t border-[#092866]/10 lg:grid-cols-3"
+          style={{animation: loaded ? 'fade .8s ease 1s both' : 'none', opacity: loaded ? undefined : 0}}>
+
+          <div className="border-r border-[#092866]/10 px-6 py-8 md:px-12 lg:px-16">
+            <p className="text-[14px] font-light leading-[1.8] text-[#092866]/55 max-w-70">
+              We connect athletes, brands, and communities around integrity, impact, and growth — from youth leagues to the world stage.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 border-r border-[#092866]/10">
+            {[{val:'100%',label:'Donations direct'},{val:'5',label:'Heroes filmed'},{val:'3',label:'Nonprofits'},{val:'2027',label:'HERO launches'}].map(s=>(
+              <div key={s.label} className="border-b border-r border-[#092866]/10 px-6 py-6 last:border-b-0 even:border-r-0">
+                <div className="font-(family-name:--font-barlow) text-[28px] font-extrabold leading-none text-[#52aafc]">{s.val}</div>
+                <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.2em] text-[#092866]/40">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col justify-center gap-3 px-6 py-8 md:px-12">
+            <Link href="/athletes" className="btn-blue inline-flex items-center justify-center gap-2 px-7 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
+              I'm an Athlete →
+            </Link>
+            <Link href="/brands" className="border inline-flex items-center justify-center gap-2 px-7 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
+              I'm a Brand →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ MARQUEE ════════════════════════════════════════════════════════ */}
+      <div className="overflow-hidden bg-[#52aafc] py-3.25">
+        <div className="flex whitespace-nowrap" style={{animation:'marquee 22s linear infinite',width:'max-content'}}>
+          {['Athletes Elevated','Performance With Purpose','Teams Elevated','Athlete First','HERO — Jan 2026','Athlink','Community Connection','Impact',
+            'Athletes Elevated','Performance With Purpose','Teams Elevated','Athlete First','HERO — Jan 2026','Athlink','Community Connection','Impact',
+            'Athletes Elevated','Performance With Purpose','Teams Elevated','Athlete First','HERO — Jan 2026','Athlink','Community Connection','Impact'].map((t,i)=>(
+            <span key={i} className="inline-flex items-center gap-7 px-7 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.2em] text-[#06080f]">
+              {t}<span className="h-1 w-1 rounded-full bg-white/30" />
             </span>
           ))}
         </div>
       </div>
 
-      {/* ── VALUES ─────────────────────────────────────────────────────────── */}
-      <section id="values" className="px-[8vw] py-28">
-        <SectionLabel>Guided by Values</SectionLabel>
-        <h2 className="font-(family-name:--font-barlow) mb-4 text-[clamp(36px,4vw,56px)] font-extrabold uppercase leading-none tracking-[0.01em] text-[#092866]">
-          What we stand for
-        </h2>
-        <p className="max-w-135 text-[17px] font-light leading-[1.75] text-[#231f20]/55">
-          Every relationship we build starts with a shared commitment to the
-          things that actually last.
-        </p>
+      {/* ═══ 2. MISSION — brutalist, ONE giant number dominates ═════════════ */}
+      <section className="relative overflow-hidden bg-white px-6 py-0 md:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-150">
 
-        <div className="mt-14 grid grid-cols-1 gap-0.5 bg-[#092866]/8 md:grid-cols-3">
-          {values.map((value) => (
-            <div
-              key={value.number}
-              className="
-                group relative overflow-hidden border border-[#092866]/10 bg-white px-10 py-12
-                transition-all duration-300
-                hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(9,40,102,0.1)]
-                hover:border-[#52aafc]
-              "
-            >
-              {/* animated top bar on hover */}
-              <div className="absolute left-0 top-0 h-0.75 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-350 group-hover:scale-x-100" />
+          {/* left — giant 100% */}
+          <div className="sr-l relative flex items-center justify-center overflow-hidden bg-[#52aafc] px-8 py-20 lg:py-0">
+            <div className="pointer-events-none absolute inset-0 opacity-10"
+              style={{backgroundImage:'repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(9,40,102,.12) 40px,rgba(9,40,102,.12) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(9,40,102,.12) 40px,rgba(9,40,102,.12) 41px)'}} />
+            <div className="relative text-center">
+              <div className="font-(family-name:--font-barlow) font-extrabold uppercase leading-none text-[#06080f]"
+                style={{fontSize:'clamp(100px,20vw,260px)',lineHeight:.85}}>
+                100<span className="text-[#092866]/70">%</span>
+              </div>
+              <div className="mt-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.3em] text-[#06080f]/60">
+                Of donations pass-through
+              </div>
+            </div>
+          </div>
 
-              <span className="font-(family-name:--font-barlow) pointer-events-none absolute right-5 top-3 text-[80px] font-extrabold leading-none text-[#092866]/4 transition-all duration-300 group-hover:text-[#52aafc]/10 group-hover:right-3">
-                {value.number}
-              </span>
+          {/* right — copy stacked */}
+          <div className="sr flex flex-col justify-center px-8 py-20 md:px-16 lg:px-20" style={{transitionDelay:'150ms'}}>
+            <div className="mb-6 inline-flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Our Mission</span>
+            </div>
+            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(32px,3.5vw,54px)] font-extrabold uppercase leading-[0.93] text-white">
+              Built for the human<br />behind the result.
+            </h2>
+            <p className="mb-6 text-[16px] font-light leading-[1.88] text-[#092866]/52">
+              Athletes Elevated is an ecosystem built around one belief: the impact of an athlete doesn't stop at the final whistle. We connect athletes with tools, communities, and partners that help them become something bigger.
+            </p>
+            <p className="text-[14px] font-light leading-[1.88] text-[#092866]/35">
+              From a youth soccer league in Park City to a global documentary featuring the world's greatest — every part of AE starts with the athlete and works outward.
+            </p>
+          </div>
+        </div>
 
-              {/* icon box — slides up slightly on hover */}
-              <div className="mb-7 flex h-12 w-12 items-center justify-center bg-[#092866] transition-all duration-300 group-hover:bg-[#52aafc] group-hover:-translate-y-1">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6 fill-[#52aafc] transition-colors duration-300 group-hover:fill-[#092866]"
-                >
-                  {value.icon}
-                </svg>
+        {/* three pillars below, full width */}
+        <div className="grid grid-cols-1 border-t border-[#092866]/10 md:grid-cols-3">
+          {[
+            {n:'01',tag:'Athlete First',body:'We show up for the human behind the results.'},
+            {n:'02',tag:'Performance With Purpose',body:'Success is sweeter when it lifts others.'},
+            {n:'03',tag:'Community Connection',body:'Strong communities make strong athletes.'},
+          ].map((v,i)=>(
+            <div key={v.n} className="sr group relative border-r border-[#092866]/10 px-8 py-12 last:border-r-0 hover:bg-[#092866]/2 transition-colors"
+              style={{transitionDelay:`${i*100}ms`}}>
+              <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
+              <div className="mb-4 font-(family-name:--font-barlow) text-[64px] font-extrabold leading-none text-[#092866]/[0.07] group-hover:text-[#52aafc]/10 transition-colors duration-300">{v.n}</div>
+              <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#52aafc]">{v.tag}</div>
+              <p className="text-[14px] font-light leading-[1.8] text-[#092866]/48">{v.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ 3. ECOSYSTEM — horizontal scroll, Netflix-style ════════════════ */}
+      <section className="bg-[#f0f5fd] px-6 py-24 md:px-12 lg:px-20">
+        <div className="sr mb-10 flex items-end justify-between">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">The Ecosystem</span>
+            </div>
+            <h2 className="font-(family-name:--font-barlow) text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92] text-white">
+              Everything we build<br/>starts with <span className="text-[#52aafc]">athletes.</span>
+            </h2>
+          </div>
+          <div className="hidden items-center gap-2 text-[11px] font-medium text-[#092866]/40 md:flex">
+            <span>Scroll to explore</span>
+            <span className="font-(family-name:--font-barlow) text-[16px]">→</span>
+          </div>
+        </div>
+
+        {/* horizontal scroll track */}
+        <div className="eco-track pb-4">
+          {[
+            {tag:'Documentary',name:'HERO',sub:'Legends that become catalysts for change.',detail:'A cinematic series from ancient myth to modern icons. Launching January 2027.',href:'/hero',num:'01',
+              extra:<div className="mt-4 border-t border-[#092866]/10 pt-4">{['Steve Young','Jerry Rice','Nick Faldo','Picabo Street','West Ham United'].map(n=><div key={n} className="py-0.5 text-[11px] text-[#092866]/45">— {n}</div>)}</div>},
+            {tag:'Athlete Platform',name:'Athlink',sub:'One link for everything you are.',detail:'Stats, highlights, social, contact — all in one profile brands can find.',href:'/ecosystem/athlink',num:'02',extra:null},
+            {tag:'Youth Sports',name:'Teams Elevated',sub:"Cost should never keep a kid off the field.",detail:'Payments, crowdfunding, rosters, and communication in one platform.',href:'/ecosystem/teams-elevated',num:'03',extra:null},
+            {tag:'CRM',name:'Eye In Teams',sub:'Built-in CRM that disrupts legacy competitors.',detail:'B2B/B2C communication, email, text, calls, and marketing — all in one.',href:'/ecosystem/crm',num:'04',extra:null},
+          ].map((item,i)=>(
+            <Link key={item.name} href={item.href} className="eco-item sr relative flex flex-col bg-white"
+              style={{transitionDelay:`${i*80}ms`}}>
+              <div className="eco-bar absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]"
+                style={{boxShadow:'0 0 8px rgba(82,170,252,.4)'}} />
+
+              {/* photo placeholder — top half */}
+              <div className="flex h-50 shrink-0 items-center justify-center"
+                style={{background:'linear-gradient(135deg,rgba(82,170,252,.12) 0%,rgba(9,40,102,.08) 100%)'}}>
+                <div className="font-(family-name:--font-barlow) text-[80px] font-extrabold leading-none text-[#092866]/[0.07]">{item.num}</div>
               </div>
 
-              <span className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#52aafc]">
-                {value.tag}
-              </span>
-              <h3 className="font-(family-name:--font-barlow) mb-3 text-[22px] font-bold uppercase tracking-[0.02em] text-[#092866] transition-colors duration-200 group-hover:text-[#006aac]">
-                {value.title}
-              </h3>
-              <p className="text-[15px] font-light leading-[1.75] text-[#231f20]/55">
-                {value.body}
-              </p>
+              {/* text — bottom half */}
+              <div className="flex flex-1 flex-col p-7">
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">{item.tag}</span>
+                <h3 className="font-(family-name:--font-barlow) mb-2 text-[26px] font-extrabold uppercase text-white">{item.name}</h3>
+                <p className="mb-1 text-[12px] font-semibold text-[#092866]/65">{item.sub}</p>
+                <p className="text-[12px] font-light leading-[1.7] text-[#092866]/42">{item.detail}</p>
+                {item.extra}
+                <div className="mt-auto pt-6 text-[11px] font-bold uppercase tracking-[0.18em] text-[#52aafc]">
+                  Explore →
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* scroll hint dots */}
+        <div className="mt-6 flex justify-center gap-2">
+          {[0,1,2,3].map(i=>(
+            <div key={i} className={`h-1 rounded-full transition-all duration-300 ${i===0?'w-6 bg-[#52aafc]':'w-2 bg-[#092866]/15'}`} />
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ 4. HERO DOC — cinematic film poster split ════════════════════════ */}
+      <section className="relative overflow-hidden bg-[#f7f9ff]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-175">
+
+          {/* left — film poster */}
+          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-16 md:px-16"
+            style={{background:'linear-gradient(135deg,#f0f5fd 0%,#e0ecfa 100%)'}}>
+
+            {/* dot texture */}
+            <div className="pointer-events-none absolute inset-0 opacity-[.08]"
+              style={{backgroundImage:'radial-gradient(rgba(9,40,102,.15) 1px,transparent 1px)',backgroundSize:'36px 36px'}} />
+
+            {/* ghost HERO */}
+            <div className="pointer-events-none absolute -top-4 left-0 right-0 text-center font-(family-name:--font-barlow) font-extrabold uppercase leading-none text-[#092866]/6 select-none"
+              style={{fontSize:'clamp(80px,18vw,220px)'}}>HERO</div>
+
+            <div className="relative z-10">
+              <div className="mb-3 inline-flex items-center gap-3">
+                <span className="h-0.5 w-8 bg-[#52aafc]" style={{boxShadow:'0 0 10px rgba(82,170,252,.8)'}} />
+                <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary — January 2027</span>
+              </div>
+              <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(36px,5vw,80px)] font-extrabold uppercase leading-[0.89] text-white">
+                Legends that<br/>become <span className="text-[#52aafc]" style={{textShadow:'0 0 60px rgba(82,170,252,.7)'}}>catalysts</span><br/>for change.
+              </h2>
+              {/* <blockquote className="mb-8 border-l-2 border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
+                "The hero of today doesn't slay the dragon —<br/>they inspire us to face it together."
+              </blockquote> */}
+              <div className="flex flex-wrap gap-3">
+                <Link href="/athletes" className="btn-blue inline-flex items-center gap-2 px-7 py-3.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">Join the waitlist</Link>
+                <Link href="/hero" className="btn-ghost inline-flex items-center gap-2 px-7 py-3.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">Learn more →</Link>
+              </div>
+            </div>
+          </div>
+
+          {/* right — tabbed filmed list */}
+          <div className="sr relative flex flex-col justify-center border-l border-[#092866]/10 bg-white px-8 py-16 md:px-12"
+            style={{transitionDelay:'140ms'}}>
+            <div className="mb-8 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]/45">Already filmed</div>
+
+            <div className="space-y-0">
+              {FILMED.map((name,i)=>(
+                <button key={name}
+                  onClick={()=>setActiveFilmed(i)}
+                  className={`filmed-tab w-full border-l-[3px] px-6 py-5 text-left transition-all duration-200 text-[#092866] ${activeFilmed===i?'active bg-[#52aafc]/10 border-[#52aafc]':'border-transparent hover:border-white/20 hover:bg-[#092866]/2'}`}>
+                  <div className="flex items-center justify-between">
+                    <span className={`font-(family-name:--font-barlow) text-[22px] font-bold uppercase transition-colors ${activeFilmed===i?'text-[#52aafc]':'text-[#092866]/60'}`}>
+                      {name}
+                    </span>
+                    {activeFilmed===i && (
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]/70">Filmed ✓</span>
+                    )}
+                  </div>
+                  {activeFilmed===i && (
+                    <p className="mt-2 text-[12px] font-light text-[#092866]/45">
+                      {['Hall of Fame QB · 2× Super Bowl Champion','Greatest WR in NFL history · 3× Super Bowl','6× Major Champion · Ryder Cup legend','Olympic Gold · 1998 Nagano · World Champion','3× FA Cup · European Cup Winners Cup 1965'][i]}
+                    </p>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-8 border border-[#52aafc]/15 bg-[#52aafc]/8 p-6">
+              <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">In production</div>
+              <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-[#092866]">Created by Melissa Tittl · Hathor Studios</div>
+              {/* <div className="mt-1 text-[11px] text-[#092866]/38">Targeting Netflix · ESPN · Apple TV+ · Disney+</div> */}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 5. IMPACT — asymmetric card grid, 100% overlaps ════════════════ */}
+      <section className="bg-white px-6 py-28 md:px-12 lg:px-20">
+ 
+        <div className="sr mb-16 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Impact</span>
+            </div>
+            <h2 className="font-(family-name:--font-barlow) text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92]  text-[#092866]/45">
+              Nonprofits we champion.
+            </h2>
+          </div>
+          <p className="max-w-85 text-[14px] font-light leading-[1.8] text-[#092866]/85">
+            No fees. No overhead. Every dollar donated goes straight to the people who need it.
+          </p>
+        </div>
+ 
+        {/* asymmetric grid */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+ 
+          {/* all 3 cards — same size */}
+          {NONPROFITS.map((np, i) => (
+            <div key={np.name} className="sr np-card relative overflow-hidden bg-[#f0f5fd] p-8"
+              style={{transitionDelay:`${i*100}ms`}}>
+              <div className="np-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
+              {/* watermark on first card */}
+              {i === 0 && <div className="pointer-events-none absolute -bottom-4 -right-4 font-(family-name:--font-barlow) text-[100px] font-extrabold leading-none text-[#092866]/[0.07] select-none">100%</div>}
+              <div className="relative z-10 flex h-full flex-col justify-between">
+                <div>
+                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">100% Pass-Through</div>
+                  <h3 className="font-(family-name:--font-barlow) mb-3 text-[22px] font-extrabold uppercase leading-[1.1] text-[#092866]">{np.name}</h3>
+                  <p className="text-[13px] font-light leading-[1.8] text-[#092866]/48">{np.desc}</p>
+                </div>
+                <a href={np.href} target="_blank" rel="noreferrer"
+                  className="mt-8 inline-flex items-center gap-2 border-b border-[#52aafc]/40 pb-1 font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.2em] text-[#52aafc] transition-all hover:gap-4">
+                  Donate →
+                </a>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── WHO WE SERVE ───────────────────────────────────────────────────── */}
-      <section id="serve" className="bg-[#f0f5fd] px-[8vw] py-28">
-        <SectionLabel>Who We Serve</SectionLabel>
-        <h2 className="font-(family-name:--font-barlow) mb-4 text-[clamp(36px,4vw,56px)] font-extrabold uppercase leading-none tracking-[0.01em] text-[#092866]">
-          Everyone plays a role
-          <br />
-          in elevation
-        </h2>
-        <p className="max-w-135 text-[17px] font-light leading-[1.75] text-[#231f20]/55">
-          Athletes Elevated is built for the people who move sport forward.
-        </p>
+      {/* ═══ 6. CTA — full viewport, nothing but JOIN ════════════════════════ */}
+      <section className="grain relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#092866] px-6 text-center">
 
-        <div className="mt-14 grid grid-cols-1 gap-1 lg:grid-cols-2">
-          {serveCards.map((card) => (
-            <div
-              key={card.eyebrow}
-              className={`group relative overflow-hidden px-12 py-14 ${card.bg} transition-all duration-300 hover:brightness-110`}
-            >
-              {/* decorative triangle — shifts on hover */}
-              <svg
-                viewBox="0 0 280 280"
-                fill="none"
-                className="absolute -bottom-14 right-8 h-64 w-64 opacity-[0.07] transition-all duration-500 group-hover:opacity-[0.12] group-hover:-bottom-8 group-hover:right-4"
-              >
-                <polygon points="140,20 270,250 10,250" fill="white" />
-              </svg>
+        {/* center mega-glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-225 w-225 -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{background:'radial-gradient(circle,rgba(82,170,252,.11) 0%,transparent 60%)',animation:'glow-orb 8s ease-in-out infinite'}} />
 
-              <span className="mb-5 block text-[11px] font-bold uppercase tracking-[0.22em] text-[#52aafc]">
-                {card.eyebrow}
-              </span>
-              <h3 className="font-(family-name:--font-barlow) mb-2 whitespace-pre-line text-[36px] font-extrabold uppercase leading-[1.05] tracking-[0.01em] text-white">
-                {card.title}
-              </h3>
-              <span className="mb-6 block text-sm font-medium tracking-[0.06em] text-[#52aafc]/70">
-                {card.subtitle}
-              </span>
-              <p className="mb-9 max-w-95 text-[15px] font-light leading-[1.8] text-white/55">
-                {card.body}
-              </p>
-              <Link
-                href={card.href}
-                target={card.href.startsWith("http") ? "_blank" : undefined}
-                rel={card.href.startsWith("http") ? "noreferrer" : undefined}
-                className="
-                  inline-flex items-center gap-2 border-b border-[#52aafc]/35 pb-1
-                  text-xs font-bold uppercase tracking-widest text-[#52aafc]
-                  transition-all duration-200
-                  hover:gap-4 hover:border-white hover:text-white
-                "
-              >
-                {card.cta} →
-              </Link>
-            </div>
-          ))}
+        {/* corner brackets */}
+        <div className="pointer-events-none absolute left-8 top-8 h-22.5 w-22.5 border-l-[2 border-t-2 border-[#52aafc]/25" />
+        <div className="pointer-events-none absolute right-8 top-8 h-22.5] w-22.5 border-r-2 border-t-2 border-[#52aafc]/25" />
+        <div className="pointer-events-none absolute bottom-8 left-8 h-22.5 w-22.5 border-b-2 border-l-2 border-[#52aafc]/25" />
+        <div className="pointer-events-none absolute bottom-8 right-8 h-22.5 w-22.5 border-b-2 border-r-2 border-[#52aafc]/25" />
+
+        <div className="sr relative z-10 w-full max-w-225">
+          {/* tiny label */}
+          <div className="mb-8 inline-flex items-center gap-4">
+            <span className="h-px w-12 bg-[#52aafc]/50" />
+            <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]/60">Ready to be part of something bigger?</span>
+            <span className="h-px w-12 bg-[#52aafc]/50" />
+          </div>
+
+          {/* the single word that says it all */}
+          <div className="font-(family-name:--font-barlow) font-extrabold uppercase text-white"
+            style={{fontSize:'clamp(80px,18vw,240px)',lineHeight:.85,textShadow:'0 0 120px rgba(255,255,255,.06)'}}>
+            YOUR<br/>
+            <span className="text-[#52aafc]" style={{textShadow:'0 0 120px rgba(82,170,252,.8)'}}>STORY</span><br/>
+            STARTS<br/>
+            <span style={{WebkitTextStroke:'2px rgba(82,170,252,.5)',color:'transparent'}}>HERE.</span>
+          </div>
+
+          {/* two CTAs pinned below */}
+          <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/athletes"
+              className="btn-blue inline-flex items-center gap-2 px-12 py-5 font-(family-name:--font-barlow) text-[15px] font-bold uppercase tracking-widest">
+              I'm an Athlete →
+            </Link>
+            <Link href="/brands"
+              className="btn-ghost inline-flex items-center gap-2 px-12 py-5 font-(family-name:--font-barlow) text-[15px] font-bold uppercase tracking-widest">
+              I'm a Brand →
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── IMPACT ─────────────────────────────────────────────────────────── */}
-      <section id="impact" className="bg-[#092866] px-[8vw] py-28">
-        <SectionLabel>Impact</SectionLabel>
-        <h2 className="font-(family-name:--font-barlow) mb-4 text-[clamp(36px,4vw,56px)] font-extrabold uppercase leading-none tracking-[0.01em] text-white">
-          Nonprofits we champion
-        </h2>
-        {/* 100% callout */}
-        <div className="mt-10 inline-flex flex-wrap items-center gap-4 border-l-[3px] border-l-[#52aafc] bg-[#52aafc]/8 px-8 py-6">
-          <span className="font-(family-name:--font-barlow) text-5xl font-extrabold leading-none text-[#52aafc]">
-            100%
-          </span>
-          <span className="max-w-115 text-[13px] font-light leading-normal text-white/55">
-            <strong className="block font-semibold text-white">
-              Donations pass-through
-            </strong>
-            Every dollar donated goes directly to the nonprofit — no platform
-            fees, no overhead deductions.
-          </span>
-        </div>
-
-        <div className="mt-14 grid grid-cols-1 gap-0.5 md:grid-cols-3">
-          {nonprofits.map((item) => (
-            <div
-              key={item.name}
-              className="
-                group relative overflow-hidden border border-[#52aafc]/12
-                bg-white/4 px-9 py-11
-                transition-all duration-300
-                hover:border-[#52aafc]/35 hover:bg-[#52aafc]/[0.07]
-                hover:-translate-y-1
-              "
-            >
-              {/* reveal bar */}
-              <div className="absolute left-0 top-0 h-0.75 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-350 group-hover:scale-x-100" />
-
-              <h3 className="font-(family-name:--font-barlow) mb-4 text-[22px] font-bold uppercase leading-[1.2] tracking-[0.02em] text-white">
-                {item.name}
-              </h3>
-              <p className="mb-8 text-sm font-light leading-[1.8] text-white/50">
-                {item.body}
-              </p>
-              <Link
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="
-                  inline-flex items-center gap-1 border border-[#52aafc]/30
-                  px-4 py-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#52aafc]
-                  transition-all duration-200
-                  hover:bg-[#52aafc] hover:text-[#092866] hover:border-[#52aafc]
-                  hover:gap-3 hover:px-5
-                "
-              >
-                Donate →
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PARTNERS ───────────────────────────────────────────────────────── */}
-      <section className="overflow-hidden bg-white py-20 border-y border-[#092866]/8">
-        <div className="mb-10 text-center text-[11px] font-semibold uppercase tracking-[0.24em] text-[#c2c2c2]">
+      {/* ═══ PARTNERS — diagonal dual marquee ═══════════════════════════════ */}
+      <section className="overflow-hidden bg-[#f7f9ff] border-y border-[#092866]/8 py-16">
+        <div className="sr mb-10 text-center font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.36em] text-[#092866]/25">
           Ecosystem Partners
         </div>
-        <div className="flex min-w-max animate-[marquee_30s_linear_infinite] whitespace-nowrap">
-          {[...partners, ...partners].map((partner, i) => (
-            <span
-              key={`${partner}-${i}`}
-              className="
-                font-(family-name:--font-barlow) inline-flex items-center px-10
-                text-[15px] font-semibold uppercase tracking-widest text-[#092866]/30
-                transition-colors duration-200 cursor-default
-                hover:text-[#52aafc]
-              "
-            >
-              {partner}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── NEWSLETTER ─────────────────────────────────────────────────────── */}
-      <section id="newsletter" className="px-[8vw] bg-[#f0f5fd] py-28">
-        <div className="grid grid-cols-1 items-start gap-20 lg:grid-cols-2">
-          <div>
-            <SectionLabel>Get Involved</SectionLabel>
-            <h2 className="font-(family-name:--font-barlow) mb-4 text-[clamp(36px,4vw,56px)] font-extrabold uppercase leading-none tracking-[0.01em] text-[#092866]">
-              Stay connected
-            </h2>
-            <p className="max-w-120 text-[17px] font-light leading-[1.75] text-[#231f20]/55">
-              Join our list to hear what&apos;s taking shape and where
-              we&apos;re headed next.
-            </p>
-            <NewsletterForm />
-          </div>
-
-          <div className="pt-5">
-            <div className="font-(family-name:--font-barlow) mb-6 text-[clamp(60px,6vw,90px)] font-extrabold uppercase leading-[0.92] tracking-[0.01em] text-[#092866]">
-              READY TO BE APART OF
-              <span className="text-[#52aafc]"> SOMETHING BIGGER?</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
-      <footer className="bg-[#092866] px-[8vw] pb-8 pt-14">
-        <div className="flex flex-wrap items-start justify-between gap-12 border-b border-[#52aafc]/10 pb-12">
-          <div>
-            <div className="font-(family-name:--font-barlow) mb-3 text-[28px] font-extrabold tracking-[0.06em] text-white uppercase">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
-            <p className="max-w-65 text-sm font-light leading-[1.65] text-white/35">
-              Built for athletes, powered by purpose, and focused on meaningful
-              community impact.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-8">
-            {[
-              { label: "Values", href: "#values" },
-              { label: "Who We Serve", href: "#serve" },
-              { label: "Impact", href: "#impact" },
-              { label: "Newsletter", href: "#newsletter" },
-            ].map(({ label, href }) => (
-              <Link
-                key={label}
-                href={href}
-                className="text-[13px] text-white/35 transition-colors duration-200 hover:text-[#52aafc]"
-              >
-                {label}
-              </Link>
+        {/* forward marquee */}
+        <div className="overflow-hidden mb-3" style={{maskImage:'linear-gradient(90deg,transparent,black 12%,black 88%,transparent)'}}>
+          <div className="flex whitespace-nowrap" style={{animation:'marquee 28s linear infinite',width:'max-content'}}>
+            {[...PARTNERS,...PARTNERS].map((p,i)=>(
+              <span key={i} className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/22 transition-colors hover:text-[#52aafc]">
+                {p}<span className="h-0.75 w-0.75 rounded-full bg-white/12" />
+              </span>
             ))}
           </div>
         </div>
+        {/* reverse marquee */}
+        <div className="overflow-hidden" style={{maskImage:'linear-gradient(90deg,transparent,black 12%,black 88%,transparent)'}}>
+          <div className="flex whitespace-nowrap" style={{animation:'marquee-d 34s linear infinite',width:'max-content',transform:'translateX(-50%)'}}>
+            {[...PARTNERS,...PARTNERS].map((p,i)=>(
+              <span key={i} className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/15 transition-colors hover:text-[#52aafc]">
+                {p}<span className="h-0.75 w-0.75 rounded-full bg-white/10" />
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <div className="flex flex-wrap items-center justify-between gap-6 pt-7">
-          <p className="text-xs text-white/22">
-            © 2026 Athletes Elevated. All rights reserved.
-          </p>
+      {/* ═══ FOOTER ══════════════════════════════════════════════════════════ */}
+      <footer className="bg-[#092866] px-6 pb-10 pt-20 md:px-12">
+        <div className="mb-14 flex flex-wrap items-start justify-between gap-10 border-b border-white/8 pb-14">
+          <div>
+            <div className="mb-3 font-(family-name:--font-barlow) text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
+              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
+            </div>
+            <p className="max-w-67.5 text-[13px] font-light leading-[1.72] text-[#092866]/30">
+              Built for athletes, powered by purpose, focused on meaningful community impact.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-x-14 gap-y-5">
+            {[['For Athletes','/athletes'],['For Brands','/brands'],['Ecosystem','/ecosystem'],['Impact','/impact'],['HERO','/hero']].map(([l,h])=>(
+              <Link key={l} href={h} className="text-[12px] font-medium uppercase tracking-[0.14em] text-[#092866]/30 transition-colors hover:text-[#52aafc]">{l}</Link>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-[11px] text-[#092866]/22">© 2026 Athletes Elevated. All rights reserved.</p>
+          <p className="text-[11px] italic text-[#092866]/18">Performance meets purpose.</p>
         </div>
       </footer>
-    </main>
+
+    </div>
   );
 }
