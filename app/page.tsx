@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
+import Navbar from './src/components/navBar'
 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -170,44 +171,8 @@ export default function HomePage() {
       `}</style>
 
       {/* ═══ NAV ════════════════════════════════════════════════════════════ */}
-      <nav
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(9,40,102,.08)]"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex h-17.5 max-w-360 items-center justify-between px-6 md:px-12">
-          <Link
-            href="/"
-            className="font-(family-name:--font-barlow) text-[22px] font-extrabold uppercase tracking-[0.06em]"
-          >
-            ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-          </Link>
-          <ul className="hidden items-center gap-9 md:flex">
-            {[
-              ["For Athletes", "/athletes"],
-              ["Ecosystem", "/ecosystem"],
-              ["For Brands", "/brands"],
-            ].map(([l, h]) => (
-              <li key={l}>
-                <Link
-                  href={h}
-                  className="nav-lnk relative text-[12px] font-medium uppercase tracking-widest text-[#092866]/55 transition-colors hover:text-white"
-                >
-                  {l}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/athletes"
-            className="btn-blue px-5 py-2.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
-          >
-            Get Involved
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
+      
 
       {/* ═══ 1. HERO — full-bleed photo, headline overlaid ════════════════ */}
       <section className="grain relative flex min-h-screen flex-col justify-end overflow-hidden pt-27">

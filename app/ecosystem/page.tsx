@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Barlow_Condensed, Montserrat } from 'next/font/google';
+import Navbar from '../src/components/navBar';
  
 const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['400','600','700','800'], variable: '--font-barlow' });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','600'], variable: '--font-montserrat' });
@@ -129,23 +130,7 @@ export default function EcosystemPage() {
       `}</style>
  
       {/* ── NAV ─────────────────────────────────────────────────────────── */}
-      <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-400 ${scrolled ? 'bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(9,40,102,.08)]' : 'bg-transparent'}`}>
-        <div className="mx-auto flex h-17 max-w-360 items-center justify-between px-6 md:px-12">
-          <Link href="/" className="font-(family-name:--font-barlow) text-[21px] font-extrabold uppercase tracking-[0.06em] text-[#092866]">
-            ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-          </Link>
-          <ul className="hidden items-center gap-9 md:flex">
-            {[['For Athletes','/athletes'],['Ecosystem','/ecosystem'],['For Brands','/brands']].map(([l,h])=>(
-              <li key={l}>
-                <Link href={h} className={`nav-lnk relative text-[12px] font-medium uppercase tracking-widest transition-colors ${l==='Ecosystem'?'text-[#52aafc]':'text-[#092866]/50 hover:text-[#092866]'}`}>{l}</Link>
-              </li>
-            ))}
-          </ul>
-          <Link href="/athletes" className="btn-blue px-5 py-2.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-            Get Involved
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
  
       {/* ══════════════════════════════════════════════════════════════════
           1. HERO — dark navy, massive headline, product TOC right
