@@ -42,7 +42,7 @@ const FORM_STEPS = [
 const FILMED = [
   { name: 'Steve Young',    sport: 'NFL — Quarterback',       detail: 'Hall of Fame · 2× Super Bowl champion' },
   { name: 'Jerry Rice',     sport: 'NFL — Wide Receiver',     detail: 'Greatest receiver in NFL history' },
-  { name: 'Nick Faldo',     sport: 'Golf',                    detail: '6× Major champion · Ryder Cup legend' },
+  { name: 'Sir Nick Faldo',     sport: 'Golf',                    detail: '6× Major champion · Ryder Cup legend' },
   { name: 'Picabo Street',  sport: 'Alpine Ski Racing',       detail: 'Olympic gold medalist · 1998 Nagano' },
   { name: 'West Ham United', sport: 'Premier League',         detail: '3× FA Cup · European Cup Winners Cup 1965' },
 ];
@@ -50,7 +50,8 @@ const FILMED = [
 const TOOLS = [
   { name: 'Athlink',         tag: 'Athlete Profile',       desc: 'One link for everything you are. Stats, highlights, social, contact — all in one place brands can find.', href: '/ecosystem/athlink',         cta: 'Get your link' },
   { name: 'Teams Elevated',  tag: 'Youth Sports',          desc: 'Built for coaches and leagues. Payments, rosters, scheduling, and crowdfunding so cost is never why a kid sits out.', href: '/ecosystem/teams-elevated', cta: 'Learn more' },
-  { name: 'HERO',            tag: 'Documentary — Jan 2026', desc: 'Legends that become catalysts for change. A cinematic series redefining what it means to be a hero-athlete.', href: '/hero',                      cta: 'Join the waitlist' },
+  { name: 'HERO',            tag: 'Documentary — Jan 2027', desc: 'Legends that become catalysts for change. A cinematic series redefining what it means to be a hero-athlete.', href: '/hero',                      cta: 'Join the waitlist' },
+  { name: 'CRM',            tag: 'Modern Operating System', desc: 'A unified CRM for managing athlete, brand, and fan relationships across email, text, calls, marketing, and both B2B and B2C communication.', href: '/ecosystem',                      cta: 'Learn more' },
 ];
  
 export default function ForAthletesPage() {
@@ -203,7 +204,7 @@ export default function ForAthletesPage() {
             ['3+',    'Nonprofits supported'],
             ['100%',  'Donations pass-through'],
             ['5',     'Heroes already filmed'],
-            ['Jan 2026','HERO launches'],
+            ['Jan 2027','HERO launches'],
           ].map(([v,l])=>(
             <div key={l} className="border-r border-white/10 px-6 py-6 last:border-r-0 md:px-10">
               <div className="font-(family-name:--font-barlow) text-[clamp(24px,3vw,46px)] font-extrabold leading-none text-[#52aafc]"
@@ -277,44 +278,7 @@ export default function ForAthletesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2">
  
           {/* left — film poster feel on light bg */}
-          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">
-            {/* ghost HERO */}
-            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-(family-name:--font-barlow) text-[28vw] font-extrabold uppercase leading-none text-[#092866]/4 select-none lg:text-[14vw]">
-              HERO
-            </div>
-            <div className="relative z-10">
-              <div className="mb-4 inline-flex items-center gap-3">
-                <span className="h-0.5 w-8 bg-[#52aafc]" />
-                <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary — January 2026</span>
-              </div>
-              <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
-                Legends that<br />become <span className="text-[#52aafc]">catalysts</span><br />for change.
-              </h2>
-              <p className="mb-6 max-w-110 text-[15px] font-light leading-[1.88] text-[#092866]/50">
-                From the gods of Olympus to modern high-performing athletes — HERO uncovers the timeless archetype of the hero-athlete, exploring how mythical warriors evolved into modern icons shaping culture and society.
-              </p>
-              <blockquote className="mb-8 border-l-2 border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
-                "The hero of today doesn't slay the dragon —<br />they inspire us to face it together."
-              </blockquote>
-              {/* episode list */}
-              <div className="mb-10 space-y-0">
-                {[
-                  ['1 — Origin of the Hero','Cave art, myth, Gilgamesh, Ancient Olympics'],
-                  ['2 — Super Humans','The rise of modern sport as ritual revival'],
-                  ['3 — The New Olympian','Athletes changing humanity through activism'],
-                  ['4 — Beyond the Arena','Social justice, education, mental health'],
-                ].map(([ep,desc])=>(
-                  <div key={ep} className="border-b border-[#092866]/8 py-4 last:border-b-0">
-                    <span className="font-(family-name:--font-barlow) block text-[13px] font-bold uppercase text-[#092866]">{ep}</span>
-                    <span className="mt-0.5 block text-[12px] font-light text-[#092866]/42">{desc}</span>
-                  </div>
-                ))}
-              </div>
-              <button onClick={openModal}
-                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-                Join the HERO waitlist
-              </button>
-            </div>
+          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">            
           </div>
  
           {/* right — filmed list on white */}
@@ -341,7 +305,6 @@ export default function ForAthletesPage() {
             <div className="mt-10 border border-[#52aafc]/20 bg-[#52aafc]/5 p-6">
               <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">In production</div>
               <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-[#092866]">Created by Melissa Tittl · Hathor Studios</div>
-              <div className="mt-1 text-[12px] font-light text-[#092866]/42">Targeting Netflix · ESPN · Apple TV+ · Disney+</div>
             </div>
           </div>
         </div>
@@ -367,7 +330,7 @@ export default function ForAthletesPage() {
           </p>
         </div>
  
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
           {TOOLS.map((tool,i)=>(
             <Link key={tool.name} href={tool.href}
               className="tool-card sr relative overflow-hidden bg-white"

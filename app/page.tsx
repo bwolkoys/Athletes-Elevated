@@ -48,7 +48,7 @@ const PARTNERS = [
 const FILMED = [
   "Steve Young",
   "Jerry Rice",
-  "Nick Faldo",
+  "Sir Nick Faldo",
   "Picabo Street",
   "West Ham United",
 ];
@@ -348,7 +348,7 @@ export default function HomePage() {
             "Performance With Purpose",
             "Teams Elevated",
             "Athlete First",
-            "HERO — Jan 2026",
+            "HERO — Jan 2027",
             "Athlink",
             "Community Connection",
             "Impact",
@@ -356,7 +356,7 @@ export default function HomePage() {
             "Performance With Purpose",
             "Teams Elevated",
             "Athlete First",
-            "HERO — Jan 2026",
+            "HERO — Jan 2027",
             "Athlink",
             "Community Connection",
             "Impact",
@@ -364,7 +364,7 @@ export default function HomePage() {
             "Performance With Purpose",
             "Teams Elevated",
             "Athlete First",
-            "HERO — Jan 2026",
+            "HERO — Jan 2027",
             "Athlink",
             "Community Connection",
             "Impact",
@@ -517,7 +517,7 @@ export default function HomePage() {
                   {[
                     "Steve Young",
                     "Jerry Rice",
-                    "Nick Faldo",
+                    "Sir Nick Faldo",
                     "Picabo Street",
                     "West Ham United",
                   ].map((n) => (
@@ -554,7 +554,7 @@ export default function HomePage() {
             {
               tag: "CRM",
               name: "Eye In Teams",
-              sub: "Built-in CRM that disrupts legacy competitors.",
+              sub: "Modern operating system for athlete, brands and fan relationships",
               detail:
                 "B2B/B2C communication, email, text, calls, and marketing — all in one.",
               href: "/ecosystem/crm",

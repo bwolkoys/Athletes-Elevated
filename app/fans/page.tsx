@@ -14,27 +14,27 @@ const REASONS = [
   {
     n: '01',
     tag: 'Inside Access',
-    title: 'See it before anyone else.',
-    body: 'Behind-the-scenes footage from HERO filming, athlete spotlights, community moments, and updates straight from the AE team — before it hits anywhere else.',
+    title: 'First access to what is next.',
+    body: "New athletes. New partnerships. New drops from the AE ecosystem — Athlink, Teams Elevated, HERO. When something launches, you'll know first. No algorithm. No middleman. Straight from us to you.",
   },
   {
     n: '02',
     tag: 'Real Stories',
-    title: 'The humans behind the highlights.',
-    body: 'We go deeper than stats. Follow along as Athletes Elevated documents the journeys of athletes who are changing more than the game — they\'re changing lives.',
+    title: "You'll see the athletes nobody else shows you.",
+    body: 'Not the highlight reel. Not the press conference. The real journey — before the fame, after the final game, and everything in between that never makes the news.',
   },
   {
     n: '03',
     tag: 'Be Part of the Movement',
-    title: 'Your support matters.',
-    body: 'Every follow, every share, every donation — it all adds up. Fans are the reason athletes keep going. AE gives you a direct way to show up for them.',
+    title: 'Your support actually does something.',
+    body: "Following AE isn't passive. Every share, every donation, every click funds real nonprofits and real communities. You're not just a fan. You're part of what makes athletes' impact possible off the field.",
   },
 ];
  
 const FILMED = [
   { name: 'Steve Young',     sport: 'NFL — QB',          detail: 'Hall of Fame · 2× Super Bowl Champion' },
   { name: 'Jerry Rice',      sport: 'NFL — WR',          detail: 'Greatest receiver in NFL history' },
-  { name: 'Nick Faldo',      sport: 'Golf',              detail: '6× Major Champion · Ryder Cup Legend' },
+  { name: 'Sir Nick Faldo',      sport: 'Golf',              detail: '6× Major Champion · Ryder Cup Legend' },
   { name: 'Picabo Street',   sport: 'Ski Racing',        detail: 'Olympic Gold · 1998 Nagano' },
   { name: 'West Ham United', sport: 'Premier League',    detail: '3× FA Cup · European Cup Winners Cup' },
 ];
@@ -43,7 +43,6 @@ const SOCIALS = [
   { platform: 'Instagram',  handle: '@athleteselevated', desc: 'Daily athlete stories, behind-the-scenes, and community moments.', href: 'https://instagram.com', color: '#E1306C', bg: '#fff0f5' },
   { platform: 'TikTok',     handle: '@athleteselevated', desc: 'Short-form athlete content, HERO clips, and movement updates.', href: 'https://tiktok.com', color: '#000000', bg: '#f5f5f5' },
   { platform: 'YouTube',    handle: 'Athletes Elevated', desc: 'Long-form documentaries, athlete profiles, and ecosystem deep-dives.', href: 'https://youtube.com', color: '#FF0000', bg: '#fff5f5' },
-  { platform: 'Twitter / X', handle: '@AthletesElevated', desc: 'Live updates, community discussions, and real-time athlete news.', href: 'https://twitter.com', color: '#1DA1F2', bg: '#f0f8ff' },
 ];
  
 const NONPROFITS = [
@@ -183,7 +182,7 @@ export default function ForFansPage() {
           <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <p className="max-w-[440px] text-[16px] font-light leading-[1.85] text-[#092866]/48"
               style={{animation:loaded?'slide-up .7s ease .78s both':'none',opacity:loaded?undefined:0}}>
-              Athletes Elevated isn't just for athletes and brands. Fans are the heartbeat of this movement — your support, your passion, and your voice are what push athletes to become something bigger.
+              Athletes Elevated isn't just for athletes and brands. Fans are the foundation of this movement — your support, your passion, and your voice are what push athletes to become something bigger.
             </p>
             <div className="flex flex-wrap gap-3"
               style={{animation:loaded?'slide-up .65s ease .94s both':'none',opacity:loaded?undefined:0}}>
@@ -215,7 +214,7 @@ export default function ForFansPage() {
           style={{animation:loaded?'fade .8s ease 1.05s both':'none',opacity:loaded?undefined:0}}>
           {[
             ['5',        'Heroes already filmed'],
-            ['Jan 2026', 'HERO documentary'],
+            ['Jan 2027', 'HERO documentary'],
             ['3',        'Nonprofits supported'],
             ['100%',     'Donations pass-through'],
           ].map(([v,l])=>(
@@ -330,7 +329,6 @@ export default function ForFansPage() {
             ))}
             <div className="mt-8 border border-[#52aafc]/20 bg-[#52aafc]/[.05] p-6">
               <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">In production</div>
-              <div className="font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase text-[#092866]">Targeting Netflix · ESPN · Apple TV+ · Disney+</div>
               <div className="mt-1 text-[12px] font-light text-[#092866]/42">Created by Melissa Tittl · Hathor Studios</div>
             </div>
           </div>
@@ -353,7 +351,7 @@ export default function ForFansPage() {
           </div>
           <div className="flex flex-col justify-center">
             <p className="mb-6 text-[16px] font-light leading-[1.88] text-[#092866]/50">
-              Athletes Elevated is building an ecosystem that connects athletes, brands, and communities around shared values. Fans are the foundation. When you follow, share, and show up — you're helping build something that lasts.
+              Athletes Elevated is building an ecosystem that connects athletes, brands, and communities around shared values. Fans are the foundation. When you follow and show up — you're helping build something that lasts.
             </p>
             <p className="text-[14px] font-light leading-[1.88] text-[#092866]/35">
               From youth leagues to global documentaries, from athlete profiles to community fundraising — every part of AE starts and ends with people who care.
@@ -367,7 +365,7 @@ export default function ForFansPage() {
             { v:'3', l:'Nonprofits supported', sub:'100% of donations pass-through' },
             { v:'5', l:'Heroes already filmed', sub:'Steve Young, Jerry Rice & more' },
             { v:'4', l:'Ecosystem products', sub:'HERO, Athlink, Teams Elevated, CRM' },
-            { v:'Jan 2026', l:'HERO launches', sub:'Targeting Netflix, ESPN, Apple TV+' },
+            { v:'Jan 2027', l:'HERO launches', sub:'In Production' },
           ].map((s, i) => (
             <div key={s.l} className="sr stat-pill bg-white p-6" style={{transitionDelay:`${i*80}ms`}}>
               <div className="font-[family-name:var(--font-barlow)] text-[clamp(28px,4vw,52px)] font-extrabold leading-none text-[#52aafc]">{s.v}</div>
