@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
-import Navbar from './src/components/navBar'
+import Navbar from "./src/components/navBar";
+import Footer from "./src/components/footer";
 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -172,7 +173,6 @@ export default function HomePage() {
 
       {/* ═══ NAV ════════════════════════════════════════════════════════════ */}
       <Navbar />
-      
 
       {/* ═══ 1. HERO — full-bleed photo, headline overlaid ════════════════ */}
       <section className="grain relative flex min-h-screen flex-col justify-end overflow-hidden pt-27">
@@ -384,28 +384,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-white px-6 py-0 md:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-150">
           {/* left — giant 100% */}
-          <div className="sr-l relative flex items-center justify-center overflow-hidden bg-[#52aafc] px-8 py-20 lg:py-0">
-            <div
-              className="pointer-events-none absolute inset-0 opacity-10"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(9,40,102,.12) 40px,rgba(9,40,102,.12) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(9,40,102,.12) 40px,rgba(9,40,102,.12) 41px)",
-              }}
-            />
-            <div className="relative text-center">
-              <div
-                className="font-(family-name:--font-barlow) font-extrabold uppercase leading-none text-[#06080f]"
-                style={{
-                  fontSize: "clamp(100px,20vw,260px)",
-                  lineHeight: 0.85,
-                }}
-              >
-                100<span className="text-[#092866]/70">%</span>
-              </div>
-              <div className="mt-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.3em] text-[#06080f]/60">
-                Of donations pass-through
-              </div>
-            </div>
+          <div className="relative flex flex-col justify-between overflow-hidden bg-[#d7e5fb] p-10 lg:p-14">
           </div>
 
           {/* right — copy stacked */}
@@ -910,44 +889,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ FOOTER ══════════════════════════════════════════════════════════ */}
-      <footer className="bg-[#092866] px-6 pb-10 pt-20 md:px-12">
-        <div className="mb-14 flex flex-wrap items-start justify-between gap-10 border-b border-white/8 pb-14">
-          <div>
-            <div className="mb-3 font-(family-name:--font-barlow) text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
-            <p className="max-w-67.5 text-[13px] font-light leading-[1.72] text-white">
-              Built for athletes, powered by purpose, focused on meaningful
-              community impact.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-14 gap-y-5">
-            {[
-              ["For Athletes", "/athletes"],
-              ["For Brands", "/brands"],
-              ["Ecosystem", "/ecosystem"],
-              ["Impact", "/impact"],
-              ["HERO", "/hero"],
-            ].map(([l, h]) => (
-              <Link
-                key={l}
-                href={h}
-                className="text-[12px] font-medium uppercase tracking-[0.14em] text-white transition-colors hover:text-[#52aafc]"
-              >
-                {l}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[11px] text-white">
-            © 2026 Athletes Elevated. All rights reserved.
-          </p>
-          <p className="text-[11px] italic text-white">
-            Performance meets purpose.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

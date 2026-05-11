@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
  
 const NAV_LINKS = [
   ['For Athletes', '/athletes'],
-  ['For Fans',     '/fans'],
   ['Ecosystem',    '/ecosystem'],
   ['For Brands',   '/brands'],
+  ['For Fans',     '/fans'],
 ];
  
 export default function Navbar() {

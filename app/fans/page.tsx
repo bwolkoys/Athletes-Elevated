@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Barlow_Condensed, Montserrat } from 'next/font/google';
 import Navbar from '../src/components/navBar'
+import Footer from '../src/components/footer';
  
 const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['400','600','700','800'], variable: '--font-barlow' });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','600'], variable: '--font-montserrat' });
@@ -242,7 +243,7 @@ export default function ForFansPage() {
       {/* ══════════════════════════════════════════════════════════════════
           2. WHY FOLLOW — white, numbered rows
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white px-6 py-32 md:px-12 lg:px-20">
+      <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-20">
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="h-[2px] w-8 bg-[#52aafc]" />
@@ -278,34 +279,68 @@ export default function ForFansPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2">
  
           {/* left — cinematic copy */}
-          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">
-            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[22vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[12vw]">
-              HERO
-            </div>
-            <div className="relative z-10">
-              <div className="mb-4 inline-flex items-center gap-3">
-                <span className="h-[2px] w-8 bg-[#52aafc]" />
-                <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary · January 2026</span>
-              </div>
-              <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
-                You're not just<br />watching.<br /><span className="text-[#52aafc]">You're part<br />of the story.</span>
-              </h2>
-              <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
-                HERO is a groundbreaking documentary series tracing the hero-athlete from ancient myth to modern icons — exploring how today's athletes are shaping culture, justice, and society. As a fan, your attention and support make this possible.
-              </p>
-              <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/50">
-                "The hero of today doesn't slay the dragon —<br />they inspire us to face it together."
-              </blockquote>
-              <div className="flex flex-wrap gap-3">
-                <Link href="#newsletter" className="btn-blue inline-flex items-center gap-2 px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
-                  Join the waitlist
-                </Link>
-                <Link href="/ecosystem" className="btn-ghost inline-flex items-center gap-2 px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
-                  Learn more →
-                </Link>
-              </div>
-            </div>
-          </div>
+          <div className="relative flex flex-col justify-end overflow-hidden bg-white px-8 py-20 md:px-16">
+
+  {/* background word */}
+  <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[22vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[12vw]">
+    HERO
+  </div>
+
+  <div className="relative z-10">
+
+    {/* label */}
+    <div className="mb-4 inline-flex items-center gap-3">
+
+      <span className="h-[2px] w-8 bg-[#52aafc]" />
+
+      <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+        Documentary · January 2027
+      </span>
+
+    </div>
+
+    {/* title */}
+    <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
+      More than
+      <br />
+      a documentary.
+      <br />
+    </h2>
+
+    {/* paragraph */}
+    <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/55">
+      HERO explores the evolving role athletes play in culture today —
+      from competition and leadership to influence, identity, and impact
+      beyond the game.
+    </p>
+
+    {/* quote */}
+    <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
+      "Athletes shape far more than the scoreboard."
+    </blockquote>
+
+    {/* buttons */}
+    <div className="flex flex-wrap gap-3">
+
+      <Link
+        href="#newsletter"
+        className="inline-flex items-center gap-2 bg-[#092866] px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
+      >
+        Join the waitlist
+      </Link>
+
+      {/* <Link
+        href="/ecosystem"
+        className="inline-flex items-center gap-2 border border-[#092866]/12 px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-[#092866] transition-all hover:border-[#52aafc] hover:text-[#52aafc]"
+      >
+        Learn more →
+      </Link> */}
+
+    </div>
+
+  </div>
+
+</div>
  
           {/* right — filmed athletes */}
           <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12" style={{transitionDelay:'130ms'}}>
@@ -440,88 +475,115 @@ export default function ForFansPage() {
       {/* ══════════════════════════════════════════════════════════════════
           6. NEWSLETTER — navy, full email signup
       ══════════════════════════════════════════════════════════════════ */}
-      <section id="newsletter" className="relative overflow-hidden bg-[#092866] px-6 py-32 md:px-12 lg:px-20">
- 
-        {/* glow orb */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{background:'radial-gradient(circle,rgba(82,170,252,.1) 0%,transparent 65%)',animation:'glow-orb 8s ease-in-out infinite'}} />
- 
-        {/* corner brackets */}
-        <div className="pointer-events-none absolute left-8 top-8 h-[72px] w-[72px] border-l-2 border-t-2 border-[#52aafc]/20" />
-        <div className="pointer-events-none absolute bottom-8 right-8 h-[72px] w-[72px] border-b-2 border-r-2 border-[#52aafc]/20" />
- 
-        <div className="sr relative z-10 mx-auto max-w-[700px] text-center">
-          <div className="mb-6 inline-flex items-center gap-4">
-            <span className="h-[1px] w-12 bg-[#52aafc]/40" />
-            <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]/70">Stay Connected</span>
-            <span className="h-[1px] w-12 bg-[#52aafc]/40" />
-          </div>
- 
-          <h2 className="font-[family-name:var(--font-barlow)] mb-4 text-[clamp(40px,6vw,90px)] font-extrabold uppercase leading-[0.88] text-white">
-            Be the first<br />to <span className="text-[#52aafc]" style={{textShadow:'0 0 60px rgba(82,170,252,.6)'}}>know.</span>
-          </h2>
- 
-          <p className="mx-auto mb-12 max-w-[420px] text-[16px] font-light leading-[1.82] text-white/42">
-            HERO updates. Athlete stories. Community moments. New ecosystem launches. All delivered straight to you before anyone else.
-          </p>
- 
-          {subscribed ? (
-            <div className="mx-auto max-w-[460px]">
-              <div className="flex items-center justify-center gap-3 rounded-sm bg-[#52aafc]/10 border border-[#52aafc]/25 px-8 py-6">
-                <div className="flex h-8 w-8 items-center justify-center bg-[#52aafc]">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8l3.5 3.5 6.5-7" stroke="#092866" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span className="font-[family-name:var(--font-barlow)] text-[16px] font-bold uppercase tracking-[0.1em] text-white">You're on the list!</span>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="mx-auto flex max-w-[500px] flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="flex-1 border border-white/15 bg-white/[.06] px-5 py-4 text-[14px] font-light text-white placeholder-white/30 outline-none transition-colors focus:border-[#52aafc]"
+      <section
+  id="newsletter"
+  className="relative overflow-hidden bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20"
+>
+
+  {/* glow orb */}
+  <div
+    className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+    style={{
+      background:
+        "radial-gradient(circle,rgba(9,40,102,.08) 0%,transparent 65%)",
+      animation: "glow-orb 8s ease-in-out infinite",
+    }}
+  />
+
+  {/* corner brackets */}
+  <div className="pointer-events-none absolute left-8 top-8 h-[72px] w-[72px] border-l-2 border-t-2 border-[#092866]/12" />
+  <div className="pointer-events-none absolute bottom-8 right-8 h-[72px] w-[72px] border-b-2 border-r-2 border-[#092866]/12" />
+
+  <div className="relative z-10 mx-auto max-w-[700px] text-center">
+
+    <div className="mb-6 inline-flex items-center gap-4">
+      <span className="h-[1px] w-12 bg-[#092866]/20" />
+
+      <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]">
+        Stay Connected
+      </span>
+
+      <span className="h-[1px] w-12 bg-[#092866]/20" />
+    </div>
+
+    <h2 className="font-[family-name:var(--font-barlow)] mb-4 text-[clamp(40px,6vw,90px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
+      Be the first
+      <br />
+      to{" "}
+      <span
+        className="text-[#52aafc]"
+        style={{
+          textShadow: "0 0 30px rgba(82,170,252,.18)",
+        }}
+      >
+        know.
+      </span>
+    </h2>
+
+    <p className="mx-auto mb-12 max-w-[420px] text-[16px] font-light leading-[1.82] text-[#092866]/50">
+      HERO updates. Athlete stories. Community moments. New ecosystem
+      launches. All delivered straight to you before anyone else.
+    </p>
+
+    {subscribed ? (
+      <div className="mx-auto max-w-[460px]">
+
+        <div className="flex items-center justify-center gap-3 rounded-sm border border-[#52aafc]/25 bg-[#52aafc]/8 px-8 py-6">
+
+          <div className="flex h-8 w-8 items-center justify-center bg-[#52aafc]">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M3 8l3.5 3.5 6.5-7"
+                stroke="#092866"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-              <button type="submit"
-                className="btn-blue shrink-0 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
-                Join the List
-              </button>
-            </form>
-          )}
- 
-          <p className="mt-6 text-[11px] font-light text-white/28">
-            No spam. Just the good stuff. Unsubscribe anytime.
-          </p>
+            </svg>
+          </div>
+
+          <span className="font-[family-name:var(--font-barlow)] text-[16px] font-bold uppercase tracking-[0.1em] text-[#092866]">
+            You're on the list!
+          </span>
+
         </div>
-      </section>
+
+      </div>
+    ) : (
+      <form
+        onSubmit={handleSubscribe}
+        className="mx-auto flex max-w-[500px] flex-col gap-3 sm:flex-row"
+      >
+
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your email address"
+          className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]"
+        />
+
+        <button
+          type="submit"
+          className="shrink-0 bg-[#092866] px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
+        >
+          Join the List
+        </button>
+
+      </form>
+    )}
+
+    <p className="mt-6 text-[11px] font-light text-[#092866]/35">
+      No spam. Just the good stuff. Unsubscribe anytime.
+    </p>
+
+  </div>
+
+</section>
  
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer className="bg-[#092866] border-t border-white/[.06] px-6 pb-10 pt-20 md:px-12">
-        <div className="mb-14 flex flex-wrap items-start justify-between gap-10 border-b border-white/[.08] pb-14">
-          <div>
-            <div className="mb-3 font-[family-name:var(--font-barlow)] text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
-            <p className="max-w-[270px] text-[13px] font-light leading-[1.72] text-white/26">
-              Built for athletes, powered by purpose, focused on meaningful community impact.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-14 gap-y-5">
-            {[['For Athletes','/athletes'],['For Fans','/fans'],['For Brands','/brands'],['Ecosystem','/ecosystem'],['Impact','/impact'],['HERO','/hero']].map(([l,h])=>(
-              <Link key={l} href={h} className="text-[12px] font-medium uppercase tracking-[0.14em] text-white/26 transition-colors hover:text-[#52aafc]">{l}</Link>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[11px] text-white/16">© 2026 Athletes Elevated. All rights reserved.</p>
-          <p className="text-[11px] italic text-white/12">Performance meets purpose.</p>
-        </div>
-      </footer>
- 
+      <Footer />
     </div>
   );
 }

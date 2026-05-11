@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "../src/components/navBar";
+import Footer from "../src/components/footer";
 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -379,7 +380,7 @@ export default function EcosystemPage() {
       {/* ══════════════════════════════════════════════════════════════════
           2. HERO DOC — cinematic dark, film poster + tabbed athletes
       ══════════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="relative overflow-hidden bg-[#f0f5fd]">
+      <section id="hero" className="relative overflow-hidden bg-[#092866]">
         {/* dot grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[.1]"
@@ -422,7 +423,7 @@ export default function EcosystemPage() {
               for change.
             </h2>
             <p
-              className="sr mb-8 max-w-115 text-[15px] font-light leading-[1.88] text-[#092866]/52"
+              className="sr mb-8 max-w-115 text-[15px] font-light leading-[1.88] text-white"
               style={{ transitionDelay: "160ms" }}
             >
               HERO explores how athletes evolve beyond competition to become
@@ -460,7 +461,7 @@ export default function EcosystemPage() {
                   <span className="font-(family-name:--font-barlow) block text-[13px] font-bold uppercase text-white">
                     {ep}
                   </span>
-                  <span className="mt-0.5 block text-[11px] font-light text-[#092866]/45">
+                  <span className="mt-0.5 block text-[11px] font-light text-white/65">
                     {desc}
                   </span>
                 </div>
@@ -499,7 +500,7 @@ export default function EcosystemPage() {
                     className={`font-(family-name:--font-barlow) text-[22px] font-bold uppercase transition-colors ${
                       activeFilmed === i
                         ? "text-[#52aafc]"
-                        : "text-[#092866]/60 hover:text-white"
+                        : "text-white/60 hover:text-white"
                     }`}
                   >
                     {a.name}
@@ -511,7 +512,7 @@ export default function EcosystemPage() {
                   )}
                 </div>
                 {activeFilmed === i && (
-                  <p className="mt-1.5 text-[12px] font-light text-[#092866]/45">
+                  <p className="mt-1.5 text-[12px] font-light text-[#52aafc]/45">
                     {a.detail}
                   </p>
                 )}
@@ -937,44 +938,7 @@ export default function EcosystemPage() {
       </section>
 
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer className="bg-[#092866] px-6 pb-10 pt-20 md:px-12">
-        <div className="mb-14 flex flex-wrap items-start justify-between gap-10 border-b border-[#092866]/10 pb-14">
-          <div>
-            <div className="mb-3 font-(family-name:--font-barlow) text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
-            <p className="max-w-67.5 text-[13px] font-light leading-[1.72] text-white/26">
-              Built for athletes, powered by purpose, focused on meaningful
-              community impact.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-14 gap-y-5">
-            {[
-              ["For Athletes", "/athletes"],
-              ["For Brands", "/brands"],
-              ["Ecosystem", "/ecosystem"],
-              ["Impact", "/impact"],
-              ["HERO", "/hero"],
-            ].map(([l, h]) => (
-              <Link
-                key={l}
-                href={h}
-                className="text-[12px] font-medium uppercase tracking-[0.14em] text-white/26 transition-colors hover:text-[#52aafc]"
-              >
-                {l}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[11px] text-[#092866]/25">
-            © 2026 Athletes Elevated. All rights reserved.
-          </p>
-          <p className="text-[11px] italic text-[#092866]/18">
-            Performance meets purpose.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

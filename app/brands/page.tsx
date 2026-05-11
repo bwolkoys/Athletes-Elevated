@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Barlow_Condensed, Montserrat } from 'next/font/google';
 import Navbar from '../src/components/navBar';
+import Footer from '../src/components/footer';
  
 const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['400','600','700','800'], variable: '--font-barlow' });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','600'], variable: '--font-montserrat' });
@@ -11,8 +12,8 @@ const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','
 const CYCLING_WORDS = ['AMPLIFIED.', 'ELEVATED.', 'CONNECTED.', 'REAL.'];
  
 const REASONS = [
-  { n: '01', title: 'Athlete-First Audience', body: 'Every person in the AE ecosystem is there because they care about athletes and the communities around them. Your brand shows up in a context that actually matters.' },
-  { n: '02', title: 'Real, Lasting Alignment', body: 'We don\'t do one-off placements. Every brand partnership is built around shared values — integrity, impact, and growth. You\'re not buying an ad. You\'re joining a movement.' },
+  { n: '01', title: 'Athlete-First Audience', body: "Everyone in the AE ecosystem is here because they believe in what it stands for. Your brand doesn't just get seen — it gets respected." },
+  { n: '02', title: 'Real, Lasting Alignment', body: 'We don\'t do one-off placements. Every brand partnership is built around shared values. You\'re not buying an ad. You\'re joining a movement.' },
   { n: '03', title: 'Multi-Platform Reach', body: 'From youth leagues to a global documentary to an athlete profile platform — AE touches athletes and communities at every level. One partnership, multiple touchpoints.' },
 ];
  
@@ -65,13 +66,13 @@ const TIERS = [
 ];
  
 const ECOSYSTEM_REACH = [
-  { product: 'HERO', desc: 'Documentary targeting Netflix, ESPN, Apple TV+', stat: 'Jan 2026' },
   { product: 'Athlink', desc: 'Athlete profiles discoverable by brands', stat: 'Live now' },
   { product: 'Teams Elevated', desc: 'Youth leagues across the country', stat: 'Soccer + growing' },
   { product: 'Eye In Teams', desc: 'CRM connecting brands to athletes at scale', stat: 'Built in-house' },
+  { product: 'Social Media', desc: 'Original athlete-driven content built to reach fans where culture lives.', stat: 'Growing Daily' },
 ];
  
-const PARTNERS = ['Essex Mortgage', 'Salt Box PC', 'Holistic Beverages', 'TBX Golf', 'Essex Shield', 'Bloom Intelligence', 'Dos Amigos', "Mother's Comfort Foods"];
+const PARTNERS = ['Essex Mortgage', 'Salt Box PC', 'Holistic Beverages', 'TeeBox Golf', 'Essex Shield', 'Bloom Intelligence', 'Dos Amigos', "Mother's Comfort Foods"];
  
 const FORM_STEPS = [
   {
@@ -249,10 +250,6 @@ export default function ForBrandsPage() {
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
                 Partner With Us →
               </button>
-              <Link href="#tiers"
-                className="btn-ghost-light inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
-                View Tiers ↓
-              </Link>
             </div>
           </div>
         </div>
@@ -275,7 +272,7 @@ export default function ForBrandsPage() {
             ['4',        'AE Ecosystem products'],
             ['5',        'Heroes already filmed'],
             ['100%',     'Donations pass-through'],
-            ['Jan 2026', 'HERO launches'],
+            ['Jan 2027', 'HERO launches'],
           ].map(([v,l])=>(
             <div key={l} className="border-r border-[#092866]/8 px-6 py-6 last:border-r-0 md:px-10">
               <div className="font-[family-name:var(--font-barlow)] text-[clamp(22px,3vw,42px)] font-extrabold leading-none text-[#52aafc]">{v}</div>
@@ -332,7 +329,7 @@ export default function ForBrandsPage() {
       {/* ══════════════════════════════════════════════════════════════════
           3. TIERS — f0f5fd, 3 cards, center featured
       ══════════════════════════════════════════════════════════════════ */}
-      <section id="tiers" className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
+      {/* <section id="tiers" className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
@@ -352,19 +349,19 @@ export default function ForBrandsPage() {
           {TIERS.map((tier, i) => (
             <div key={tier.name}
               className={`tier-card sr relative overflow-hidden bg-white p-8 ${tier.featured ? 'featured' : ''}`}
-              style={{transitionDelay:`${i*100}ms`}}>
+              style={{transitionDelay:`${i*100}ms`}}> */}
  
               {/* top accent bar */}
-              <div className="absolute left-0 top-0 h-[3px] w-full" style={{background:tier.accent}} />
+              {/* <div className="absolute left-0 top-0 h-[3px] w-full" style={{background:tier.accent}} /> */}
  
               {/* featured badge */}
-              {tier.featured && (
+              {/* {tier.featured && (
                 <div className="absolute right-6 top-5 rounded-full bg-[#52aafc] px-3 py-1 font-[family-name:var(--font-barlow)] text-[9px] font-bold uppercase tracking-[0.2em] text-[#092866]">
                   {tier.tag}
                 </div>
-              )}
+              )} */}
  
-              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.26em]" style={{color:tier.accent}}>{tier.price}</div>
+              {/* <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.26em]" style={{color:tier.accent}}>{tier.price}</div>
               <h3 className="font-[family-name:var(--font-barlow)] mb-6 text-[36px] font-extrabold uppercase text-[#092866]">{tier.name}</h3>
  
               <div className="mb-8 space-y-3">
@@ -382,12 +379,12 @@ export default function ForBrandsPage() {
               </button>
             </div>
           ))}
-        </div>
+        </div> */}
  
-        <p className="sr mt-8 text-center text-[13px] font-light text-[#092866]/38" style={{transitionDelay:'300ms'}}>
+        {/* <p className="sr mt-8 text-center text-[13px] font-light text-[#092866]/38" style={{transitionDelay:'300ms'}}>
           All tiers are customizable. <button onClick={openModal} className="text-[#52aafc] underline underline-offset-2">Contact us</button> to build a partnership that's right for you.
         </p>
-      </section>
+      </section> */}
  
       {/* ══════════════════════════════════════════════════════════════════
           4. ECOSYSTEM REACH — navy split, stats left, products right
@@ -396,32 +393,66 @@ export default function ForBrandsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
  
           {/* left — big stats */}
-          <div className="sr-l relative flex flex-col justify-center px-8 py-20 md:px-16"
-            style={{background:'radial-gradient(ellipse at 30% 50%,rgba(82,170,252,.1) 0%,transparent 65%)'}}>
-            <div className="mb-8 inline-flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#52aafc]" />
-              <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Ecosystem Reach</span>
-            </div>
-            <h2 className="font-[family-name:var(--font-barlow)] mb-10 text-[clamp(32px,4vw,64px)] font-extrabold uppercase leading-[0.91] text-white">
-              One partnership.<br /><span className="text-[#52aafc]" style={{textShadow:'0 0 40px rgba(82,170,252,.4)'}}>Every touchpoint.</span>
-            </h2>
-            <p className="mb-12 max-w-[380px] text-[15px] font-light leading-[1.85] text-white/45">
-              When you partner with Athletes Elevated, your brand shows up across our entire ecosystem — from youth leagues to a global documentary to athlete profiles worldwide.
-            </p>
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                {v:'4', l:'AE products'},
-                {v:'100%', l:'Impact pass-through'},
-                {v:'Global', l:'Documentary reach'},
-                {v:'Growing', l:'Athlete network'},
-              ].map((s)=>(
-                <div key={s.l} className="border-l-[2px] border-[#52aafc]/40 pl-4">
-                  <div className="font-[family-name:var(--font-barlow)] text-[clamp(24px,3vw,42px)] font-extrabold leading-none text-[#52aafc]">{s.v}</div>
-                  <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/38">{s.l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div
+  className="relative flex flex-col justify-center px-8 py-20 md:px-16"
+  style={{
+    background:
+      "radial-gradient(ellipse at 30% 50%,rgba(82,170,252,.1) 0%,transparent 65%)",
+  }}
+>
+
+  <div className="mb-8 inline-flex items-center gap-3">
+    <span className="h-[2px] w-8 bg-[#52aafc]" />
+
+    <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+      Ecosystem Reach
+    </span>
+  </div>
+
+  <h2 className="font-[family-name:var(--font-barlow)] mb-10 text-[clamp(32px,4vw,64px)] font-extrabold uppercase leading-[0.91] text-white">
+    One partnership.
+    <br />
+    <span
+      className="text-[#52aafc]"
+      style={{ textShadow: "0 0 40px rgba(82,170,252,.4)" }}
+    >
+      Every touchpoint.
+    </span>
+  </h2>
+
+  <p className="mb-12 max-w-[380px] text-[15px] font-light leading-[1.85] text-white/45">
+    When you partner with Athletes Elevated, your brand shows up across
+    the entire ecosystem — from athlete platforms and youth sports to
+    original content, events, and community-driven experiences.
+  </p>
+
+  <div className="grid grid-cols-2 gap-6">
+
+    {[
+      { v: "4", l: "AE products" },
+      { v: "100%", l: "Athlete-first" },
+      { v: "Global", l: "Content reach" },
+      { v: "Growing", l: "Athlete network" },
+    ].map((s) => (
+      <div
+        key={s.l}
+        className="border-l-[2px] border-[#52aafc]/40 pl-4"
+      >
+
+        <div className="font-[family-name:var(--font-barlow)] text-[clamp(24px,3vw,42px)] font-extrabold leading-none text-[#52aafc]">
+          {s.v}
+        </div>
+
+        <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/38">
+          {s.l}
+        </div>
+
+      </div>
+    ))}
+
+  </div>
+
+</div>
  
           {/* right — product list */}
           <div className="sr relative flex flex-col justify-center border-l border-white/[.06] px-8 py-20 md:px-12" style={{transitionDelay:'130ms'}}>
@@ -490,8 +521,8 @@ export default function ForBrandsPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
             { name:'Essex Mortgage', type:'Financial Services', quote:'Athletes Elevated gave us a meaningful way to connect with the communities we serve.' },
-            { name:'TBX Golf', type:'Sports Equipment', quote:'The alignment with AE\'s athlete-first values made this an easy decision for our brand.' },
-            { name:'Holistic Beverages', type:'Health & Wellness', quote:'Partnering with AE connects us directly to athletes who share our commitment to performance.' },
+            { name:'TeeBox Golf', type:'Sports Equipment', quote:'The alignment with AE\'s athlete-first values made this an easy decision for our brand.' },
+            { name:'Salt Box PC', type:'Health & Wellness', quote:'Partnering with AE connects us directly to athletes who share our commitment to performance.' },
           ].map((p, i) => (
             <div key={p.name} className="partner-card sr relative overflow-hidden bg-white p-8" style={{transitionDelay:`${i*100}ms`}}>
               <div className="pc-line absolute left-0 top-0 h-[2px] w-full bg-[#52aafc]" />
@@ -507,70 +538,92 @@ export default function ForBrandsPage() {
           6. CTA — full viewport, "LET'S BUILD SOMETHING."
       ══════════════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#f0f5fd] px-6 text-center">
- 
-        {/* subtle glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{background:'radial-gradient(circle,rgba(82,170,252,.07) 0%,transparent 65%)',animation:'glow-orb 8s ease-in-out infinite'}} />
- 
-        {/* corner brackets */}
-        <div className="pointer-events-none absolute left-8 top-8 h-[80px] w-[80px] border-l-2 border-t-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute right-8 top-8 h-[80px] w-[80px] border-r-2 border-t-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute bottom-8 left-8 h-[80px] w-[80px] border-b-2 border-l-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute bottom-8 right-8 h-[80px] w-[80px] border-b-2 border-r-2 border-[#52aafc]/25" />
- 
-        <div className="sr relative z-10 w-full max-w-[900px]">
-          <div className="mb-8 inline-flex items-center gap-4">
-            <span className="h-[1px] w-12 bg-[#52aafc]/50" />
-            <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]/70">Ready to partner?</span>
-            <span className="h-[1px] w-12 bg-[#52aafc]/50" />
-          </div>
- 
-          <h2 className="font-[family-name:var(--font-barlow)] font-extrabold uppercase leading-[0.84] text-[#092866]"
-            style={{fontSize:'clamp(60px,14vw,180px)'}}>
-            LET'S<br />
-            BUILD<br />
-            <span className="text-[#52aafc]">SOME</span><span style={{WebkitTextStroke:'2px rgba(9,40,102,.35)',color:'transparent'}}>THING.</span>
-          </h2>
- 
-          <p className="mx-auto mb-14 mt-8 max-w-[420px] text-[16px] font-light leading-[1.82] text-[#092866]/45">
-            Tell us about your brand and what you're looking for. We'll take it from there.
-          </p>
- 
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button onClick={openModal}
-              className="btn-blue inline-flex items-center gap-2 px-12 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em]">
-              Partner With Us →
-            </button>
-            <Link href="/athletes"
-              className="btn-ghost-light inline-flex items-center gap-2 px-12 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em]">
-              I'm an Athlete →
-            </Link>
-          </div>
-        </div>
-      </section>
+
+{/* subtle glow */}
+<div
+  className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+  style={{
+    background:
+      "radial-gradient(circle,rgba(82,170,252,.07) 0%,transparent 65%)",
+    animation: "glow-orb 8s ease-in-out infinite",
+  }}
+/>
+
+{/* corner brackets */}
+<div className="pointer-events-none absolute left-8 top-8 h-[80px] w-[80px] border-l-2 border-t-2 border-[#52aafc]/25" />
+<div className="pointer-events-none absolute right-8 top-8 h-[80px] w-[80px] border-r-2 border-t-2 border-[#52aafc]/25" />
+<div className="pointer-events-none absolute bottom-8 left-8 h-[80px] w-[80px] border-b-2 border-l-2 border-[#52aafc]/25" />
+<div className="pointer-events-none absolute bottom-8 right-8 h-[80px] w-[80px] border-b-2 border-r-2 border-[#52aafc]/25" />
+
+<div className="relative z-10 w-full max-w-[900px]">
+
+  {/* top label */}
+  <div className="mb-8 inline-flex items-center gap-4">
+
+    <span className="h-[1px] w-12 bg-[#52aafc]/50" />
+
+    <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]/70">
+      Ready to partner?
+    </span>
+
+    <span className="h-[1px] w-12 bg-[#52aafc]/50" />
+
+  </div>
+
+  {/* headline */}
+  <h2
+    className="font-[family-name:var(--font-barlow)] font-extrabold uppercase leading-[0.84] text-[#092866]"
+    style={{
+      fontSize: "clamp(48px,11vw,140px)",
+    }}
+  >
+    LET'S
+    <br />
+    BUILD
+    <br />
+    <span className="text-[#52aafc]">SOME</span>
+
+    <span
+      style={{
+        WebkitTextStroke: "2px rgba(9,40,102,.35)",
+        color: "transparent",
+      }}
+    >
+      THING.
+    </span>
+  </h2>
+
+  {/* paragraph */}
+  <p className="mx-auto mb-14 mt-8 max-w-[420px] text-[16px] font-light leading-[1.82] text-[#092866]/45">
+    Tell us about your brand and what you're looking for.
+    We'll take it from there.
+  </p>
+
+  {/* buttons */}
+  <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+
+    <button
+      onClick={openModal}
+      className="inline-flex items-center gap-2 bg-[#52aafc] px-12 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
+    >
+      Partner With Us →
+    </button>
+
+    <Link
+      href="/athletes"
+      className="inline-flex items-center gap-2 border border-[#092866]/12 px-12 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em] text-[#092866] transition-all hover:border-[#52aafc] hover:text-[#52aafc]"
+    >
+      I'm an Athlete →
+    </Link>
+
+  </div>
+
+</div>
+
+</section>
  
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer className="bg-[#092866] px-6 pb-10 pt-20 md:px-12">
-        <div className="mb-14 flex flex-wrap items-start justify-between gap-10 border-b border-white/[.08] pb-14">
-          <div>
-            <div className="mb-3 font-[family-name:var(--font-barlow)] text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
-            <p className="max-w-[270px] text-[13px] font-light leading-[1.72] text-white/26">
-              Built for athletes, powered by purpose, focused on meaningful community impact.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-14 gap-y-5">
-            {[['For Athletes','/athletes'],['For Brands','/brands'],['Ecosystem','/ecosystem'],['Impact','/impact'],['HERO','/hero']].map(([l,h])=>(
-              <Link key={l} href={h} className="text-[12px] font-medium uppercase tracking-[0.14em] text-white/26 transition-colors hover:text-[#52aafc]">{l}</Link>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[11px] text-white/16">© 2026 Athletes Elevated. All rights reserved.</p>
-          <p className="text-[11px] italic text-white/12">Performance meets purpose.</p>
-        </div>
-      </footer>
+    <Footer />
  
       {/* ── MODAL ───────────────────────────────────────────────────────── */}
       {modalOpen && (
