@@ -188,7 +188,6 @@ export default function HomePage() {
             {[
               ["For Athletes", "/athletes"],
               ["Ecosystem", "/ecosystem"],
-              ["Impact", "/impact"],
               ["For Brands", "/brands"],
             ].map(([l, h]) => (
               <li key={l}>

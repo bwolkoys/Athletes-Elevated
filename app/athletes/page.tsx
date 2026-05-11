@@ -83,7 +83,7 @@ export default function ForAthletesPage() {
   const closeModal = () => setModalOpen(false);
  
   return (
-    <div className={`${barlow.variable} ${montserrat.variable} font-[family-name:var(--font-montserrat)] bg-white text-[#092866] overflow-x-hidden`}>
+    <div className={`${barlow.variable} ${montserrat.variable} font-(family-name:--font-montserrat) bg-white text-[#092866] overflow-x-hidden`}>
  
       <style>{`
         @keyframes marquee  { to { transform: translateX(-50%); } }
@@ -131,23 +131,23 @@ export default function ForAthletesPage() {
       <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-400 ${scrolled ? 'bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(9,40,102,.08)]' : 'bg-transparent'}`}>
         {/* urgency bar */}
         <div className="bg-[#52aafc] py-2 text-center">
-          <span className="font-[family-name:var(--font-barlow)] text-[11px] font-bold uppercase tracking-[0.28em] text-[#092866]">
+          <span className="font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.28em] text-[#092866]">
             🎬 HERO Documentary — Waitlist now open · Filming in progress
           </span>
         </div>
-        <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-6 md:px-12">
-          <Link href="/" className="font-[family-name:var(--font-barlow)] text-[21px] font-extrabold uppercase tracking-[0.06em] text-[#092866]">
+        <div className="mx-auto flex h-17 max-w-360 items-center justify-between px-6 md:px-12">
+          <Link href="/" className="font-(family-name:--font-barlow) text-[21px] font-extrabold uppercase tracking-[0.06em] text-[#092866]">
             ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
           </Link>
           <ul className="hidden items-center gap-9 md:flex">
-            {[['For Athletes','/athletes'],['Ecosystem','/ecosystem'],['Impact','/impact'],['For Brands','/brands']].map(([l,h])=>(
+            {[['For Athletes','/athletes'],['Ecosystem','/ecosystem'],['For Brands','/brands']].map(([l,h])=>(
               <li key={l}>
-                <Link href={h} className={`nav-lnk relative text-[12px] font-medium uppercase tracking-[0.1em] transition-colors ${l==='For Athletes'?'active text-[#52aafc]':'text-[#092866]/50 hover:text-[#092866]'}`}>{l}</Link>
+                <Link href={h} className={`nav-lnk relative text-[12px] font-medium uppercase tracking-widest transition-colors ${l==='For Athletes'?'active text-[#52aafc]':'text-[#092866]/50 hover:text-[#092866]'}`}>{l}</Link>
               </li>
             ))}
           </ul>
           <button onClick={openModal}
-            className="btn-blue px-5 py-[10px] font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
+            className="btn-blue px-5 py-2.5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
             Get Involved
           </button>
         </div>
@@ -157,14 +157,14 @@ export default function ForAthletesPage() {
           1. HERO — full-bleed photo placeholder, headline
              overlaid bottom-left, stat strip at bottom
       ══════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-screen flex-col justify-end overflow-hidden pt-[100px]">
+      <section className="relative flex min-h-screen flex-col justify-end overflow-hidden pt-25">
  
         {/* full-bleed photo placeholder background */}
         <div className="absolute inset-0 z-0"
           style={{background:'linear-gradient(135deg,#c5ddf8 0%,#93c2f4 40%,#5fa8e8 100%)'}}>
           {/* placeholder label */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-[family-name:var(--font-barlow)] text-[13px] font-semibold uppercase tracking-[0.3em] text-white/40">
+            <span className="font-(family-name:--font-barlow) text-[13px] font-semibold uppercase tracking-[0.3em] text-white/40">
               Full-bleed athlete photo goes here
             </span>
           </div>
@@ -175,18 +175,18 @@ export default function ForAthletesPage() {
           style={{background:'linear-gradient(to top, rgba(9,40,102,.92) 0%, rgba(9,40,102,.6) 40%, rgba(9,40,102,.1) 80%, transparent 100%)'}} />
  
         {/* spinning rings — subtle, top right */}
-        <div className="pointer-events-none absolute -right-48 -top-48 z-10 h-[650px] w-[650px] rounded-full border border-white/[.06]"
+        <div className="pointer-events-none absolute -right-48 -top-48 z-10 h-162.5 w-162.5 rounded-full border border-white/6"
           style={{animation:'spin 50s linear infinite'}} />
  
         {/* main copy — pinned bottom left */}
         <div className="relative z-20 px-6 pb-0 pt-20 md:px-12 lg:px-20">
           <div className="mb-6 flex items-center gap-3"
             style={{animation: loaded ? 'slide-up .6s ease .1s both':'none',opacity: loaded?undefined:0}}>
-            <span className="h-[2px] w-10 bg-[#52aafc]" style={{boxShadow:'0 0 10px rgba(82,170,252,.8)'}} />
-            <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">For Athletes</span>
+            <span className="h-0.5 w-10 bg-[#52aafc]" style={{boxShadow:'0 0 10px rgba(82,170,252,.8)'}} />
+            <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">For Athletes</span>
           </div>
  
-          <h1 className="font-[family-name:var(--font-barlow)] text-[clamp(56px,11vw,152px)] font-extrabold uppercase leading-[0.85] tracking-[-0.01em] text-white">
+          <h1 className="font-(family-name:--font-barlow) text-[clamp(56px,11vw,152px)] font-extrabold uppercase leading-[0.85] tracking-[-0.01em] text-white">
             <div className="ww block"><span className="w" style={{animationDelay: loaded?'.12s':'999s'}}>You</span></div>
             <div className="ww block"><span className="w" style={{animationDelay: loaded?'.24s':'999s'}}>Are</span></div>
             <div className="ww block"><span className="w" style={{animationDelay: loaded?'.38s':'999s'}}>More</span></div>
@@ -200,18 +200,18 @@ export default function ForAthletesPage() {
           </h1>
  
           <div className="mt-8 flex flex-col gap-8 pb-10 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-[420px] text-[16px] font-light leading-[1.85] text-white/65"
+            <p className="max-w-105 text-[16px] font-light leading-[1.85] text-white/65"
               style={{animation: loaded?'slide-up .7s ease .8s both':'none',opacity: loaded?undefined:0}}>
               We built Athletes Elevated for the people behind the results — connecting you with tools, brands, and communities that understand performance goes far beyond the final score.
             </p>
             <div className="flex flex-wrap gap-3"
               style={{animation: loaded?'slide-up .65s ease .95s both':'none',opacity: loaded?undefined:0}}>
               <button onClick={openModal}
-                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
+                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
                 Get Involved →
               </button>
               <Link href="#hero-doc"
-                className="inline-flex items-center gap-2 border border-white/30 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-all hover:border-[#52aafc] hover:text-[#52aafc]">
+                className="inline-flex items-center gap-2 border border-white/30 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest text-white transition-all hover:border-[#52aafc] hover:text-[#52aafc]">
                 Watch HERO ↓
               </Link>
             </div>
@@ -219,7 +219,7 @@ export default function ForAthletesPage() {
         </div>
  
         {/* stat strip — on top of gradient */}
-        <div className="relative z-20 grid grid-cols-2 border-t border-white/[.12] md:grid-cols-4"
+        <div className="relative z-20 grid grid-cols-2 border-t border-white/12 md:grid-cols-4"
           style={{animation: loaded?'fade .8s ease 1.05s both':'none',opacity: loaded?undefined:0,background:'rgba(9,40,102,.7)',backdropFilter:'blur(12px)'}}>
           {[
             ['3+',    'Nonprofits supported'],
@@ -227,8 +227,8 @@ export default function ForAthletesPage() {
             ['5',     'Heroes already filmed'],
             ['Jan 2026','HERO launches'],
           ].map(([v,l])=>(
-            <div key={l} className="border-r border-white/[.1] px-6 py-6 last:border-r-0 md:px-10">
-              <div className="font-[family-name:var(--font-barlow)] text-[clamp(24px,3vw,46px)] font-extrabold leading-none text-[#52aafc]"
+            <div key={l} className="border-r border-white/10 px-6 py-6 last:border-r-0 md:px-10">
+              <div className="font-(family-name:--font-barlow) text-[clamp(24px,3vw,46px)] font-extrabold leading-none text-[#52aafc]"
                 style={{textShadow:'0 0 20px rgba(82,170,252,.4)'}}>{v}</div>
               <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/45">{l}</div>
             </div>
@@ -243,8 +243,8 @@ export default function ForAthletesPage() {
         <div className="flex whitespace-nowrap" style={{animation:'marquee 30s linear infinite',width:'max-content'}}>
           {['Football','Soccer','Basketball','Baseball','Track & Field','Tennis','Golf','Volleyball','Lacrosse','Swimming','Wrestling','Hockey','Softball','Rugby','Rowing','Gymnastics','MMA','Cycling',
             'Football','Soccer','Basketball','Baseball','Track & Field','Tennis','Golf','Volleyball','Lacrosse','Swimming','Wrestling','Hockey','Softball','Rugby','Rowing','Gymnastics','MMA','Cycling'].map((sport,i)=>(
-            <span key={i} className="inline-flex items-center gap-5 px-5 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.2em] text-[#092866]/35 transition-colors hover:text-[#52aafc]">
-              {sport} <span className="h-[4px] w-[4px] rounded-full bg-[#52aafc]/40" />
+            <span key={i} className="inline-flex items-center gap-5 px-5 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.2em] text-[#092866]/35 transition-colors hover:text-[#52aafc]">
+              {sport} <span className="h-1 w-1 rounded-full bg-[#52aafc]/40" />
             </span>
           ))}
         </div>
@@ -257,10 +257,10 @@ export default function ForAthletesPage() {
       <section className="px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-20">
           <div className="mb-4 inline-flex items-center gap-3">
-            <span className="h-[2px] w-8 bg-[#52aafc]" />
-            <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">What we stand for</span>
+            <span className="h-0.5 w-8 bg-[#52aafc]" />
+            <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">What we stand for</span>
           </div>
-          <h2 className="font-[family-name:var(--font-barlow)] text-[clamp(32px,4.5vw,66px)] font-extrabold uppercase leading-[0.92] text-[#092866]">
+          <h2 className="font-(family-name:--font-barlow) text-[clamp(32px,4.5vw,66px)] font-extrabold uppercase leading-[0.92] text-[#092866]">
             Built around<br />the <span className="text-[#52aafc]">athlete.</span>
           </h2>
         </div>
@@ -276,13 +276,13 @@ export default function ForAthletesPage() {
               className="sr group grid grid-cols-1 border-b border-[#092866]/8 py-12 transition-colors hover:bg-[#f0f5fd] md:grid-cols-[120px_1fr_1fr] md:gap-10"
               style={{transitionDelay:`${i*100}ms`}}>
               {/* number */}
-              <div className="font-[family-name:var(--font-barlow)] text-[56px] font-extrabold leading-none text-[#092866]/[.07] transition-colors group-hover:text-[#52aafc]/15 md:text-[72px]">
+              <div className="font-(family-name:--font-barlow) text-[56px] font-extrabold leading-none text-[#092866]/[.07] transition-colors group-hover:text-[#52aafc]/15 md:text-[72px]">
                 {v.n}
               </div>
               {/* tag + title */}
               <div className="mt-4 md:mt-0">
                 <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">{v.tag}</span>
-                <h3 className="font-[family-name:var(--font-barlow)] text-[22px] font-bold uppercase text-[#092866]">{v.title}</h3>
+                <h3 className="font-(family-name:--font-barlow) text-[22px] font-bold uppercase text-[#092866]">{v.title}</h3>
               </div>
               {/* body */}
               <p className="mt-3 text-[14px] font-light leading-[1.85] text-[#092866]/48 md:mt-0">{v.body}</p>
@@ -301,21 +301,21 @@ export default function ForAthletesPage() {
           {/* left — film poster feel on light bg */}
           <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">
             {/* ghost HERO */}
-            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[28vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[14vw]">
+            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-(family-name:--font-barlow) text-[28vw] font-extrabold uppercase leading-none text-[#092866]/4 select-none lg:text-[14vw]">
               HERO
             </div>
             <div className="relative z-10">
               <div className="mb-4 inline-flex items-center gap-3">
-                <span className="h-[2px] w-8 bg-[#52aafc]" />
-                <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary — January 2026</span>
+                <span className="h-0.5 w-8 bg-[#52aafc]" />
+                <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary — January 2026</span>
               </div>
-              <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
+              <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
                 Legends that<br />become <span className="text-[#52aafc]">catalysts</span><br />for change.
               </h2>
-              <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
+              <p className="mb-6 max-w-110 text-[15px] font-light leading-[1.88] text-[#092866]/50">
                 From the gods of Olympus to modern high-performing athletes — HERO uncovers the timeless archetype of the hero-athlete, exploring how mythical warriors evolved into modern icons shaping culture and society.
               </p>
-              <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
+              <blockquote className="mb-8 border-l-2 border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
                 "The hero of today doesn't slay the dragon —<br />they inspire us to face it together."
               </blockquote>
               {/* episode list */}
@@ -327,13 +327,13 @@ export default function ForAthletesPage() {
                   ['4 — Beyond the Arena','Social justice, education, mental health'],
                 ].map(([ep,desc])=>(
                   <div key={ep} className="border-b border-[#092866]/8 py-4 last:border-b-0">
-                    <span className="font-[family-name:var(--font-barlow)] block text-[13px] font-bold uppercase text-[#092866]">{ep}</span>
+                    <span className="font-(family-name:--font-barlow) block text-[13px] font-bold uppercase text-[#092866]">{ep}</span>
                     <span className="mt-0.5 block text-[12px] font-light text-[#092866]/42">{desc}</span>
                   </div>
                 ))}
               </div>
               <button onClick={openModal}
-                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
+                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
                 Join the HERO waitlist
               </button>
             </div>
@@ -347,7 +347,7 @@ export default function ForAthletesPage() {
                 <div key={a.name} className="filmed-row group py-7 last:border-b-0">
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <span className="font-[family-name:var(--font-barlow)] block text-[22px] font-bold uppercase text-[#092866] transition-colors group-hover:text-[#52aafc]">
+                      <span className="font-(family-name:--font-barlow) block text-[22px] font-bold uppercase text-[#092866] transition-colors group-hover:text-[#52aafc]">
                         {a.name}
                       </span>
                       <span className="mt-0.5 block text-[11px] font-light text-[#092866]/42">{a.detail}</span>
@@ -360,9 +360,9 @@ export default function ForAthletesPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-10 border border-[#52aafc]/20 bg-[#52aafc]/[.05] p-6">
+            <div className="mt-10 border border-[#52aafc]/20 bg-[#52aafc]/5 p-6">
               <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">In production</div>
-              <div className="font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase text-[#092866]">Created by Melissa Tittl · Hathor Studios</div>
+              <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-[#092866]">Created by Melissa Tittl · Hathor Studios</div>
               <div className="mt-1 text-[12px] font-light text-[#092866]/42">Targeting Netflix · ESPN · Apple TV+ · Disney+</div>
             </div>
           </div>
@@ -377,14 +377,14 @@ export default function ForAthletesPage() {
         <div className="sr mb-16 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#52aafc]" />
-              <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">The AE Ecosystem</span>
+              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">The AE Ecosystem</span>
             </div>
-            <h2 className="font-[family-name:var(--font-barlow)] text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92] text-[#092866]">
+            <h2 className="font-(family-name:--font-barlow) text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92] text-[#092866]">
               Tools built<br />for <span className="text-[#52aafc]">athletes.</span>
             </h2>
           </div>
-          <p className="max-w-[340px] text-[14px] font-light leading-[1.8] text-[#092866]/45" style={{transitionDelay:'120ms'}}>
+          <p className="max-w-85 text-[14px] font-light leading-[1.8] text-[#092866]/45" style={{transitionDelay:'120ms'}}>
             Everything we build starts with one question: does this make an athlete's life better?
           </p>
         </div>
@@ -394,18 +394,18 @@ export default function ForAthletesPage() {
             <Link key={tool.name} href={tool.href}
               className="tool-card sr relative overflow-hidden bg-white"
               style={{transitionDelay:`${i*110}ms`}}>
-              <div className="bar absolute left-0 top-0 h-[2px] w-full bg-[#52aafc]" />
+              <div className="bar absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
               {/* ghost number */}
-              <div className="absolute right-5 top-4 font-[family-name:var(--font-barlow)] text-[90px] font-extrabold leading-none text-[#092866]/[.05] select-none">
+              <div className="absolute right-5 top-4 font-(family-name:--font-barlow) text-[90px] font-extrabold leading-none text-[#092866]/5 select-none">
                 {String(i+1).padStart(2,'0')}
               </div>
               {/* photo placeholder */}
-              <div className="ph flex h-[200px] w-full items-center justify-center">
-                <span className="font-[family-name:var(--font-barlow)] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#092866]/30">Photo coming soon</span>
+              <div className="ph flex h-50 w-full items-center justify-center">
+                <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.3em] text-[#092866]/30">Photo coming soon</span>
               </div>
               <div className="p-8">
                 <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">{tool.tag}</span>
-                <h3 className="font-[family-name:var(--font-barlow)] mb-3 text-[26px] font-extrabold uppercase text-[#092866]">{tool.name}</h3>
+                <h3 className="font-(family-name:--font-barlow) mb-3 text-[26px] font-extrabold uppercase text-[#092866]">{tool.name}</h3>
                 <p className="mb-7 text-[13px] font-light leading-[1.82] text-[#092866]/45">{tool.desc}</p>
                 <div className="inline-flex items-center gap-2 border-b border-[#52aafc]/35 pb-0.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#52aafc]">
                   {tool.cta} <span className="arr">→</span>
@@ -422,30 +422,30 @@ export default function ForAthletesPage() {
       <section className="relative overflow-hidden bg-[#092866] px-6 py-32 md:px-12 lg:px-20">
         <div className="pointer-events-none absolute right-0 top-0 h-full w-[40%]"
           style={{background:'radial-gradient(ellipse at 80% 50%,rgba(82,170,252,.1) 0%,transparent 65%)'}} />
-        <div className="pointer-events-none absolute left-8 top-8 h-[72px] w-[72px] border-l-2 border-t-2 border-[#52aafc]/20" />
-        <div className="pointer-events-none absolute bottom-8 right-8 h-[72px] w-[72px] border-b-2 border-r-2 border-[#52aafc]/20" />
+        <div className="pointer-events-none absolute left-8 top-8 h-18 w-18 border-l-2 border-t-2 border-[#52aafc]/20" />
+        <div className="pointer-events-none absolute bottom-8 right-8 h-18 w-18 border-b-2 border-r-2 border-[#52aafc]/20" />
  
         <div className="sr relative z-10 grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <div>
             <div className="mb-5 inline-flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#52aafc]" />
-              <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Ready?</span>
+              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Ready?</span>
             </div>
-            <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(40px,5.5vw,88px)] font-extrabold uppercase leading-[0.88] text-white">
+            <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(40px,5.5vw,88px)] font-extrabold uppercase leading-[0.88] text-white">
               Your story<br />starts<br />
               <span className="text-[#52aafc]" style={{textShadow:'0 0 60px rgba(82,170,252,.6)'}}>here.</span>
             </h2>
-            <p className="max-w-[380px] text-[15px] font-light leading-[1.85] text-white/40">
+            <p className="max-w-95 text-[15px] font-light leading-[1.85] text-white/40">
               Whether you're an athlete chasing your next chapter or a brand looking to align with something real.
             </p>
           </div>
           <div className="flex flex-col gap-4">
             <button onClick={openModal}
-              className="btn-blue inline-flex items-center justify-center gap-2 px-10 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em]">
+              className="btn-blue inline-flex items-center justify-center gap-2 px-10 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest">
               Get Involved →
             </button>
             <Link href="/brands"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 px-10 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.1em] text-white transition-all hover:border-[#52aafc] hover:text-[#52aafc]">
+              className="inline-flex items-center justify-center gap-2 border border-white/20 px-10 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest text-white transition-all hover:border-[#52aafc] hover:text-[#52aafc]">
               I'm a Brand →
             </Link>
           </div>
@@ -454,13 +454,13 @@ export default function ForAthletesPage() {
  
       {/* ── MODAL ─────────────────────────────────────────────────────────── */}
       {modalOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#092866]/80 px-4 backdrop-blur-sm"
+        <div className="fixed inset-0 z-200 flex items-center justify-center bg-[#092866]/80 px-4 backdrop-blur-sm"
           onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
           style={{animation:'fade .2s ease both'}}>
           <div className="relative w-full max-w-lg bg-white" style={{animation:'slide-up .3s ease both'}}>
  
             {/* progress bar */}
-            <div className="h-[3px] w-full bg-[#092866]/8">
+            <div className="h-0.75 w-full bg-[#092866]/8">
               <div className="h-full bg-[#52aafc] transition-all duration-500"
                 style={{width: submitted ? '100%' : `${(step/FORM_STEPS.length)*100}%`}} />
             </div>
@@ -481,7 +481,7 @@ export default function ForAthletesPage() {
                       <path d="M5 12l5 5L19 7" stroke="#092866" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <h3 className="font-[family-name:var(--font-barlow)] mb-3 text-[28px] font-extrabold uppercase text-[#092866]">You're in.</h3>
+                  <h3 className="font-(family-name:--font-barlow) mb-3 text-[28px] font-extrabold uppercase text-[#092866]">You're in.</h3>
                   <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">We'll be in touch soon. Welcome to the Athletes Elevated community.</p>
                   <button onClick={closeModal}
                     className="mt-8 inline-flex items-center gap-2 bg-[#092866] px-8 py-3.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white transition-all hover:bg-[#0d3a8c]">
@@ -492,11 +492,11 @@ export default function ForAthletesPage() {
                 <>
                   <div className="mb-6 flex items-center gap-2">
                     {FORM_STEPS.map((s) => (
-                      <div key={s.step} className={`h-[2px] flex-1 transition-colors duration-300 ${s.step <= step ? 'bg-[#52aafc]' : 'bg-[#092866]/10'}`} />
+                      <div key={s.step} className={`h-0.5 flex-1 transition-colors duration-300 ${s.step <= step ? 'bg-[#52aafc]' : 'bg-[#092866]/10'}`} />
                     ))}
                   </div>
                   <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">Step {step} of {FORM_STEPS.length}</span>
-                  <h3 className="font-[family-name:var(--font-barlow)] mb-6 text-[26px] font-extrabold uppercase text-[#092866]">{currentStep.heading}</h3>
+                  <h3 className="font-(family-name:--font-barlow) mb-6 text-[26px] font-extrabold uppercase text-[#092866]">{currentStep.heading}</h3>
  
                   <div className="space-y-5">
                     {currentStep.fields.map((field) => {
@@ -531,7 +531,7 @@ export default function ForAthletesPage() {
                                   <button key={opt} type="button" onClick={() => handleMultiCheck(field.id, opt)}
                                     className={`flex items-center gap-2.5 border px-3.5 py-2.5 text-left text-[12px] font-medium transition-all ${checked ? 'border-[#52aafc] bg-[#52aafc]/8 text-[#092866]' : 'border-[#092866]/12 text-[#092866]/50 hover:border-[#52aafc]/50'}`}>
                                     <span className={`h-3.5 w-3.5 shrink-0 border transition-colors ${checked ? 'border-[#52aafc] bg-[#52aafc]' : 'border-[#092866]/30'}`}>
-                                      {checked && <svg viewBox="0 0 10 10" fill="none" className="h-full w-full p-[1px]"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>}
+                                      {checked && <svg viewBox="0 0 10 10" fill="none" className="h-full w-full p-px"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>}
                                     </span>
                                     {opt}
                                   </button>
@@ -557,7 +557,7 @@ export default function ForAthletesPage() {
                       ? <button onClick={() => setStep(step-1)} className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/38 hover:text-[#092866]">← Back</button>
                       : <span />}
                     <button onClick={handleNext}
-                      className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-[family-name:var(--font-barlow)] text-[12px] font-bold uppercase tracking-[0.12em]">
+                      className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.12em]">
                       {step === FORM_STEPS.length ? 'Submit' : 'Next →'}
                     </button>
                   </div>
