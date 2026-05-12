@@ -40,7 +40,23 @@ const SPORTS_LIST = [
   "Other",
 ];
 
-const FORM_STEPS = [
+type FormField = {
+    id: string;
+    label: string;
+    type: "text" | "email" | "tel" | "select" | "textarea" | "multicheck";
+    required?: boolean;
+    placeholder?: string;
+    helperText?: string;
+    options?: string[];
+  };
+  
+  type FormStep = {
+    step: number;
+    heading: string;
+    fields: FormField[];
+  };
+
+  const FORM_STEPS: FormStep[] = [
   {
     step: 1,
     heading: "The basics",
