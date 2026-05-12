@@ -17,84 +17,159 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+const SPORTS_LIST = [
+  "Baseball",
+  "Basketball",
+  "Cycling",
+  "Football",
+  "Golf",
+  "Gymnastics",
+  "Hockey",
+  "Lacrosse",
+  "MMA / Combat Sports",
+  "Rowing",
+  "Rugby",
+  "Skiing / Snowboarding",
+  "Soccer",
+  "Softball",
+  "Swimming / Diving",
+  "Tennis",
+  "Track & Field",
+  "Volleyball",
+  "Wrestling",
+  "Other",
+];
+
 const FORM_STEPS = [
   {
     step: 1,
-    heading: "Tell us about yourself",
+    heading: "The basics",
     fields: [
       {
         id: "name",
         label: "Full name",
         type: "text",
-        placeholder: "Your name",
+        required: true,
+        placeholder: "Your full name",
       },
       {
         id: "email",
-        label: "Email",
+        label: "Email address",
         type: "email",
+        required: true,
         placeholder: "you@email.com",
       },
       {
-        id: "sport",
-        label: "Sport",
+        id: "mobile",
+        label: "Mobile number",
+        type: "tel",
+        placeholder: "+1 (000) 000-0000",
+      },
+      {
+        id: "city",
+        label: "City and state of primary residence",
         type: "text",
-        placeholder: "e.g. Soccer, Basketball, Track...",
+        placeholder: "e.g. Los Angeles, CA",
+      },
+      {
+        id: "sport",
+        label: "Primary sport",
+        type: "select",
+        required: true,
+        options: SPORTS_LIST,
       },
     ],
   },
   {
     step: 2,
-    heading: "Your level & location",
+    heading: "Your athletic career",
     fields: [
       {
-        id: "level",
-        label: "Competition level",
+        id: "status",
+        label: "Which best describes you today?",
         type: "select",
+        required: true,
         options: [
-          "Youth / Amateur",
-          "High School",
-          "Collegiate",
-          "Semi-Professional",
-          "Professional",
-          "Retired Pro",
+          "Active NCAA athlete with active NIL deal(s)",
+          "Active NCAA athlete pursuing NIL opportunities",
+          "Active professional athlete",
+          "Retired or transitioning professional athlete",
         ],
       },
       {
-        id: "location",
-        label: "City / Country",
-        type: "text",
-        placeholder: "e.g. Los Angeles, CA",
+        id: "career_stage",
+        label: "Where are you in your athletic career right now?",
+        type: "select",
+        required: true,
+        options: [
+          "Active NCAA, pre-professional decision",
+          "Active NCAA, balancing NIL and academics",
+          "Early career, building reputation",
+          "Established mid-career",
+          "Late career, looking past the sport",
+          "Recently retired (within 2 years)",
+          "Retired more than 2 years ago",
+        ],
       },
       {
-        id: "instagram",
-        label: "Instagram handle",
-        type: "text",
-        placeholder: "@handle",
+        id: "accomplishment",
+        label: "What is your top career accomplishment you're most proud of?",
+        type: "textarea",
+        required: true,
+        placeholder: "1–2 sentences",
+      },
+      {
+        id: "verification",
+        label:
+          "Provide one verification source we can use to confirm your athletic credentials",
+        type: "textarea",
+        required: true,
+        placeholder:
+          "League profile URL, athletic department contact, agent name and email, recent verifiable article, or other public-facing source.",
       },
     ],
   },
   {
     step: 3,
-    heading: "What do you want from AE?",
+    heading: "What you're looking for",
     fields: [
       {
-        id: "goals",
-        label: "What are you looking for?",
+        id: "interests",
+        label:
+          "What features that Athletes Elevated offers are you most interested in?",
         type: "multicheck",
+        required: true,
         options: [
-          "Brand partnerships",
-          "Community & networking",
-          "Athlink profile",
-          "HERO documentary",
-          "Teams Elevated",
-          "Mentorship",
+          "Business networking",
+          "Athlink",
+          "Fan engagement",
+          "Mentorship opportunities",
+          "CRM / Marketing",
         ],
       },
       {
-        id: "message",
-        label: "Anything else you want us to know?",
+        id: "goals",
+        label: "What are you hoping Athletes Elevated will do for you?",
         type: "textarea",
-        placeholder: "Optional...",
+        required: true,
+        placeholder:
+          'Be honest. We would rather you say "I want to make money on Athlink" than dress it up as something else. There is no wrong answer; there is only an unclear one. (3–5 sentences)',
+      },
+    ],
+  },
+  {
+    step: 4,
+    heading: "What you bring",
+    fields: [
+      {
+        id: "contribution",
+        label: "What can you contribute to this network beyond your name?",
+        type: "textarea",
+        required: true,
+        placeholder:
+          "AE only functions if all members are active and engaged. Fan engagement, mentorship, industry expertise, introductions, content, time for younger members, capital — anything counts. (3–5 sentences)",
+        helperText:
+          "* AE reserves the right to remove members who are not actively utilizing the platform.",
       },
     ],
   },
@@ -201,16 +276,50 @@ export default function ForAthletesPage() {
         [id]: arr.includes(opt) ? arr.filter((o) => o !== opt) : [...arr, opt],
       };
     });
-  const handleNext = () => {
-    if (step < FORM_STEPS.length) setStep(step + 1);
-    else setSubmitted(true);
-  };
-  const openModal = () => {
-    setModalOpen(true);
-    setStep(1);
-    setSubmitted(false);
-  };
-  const closeModal = () => setModalOpen(false);
+    const handleNext = async () => {
+        const missingField = currentStep.fields.find((field) => {
+          if (!field.required) return false;
+      
+          const value = formData[field.id];
+      
+          if (Array.isArray(value)) return value.length === 0;
+      
+          return !value || value.toString().trim() === "";
+        });
+      
+        if (missingField) {
+          alert(`${missingField.label} is required`);
+          return;
+        }
+      
+        if (step < FORM_STEPS.length) {
+          setStep(step + 1);
+          return;
+        }
+      
+        const response = await fetch("/api/airtable", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+      
+        if (!response.ok) {
+          alert("Something went wrong. Please try again.");
+          return;
+        }
+      
+        setSubmitted(true);
+      };
+      
+      const openModal = () => {
+        setModalOpen(true);
+        setStep(1);
+        setSubmitted(false);
+      };
+      
+      const closeModal = () => setModalOpen(false);
 
   return (
     <div
@@ -258,15 +367,12 @@ export default function ForAthletesPage() {
         .ph { background:linear-gradient(135deg,#daeeff 0%,#b8d8f8 45%,#8fc0f2 100%); }
       `}</style>
 
-      {/* ── NAV ───────────────────────────────────────────────────────────── */}
       <Navbar />
 
       {/* ══════════════════════════════════════════════════════
-          1. HERO — full-bleed photo placeholder, headline
-             overlaid bottom-left, stat strip at bottom
+          1. HERO
       ══════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen flex-col justify-end overflow-hidden pt-25">
-        {/* full-bleed photo placeholder background */}
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -274,7 +380,6 @@ export default function ForAthletesPage() {
               "linear-gradient(135deg,#c5ddf8 0%,#93c2f4 40%,#5fa8e8 100%)",
           }}
         >
-          {/* placeholder label */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="font-(family-name:--font-barlow) text-[13px] font-semibold uppercase tracking-[0.3em] text-white/40">
               Full-bleed athlete photo goes here
@@ -282,7 +387,6 @@ export default function ForAthletesPage() {
           </div>
         </div>
 
-        {/* dark gradient overlay — bottom heavy so headline is readable */}
         <div
           className="absolute inset-0 z-10"
           style={{
@@ -291,13 +395,11 @@ export default function ForAthletesPage() {
           }}
         />
 
-        {/* spinning rings — subtle, top right */}
         <div
           className="pointer-events-none absolute -right-48 -top-48 z-10 h-162.5 w-162.5 rounded-full border border-white/6"
           style={{ animation: "spin 50s linear infinite" }}
         />
 
-        {/* main copy — pinned bottom left */}
         <div className="relative z-20 px-6 pb-0 pt-20 md:px-12 lg:px-20">
           <div
             className="mb-6 flex items-center gap-3"
@@ -407,7 +509,6 @@ export default function ForAthletesPage() {
           </div>
         </div>
 
-        {/* stat strip — on top of gradient */}
         <div
           className="relative z-20 grid grid-cols-2 border-t border-white/12 md:grid-cols-4"
           style={{
@@ -441,9 +542,7 @@ export default function ForAthletesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          SPORT TAGS TICKER — between hero and values
-      ══════════════════════════════════════════════════════ */}
+      {/* SPORT TICKER */}
       <div className="overflow-hidden border-b border-[#092866]/8 bg-white py-4">
         <div
           className="flex whitespace-nowrap"
@@ -501,10 +600,9 @@ export default function ForAthletesPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          2. VALUES — white, 3 pillars different from homepage
-             large number left, content right on each row
+          2. VALUES
       ══════════════════════════════════════════════════════ */}
-      <section className="px-6 py-32 md:px-12 lg:px-20">
+      <section className="px-6 py-32 md:px-12 lg:px-20 bg-[#f0f5fd]">
         <div className="sr mb-20">
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="h-0.5 w-8 bg-[#52aafc]" />
@@ -519,7 +617,6 @@ export default function ForAthletesPage() {
           </h2>
         </div>
 
-        {/* stacked rows — each row has its own layout */}
         <div className="space-y-0 border-t border-[#092866]/8">
           {[
             {
@@ -546,11 +643,9 @@ export default function ForAthletesPage() {
               className="sr group grid grid-cols-1 border-b border-[#092866]/8 py-12 transition-colors hover:bg-[#f0f5fd] md:grid-cols-[120px_1fr_1fr] md:gap-10"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              {/* number */}
               <div className="font-(family-name:--font-barlow) text-[56px] font-extrabold leading-none text-[#092866]/[.07] transition-colors group-hover:text-[#52aafc]/15 md:text-[72px]">
                 {v.n}
               </div>
-              {/* tag + title */}
               <div className="mt-4 md:mt-0">
                 <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">
                   {v.tag}
@@ -559,7 +654,6 @@ export default function ForAthletesPage() {
                   {v.title}
                 </h3>
               </div>
-              {/* body */}
               <p className="mt-3 text-[14px] font-light leading-[1.85] text-[#092866]/48 md:mt-0">
                 {v.body}
               </p>
@@ -569,15 +663,79 @@ export default function ForAthletesPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          3. HERO DOC — light blue-grey left / white right
-             completely different from homepage treatment
+          3. HERO DOC
       ══════════════════════════════════════════════════════ */}
       <section id="hero-doc" className="overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* left — film poster feel on light bg */}
-          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16"></div>
+          <div className="sr-l relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">
+            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[28vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[14vw]">
+              HERO
+            </div>
+            <div className="relative z-10">
+              <div className="mb-4 inline-flex items-center gap-3">
+                <span className="h-[2px] w-8 bg-[#52aafc]" />
+                <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+                  Documentary — January 2027
+                </span>
+              </div>
+              <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
+                Legends that
+                <br />
+                become <span className="text-[#52aafc]">catalysts</span>
+                <br />
+                for change.
+              </h2>
+              <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
+                From the gods of Olympus to modern high-performing athletes —
+                HERO uncovers the timeless archetype of the hero-athlete,
+                exploring how mythical warriors evolved into modern icons
+                shaping culture and society.
+              </p>
+              <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
+                "The hero of today doesn't slay the dragon —<br />
+                they inspire us to face it together."
+              </blockquote>
+              <div className="mb-10 space-y-0">
+                {[
+                  [
+                    "1 — Origin of the Hero",
+                    "Cave art, myth, Gilgamesh, Ancient Olympics",
+                  ],
+                  [
+                    "2 — Super Humans",
+                    "The rise of modern sport as ritual revival",
+                  ],
+                  [
+                    "3 — The New Olympian",
+                    "Athletes changing humanity through activism",
+                  ],
+                  [
+                    "4 — Beyond the Arena",
+                    "Social justice, education, mental health",
+                  ],
+                ].map(([ep, desc]) => (
+                  <div
+                    key={ep}
+                    className="border-b border-[#092866]/8 py-4 last:border-b-0"
+                  >
+                    <span className="font-[family-name:var(--font-barlow)] block text-[13px] font-bold uppercase text-[#092866]">
+                      {ep}
+                    </span>
+                    <span className="mt-0.5 block text-[12px] font-light text-[#092866]/42">
+                      {desc}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={openModal}
+                className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
+              >
+                Join the HERO waitlist
+              </button>
+            </div>
+          </div>
 
-          {/* right — filmed list on white */}
           <div
             className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12"
             style={{ transitionDelay: "130ms" }}
@@ -586,7 +744,7 @@ export default function ForAthletesPage() {
               Already filmed
             </div>
             <div className="space-y-0">
-              {FILMED.map((a, i) => (
+              {FILMED.map((a) => (
                 <div
                   key={a.name}
                   className="filmed-row group py-7 last:border-b-0"
@@ -625,8 +783,7 @@ export default function ForAthletesPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          4. TOOLS — f0f5fd bg, horizontal cards with number
-             each card has its own accent treatment
+          4. TOOLS
       ══════════════════════════════════════════════════════ */}
       <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -661,11 +818,9 @@ export default function ForAthletesPage() {
               style={{ transitionDelay: `${i * 110}ms` }}
             >
               <div className="bar absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
-              {/* ghost number */}
               <div className="absolute right-5 top-4 font-(family-name:--font-barlow) text-[90px] font-extrabold leading-none text-[#092866]/5 select-none">
                 {String(i + 1).padStart(2, "0")}
               </div>
-              {/* photo placeholder */}
               <div className="ph flex h-50 w-full items-center justify-center">
                 <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.3em] text-[#092866]/30">
                   Photo coming soon
@@ -691,10 +846,9 @@ export default function ForAthletesPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          5. CTA — navy, full bleed, unique from homepage CTA
+          5. CTA
       ══════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-[#ffffff] px-6 py-32 md:px-12 lg:px-20">
-        {/* background glow */}
         <div
           className="pointer-events-none absolute right-0 top-0 h-full w-[40%]"
           style={{
@@ -702,22 +856,17 @@ export default function ForAthletesPage() {
               "radial-gradient(ellipse at 80% 50%,rgba(9,40,102,.08) 0%,transparent 65%)",
           }}
         />
-
-        {/* corner accents */}
         <div className="pointer-events-none absolute left-8 top-8 h-18 w-18 border-l-2 border-t-2 border-[#092866]/12" />
         <div className="pointer-events-none absolute bottom-8 right-8 h-18 w-18 border-b-2 border-r-2 border-[#092866]/12" />
 
         <div className="relative z-10 grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-          {/* left */}
           <div>
             <div className="mb-5 inline-flex items-center gap-3">
               <span className="h-0.5 w-8 bg-[#52aafc]" />
-
               <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                 Ready?
               </span>
             </div>
-
             <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(40px,5.5vw,88px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
               Your story
               <br />
@@ -725,21 +874,16 @@ export default function ForAthletesPage() {
               <br />
               <span
                 className="text-[#52aafc]"
-                style={{
-                  textShadow: "0 0 40px rgba(82,170,252,.25)",
-                }}
+                style={{ textShadow: "0 0 40px rgba(82,170,252,.25)" }}
               >
                 here.
               </span>
             </h2>
-
             <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/55">
               Whether you're an athlete chasing your next chapter or a brand
               looking to align with something real.
             </p>
           </div>
-
-          {/* right */}
           <div className="flex flex-col gap-4">
             <button
               onClick={openModal}
@@ -747,7 +891,6 @@ export default function ForAthletesPage() {
             >
               Get Involved →
             </button>
-
             <Link
               href="/brands"
               className="inline-flex items-center justify-center gap-2 border border-[#092866]/15 bg-transparent px-10 py-5 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-widest text-[#092866] transition-all hover:border-[#52aafc] hover:text-[#52aafc]"
@@ -757,233 +900,272 @@ export default function ForAthletesPage() {
           </div>
         </div>
       </section>
+
       <Footer />
 
       {/* ── MODAL ─────────────────────────────────────────────────────────── */}
       {modalOpen && (
+  <div
+    className="fixed inset-0 z-[200] flex items-center justify-center bg-[#092866]/80 px-4 backdrop-blur-sm"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) closeModal();
+    }}
+    style={{ animation: "fade .2s ease both" }}
+  >
+    <div
+      className="relative flex max-h-[90vh] w-full max-w-lg flex-col bg-white"
+      style={{ animation: "slide-up .3s ease both" }}
+    >
+      {/* progress bar */}
+      <div className="h-[3px] w-full shrink-0 bg-[#092866]/8">
         <div
-          className="fixed inset-0 z-200 flex items-center justify-center bg-[#092866]/80 px-4 backdrop-blur-sm"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) closeModal();
+          className="h-full bg-[#52aafc] transition-all duration-500"
+          style={{
+            width: submitted
+              ? "100%"
+              : `${(step / FORM_STEPS.length) * 100}%`,
           }}
-          style={{ animation: "fade .2s ease both" }}
-        >
-          <div
-            className="relative w-full max-w-lg bg-white"
-            style={{ animation: "slide-up .3s ease both" }}
-          >
-            {/* progress bar */}
-            <div className="h-0.75 w-full bg-[#092866]/8">
-              <div
-                className="h-full bg-[#52aafc] transition-all duration-500"
-                style={{
-                  width: submitted
-                    ? "100%"
-                    : `${(step / FORM_STEPS.length) * 100}%`,
-                }}
-              />
-            </div>
+        />
+      </div>
 
-            {/* close */}
-            <button
-              onClick={closeModal}
-              aria-label="Close"
-              className="absolute right-4 top-4 text-[#092866]/30 transition-colors hover:text-[#092866]"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      {/* close */}
+      <button
+        onClick={closeModal}
+        aria-label="Close"
+        className="absolute right-4 top-4 text-[#092866]/30 transition-colors hover:text-[#092866]"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M4 4l12 12M16 4L4 16"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+
+      {/* scrollable body */}
+      <div className="overflow-y-auto px-8 py-8">
+        {submitted ? (
+          <div className="py-8 text-center">
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center bg-[#52aafc]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
-                  d="M4 4l12 12M16 4L4 16"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
+                  d="M5 12l5 5L19 7"
+                  stroke="#092866"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
-            </button>
-
-            <div className="px-8 py-8">
-              {submitted ? (
-                <div className="py-8 text-center">
-                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center bg-[#52aafc]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M5 12l5 5L19 7"
-                        stroke="#092866"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-(family-name:--font-barlow) mb-3 text-[28px] font-extrabold uppercase text-[#092866]">
-                    You're in.
-                  </h3>
-                  <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">
-                    We'll be in touch soon. Welcome to the Athletes Elevated
-                    community.
-                  </p>
-                  <button
-                    onClick={closeModal}
-                    className="mt-8 inline-flex items-center gap-2 bg-[#092866] px-8 py-3.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white transition-all hover:bg-[#0d3a8c]"
-                  >
-                    Close
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <div className="mb-6 flex items-center gap-2">
-                    {FORM_STEPS.map((s) => (
-                      <div
-                        key={s.step}
-                        className={`h-0.5 flex-1 transition-colors duration-300 ${
-                          s.step <= step ? "bg-[#52aafc]" : "bg-[#092866]/10"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">
-                    Step {step} of {FORM_STEPS.length}
-                  </span>
-                  <h3 className="font-(family-name:--font-barlow) mb-6 text-[26px] font-extrabold uppercase text-[#092866]">
-                    {currentStep.heading}
-                  </h3>
-
-                  <div className="space-y-5">
-                    {currentStep.fields.map((field) => {
-                      if (field.type === "select")
-                        return (
-                          <div key={field.id}>
-                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
-                              {field.label}
-                            </label>
-                            <select
-                              className="w-full border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#092866] outline-none focus:border-[#52aafc]"
-                              value={(formData[field.id] as string) ?? ""}
-                              onChange={(e) =>
-                                handleField(field.id, e.target.value)
-                              }
-                            >
-                              <option value="">Select...</option>
-                              {field.options?.map((o) => (
-                                <option key={o} value={o}>
-                                  {o}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        );
-                      if (field.type === "textarea")
-                        return (
-                          <div key={field.id}>
-                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
-                              {field.label}
-                            </label>
-                            <textarea
-                              rows={3}
-                              className="w-full resize-none border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#092866] outline-none focus:border-[#52aafc]"
-                              placeholder={field.placeholder}
-                              value={(formData[field.id] as string) ?? ""}
-                              onChange={(e) =>
-                                handleField(field.id, e.target.value)
-                              }
-                            />
-                          </div>
-                        );
-                      if (field.type === "multicheck") {
-                        const selected = (formData[field.id] as string[]) ?? [];
-                        return (
-                          <div key={field.id}>
-                            <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
-                              {field.label}
-                            </label>
-                            <div className="grid grid-cols-2 gap-2">
-                              {field.options?.map((opt) => {
-                                const checked = selected.includes(opt);
-                                return (
-                                  <button
-                                    key={opt}
-                                    type="button"
-                                    onClick={() =>
-                                      handleMultiCheck(field.id, opt)
-                                    }
-                                    className={`flex items-center gap-2.5 border px-3.5 py-2.5 text-left text-[12px] font-medium transition-all ${
-                                      checked
-                                        ? "border-[#52aafc] bg-[#52aafc]/8 text-[#092866]"
-                                        : "border-[#092866]/12 text-[#092866]/50 hover:border-[#52aafc]/50"
-                                    }`}
-                                  >
-                                    <span
-                                      className={`h-3.5 w-3.5 shrink-0 border transition-colors ${
-                                        checked
-                                          ? "border-[#52aafc] bg-[#52aafc]"
-                                          : "border-[#092866]/30"
-                                      }`}
-                                    >
-                                      {checked && (
-                                        <svg
-                                          viewBox="0 0 10 10"
-                                          fill="none"
-                                          className="h-full w-full p-px"
-                                        >
-                                          <path
-                                            d="M1.5 5l2.5 2.5 4.5-4.5"
-                                            stroke="#fff"
-                                            strokeWidth="1.5"
-                                            strokeLinecap="round"
-                                          />
-                                        </svg>
-                                      )}
-                                    </span>
-                                    {opt}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      }
-                      return (
-                        <div key={field.id}>
-                          <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
-                            {field.label}
-                          </label>
-                          <input
-                            type={field.type}
-                            className="w-full border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#092866] outline-none focus:border-[#52aafc]"
-                            placeholder={field.placeholder}
-                            value={(formData[field.id] as string) ?? ""}
-                            onChange={(e) =>
-                              handleField(field.id, e.target.value)
-                            }
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="mt-8 flex items-center justify-between">
-                    {step > 1 ? (
-                      <button
-                        onClick={() => setStep(step - 1)}
-                        className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/38 hover:text-[#092866]"
-                      >
-                        ← Back
-                      </button>
-                    ) : (
-                      <span />
-                    )}
-                    <button
-                      onClick={handleNext}
-                      className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.12em]"
-                    >
-                      {step === FORM_STEPS.length ? "Submit" : "Next →"}
-                    </button>
-                  </div>
-                </>
-              )}
             </div>
+
+            <h3 className="font-(family-name:--font-barlow) mb-3 text-[28px] font-extrabold uppercase text-[#092866]">
+              You're in.
+            </h3>
+
+            <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">
+              We'll be in touch soon.
+            </p>
+
+            <button
+              onClick={closeModal}
+              className="mt-8 inline-flex items-center gap-2 bg-[#092866] px-8 py-3.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white transition-all hover:bg-[#0d3a8c]"
+            >
+              Close
+            </button>
           </div>
-        </div>
-      )}
+        ) : (
+          <>
+            {/* step dots */}
+            <div className="mb-6 flex items-center gap-2">
+              {FORM_STEPS.map((s) => (
+                <div
+                  key={s.step}
+                  className={`h-[2px] flex-1 transition-colors duration-300 ${
+                    s.step <= step ? "bg-[#52aafc]" : "bg-[#092866]/10"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">
+              Step {step} of {FORM_STEPS.length}
+            </span>
+
+            <h3 className="font-(family-name:--font-barlow) mb-6 text-[26px] font-extrabold uppercase text-[#092866]">
+              {currentStep.heading}
+            </h3>
+
+            <div className="space-y-5">
+              {currentStep.fields.map((field) => {
+                if (field.type === "select")
+                  return (
+                    <div key={field.id}>
+                      <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                        {field.label}
+                        {field.required && (
+                          <span className="ml-1 text-[#52aafc]">*</span>
+                        )}
+                      </label>
+
+                      <select
+                        required={field.required}
+                        className="w-full border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#092866] outline-none focus:border-[#52aafc]"
+                        value={(formData[field.id] as string) ?? ""}
+                        onChange={(e) =>
+                          handleField(field.id, e.target.value)
+                        }
+                      >
+                        <option value="">Select...</option>
+                        {field.options?.map((o) => (
+                          <option key={o} value={o}>
+                            {o}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+
+                if (field.type === "textarea")
+                  return (
+                    <div key={field.id}>
+                      <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                        {field.label}
+                        {field.required && (
+                          <span className="ml-1 text-[#52aafc]">*</span>
+                        )}
+                      </label>
+
+                      <textarea
+                        rows={4}
+                        required={field.required}
+                        className="w-full resize-none border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#506ba0] outline-none focus:border-[#52aafc]"
+                        placeholder={field.placeholder}
+                        value={(formData[field.id] as string) ?? ""}
+                        onChange={(e) =>
+                          handleField(field.id, e.target.value)
+                        }
+                      />
+
+                      {field.helperText && (
+                        <p className="mt-2 text-[12px] leading-relaxed text-[#092866]/25 italic">
+                          {field.helperText}
+                        </p>
+                      )}
+                    </div>
+                  );
+
+                if (field.type === "multicheck") {
+                  const selected = (formData[field.id] as string[]) ?? [];
+
+                  return (
+                    <div key={field.id}>
+                      <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                        {field.label}
+                        {field.required && (
+                          <span className="ml-1 text-[#52aafc]">*</span>
+                        )}
+                      </label>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        {field.options?.map((opt) => {
+                          const checked = selected.includes(opt);
+
+                          return (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() =>
+                                handleMultiCheck(field.id, opt)
+                              }
+                              className={`flex items-center gap-2.5 border px-3.5 py-2.5 text-left text-[12px] font-medium transition-all ${
+                                checked
+                                  ? "border-[#52aafc] bg-[#52aafc]/8 text-[#092866]"
+                                  : "border-[#092866]/12 text-[#092866]/50 hover:border-[#52aafc]/50"
+                              }`}
+                            >
+                              <span
+                                className={`h-3.5 w-3.5 shrink-0 border transition-colors ${
+                                  checked
+                                    ? "border-[#52aafc] bg-[#52aafc]"
+                                    : "border-[#092866]/30"
+                                }`}
+                              >
+                                {checked && (
+                                  <svg
+                                    viewBox="0 0 10 10"
+                                    fill="none"
+                                    className="h-full w-full p-px"
+                                  >
+                                    <path
+                                      d="M1.5 5l2.5 2.5 4.5-4.5"
+                                      stroke="#fff"
+                                      strokeWidth="1.5"
+                                      strokeLinecap="round"
+                                    />
+                                  </svg>
+                                )}
+                              </span>
+
+                              {opt}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={field.id}>
+                    <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                      {field.label}
+                      {field.required && (
+                        <span className="ml-1 text-[#52aafc]">*</span>
+                      )}
+                    </label>
+
+                    <input
+                      type={field.type}
+                      required={field.required}
+                      className="w-full border border-[#092866]/15 bg-white px-4 py-3 text-[14px] font-light text-[#092866] outline-none focus:border-[#52aafc]"
+                      placeholder={field.placeholder}
+                      value={(formData[field.id] as string) ?? ""}
+                      onChange={(e) =>
+                        handleField(field.id, e.target.value)
+                      }
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 flex items-center justify-between">
+              {step > 1 ? (
+                <button
+                  onClick={() => setStep(step - 1)}
+                  className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/38 hover:text-[#092866]"
+                >
+                  ← Back
+                </button>
+              ) : (
+                <span />
+              )}
+
+              <button
+                onClick={handleNext}
+                className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.12em]"
+              >
+                {step === FORM_STEPS.length ? "Submit" : "Next →"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
