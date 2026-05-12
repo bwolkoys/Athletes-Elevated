@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import Navbar from "./src/components/navBar";
 import Footer from "./src/components/footer";
 
@@ -887,6 +888,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Analytics />
 
       {/* ═══ FOOTER ══════════════════════════════════════════════════════════ */}
       <Footer />
