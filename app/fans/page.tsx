@@ -8,7 +8,7 @@ import Footer from '../src/components/footer';
  
 const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['400','600','700','800'], variable: '--font-barlow' });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['300','400','500','600'], variable: '--font-montserrat' });
-
+ 
 const CYCLING_WORDS = [];
  
 const REASONS = [
@@ -35,7 +35,7 @@ const REASONS = [
 const FILMED = [
   { name: 'Steve Young',     sport: 'NFL — QB',          detail: 'Hall of Fame · 2× Super Bowl Champion' },
   { name: 'Jerry Rice',      sport: 'NFL — WR',          detail: 'Greatest receiver in NFL history' },
-  { name: 'Sir Nick Faldo',      sport: 'Golf',              detail: '6× Major Champion · Ryder Cup Legend' },
+  { name: 'Sir Nick Faldo',  sport: 'Golf',              detail: '6× Major Champion · Ryder Cup Legend' },
   { name: 'Picabo Street',   sport: 'Ski Racing',        detail: 'Olympic Gold · 1998 Nagano' },
   { name: 'West Ham United', sport: 'Premier League',    detail: '3× FA Cup · European Cup Winners Cup' },
 ];
@@ -58,6 +58,8 @@ export default function ForFansPage() {
   const [wordIndex, setWordIndex]     = useState(0);
   const [wordVisible, setWordVisible] = useState(true);
   const [email, setEmail]             = useState('');
+  const [firstName, setFirstName]     = useState('');
+  const [lastName, setLastName]       = useState('');
   const [subscribed, setSubscribed]   = useState(false);
   const [activeFilmed, setActiveFilmed] = useState(0);
  
@@ -81,9 +83,32 @@ export default function ForFansPage() {
     return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); clearInterval(cycle); };
   }, []);
  
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubscribed(true);
+  
+    const response = await fetch("/api/fans", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+      }),
+    });
+  
+    if (!response.ok) {
+      alert("Something went wrong");
+      return;
+    }
+  
+    setSubscribed(true);
+  
+    // optional reset
+    setFirstName("");
+    setLastName("");
+    setEmail("");
   };
  
   return (
@@ -141,32 +166,21 @@ export default function ForFansPage() {
         .ph { background:linear-gradient(135deg,#daeeff 0%,#b8d8f8 45%,#8fc0f2 100%); }
       `}</style>
  
-      {/* ── NAV ─────────────────────────────────────────────────────────── */}
       <Navbar />
  
-      {/* ══════════════════════════════════════════════════════════════════
-          1. HERO — light, full viewport, cycling headline
-      ══════════════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-white pt-[68px]">
- 
-        {/* spinning rings */}
         <div className="pointer-events-none absolute -right-52 -top-52 h-[700px] w-[700px] rounded-full border border-[#52aafc]/10"
           style={{animation:'spin 55s linear infinite'}} />
         <div className="pointer-events-none absolute -right-28 -top-28 h-[440px] w-[440px] rounded-full border border-[#092866]/[.05]"
           style={{animation:'spin 80s linear infinite reverse'}} />
- 
-        {/* diagonal blue wash */}
         <div className="pointer-events-none absolute right-0 top-0 h-[60vh] w-[46vw]"
           style={{background:'linear-gradient(215deg,#daeeff 0%,#c0d9f7 55%,transparent 100%)',clipPath:'polygon(100% 0,100% 100%,26% 100%,0 0)'}} />
- 
-        {/* copy */}
         <div className="relative z-10 flex flex-1 flex-col justify-center px-6 pt-14 md:px-12 lg:px-20">
           <div className="mb-7 flex items-center gap-3"
             style={{animation:loaded?'slide-up .6s ease .1s both':'none',opacity:loaded?undefined:0}}>
             <span className="h-[2px] w-10 bg-[#52aafc]" />
             <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">For Fans</span>
           </div>
- 
           <h1 className="font-[family-name:var(--font-barlow)] text-[clamp(58px,11vw,152px)] font-extrabold uppercase leading-[0.85] tracking-[-0.01em] text-[#092866]">
             <div className="ww block">
               <span className="w" style={{animationDelay:loaded?'.12s':'999s'}}>For</span>
@@ -177,9 +191,7 @@ export default function ForFansPage() {
             <div className="ww block">
               <span className="w text-[#52aafc]" style={{animationDelay:loaded?'.38s':'999s'}}>Fans.</span>
             </div>
-            {/* cycling word */}
           </h1>
- 
           <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <p className="max-w-[440px] text-[16px] font-light leading-[1.85] text-[#092866]/48"
               style={{animation:loaded?'slide-up .7s ease .78s both':'none',opacity:loaded?undefined:0}}>
@@ -198,8 +210,6 @@ export default function ForFansPage() {
             </div>
           </div>
         </div>
- 
-        {/* floating photo placeholders */}
         <div className="pointer-events-none absolute bottom-28 right-8 hidden flex-col gap-4 lg:flex"
           style={{animation:loaded?'fade .9s ease .65s both':'none',opacity:loaded?undefined:0}}>
           <div className="ph h-[190px] w-[150px] rounded-sm" style={{animation:'float 5s ease-in-out infinite'}} />
@@ -209,8 +219,6 @@ export default function ForFansPage() {
           style={{animation:loaded?'fade .9s ease .82s both':'none',opacity:loaded?undefined:0}}>
           <div className="ph h-[108px] w-[172px] rounded-sm opacity-40" style={{animation:'float 7s ease-in-out .5s infinite'}} />
         </div>
- 
-        {/* stat strip */}
         <div className="relative z-10 grid grid-cols-2 border-t border-[#092866]/8 md:grid-cols-4"
           style={{animation:loaded?'fade .8s ease 1.05s both':'none',opacity:loaded?undefined:0}}>
           {[
@@ -227,7 +235,6 @@ export default function ForFansPage() {
         </div>
       </section>
  
-      {/* MARQUEE */}
       <div className="overflow-hidden bg-[#52aafc] py-[13px]">
         <div className="flex whitespace-nowrap" style={{animation:'marquee 24s linear infinite',width:'max-content'}}>
           {['For The Fans','HERO Documentary','Athletes Elevated','Community','Follow Along','Impact','Real Stories','The Movement',
@@ -240,9 +247,6 @@ export default function ForFansPage() {
         </div>
       </div>
  
-      {/* ══════════════════════════════════════════════════════════════════
-          2. WHY FOLLOW — white, numbered rows
-      ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-20">
           <div className="mb-4 inline-flex items-center gap-3">
@@ -253,7 +257,6 @@ export default function ForFansPage() {
             You're not just<br />a fan. You're<br /><span className="text-[#52aafc]">part of this.</span>
           </h2>
         </div>
- 
         <div className="space-y-0 border-t border-[#092866]/8">
           {REASONS.map((r, i) => (
             <div key={r.n}
@@ -272,77 +275,40 @@ export default function ForFansPage() {
         </div>
       </section>
  
-      {/* ══════════════════════════════════════════════════════════════════
-          3. HERO DOC — f0f5fd left / white right, fan angle
-      ══════════════════════════════════════════════════════════════════ */}
       <section className="overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2">
- 
-          {/* left — cinematic copy */}
           <div className="relative flex flex-col justify-end overflow-hidden bg-white px-8 py-20 md:px-16">
-
-  {/* background word */}
-  <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[22vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[12vw]">
-    HERO
-  </div>
-
-  <div className="relative z-10">
-
-    {/* label */}
-    <div className="mb-4 inline-flex items-center gap-3">
-
-      <span className="h-[2px] w-8 bg-[#52aafc]" />
-
-      <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-        Documentary · January 2027
-      </span>
-
-    </div>
-
-    {/* title */}
-    <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
-      More than
-      <br />
-      a documentary.
-      <br />
-    </h2>
-
-    {/* paragraph */}
-    <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/55">
-      HERO explores the evolving role athletes play in culture today —
-      from competition and leadership to influence, identity, and impact
-      beyond the game.
-    </p>
-
-    {/* quote */}
-    <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
-      "Athletes shape far more than the scoreboard."
-    </blockquote>
-
-    {/* buttons */}
-    <div className="flex flex-wrap gap-3">
-
-      <Link
-        href="#newsletter"
-        className="inline-flex items-center gap-2 bg-[#092866] px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
-      >
-        Join the waitlist
-      </Link>
-
-      {/* <Link
-        href="/ecosystem"
-        className="inline-flex items-center gap-2 border border-[#092866]/12 px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-[#092866] transition-all hover:border-[#52aafc] hover:text-[#52aafc]"
-      >
-        Learn more →
-      </Link> */}
-
-    </div>
-
-  </div>
-
-</div>
- 
-          {/* right — filmed athletes */}
+            <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[22vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[12vw]">
+              HERO
+            </div>
+            <div className="relative z-10">
+              <div className="mb-4 inline-flex items-center gap-3">
+                <span className="h-[2px] w-8 bg-[#52aafc]" />
+                <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+                  Documentary · January 2027
+                </span>
+              </div>
+              <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.90] text-[#092866]">
+                More than<br />a documentary.<br />
+              </h2>
+              <p className="mb-6 max-w-[440px] text-[15px] font-light leading-[1.88] text-[#092866]/55">
+                HERO explores the evolving role athletes play in culture today —
+                from competition and leadership to influence, identity, and impact
+                beyond the game.
+              </p>
+              <blockquote className="mb-8 border-l-[2px] border-[#52aafc] pl-6 text-[16px] font-light italic text-[#092866]/55">
+                "Athletes shape far more than the scoreboard."
+              </blockquote>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="#newsletter"
+                  className="inline-flex items-center gap-2 bg-[#092866] px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
+                >
+                  Join the waitlist
+                </Link>
+              </div>
+            </div>
+          </div>
           <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12" style={{transitionDelay:'130ms'}}>
             <div className="mb-7 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">Already filmed</div>
             {FILMED.map((a, i) => (
@@ -370,9 +336,6 @@ export default function ForFansPage() {
         </div>
       </section>
  
-      {/* ══════════════════════════════════════════════════════════════════
-          4. THE MOVEMENT — f0f5fd, big stats + impact angle
-      ══════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
           <div>
@@ -393,8 +356,6 @@ export default function ForFansPage() {
             </p>
           </div>
         </div>
- 
-        {/* stat grid */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
             { v:'3', l:'Nonprofits supported', sub:'100% of donations pass-through' },
@@ -409,8 +370,6 @@ export default function ForFansPage() {
             </div>
           ))}
         </div>
- 
-        {/* nonprofit donate strip */}
         <div className="sr mt-10 border-t border-[#092866]/8 pt-10" style={{transitionDelay:'320ms'}}>
           <div className="mb-6 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#092866]/40">
             Support the nonprofits we champion — 100% of donations go directly to them
@@ -426,9 +385,6 @@ export default function ForFansPage() {
         </div>
       </section>
  
-      {/* ══════════════════════════════════════════════════════════════════
-          5. SOCIAL — white, 4 platform cards
-      ══════════════════════════════════════════════════════════════════ */}
       <section id="social" className="bg-white px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -444,26 +400,21 @@ export default function ForFansPage() {
             Follow, share, and stay connected. Every platform has its own flavour of AE content — find the one that fits you.
           </p>
         </div>
- 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SOCIALS.map((s, i) => (
             <a key={s.platform} href={s.href} target="_blank" rel="noreferrer"
               className="social-card sr relative overflow-hidden bg-white p-8"
               style={{transitionDelay:`${i*80}ms`}}>
               <div className="sc-bar absolute left-0 top-0 h-[3px] w-full" style={{background:s.color}} />
- 
-              {/* platform icon placeholder circle */}
               <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full"
                 style={{background:s.bg}}>
                 <span className="font-[family-name:var(--font-barlow)] text-[11px] font-extrabold uppercase" style={{color:s.color}}>
                   {s.platform.charAt(0)}
                 </span>
               </div>
- 
               <h3 className="font-[family-name:var(--font-barlow)] mb-1 text-[22px] font-extrabold uppercase text-[#092866]">{s.platform}</h3>
               <div className="mb-3 text-[11px] font-semibold text-[#092866]/40">{s.handle}</div>
               <p className="mb-6 text-[13px] font-light leading-[1.75] text-[#092866]/48">{s.desc}</p>
- 
               <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#52aafc]">
                 Follow <span className="sc-arrow">→</span>
               </div>
@@ -472,117 +423,102 @@ export default function ForFansPage() {
         </div>
       </section>
  
-      {/* ══════════════════════════════════════════════════════════════════
-          6. NEWSLETTER — navy, full email signup
-      ══════════════════════════════════════════════════════════════════ */}
       <section
-  id="newsletter"
-  className="relative overflow-hidden bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20"
->
-
-  {/* glow orb */}
-  <div
-    className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-    style={{
-      background:
-        "radial-gradient(circle,rgba(9,40,102,.08) 0%,transparent 65%)",
-      animation: "glow-orb 8s ease-in-out infinite",
-    }}
-  />
-
-  {/* corner brackets */}
-  <div className="pointer-events-none absolute left-8 top-8 h-[72px] w-[72px] border-l-2 border-t-2 border-[#092866]/12" />
-  <div className="pointer-events-none absolute bottom-8 right-8 h-[72px] w-[72px] border-b-2 border-r-2 border-[#092866]/12" />
-
-  <div className="relative z-10 mx-auto max-w-[700px] text-center">
-
-    <div className="mb-6 inline-flex items-center gap-4">
-      <span className="h-[1px] w-12 bg-[#092866]/20" />
-
-      <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]">
-        Stay Connected
-      </span>
-
-      <span className="h-[1px] w-12 bg-[#092866]/20" />
-    </div>
-
-    <h2 className="font-[family-name:var(--font-barlow)] mb-4 text-[clamp(40px,6vw,90px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
-      Be the first
-      <br />
-      to{" "}
-      <span
-        className="text-[#52aafc]"
-        style={{
-          textShadow: "0 0 30px rgba(82,170,252,.18)",
-        }}
+        id="newsletter"
+        className="relative overflow-hidden bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20"
       >
-        know.
-      </span>
-    </h2>
-
-    <p className="mx-auto mb-12 max-w-[420px] text-[16px] font-light leading-[1.82] text-[#092866]/50">
-      HERO updates. Athlete stories. Community moments. New ecosystem
-      launches. All delivered straight to you before anyone else.
-    </p>
-
-    {subscribed ? (
-      <div className="mx-auto max-w-[460px]">
-
-        <div className="flex items-center justify-center gap-3 rounded-sm border border-[#52aafc]/25 bg-[#52aafc]/8 px-8 py-6">
-
-          <div className="flex h-8 w-8 items-center justify-center bg-[#52aafc]">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M3 8l3.5 3.5 6.5-7"
-                stroke="#092866"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <span className="font-[family-name:var(--font-barlow)] text-[16px] font-bold uppercase tracking-[0.1em] text-[#092866]">
-            You're on the list!
-          </span>
-
-        </div>
-
-      </div>
-    ) : (
-      <form
-        onSubmit={handleSubscribe}
-        className="mx-auto flex max-w-[500px] flex-col gap-3 sm:flex-row"
-      >
-
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email address"
-          className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]"
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background: "radial-gradient(circle,rgba(9,40,102,.08) 0%,transparent 65%)",
+            animation: "glow-orb 8s ease-in-out infinite",
+          }}
         />
-
-        <button
-          type="submit"
-          className="shrink-0 bg-[#092866] px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
-        >
-          Join the List
-        </button>
-
-      </form>
-    )}
-
-    <p className="mt-6 text-[11px] font-light text-[#092866]/35">
-      No spam. Just the good stuff. Unsubscribe anytime.
-    </p>
-
-  </div>
-
-</section>
+        <div className="pointer-events-none absolute left-8 top-8 h-[72px] w-[72px] border-l-2 border-t-2 border-[#092866]/12" />
+        <div className="pointer-events-none absolute bottom-8 right-8 h-[72px] w-[72px] border-b-2 border-r-2 border-[#092866]/12" />
  
-      {/* ── FOOTER ──────────────────────────────────────────────────────── */}
+        <div className="relative z-10 mx-auto max-w-[700px] text-center">
+          <div className="mb-6 inline-flex items-center gap-4">
+            <span className="h-[1px] w-12 bg-[#092866]/20" />
+            <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]">
+              Stay Connected
+            </span>
+            <span className="h-[1px] w-12 bg-[#092866]/20" />
+          </div>
+ 
+          <h2 className="font-[family-name:var(--font-barlow)] mb-4 text-[clamp(40px,6vw,90px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
+            Be the first<br />to{" "}
+            <span className="text-[#52aafc]" style={{ textShadow: "0 0 30px rgba(82,170,252,.18)" }}>
+              know.
+            </span>
+          </h2>
+ 
+          <p className="mx-auto mb-12 max-w-[420px] text-[16px] font-light leading-[1.82] text-[#092866]/50">
+            HERO updates. Athlete stories. Community moments. New ecosystem
+            launches. All delivered straight to you before anyone else.
+          </p>
+ 
+          {subscribed ? (
+            <div className="mx-auto max-w-[460px]">
+              <div className="flex items-center justify-center gap-3 rounded-sm border border-[#52aafc]/25 bg-[#52aafc]/8 px-8 py-6">
+                <div className="flex h-8 w-8 items-center justify-center bg-[#52aafc]">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8l3.5 3.5 6.5-7" stroke="#092866" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <span className="font-[family-name:var(--font-barlow)] text-[16px] font-bold uppercase tracking-[0.1em] text-[#092866]">
+                  You're on the list!
+                </span>
+              </div>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubscribe}
+              className="mx-auto flex max-w-[500px] flex-col gap-3"
+            >
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First name"
+                  className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]"
+                />
+                <input
+                  type="text"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Last name"
+                  className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]"
+                />
+              </div>
+              <div className="flex gap-3">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 bg-[#092866] px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
+                >
+                  Join the List
+                </button>
+              </div>
+            </form>
+          )}
+ 
+          <p className="mt-6 text-[11px] font-light text-[#092866]/35">
+            No spam. Just the good stuff. Unsubscribe anytime.
+          </p>
+        </div>
+      </section>
+ 
       <Footer />
     </div>
   );
