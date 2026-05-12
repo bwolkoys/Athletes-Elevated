@@ -199,10 +199,10 @@ export default function ForFansPage() {
             </p>
             <div className="flex flex-wrap gap-3"
               style={{animation:loaded?'slide-up .65s ease .94s both':'none',opacity:loaded?undefined:0}}>
-              <Link href="#social"
+              {/* <Link href="#social"
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
                 Follow Us →
-              </Link>
+              </Link> */}
               <Link href="#newsletter"
                 className="btn-ghost inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]">
                 Join the List ↓
@@ -246,8 +246,10 @@ export default function ForFansPage() {
           ))}
         </div>
       </div>
- 
-      <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
+
+
+ {/* Why follow AE section */}
+      <section className="bg-white px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-20">
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="h-[2px] w-8 bg-[#52aafc]" />
@@ -274,10 +276,12 @@ export default function ForFansPage() {
           ))}
         </div>
       </section>
- 
+
+
+ {/* Hero Section */}
       <section className="overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative flex flex-col justify-end overflow-hidden bg-white px-8 py-20 md:px-16">
+          <div className="relative flex flex-col justify-end overflow-hidden bg-[#f0f5fd] px-8 py-20 md:px-16">
             <div className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-[family-name:var(--font-barlow)] text-[22vw] font-extrabold uppercase leading-none text-[#092866]/[.04] select-none lg:text-[12vw]">
               HERO
             </div>
@@ -304,12 +308,12 @@ export default function ForFansPage() {
                   href="#newsletter"
                   className="inline-flex items-center gap-2 bg-[#092866] px-7 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#0d347f]"
                 >
-                  Join the waitlist
+                  Join the List
                 </Link>
               </div>
             </div>
           </div>
-          <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12" style={{transitionDelay:'130ms'}}>
+          <div className="sr relative flex flex-col justify-center bg-[#f0f5fd] px-8 py-20 md:px-12" style={{transitionDelay:'130ms'}}>
             <div className="mb-7 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">Already filmed</div>
             {FILMED.map((a, i) => (
               <button key={a.name} onClick={() => setActiveFilmed(i)}
@@ -335,7 +339,91 @@ export default function ForFansPage() {
           </div>
         </div>
       </section>
- 
+
+
+
+      {/* Fantasy Track and Field Section */}
+      <section className="bg-white px-6 py-32 md:px-12 lg:px-20">
+  <div className="sr grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+    <div>
+      <div className="mb-4 inline-flex items-center gap-3">
+        <span className="h-[2px] w-8 bg-[#52aafc]" />
+        <span className="font-[family-name:var(--font-barlow)] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+          Fantasy Track & Field
+        </span>
+      </div>
+
+      <h2 className="font-[family-name:var(--font-barlow)] mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
+        Play the
+        <br />
+        season.
+        <br />
+        <span className="text-[#52aafc]">Back your team.</span>
+      </h2>
+
+      <p className="mb-8 max-w-[480px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
+        FIELDDAY turns Diamond League drama into a season-long fantasy track
+        league. Fans pick one of four pro-managed squads, follow live scoring,
+        earn captain bonuses, and compete for prizes and experiences money
+        can&apos;t buy.
+      </p>
+
+      <a
+        href="https://afieldday.netlify.app/"
+        target="_blank"
+        rel="noreferrer"
+        className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-[family-name:var(--font-barlow)] text-[13px] font-bold uppercase tracking-[0.1em]"
+      >
+        Explore FIELDDAY →
+      </a>
+    </div>
+
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {[
+        {
+          stat: "4",
+          label: "Elite Managers",
+          body: "Pick from four pro-managed squads built around world-class track and field athletes.",
+        },
+        {
+          stat: "60",
+          label: "Athletes",
+          body: "Follow athletes across sprints, distance, jumps, throws, relays, and more.",
+        },
+        {
+          stat: "DL",
+          label: "Diamond League",
+          body: "The fantasy season begins around the Rome Diamond League opener.",
+        },
+        {
+          stat: "2027",
+          label: "Mobile App",
+          body: "The full native app experience is planned for iOS and Android.",
+        },
+      ].map((item) => (
+        <div
+          key={item.label}
+          className="stat-pill bg-[#f0f5fd] p-6"
+        >
+          <div className="font-[family-name:var(--font-barlow)] text-[48px] font-extrabold leading-none text-[#52aafc]">
+            {item.stat}
+          </div>
+          <h3 className="mt-3 font-[family-name:var(--font-barlow)] text-[18px] font-bold uppercase text-[#092866]">
+            {item.label}
+          </h3>
+          <p className="mt-2 text-[12px] font-light leading-[1.75] text-[#092866]/45">
+            {item.body}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
+
+ {/* The Movement */}
       <section className="bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
           <div>
@@ -384,8 +472,10 @@ export default function ForFansPage() {
           </div>
         </div>
       </section>
- 
-      <section id="social" className="bg-white px-6 py-32 md:px-12 lg:px-20">
+
+
+ {/* Follow Along Section */}
+      {/* <section id="social" className="bg-white px-6 py-32 md:px-12 lg:px-20">
         <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
@@ -421,11 +511,11 @@ export default function ForFansPage() {
             </a>
           ))}
         </div>
-      </section>
+      </section> */}
  
       <section
         id="newsletter"
-        className="relative overflow-hidden bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20"
+        className="relative overflow-hidden bg-white px-6 py-32 md:px-12 lg:px-20"
       >
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full"
