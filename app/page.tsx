@@ -1,23 +1,69 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
+ 
+import {
+  useEffect,
+  useRef,
+  useState,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "./src/components/navBar";
 import Footer from "./src/components/footer";
-
+ 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
   variable: "--font-barlow",
 });
-
+ 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-montserrat",
 });
-
+ 
+const CYCLING_WORDS = ["ATHLETES", "COMMUNITIES", "TECHNOLOGY", "LEGACY"];
+ 
+const ECOSYSTEM = [
+  {
+    tag: "Documentary",
+    name: "HEROES",
+    sub: "Cinematic athlete stories that move culture.",
+    detail:
+      "A documentary platform built around legends, identity, leadership, and impact beyond the game.",
+  },
+  {
+    tag: "Athlete Platform",
+    name: "Athlink",
+    sub: "One link for everything an athlete needs.",
+    detail:
+      "Profiles, highlights, stats, brand discovery, and fan connection in one athlete-first hub.",
+  },
+  {
+    tag: "Youth Sports",
+    name: "Teams Elevated",
+    sub: "Helping more kids stay in the game.",
+    detail:
+      "Payments, fundraising, team communication, and community support built for youth sports.",
+  },
+  {
+    tag: "CRM + Marketing",
+    name: "Eye In Teams",
+    sub: "Relationship infrastructure for sports.",
+    detail:
+      "Email, text, calls, fan engagement, and brand communication powered through one system.",
+  },
+];
+ 
+const FILMED = [
+  "Steve Young",
+  "Jerry Rice",
+  "Sir Nick Faldo",
+  "Picabo Street",
+  "West Ham United",
+];
+ 
 const NONPROFITS = [
   {
     name: "Park City Community Foundation",
@@ -31,11 +77,11 @@ const NONPROFITS = [
   },
   {
     name: "McKenna Claire Foundation",
-    desc: "Advancing research for pediatric brain cancer — no family should face this alone.",
+    desc: "Advancing research for pediatric brain cancer.",
     href: "https://mckennaclairefoundation.org/donate/",
   },
 ];
-
+ 
 const PARTNERS = [
   "Essex Mortgage",
   "Salt Box PC",
@@ -46,45 +92,145 @@ const PARTNERS = [
   "Dos Amigos",
   "Mother's Comfort Foods",
 ];
-
-const FILMED = [
-  "Steve Young",
-  "Jerry Rice",
-  "Sir Nick Faldo",
-  "Picabo Street",
-  "West Ham United",
+ 
+const STATS = [
+  { value: 5, suffix: "", label: "Legends Filmed" },
+  { value: 4, suffix: "", label: "Ecosystem Engines" },
+  { value: 3, suffix: "+", label: "Nonprofits Supported" },
+  { value: 100, suffix: "%", label: "Pass-Through Donations" },
 ];
-
-const CYCLING_WORDS = ["COMMUNITIES", "ATHLETES", "THE FUTURE", "IMPACT"];
-
+ 
+/* ──────────────────────────────────────────────────────────────────────────
+   FLOATING PARTICLES — drifting dots for atmosphere in dark sections
+   ────────────────────────────────────────────────────────────────────────── */
+type Particle = {
+  size: number;
+  left: number;
+  top: number;
+  duration: number;
+  delay: number;
+};
+ 
+function FloatingParticles({
+  count = 24,
+  color = "rgba(82,170,252,0.5)",
+}: {
+  count?: number;
+  color?: string;
+}) {
+  const [particles, setParticles] = useState<Particle[]>([]);
+ 
+  useEffect(() => {
+    const ps: Particle[] = Array.from({ length: count }).map(() => ({
+      size: Math.random() * 2.4 + 1,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: Math.random() * 14 + 14,
+      delay: Math.random() * 10,
+    }));
+    setParticles(ps);
+  }, [count]);
+ 
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className="absolute block rounded-full"
+          style={{
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            background: color,
+            opacity: 0,
+            animation: `drift ${p.duration}s ease-in-out ${p.delay}s infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+ 
+/* ──────────────────────────────────────────────────────────────────────────
+   COUNT-UP — animates from 0 → target when scrolled into view
+   ────────────────────────────────────────────────────────────────────────── */
+function CountUp({
+  end,
+  duration = 1800,
+  suffix = "",
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}) {
+  const [value, setValue] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement | null>(null);
+ 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) setStarted(true);
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [started]);
+ 
+  useEffect(() => {
+    if (!started) return;
+    let frame = 0;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(end * eased));
+      if (t < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [started, end, duration]);
+ 
+  return (
+    <span ref={ref} className="tabular-nums">
+      {value}
+      {suffix}
+    </span>
+  );
+}
+ 
 export default function HomePage() {
-  const [scrolled, setScrolled] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [activeFilmed, setActiveFilmed] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
   const [wordVisible, setWordVisible] = useState(true);
-
+  const [activeFilmed, setActiveFilmed] = useState(0);
+  const [liveTime, setLiveTime] = useState("");
+ 
+  const heroRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-
+ 
+  /* load + scroll reveal + cycling word + video play */
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 80);
-
+    const t = setTimeout(() => setLoaded(true), 80);
+ 
     const io = new IntersectionObserver(
       (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
           }
         }),
-      { threshold: 0.05 }
+      { threshold: 0.08 }
     );
-
-    document.querySelectorAll(".sr").forEach((el) => io.observe(el));
-
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-
+    document
+      .querySelectorAll(".sr, .sr-l, .sr-r")
+      .forEach((el) => io.observe(el));
+ 
     const cycle = setInterval(() => {
       setWordVisible(false);
       setTimeout(() => {
@@ -92,306 +238,459 @@ export default function HomePage() {
         setWordVisible(true);
       }, 350);
     }, 2200);
-
+ 
     const videoObserver = new IntersectionObserver(
       ([entry]) => {
-        const video = heroVideoRef.current;
-
-        if (!video) return;
-
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
+        const v = heroVideoRef.current;
+        if (!v) return;
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
       },
       { threshold: 0.45 }
     );
-
-    if (heroVideoRef.current) {
-      videoObserver.observe(heroVideoRef.current);
-    }
-
+    if (heroVideoRef.current) videoObserver.observe(heroVideoRef.current);
+ 
     return () => {
+      clearTimeout(t);
       io.disconnect();
       videoObserver.disconnect();
-      window.removeEventListener("scroll", onScroll);
       clearInterval(cycle);
     };
   }, []);
-
+ 
+  /* live time HUD */
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      const h = d.getHours().toString().padStart(2, "0");
+      const m = d.getMinutes().toString().padStart(2, "0");
+      const s = d.getSeconds().toString().padStart(2, "0");
+      setLiveTime(`${h}:${m}:${s}`);
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+ 
+  /* mouse spotlight on hero */
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty("--mx", `${x}%`);
+      el.style.setProperty("--my", `${y}%`);
+    };
+    el.addEventListener("mousemove", onMove);
+    return () => el.removeEventListener("mousemove", onMove);
+  }, []);
+ 
+  /* card tilt */
+  const handleCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rY = (x / rect.width) * 7;
+    const rX = -(y / rect.height) * 7;
+    card.style.transform = `perspective(1200px) rotateX(${rX}deg) rotateY(${rY}deg) translateY(-6px)`;
+  };
+  const resetCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.transform = "";
+  };
+ 
   return (
     <div
-      className={`${barlow.variable} ${montserrat.variable} font-(family-name:--font-montserrat) bg-white text-[#092866] overflow-x-hidden`}
+      className={`${barlow.variable} ${montserrat.variable} bg-white font-(family-name:--font-montserrat) text-[#092866] overflow-x-hidden`}
     >
       <style>{`
-        @keyframes marquee   { to { transform: translateX(-50%); } }
-        @keyframes marquee-d { to { transform: translateX(50%); } }
-        @keyframes glow-orb  { 0%,100%{opacity:.08;transform:scale(1)} 50%{opacity:.03;transform:scale(1.12)} }
-        @keyframes word-in   { from{opacity:0;transform:translateY(115%) skewY(4deg)} to{opacity:1;transform:translateY(0) skewY(0)} }
-        @keyframes slide-up  { from{opacity:0;transform:translateY(44px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes slide-r   { from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:translateX(0)} }
-        @keyframes fade      { from{opacity:0} to{opacity:1} }
-        @keyframes count-up  { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
-        @keyframes line-grow { from{transform:scaleX(0)} to{transform:scaleX(1)} }
-        @keyframes float     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
-        @keyframes spin-ring { to{transform:rotate(360deg)} }
-        @keyframes shimmer   { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
-        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+        @keyframes marqueeReverse { to { transform: translateX(50%); } }
+        @keyframes word-in { from { opacity:0; transform:translateY(110%) skewY(4deg); } to { opacity:1; transform:translateY(0) skewY(0); } }
+        @keyframes fade { from { opacity:0; } to { opacity:1; } }
+        @keyframes slide-up { from { opacity:0; transform:translateY(44px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.35; transform:scale(.72); } }
+        @keyframes scan { 0% { transform:translateY(-100%); opacity:0; } 12% { opacity:.6; } 100% { transform:translateY(100%); opacity:0; } }
+        @keyframes drift {
+          0% { opacity:0; transform:translate(0,0) scale(1); }
+          15% { opacity:1; }
+          85% { opacity:.85; }
+          100% { opacity:0; transform:translate(28px,-80px) scale(.6); }
+        }
+        @keyframes breathe-glow {
+          0%,100% { text-shadow:0 0 60px rgba(82,170,252,.45); }
+          50% { text-shadow:0 0 120px rgba(82,170,252,.9), 0 0 30px rgba(82,170,252,.6); }
+        }
+        @keyframes arrow-bounce {
+          0%,100% { transform:translateX(0); }
+          50% { transform:translateX(6px); }
+        }
+        @keyframes shimmer-line {
+          0%,100% { box-shadow:0 0 6px rgba(82,170,252,.5); }
+          50% { box-shadow:0 0 18px rgba(82,170,252,1); }
+        }
+        @keyframes pulse-ring {
+          0% { transform:scale(1); opacity:.7; }
+          100% { transform:scale(2.4); opacity:0; }
+        }
+        @keyframes vertical-scan {
+          0% { transform:translateY(0); }
+          50% { transform:translateY(80px); }
+          100% { transform:translateY(0); }
+        }
+        @keyframes float-soft {
+          0%,100% { transform:translateY(0); }
+          50% { transform:translateY(-6px); }
+        }
  
-        .sr { opacity:0; transform:translateY(32px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
+        .sr { opacity:0; transform:translateY(34px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
         .sr.in { opacity:1; transform:translateY(0); }
-        .sr-l { opacity:0; transform:translateX(-36px); transition:opacity .8s ease, transform .8s ease; }
+        .sr-l { opacity:0; transform:translateX(-38px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
         .sr-l.in { opacity:1; transform:translateX(0); }
-        .sr-r { opacity:0; transform:translateX(36px); transition:opacity .8s ease, transform .8s ease; }
+        .sr-r { opacity:0; transform:translateX(38px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
         .sr-r.in { opacity:1; transform:translateX(0); }
  
         .ww { overflow:hidden; display:inline-block; vertical-align:bottom; }
-        .w  { display:inline-block; animation: word-in .9s cubic-bezier(.22,1,.36,1) both; }
+        .w { display:inline-block; animation:word-in .9s cubic-bezier(.22,1,.36,1) both; }
+ 
+        .accent-line {
+          display:inline-block;
+          height:2px;
+          background:#52aafc;
+          animation:shimmer-line 2.4s ease-in-out infinite;
+        }
+ 
+        .grain {
+          background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+        }
+ 
+        .tech-grid {
+          background-image:
+            linear-gradient(rgba(82,170,252,.11) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(82,170,252,.11) 1px, transparent 1px);
+          background-size: 56px 56px;
+        }
+ 
+        .spotlight {
+          background: radial-gradient(circle 420px at var(--mx,70%) var(--my,30%), rgba(82,170,252,.22), transparent 65%);
+          transition: background .15s ease;
+        }
+ 
+        .scanline {
+          position:absolute; left:0; right:0; height:140px;
+          background: linear-gradient(180deg, transparent, rgba(82,170,252,.18), transparent);
+          mix-blend-mode: screen;
+          pointer-events:none;
+          animation: scan 9s ease-in-out infinite;
+          animation-delay: 1s;
+        }
+ 
+        .marquee-track { width:max-content; }
+        .marquee-track:hover { animation-play-state:paused; }
  
         .btn-blue {
-          background:#52aafc; color:#06080f;
+          background:#52aafc;
+          color:#05070d;
           transition:transform .2s, box-shadow .2s;
+          position:relative;
         }
         .btn-blue:hover {
           transform:translateY(-2px);
-          box-shadow:0 0 40px rgba(82,170,252,.55), 0 8px 24px rgba(82,170,252,.3);
+          box-shadow:0 0 40px rgba(82,170,252,.5), 0 10px 30px rgba(82,170,252,.25);
         }
-        .btn-ghost {
-          border:1px solid rgba(82,170,252,.3); color:white;
-          transition:border-color .2s, color .2s, box-shadow .2s;
+        .btn-blue:hover .arr { animation: arrow-bounce .55s ease-in-out infinite; }
+ 
+        .btn-outline {
+          border:1px solid rgba(82,170,252,.45);
+          color:#52aafc;
+          transition:background .2s, color .2s, transform .2s;
         }
-        .btn-ghost:hover { border-color:#52aafc; color:#52aafc; box-shadow:0 0 20px rgba(82,170,252,.15); }
+        .btn-outline:hover {
+          background:#52aafc;
+          color:#05070d;
+          transform:translateY(-2px);
+        }
+        .btn-outline:hover .arr { animation: arrow-bounce .55s ease-in-out infinite; }
  
-        .eco-track { display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -ms-overflow-style:none; }
-        .eco-track::-webkit-scrollbar { display:none; }
-        .eco-item { flex:0 0 320px; scroll-snap-align:start; border:1px solid rgba(9,40,102,.1); transition:border-color .3s, transform .4s cubic-bezier(.22,1,.36,1); }
-        .eco-item:hover { border-color:rgba(82,170,252,.6); transform:translateY(-6px); }
-        .eco-item:hover .eco-bar { transform:scaleX(1); }
-        .eco-bar { transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,1,.36,1); }
+        .portal-card {
+          border:1px solid rgba(82,170,252,.18);
+          transition:transform .55s cubic-bezier(.22,1,.36,1), border-color .3s, box-shadow .3s;
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+        .portal-card:hover {
+          border-color:rgba(82,170,252,.65);
+          box-shadow:0 30px 90px rgba(9,40,102,.18);
+        }
+        .portal-card:hover .portal-line {
+          transform:scaleX(1);
+        }
+        .portal-line {
+          transform:scaleX(0);
+          transform-origin:left;
+          transition:transform .45s cubic-bezier(.22,1,.36,1);
+        }
  
-        .filmed-tab { transition:color .2s, border-color .2s; }
-        .filmed-tab.active { color:#52aafc; border-left-color:#52aafc; }
+        .filmed-tab {
+          transition:background .25s, border-color .25s, color .25s;
+        }
+        .filmed-tab.active {
+          background:rgba(82,170,252,.09);
+          border-left-color:#52aafc;
+        }
  
-        .np-card { transition:transform .35s cubic-bezier(.22,1,.36,1), border-color .3s; border:1px solid rgba(9,40,102,.08); }
-        .np-card:hover { transform:translateY(-4px); border-color:rgba(82,170,252,.5); }
-        .np-card:hover .np-line { transform:scaleX(1); }
-        .np-line { transform:scaleX(0); transform-origin:left; transition:transform .4s ease; }
- 
-        .nav-lnk::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#52aafc; transition:width .3s; }
-        .nav-lnk:hover::after { width:100%; }
- 
-        .grain { background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E"); }
+        .live-dot {
+          position:relative;
+          display:inline-block;
+          width:8px; height:8px;
+          border-radius:9999px;
+          background:#ff3b30;
+        }
+        .live-dot::before {
+          content:""; position:absolute; inset:0;
+          border-radius:9999px;
+          background:#ff3b30;
+          animation: pulse-ring 1.6s ease-out infinite;
+        }
       `}</style>
-
+ 
       <Navbar />
-
-      <section className="grain relative flex min-h-screen flex-col justify-end overflow-hidden pt-27">
+ 
+      {/* HERO */}
+      <section
+        ref={heroRef}
+        className="grain relative min-h-screen overflow-hidden bg-[#071936] pt-24 text-white"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(82,170,252,.32),transparent_32%),linear-gradient(135deg,#071936_0%,#092866_52%,#030814_100%)]" />
+        <div className="tech-grid absolute inset-0 opacity-30" />
+ 
+        {/* mouse-tracked spotlight */}
+        <div className="spotlight pointer-events-none absolute inset-0" />
+ 
+        {/* periodic scanline sweep */}
+        <div className="scanline" />
+ 
+        {/* floating particles */}
+        <FloatingParticles count={32} />
+ 
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.96)_0%,rgba(3,8,20,.72)_42%,rgba(3,8,20,.22)_100%)]" />
+ 
+        {/* LIVE HUD */}
         <div
-          className="absolute inset-0 z-0"
+          className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-16"
           style={{
-            background:
-              "linear-gradient(135deg,#b8d8f8 0%,#7ab8ee 40%,#4a9ad4 100%)",
-          }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-(family-name:--font-barlow) text-[13px] font-semibold uppercase tracking-[0.3em] text-white/35">
-              Full-bleed athlete photo goes here
-            </span>
-          </div>
-        </div>
-
-        <div
-          className="absolute inset-0 z-10"
-          style={{
-            background:
-              "linear-gradient(to top,rgba(9,40,102,.95) 0%,rgba(9,40,102,.65) 40%,rgba(9,40,102,.15) 75%,transparent 100%)",
-          }}
-        />
-
-        <div
-          className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex"
-          style={{
-            animation: loaded ? "fade .8s ease 1.2s both" : "none",
+            top: "96px",
+            animation: loaded ? "fade .8s ease .4s both" : "none",
             opacity: loaded ? undefined : 0,
           }}
         >
-          <div className="h-16 w-px bg-white/20" />
+          <span className="live-dot" />
+          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">
+            Live
+          </span>
+          <span className="h-3 w-px bg-white/20" />
+          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">
+            {liveTime || "00:00:00"}
+          </span>
+          <span className="h-3 w-px bg-white/20" />
+          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
+            Park City · UT
+          </span>
+        </div>
+ 
+        {/* right scroll indicator */}
+        <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
+          <div className="relative h-20 w-px overflow-hidden bg-white/20">
+            <span
+              className="absolute left-0 right-0 h-6 bg-[#52aafc]"
+              style={{ animation: "vertical-scan 3s ease-in-out infinite" }}
+            />
+          </div>
           <span
-            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/30"
+            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
             style={{ writingMode: "vertical-rl" }}
           >
-            Scroll to explore
+            Scroll to enter the ecosystem
           </span>
-          <div className="h-16 w-px bg-white/20" />
+          <div className="h-20 w-px bg-white/20" />
           <div
             className="h-2 w-2 rounded-full bg-[#52aafc]"
-            style={{ animation: "pulse-dot 1.5s ease-in-out infinite" }}
+            style={{ animation: "pulse-dot 1.6s ease-in-out infinite" }}
           />
         </div>
-
-        <div className="relative z-20 px-6 pb-0 pt-20 md:px-12 lg:px-16">
+ 
+        <div className="relative z-10 flex min-h-[calc(100vh-96px)] flex-col justify-end px-6 pb-0 md:px-12 lg:px-16">
           <div
-            className="mb-7 inline-flex items-center gap-3"
+            className="mb-8 inline-flex items-center gap-3"
             style={{
-              animation: loaded ? "slide-up .6s ease .1s both" : "none",
+              animation: loaded ? "slide-up .7s ease .1s both" : "none",
               opacity: loaded ? undefined : 0,
             }}
           >
-            <span
-              className="h-0.5 w-10 bg-[#52aafc]"
-              style={{ boxShadow: "0 0 10px rgba(82,170,252,.8)" }}
-            />
+            <span className="accent-line w-10" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
-              Athletes · Brands · Community · Impact
+              Sports · Media · Technology · Impact
             </span>
           </div>
-
+ 
           <h1
-            className="font-(family-name:--font-barlow) font-extrabold uppercase leading-[0.85] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(72px,14vw,200px)" }}
+            className="font-(family-name:--font-barlow) max-w-[1200px] font-extrabold uppercase leading-[0.83] tracking-[-0.025em]"
+            style={{ fontSize: "clamp(62px,13vw,190px)" }}
           >
+            {/* character-split ELEVATE */}
             <div className="ww block">
-              <span
-                className="w text-white"
-                style={{ animationDelay: loaded ? ".1s" : "999s" }}
-              >
-                ELEV
-              </span>
-              <span
-                className="w text-[#52aafc]"
-                style={{
-                  animationDelay: loaded ? ".18s" : "999s",
-                  textShadow: "0 0 100px rgba(82,170,252,.8)",
-                }}
-              >
-                ATE
-              </span>
+              {"ELEVATE".split("").map((char, i) => (
+                <span
+                  key={i}
+                  className="w inline-block text-white"
+                  style={{
+                    animationDelay: loaded ? `${0.12 + i * 0.055}s` : "999s",
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
             </div>
-
-            <div className="block" style={{ minHeight: "1em" }}>
+ 
+            {/* cycling word with breathing glow */}
+            <div className="block min-h-[.9em] text-[#52aafc]">
               <span
-                className="block text-white/85"
+                className="block"
                 style={{
-                  transition: "opacity .35s ease,transform .35s ease",
+                  transition: "opacity .35s ease, transform .35s ease",
                   opacity: wordVisible ? 1 : 0,
-                  transform: wordVisible ? "translateY(0)" : "translateY(14px)",
+                  transform: wordVisible ? "translateY(0)" : "translateY(18px)",
+                  animation: wordVisible
+                    ? "breathe-glow 3s ease-in-out infinite"
+                    : "none",
                 }}
               >
                 {CYCLING_WORDS[wordIndex]}
               </span>
             </div>
           </h1>
-        </div>
-
-        <div
-          className="relative z-20 mt-0 grid grid-cols-1 gap-0 border-t border-white/10 lg:grid-cols-3"
-          style={{
-            animation: loaded ? "fade .8s ease 1s both" : "none",
-            opacity: loaded ? undefined : 0,
-            background: "rgba(9,40,102,.75)",
-            backdropFilter: "blur(16px)",
-          }}
-        >
-          <div className="border-r border-white/10 px-6 py-8 md:px-12 lg:px-16">
-            <p className="max-w-70 text-[14px] font-light leading-[1.8] text-white/60">
-              We connect athletes, brands, and communities around integrity,
-              impact, and growth — from youth leagues to the world stage.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 border-r border-white/10">
-            {[
-              { val: "100%", label: "Donations direct" },
-              { val: "5", label: "Heroes filmed" },
-              { val: "3+", label: "Nonprofits" },
-              { val: "2027", label: "HERO launches" },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="border-b border-r border-white/10 px-6 py-6 last:border-b-0 even:border-r-0"
-              >
-                <div
-                  className="font-(family-name:--font-barlow) text-[28px] font-extrabold leading-none text-[#52aafc]"
-                  style={{ textShadow: "0 0 20px rgba(82,170,252,.4)" }}
-                >
-                  {s.val}
-                </div>
-                <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.2em] text-white/40">
-                  {s.label}
-                </div>
-              </div>
+ 
+          {/* cycling word progress dots */}
+          <div
+            className="mt-6 flex items-center gap-2"
+            style={{
+              animation: loaded ? "fade .8s ease 1.2s both" : "none",
+              opacity: loaded ? undefined : 0,
+            }}
+          >
+            {CYCLING_WORDS.map((w, i) => (
+              <span
+                key={w}
+                className="block h-[3px] rounded-full transition-all duration-500"
+                style={{
+                  width: i === wordIndex ? "36px" : "10px",
+                  background:
+                    i === wordIndex ? "#52aafc" : "rgba(255,255,255,.18)",
+                  boxShadow:
+                    i === wordIndex ? "0 0 12px rgba(82,170,252,.7)" : "none",
+                }}
+              />
             ))}
+            <span className="ml-3 font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.3em] text-white/35">
+              {String(wordIndex + 1).padStart(2, "0")} /{" "}
+              {String(CYCLING_WORDS.length).padStart(2, "0")}
+            </span>
           </div>
-
-          <div className="flex flex-col justify-center gap-3 px-6 py-8 md:px-12">
-            <Link
-              href="/athletes"
-              className="btn-blue inline-flex items-center justify-center gap-2 px-7 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
-            >
-              I'm an Athlete →
-            </Link>
-
-            <Link
-              href="/brands"
-              className="inline-flex items-center justify-center gap-2 border border-[#52aafc] bg-transparent px-7 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest text-[#52aafc] transition-colors hover:bg-[#15225d] hover:text-white"
-            >
-              I'm a Brand →
-            </Link>
+ 
+          <div
+            className="mt-10 grid grid-cols-1 border-t border-white/10 bg-[#071936]/80 backdrop-blur-xl lg:grid-cols-[1fr_1fr_360px]"
+            style={{
+              animation: loaded ? "fade .8s ease 1s both" : "none",
+              opacity: loaded ? undefined : 0,
+            }}
+          >
+            <div className="border-b border-white/10 p-6 md:p-8 lg:border-b-0 lg:border-r">
+              <p className="max-w-[520px] text-[15px] font-light leading-[1.85] text-white/62">
+                Athletes Elevated connects athletes, brands, fans, and
+                communities through cinematic storytelling, technology
+                platforms, and purpose-driven impact.
+              </p>
+            </div>
+ 
+            <div className="grid grid-cols-2 border-b border-white/10 lg:border-b-0 lg:border-r">
+              {[
+                ["HERO", "Documentary"],
+                ["ATHLINK", "Athlete profiles"],
+                ["TEAMS", "Youth sports"],
+                ["IMPACT", "Community"],
+              ].map(([value, label]) => (
+                <div
+                  key={value}
+                  className="group relative border-b border-r border-white/10 p-5 transition-colors even:border-r-0 hover:bg-white/[.03]"
+                >
+                  <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
+                  <div className="font-(family-name:--font-barlow) text-[26px] font-extrabold text-[#52aafc]">
+                    {value}
+                  </div>
+                  <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-white/38">
+                    {label}
+                  </div>
+                </div>
+              ))}
+            </div>
+ 
+            <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
+              <Link
+                href="/athletes"
+                className="btn-blue inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
+              >
+                I&apos;m an Athlete <span className="arr inline-block">→</span>
+              </Link>
+              <Link
+                href="/brands"
+                className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
+              >
+                I&apos;m a Brand <span className="arr inline-block">→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
-
-      <div className="overflow-hidden bg-[#52aafc] py-3.25">
+ 
+      {/* MARQUEE (pause-on-hover) */}
+      <div className="overflow-hidden bg-[#52aafc] py-3">
         <div
-          className="flex whitespace-nowrap"
-          style={{
-            animation: "marquee 22s linear infinite",
-            width: "max-content",
-          }}
+          className="marquee-track flex whitespace-nowrap"
+          style={{ animation: "marquee 22s linear infinite" }}
         >
           {[
             "Athletes Elevated",
-            "Performance With Purpose",
-            "Teams Elevated",
-            "Athlete First",
-            "HERO — Jan 2027",
+            "Sports Technology",
+            "Community Impact",
             "Athlink",
-            "Community Connection",
-            "Impact",
+            "HERO",
+            "Teams Elevated",
             "Athletes Elevated",
-            "Performance With Purpose",
-            "Teams Elevated",
-            "Athlete First",
-            "HERO — Jan 2027",
+            "Sports Technology",
+            "Community Impact",
             "Athlink",
-            "Community Connection",
-            "Impact",
-            "Athletes Elevated",
-            "Performance With Purpose",
+            "HERO",
             "Teams Elevated",
-            "Athlete First",
-            "HERO — Jan 2027",
-            "Athlink",
-            "Community Connection",
-            "Impact",
-          ].map((t, i) => (
+          ].map((item, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-7 px-7 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.2em] text-[#06080f]"
+              className="inline-flex items-center gap-7 px-7 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.2em] text-[#05070d]"
             >
-              {t}
-              <span className="h-1 w-1 rounded-full bg-[#06080f]/30" />
+              {item}
+              <span className="h-1 w-1 rounded-full bg-[#05070d]/35" />
             </span>
           ))}
         </div>
       </div>
-
-      <section className="relative overflow-hidden bg-white px-6 py-0 md:px-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-150">
-          <div className="relative min-h-[400px] lg:min-h-[700px] overflow-hidden bg-transparent lg:bg-[#d7e5fb]">
+ 
+      {/* MISSION */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="relative min-h-[430px] overflow-hidden bg-[#d7e5fb] lg:min-h-[760px]">
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 hidden lg:block"
               style={{
                 backgroundImage: "url('/home/PicaboStreet.png')",
                 backgroundRepeat: "no-repeat",
@@ -410,223 +709,197 @@ export default function HomePage() {
                 backgroundAttachment: "fixed",
               }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#092866]/20 to-transparent" />
           </div>
-
-          <div
-            className="sr flex flex-col justify-center px-8 py-20 md:px-16 lg:px-20"
-            style={{ transitionDelay: "150ms" }}
-          >
+ 
+          <div className="sr flex flex-col justify-center px-8 py-20 md:px-16 lg:px-20">
             <div className="mb-6 inline-flex items-center gap-3">
-              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="accent-line w-8" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                 Our Mission
               </span>
             </div>
-
-            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(32px,3.5vw,54px)] font-extrabold uppercase leading-[0.93] text-[#092866]">
-              Built for the human
+ 
+            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
+              Built for the
               <br />
-              behind the result.
+              human behind
+              <br />
+              the result.
             </h2>
-
-            <p className="mb-6 text-[16px] font-light leading-[1.88] text-[#092866]/52">
+ 
+            <p className="mb-6 max-w-[520px] text-[16px] font-light leading-[1.9] text-[#092866]/55">
               Athletes Elevated is an ecosystem built around one belief: the
-              impact of an athlete doesn't stop at the final whistle. We connect
-              athletes with tools, communities, and partners that help them
-              become something bigger.
+              impact of an athlete does not stop at the final whistle.
             </p>
-
-            <p className="text-[14px] font-light leading-[1.88] text-[#092866]/35">
-              From a youth soccer league in Park City to a global documentary
-              featuring the world's greatest — every part of AE starts with the
-              athlete and works outward.
+ 
+            <p className="max-w-[520px] text-[14px] font-light leading-[1.9] text-[#092866]/38">
+              We connect athletes with platforms, partners, fans, and
+              communities that help turn performance into purpose, visibility
+              into opportunity, and legacy into impact.
             </p>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 border-t border-[#092866]/10 md:grid-cols-3">
+ 
+        <div className="grid grid-cols-1 border-y border-[#092866]/10 md:grid-cols-3">
           {[
-            {
-              n: "01",
-              tag: "Athlete First",
-              body: "We show up for the human behind the results.",
-            },
-            {
-              n: "02",
-              tag: "Performance With Purpose",
-              body: "Success is sweeter when it lifts others.",
-            },
-            {
-              n: "03",
-              tag: "Community Connection",
-              body: "Strong communities make strong athletes.",
-            },
-          ].map((v, i) => (
+            ["01", "Athlete First", "We show up for the person behind the scoreboard."],
+            ["02", "Community Connection", "Strong communities make strong athletes."],
+            ["03", "Technology That Connects", "We build systems that turn attention into opportunity."],
+          ].map(([n, tag, body], i) => (
             <div
-              key={v.n}
-              className="sr group relative border-r border-[#092866]/10 px-8 py-12 last:border-r-0 hover:bg-[#092866]/2 transition-colors"
+              key={tag}
+              className="sr group relative border-r border-[#092866]/10 px-8 py-12 last:border-r-0 transition-colors hover:bg-[#092866]/[.02]"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
-
-              <div className="mb-4 font-(family-name:--font-barlow) text-[64px] font-extrabold leading-none text-[#092866]/[0.07] group-hover:text-[#52aafc]/10 transition-colors duration-300">
-                {v.n}
+              <div className="mb-4 font-(family-name:--font-barlow) text-[72px] font-extrabold leading-none text-[#092866]/[.06] transition-colors group-hover:text-[#52aafc]/15">
+                {n}
               </div>
-
               <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#52aafc]">
-                {v.tag}
+                {tag}
               </div>
-
               <p className="text-[14px] font-light leading-[1.8] text-[#092866]/48">
-                {v.body}
+                {body}
               </p>
             </div>
           ))}
         </div>
       </section>
-
-      {/* The Ecosystem */}
-      <section className="bg-[#d7e5fb] px-6 py-24 md:px-12 lg:px-20">
-        <div className="sr mb-10 flex items-end justify-between">
-          <div>
-            <div className="mb-4 inline-flex items-center gap-3">
-              <span className="h-0.5 w-8 bg-[#52aafc]" />
+ 
+      {/* STAT STRIP — count-up numbers */}
+      <section className="relative overflow-hidden bg-[#030814] py-20 text-white">
+        <div className="tech-grid absolute inset-0 opacity-15" />
+        <FloatingParticles count={18} />
+        <div className="scanline" />
+ 
+        <div className="relative z-10 px-6 md:px-12 lg:px-20">
+          <div className="sr mb-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="inline-flex items-center gap-3">
+              <span className="accent-line w-8" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                The Ecosystem
+                By The Numbers
               </span>
             </div>
-
-            <h2 className="font-(family-name:--font-barlow) text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92] text-white">
-              Everything we build
-              <br />
-              starts with <span className="text-[#52aafc]">athletes.</span>
-            </h2>
-          </div>
-
-          <div className="hidden items-center gap-2 text-[11px] font-medium text-[#092866]/40 md:flex">
-            <span>Scroll to explore</span>
-            <span className="font-(family-name:--font-barlow) text-[16px]">
-              →
+            <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/30">
+              Live · Updated Continuously
             </span>
           </div>
-        </div>
-
-        <div className="eco-track pb-4">
-          {[
-            {
-              tag: "Documentary",
-              name: "HERO",
-              sub: "Legends that become catalysts for change.",
-              detail:
-                "A cinematic series from ancient myth to modern icons. Launching January 2027.",
-              num: "01",
-              extra: (
-                <div className="mt-4 border-t border-[#092866]/10 pt-4">
-                  {[
-                    "Steve Young",
-                    "Jerry Rice",
-                    "Sir Nick Faldo",
-                    "Picabo Street",
-                    "West Ham United",
-                  ].map((n) => (
-                    <div
-                      key={n}
-                      className="py-0.5 text-[11px] text-[#092866]/45"
-                    >
-                      — {n}
-                    </div>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              tag: "Athlete Platform",
-              name: "Athlink",
-              sub: "One link for everything you are.",
-              detail:
-                "Stats, highlights, social, contact — all in one profile brands can find.",
-              num: "02",
-              extra: null,
-            },
-            {
-              tag: "Youth Sports",
-              name: "Teams Elevated",
-              sub: "Cost should never keep a kid off the field.",
-              detail:
-                "Payments, crowdfunding, rosters, and communication in one platform.",
-              num: "03",
-              extra: null,
-            },
-            {
-              tag: "CRM",
-              name: "Eye In Teams",
-              sub: "Modern operating system for athlete, brands and fan relationships",
-              detail:
-                "B2B/B2C communication, email, text, calls, and marketing — all in one.",
-              num: "04",
-              extra: null,
-            },
-          ].map((item, i) => (
-            <div
-              key={item.name}
-              className="eco-item sr relative flex flex-col bg-white"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
+ 
+          <div className="grid grid-cols-2 gap-px bg-white/8 md:grid-cols-4">
+            {STATS.map((s) => (
               <div
-                className="eco-bar absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]"
-                style={{ boxShadow: "0 0 8px rgba(82,170,252,.4)" }}
-              />
-
-              <div
-                className="flex h-50 shrink-0 items-center justify-center"
-                style={{
-                  background:
-                    "linear-gradient(135deg,rgba(82,170,252,.12) 0%,rgba(9,40,102,.08) 100%)",
-                }}
+                key={s.label}
+                className="group relative overflow-hidden bg-[#030814] px-6 py-10 transition-colors hover:bg-[#071936] md:px-8 md:py-12"
               >
-                <div className="font-(family-name:--font-barlow) text-[80px] font-extrabold leading-none text-[#092866]/[0.07]">
-                  {item.num}
+                <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
+                <div
+                  className="font-(family-name:--font-barlow) text-[clamp(56px,8vw,120px)] font-extrabold leading-none text-white"
+                  style={{ textShadow: "0 0 60px rgba(82,170,252,.25)" }}
+                >
+                  <CountUp end={s.value} suffix={s.suffix} />
                 </div>
+                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
+                  {s.label}
+                </div>
+                <div className="absolute right-6 top-6 h-1.5 w-1.5 rounded-full bg-[#52aafc] opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
-
-              <div className="flex flex-1 flex-col p-7">
-                <span className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                  {item.tag}
-                </span>
-
-                <h3 className="font-(family-name:--font-barlow) mb-2 text-[26px] font-extrabold uppercase text-white">
-                  {item.name}
-                </h3>
-
-                <p className="mb-1 text-[12px] font-semibold text-[#092866]/65">
-                  {item.sub}
-                </p>
-
-                <p className="text-[12px] font-light leading-[1.7] text-[#092866]/42">
-                  {item.detail}
-                </p>
-
-                {item.extra}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 flex justify-center gap-2">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                i === 0 ? "w-6 bg-[#52aafc]" : "w-2 bg-[#092866]/15"
-              }`}
-            />
-          ))}
+            ))}
+          </div>
         </div>
       </section>
-
+ 
+      {/* ECOSYSTEM */}
+      <section className="relative overflow-hidden bg-[#071936] px-6 py-28 text-white md:px-12 lg:px-20">
+        <div className="tech-grid absolute inset-0 opacity-20" />
+        <div
+          className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#52aafc]/10 blur-3xl"
+          style={{ animation: "float-soft 8s ease-in-out infinite" }}
+        />
+        <FloatingParticles count={26} />
+        <div className="scanline" />
+ 
+        <div className="relative z-10">
+          <div className="sr mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <div className="mb-4 inline-flex items-center gap-3">
+                <span className="accent-line w-8" />
+                <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+                  The Ecosystem
+                </span>
+              </div>
+ 
+              <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,88px)] font-extrabold uppercase leading-[0.88] text-white">
+                One movement.
+                <br />
+                Multiple engines.
+              </h2>
+            </div>
+ 
+            <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-white/48">
+              Media, athlete profiles, youth sports, fan engagement, CRM, and
+              community impact — connected through one elevated sports
+              ecosystem.
+            </p>
+          </div>
+ 
+          <div className="-mx-6 overflow-x-auto px-6 pb-6 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex w-max gap-4">
+              {ECOSYSTEM.map((item, i) => (
+                <div
+                  key={item.name}
+                  className="portal-card sr relative flex w-[320px] shrink-0 snap-start flex-col overflow-hidden bg-white text-[#092866] md:w-[380px]"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                  onMouseMove={handleCardTilt}
+                  onMouseLeave={resetCardTilt}
+                >
+                  <div className="portal-line absolute left-0 top-0 z-20 h-0.5 w-full bg-[#52aafc]" />
+ 
+                  <div
+                    className="relative flex h-[170px] items-center justify-center overflow-hidden bg-[#d7e5fb]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(135deg,rgba(9,40,102,.15),rgba(82,170,252,.1))",
+                    }}
+                  >
+                    <div className="tech-grid absolute inset-0 opacity-20" />
+                    <div className="absolute right-6 top-6 h-2 w-2 animate-pulse rounded-full bg-[#52aafc]" />
+                    {/* corner brackets */}
+                    <div className="absolute left-3 top-3 h-4 w-4 border-l-2 border-t-2 border-[#52aafc]/40" />
+                    <div className="absolute bottom-3 right-3 h-4 w-4 border-b-2 border-r-2 border-[#52aafc]/40" />
+                    <span className="font-(family-name:--font-barlow) text-[120px] font-extrabold leading-none text-[#092866]/[0.08]">
+                      0{i + 1}
+                    </span>
+                  </div>
+ 
+                  <div className="flex flex-1 flex-col p-7">
+                    <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">
+                      {item.tag}
+                    </span>
+ 
+                    <h3 className="font-(family-name:--font-barlow) mb-3 text-[30px] font-extrabold uppercase leading-none text-[#092866]">
+                      {item.name}
+                    </h3>
+ 
+                    <p className="mb-2 text-[13px] font-semibold text-[#092866]/65">
+                      {item.sub}
+                    </p>
+ 
+                    <p className="text-[12px] font-light leading-[1.75] text-[#092866]/45">
+                      {item.detail}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+ 
+      {/* HERO MOVIE */}
       <section className="relative overflow-hidden bg-[#f7f9ff]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-175">
-          <div className=" relative min-h-[700px] overflow-hidden bg-[#092866]">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="relative min-h-[680px] overflow-hidden bg-[#092866]">
             <video
               ref={heroVideoRef}
               src="/home/SirNickFaldoPreview.MP4"
@@ -639,44 +912,50 @@ export default function HomePage() {
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
-
-          <div
-            className="sr relative flex flex-col justify-center border-l border-[#092866]/10 bg-white px-8 py-16 md:px-12"
-            style={{ transitionDelay: "140ms" }}
-          >
-            <div className="mb-8 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]/45">
-              Already filmed
+ 
+          <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12 lg:px-16">
+            <div className="mb-8 inline-flex items-center gap-3">
+              <span className="live-dot" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">
+                HERO Documentary · January 2027
+              </span>
             </div>
-
-            <div className="space-y-0">
+ 
+            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(36px,5vw,78px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
+              Legends become
+              <br />
+              catalysts.
+            </h2>
+ 
+            <div className="space-y-0 border-t border-[#092866]/10">
               {FILMED.map((name, i) => (
                 <button
                   key={name}
                   onClick={() => setActiveFilmed(i)}
-                  className={`filmed-tab w-full border-l-[3px] px-6 py-5 text-left transition-all duration-200 text-[#092866] ${
+                  className={`filmed-tab w-full border-b border-l-[3px] border-b-[#092866]/10 px-5 py-5 text-left ${
                     activeFilmed === i
-                      ? "active bg-[#52aafc]/10 border-[#52aafc]"
-                      : "border-transparent hover:border-white/20 hover:bg-[#092866]/2"
+                      ? "active border-l-[#52aafc]"
+                      : "border-l-transparent hover:bg-[#092866]/[.02]"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-4">
                     <span
-                      className={`font-(family-name:--font-barlow) text-[22px] font-bold uppercase transition-colors ${
+                      className={`font-(family-name:--font-barlow) text-[24px] font-bold uppercase ${
                         activeFilmed === i
                           ? "text-[#52aafc]"
-                          : "text-[#092866]/60"
+                          : "text-[#092866]/65"
                       }`}
                     >
                       {name}
                     </span>
-
+ 
                     {activeFilmed === i && (
                       <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]/70">
                         Filmed ✓
                       </span>
                     )}
                   </div>
-
+ 
                   {activeFilmed === i && (
                     <p className="mt-2 text-[12px] font-light text-[#092866]/45">
                       {
@@ -693,185 +972,152 @@ export default function HomePage() {
                 </button>
               ))}
             </div>
-
-            <div className="mt-8 border border-[#52aafc]/15 bg-[#52aafc]/8 p-6">
-              <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                In production
-              </div>
-
-              <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-[#092866]">
-                Created by Melissa Tittl · Hathor Studios
-              </div>
-            </div>
           </div>
         </div>
       </section>
-
+ 
+      {/* IMPACT */}
       <section className="bg-white px-6 py-28 md:px-12 lg:px-20">
-        <div className="sr mb-16 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
-              <span className="h-0.5 w-8 bg-[#52aafc]" />
+              <span className="accent-line w-8" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                 Impact
               </span>
             </div>
-
-            <h2 className="font-(family-name:--font-barlow) text-[clamp(30px,4vw,60px)] font-extrabold uppercase leading-[0.92] text-white">
-              Nonprofits we champion.
+ 
+            <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,82px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
+              Built to
+              <br />
+              move people.
             </h2>
           </div>
-
-          <p className="max-w-85 text-[14px] font-light leading-[1.8] text-[#092866]/45">
-            No fees. No overhead. Every dollar donated goes straight to the
-            people who need it.
+ 
+          <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/45">
+            Every part of AE is designed to create opportunity, tell better
+            stories, and direct attention toward real communities.
           </p>
         </div>
-
+ 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {NONPROFITS.map((np, i) => (
             <div
               key={np.name}
-              className="sr np-card relative overflow-hidden bg-[#f0f5fd] p-8"
+              className="portal-card sr relative overflow-hidden bg-[#f0f5fd] p-8"
               style={{ transitionDelay: `${i * 100}ms` }}
+              onMouseMove={handleCardTilt}
+              onMouseLeave={resetCardTilt}
             >
-              <div className="np-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
-
-              {i === 0 && (
-                <div className="pointer-events-none absolute -bottom-4 -right-4 font-(family-name:--font-barlow) text-[100px] font-extrabold leading-none text-[#092866]/[0.07] select-none">
-                  100%
-                </div>
-              )}
-
-              <div className="relative z-10 flex h-full flex-col justify-between">
-                <div>
-                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                    100% Pass-Through
-                  </div>
-
-                  <h3 className="font-(family-name:--font-barlow) mb-3 text-[22px] font-extrabold uppercase leading-[1.1] text-[#092866]">
-                    {np.name}
-                  </h3>
-
-                  <p className="text-[13px] font-light leading-[1.8] text-[#092866]/48">
-                    {np.desc}
-                  </p>
-                </div>
-
-                <a
-                  href={np.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-8 inline-flex items-center gap-2 border-b border-[#52aafc]/40 pb-1 font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.2em] text-[#52aafc] transition-all hover:gap-4"
-                >
-                  Donate →
-                </a>
+              <div className="portal-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
+ 
+              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
+                100% Pass-Through
               </div>
+ 
+              <h3 className="font-(family-name:--font-barlow) mb-4 text-[24px] font-extrabold uppercase leading-[1.05] text-[#092866]">
+                {np.name}
+              </h3>
+ 
+              <p className="mb-8 text-[13px] font-light leading-[1.85] text-[#092866]/48">
+                {np.desc}
+              </p>
+ 
+              <a
+                href={np.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 border-b border-[#52aafc]/40 pb-1 font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.2em] text-[#52aafc] transition-all hover:gap-4"
+              >
+                Donate <span className="arr inline-block">→</span>
+              </a>
             </div>
           ))}
         </div>
       </section>
-
-      <section className="grain relative flex min-h-[75vh] flex-col items-center justify-center overflow-hidden bg-[#092866] px-6 py-20 text-center">
+ 
+      {/* CTA */}
+      <section className="grain relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-[#071936] px-6 py-24 text-center text-white">
+        <div className="tech-grid absolute inset-0 opacity-20" />
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle,rgba(82,170,252,.11) 0%,transparent 60%)",
-            animation: "glow-orb 8s ease-in-out infinite",
-          }}
+          className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#52aafc]/10 blur-3xl"
+          style={{ animation: "float-soft 9s ease-in-out infinite" }}
         />
-
-        <div className="pointer-events-none absolute left-8 top-8 h-17.5 w-17.5 border-l-2 border-t-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute right-8 top-8 h-17.5 w-17.5 border-r-2 border-t-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute bottom-8 left-8 h-17.5 w-17.5 border-b-2 border-l-2 border-[#52aafc]/25" />
-        <div className="pointer-events-none absolute bottom-8 right-8 h-17.5 w-17.5 border-b-2 border-r-2 border-[#52aafc]/25" />
-
-        <div className="sr relative z-10 w-full max-w-212.5">
+        <FloatingParticles count={30} />
+        <div className="scanline" />
+ 
+        <div className="sr relative z-10 max-w-[980px]">
           <div className="mb-6 inline-flex items-center gap-4">
             <span className="h-px w-10 bg-[#52aafc]/50" />
-            <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]/60">
+            <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">
               Ready to be part of something bigger?
             </span>
             <span className="h-px w-10 bg-[#52aafc]/50" />
           </div>
-
-          <div
-            className="font-(family-name:--font-barlow) font-extrabold uppercase text-white"
-            style={{
-              fontSize: "clamp(60px,14vw,180px)",
-              lineHeight: 0.88,
-              textShadow: "0 0 80px rgba(255,255,255,.05)",
-            }}
+ 
+          <h2
+            className="font-(family-name:--font-barlow) font-extrabold uppercase leading-[0.86]"
+            style={{ fontSize: "clamp(58px,13vw,170px)" }}
           >
-            YOUR <br />
-            <span
-              className="text-[#52aafc]"
-              style={{ textShadow: "0 0 80px rgba(82,170,252,.6)" }}
-            >
-              STORY
-            </span>
+            Your story
             <br />
-            STARTS <br />
+            starts
+            <br />
             <span
-              style={{
-                WebkitTextStroke: "2px rgba(82,170,252,.45)",
-                color: "transparent",
-              }}
+              className="inline-block text-[#52aafc]"
+              style={{ animation: "breathe-glow 3s ease-in-out infinite" }}
             >
-              HERE.
+              here.
             </span>
-          </div>
-
+          </h2>
+ 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/athletes"
-              className="inline-flex items-center gap-2 bg-[#52aafc] px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#3d97e8]"
+              className="btn-blue inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              I'm an Athlete →
+              I&apos;m an Athlete <span className="arr inline-block">→</span>
             </Link>
-
+ 
             <Link
               href="/brands"
-              className="inline-flex items-center gap-2 border border-[#52aafc] bg-transparent px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest text-[#52aafc] transition-colors hover:bg-[#52aafc] hover:text-white"
+              className="btn-outline inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              I'm a Brand →
+              I&apos;m a Brand <span className="arr inline-block">→</span>
             </Link>
           </div>
         </div>
       </section>
-
-      <section className="overflow-hidden bg-[#f7f9ff] border-y border-[#092866]/8 py-16">
+ 
+      {/* PARTNERS */}
+      <section className="overflow-hidden border-y border-[#092866]/8 bg-[#f7f9ff] py-16">
         <div className="sr mb-10 text-center font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.36em] text-[#092866]/25">
           Ecosystem Partners
         </div>
-
+ 
         <div
-          className="overflow-hidden mb-3"
+          className="mb-3 overflow-hidden"
           style={{
             maskImage:
               "linear-gradient(90deg,transparent,black 12%,black 88%,transparent)",
           }}
         >
           <div
-            className="flex whitespace-nowrap"
-            style={{
-              animation: "marquee 28s linear infinite",
-              width: "max-content",
-            }}
+            className="marquee-track flex whitespace-nowrap"
+            style={{ animation: "marquee 28s linear infinite" }}
           >
             {[...PARTNERS, ...PARTNERS].map((p, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/22 transition-colors hover:text-[#52aafc]"
+                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/25"
               >
                 {p}
-                <span className="h-0.75 w-0.75 rounded-full bg-white/12" />
+                <span className="h-1 w-1 rounded-full bg-[#092866]/12" />
               </span>
             ))}
           </div>
         </div>
-
+ 
         <div
           className="overflow-hidden"
           style={{
@@ -880,26 +1126,25 @@ export default function HomePage() {
           }}
         >
           <div
-            className="flex whitespace-nowrap"
+            className="marquee-track flex whitespace-nowrap"
             style={{
-              animation: "marquee-d 34s linear infinite",
-              width: "max-content",
+              animation: "marqueeReverse 34s linear infinite",
               transform: "translateX(-50%)",
             }}
           >
             {[...PARTNERS, ...PARTNERS].map((p, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/15 transition-colors hover:text-[#52aafc]"
+                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/15"
               >
                 {p}
-                <span className="h-0.75 w-0.75 rounded-full bg-white/10" />
+                <span className="h-1 w-1 rounded-full bg-[#092866]/10" />
               </span>
             ))}
           </div>
         </div>
       </section>
-
+ 
       <Footer />
     </div>
   );
