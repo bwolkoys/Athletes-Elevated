@@ -767,48 +767,6 @@ export default function HomePage() {
         </div>
       </section>
  
-      {/* STAT STRIP — count-up numbers */}
-      <section className="relative overflow-hidden bg-[#030814] py-20 text-white">
-        <div className="tech-grid absolute inset-0 opacity-15" />
-        <FloatingParticles count={18} />
-        <div className="scanline" />
- 
-        <div className="relative z-10 px-6 md:px-12 lg:px-20">
-          <div className="sr mb-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="inline-flex items-center gap-3">
-              <span className="accent-line w-8" />
-              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                By The Numbers
-              </span>
-            </div>
-            <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/30">
-              Live · Updated Continuously
-            </span>
-          </div>
- 
-          <div className="grid grid-cols-2 gap-px bg-white/8 md:grid-cols-4">
-            {STATS.map((s) => (
-              <div
-                key={s.label}
-                className="group relative overflow-hidden bg-[#030814] px-6 py-10 transition-colors hover:bg-[#071936] md:px-8 md:py-12"
-              >
-                <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
-                <div
-                  className="font-(family-name:--font-barlow) text-[clamp(56px,8vw,120px)] font-extrabold leading-none text-white"
-                  style={{ textShadow: "0 0 60px rgba(82,170,252,.25)" }}
-                >
-                  <CountUp end={s.value} suffix={s.suffix} />
-                </div>
-                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                  {s.label}
-                </div>
-                <div className="absolute right-6 top-6 h-1.5 w-1.5 rounded-full bg-[#52aafc] opacity-0 transition-opacity group-hover:opacity-100" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
- 
       {/* ECOSYSTEM */}
       <section className="relative overflow-hidden bg-[#071936] px-6 py-28 text-white md:px-12 lg:px-20">
         <div className="tech-grid absolute inset-0 opacity-20" />
@@ -899,20 +857,6 @@ export default function HomePage() {
       {/* HERO MOVIE */}
       <section className="relative overflow-hidden bg-[#f7f9ff]">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative min-h-[680px] overflow-hidden bg-[#092866]">
-            <video
-              ref={heroVideoRef}
-              src="/home/SirNickFaldoPreview.MP4"
-              muted
-              playsInline
-              autoPlay
-              loop
-              controls
-              preload="auto"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-          </div>
- 
           <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12 lg:px-16">
             <div className="mb-8 inline-flex items-center gap-3">
               <span className="live-dot" />
@@ -973,11 +917,26 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+
+          <div className="relative min-h-[680px] overflow-hidden bg-[#092866]">
+            <video
+              ref={heroVideoRef}
+              src="/home/SirNickFaldoPreview.MP4"
+              muted
+              playsInline
+              autoPlay
+              loop
+              controls
+              preload="auto"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+
         </div>
       </section>
  
       {/* IMPACT */}
-      <section className="bg-white px-6 py-28 md:px-12 lg:px-20">
+      {/* <section className="bg-white px-6 py-28 md:px-12 lg:px-20">
         <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
@@ -1034,7 +993,7 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
  
       {/* CTA */}
       <section className="grain relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-[#071936] px-6 py-24 text-center text-white">
@@ -1140,6 +1099,48 @@ export default function HomePage() {
                 {p}
                 <span className="h-1 w-1 rounded-full bg-[#092866]/10" />
               </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* STAT STRIP — count-up numbers */}
+      <section className="relative overflow-hidden bg-[#030814] py-20 text-white">
+        <div className="tech-grid absolute inset-0 opacity-15" />
+        <FloatingParticles count={18} />
+        <div className="scanline" />
+ 
+        <div className="relative z-10 px-6 md:px-12 lg:px-20">
+          <div className="sr mb-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="inline-flex items-center gap-3">
+              <span className="accent-line w-8" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+                By The Numbers
+              </span>
+            </div>
+            <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/30">
+              Live · Updated Continuously
+            </span>
+          </div>
+ 
+          <div className="grid grid-cols-2 gap-px bg-white/8 md:grid-cols-4">
+            {STATS.map((s) => (
+              <div
+                key={s.label}
+                className="group relative overflow-hidden bg-[#030814] px-6 py-10 transition-colors hover:bg-[#071936] md:px-8 md:py-12"
+              >
+                <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
+                <div
+                  className="font-(family-name:--font-barlow) text-[clamp(56px,8vw,120px)] font-extrabold leading-none text-white"
+                  style={{ textShadow: "0 0 60px rgba(82,170,252,.25)" }}
+                >
+                  <CountUp end={s.value} suffix={s.suffix} />
+                </div>
+                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
+                  {s.label}
+                </div>
+                <div className="absolute right-6 top-6 h-1.5 w-1.5 rounded-full bg-[#52aafc] opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
             ))}
           </div>
         </div>
