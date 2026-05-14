@@ -629,7 +629,7 @@ export default function BrandsPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.15em]"
             >
-              Partner With Us <span className="arr inline-block">→</span>
+              Apply for Partnership <span className="arr inline-block">→</span>
             </button>
  
             <Link
@@ -850,7 +850,7 @@ export default function BrandsPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.15em]"
               >
-                Partner With Us <span className="arr inline-block">→</span>
+                Apply for Partnership <span className="arr inline-block">→</span>
               </button>
             </div>
           </div>
@@ -944,7 +944,7 @@ export default function BrandsPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center gap-2 px-12 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-[0.15em]"
             >
-              Partner With Us <span className="arr inline-block">→</span>
+              Apply for Partnership <span className="arr inline-block">→</span>
             </button>
  
             <Link

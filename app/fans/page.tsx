@@ -608,7 +608,7 @@ export default function ForFansPage() {
                 href="#newsletter"
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Join the List <span className="arr inline-block">↓</span>
+                Join the Circle <span className="arr inline-block">↓</span>
               </Link>
  
               <Link
@@ -794,7 +794,7 @@ export default function ForFansPage() {
                 href="#newsletter"
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Join the List <span className="arr inline-block">→</span>
+                Join the Circle <span className="arr inline-block">→</span>
               </Link>
             </div>
           </div>
@@ -1149,7 +1149,7 @@ export default function ForFansPage() {
                     "Submitting..."
                   ) : (
                     <>
-                      Join the List <span className="arr inline-block">→</span>
+                      Join the Circle <span className="arr inline-block">→</span>
                     </>
                   )}
                 </button>

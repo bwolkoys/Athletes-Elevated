@@ -766,7 +766,7 @@ export default function ForAthletesPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Get Involved <span className="arr inline-block">→</span>
+                Apply for Induction <span className="arr inline-block">→</span>
               </button>
  
               <Link
@@ -1011,7 +1011,7 @@ export default function ForAthletesPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Join the List <span className="arr inline-block">→</span>
+                Apply for Induction <span className="arr inline-block">→</span>
               </button>
             </div>
           </div>
@@ -1105,7 +1105,7 @@ export default function ForAthletesPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center justify-center gap-2 px-10 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              Get Involved <span className="arr inline-block">→</span>
+              Apply for Induction <span className="arr inline-block">→</span>
             </button>
             <Link
               href="/brands"

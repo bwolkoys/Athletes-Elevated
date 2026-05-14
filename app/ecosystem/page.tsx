@@ -755,7 +755,7 @@ export default function EcosystemPage() {
               title: "Build your legacy.",
               body: "Get your Athlink profile, build your presence, and connect with the AE community.",
               href: "/athletes",
-              cta: "Get Involved →",
+              cta: "Apply as an Athlete →",
               dark: true,
             },
             {
@@ -763,7 +763,7 @@ export default function EcosystemPage() {
               title: "Be part of the journey.",
               body: "Partner with us to reach athletes in a real, lasting way.",
               href: "/brands",
-              cta: "Partner With Us →",
+              cta: "Apply as a Brand →",
               dark: false,
             },
             {
@@ -771,7 +771,7 @@ export default function EcosystemPage() {
               title: "Follow what’s next.",
               body: "Get access to athlete stories, new launches, and everything happening across AE.",
               href: "/fans",
-              cta: "Join The Community →",
+              cta: "Join The Circle →",
               dark: false,
             },
           ].map((card, i) => (

@@ -608,9 +608,7 @@ export default function HomePage() {
           >
             <div className="border-b border-white/10 p-6 md:p-8 lg:border-b-0 lg:border-r">
               <p className="max-w-[520px] text-[15px] font-light leading-[1.85] text-white/62">
-                Athletes Elevated connects athletes, brands, fans, and
-                communities through cinematic storytelling, technology
-                platforms, and purpose-driven impact.
+              An invite-only network where athletes, brands, and the fans who follow them gather inside one elevated ecosystem of media, technology, and impact.
               </p>
             </div>
  
@@ -641,13 +639,13 @@ export default function HomePage() {
                 href="/athletes"
                 className="btn-blue inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                I&apos;m an Athlete <span className="arr inline-block">→</span>
+                Apply as an Athlete <span className="arr inline-block">→</span>
               </Link>
               <Link
                 href="/brands"
                 className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                I&apos;m a Brand <span className="arr inline-block">→</span>
+                Apply as a Brand <span className="arr inline-block">→</span>
               </Link>
             </div>
           </div>
@@ -1035,14 +1033,14 @@ export default function HomePage() {
               href="/athletes"
               className="btn-blue inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              I&apos;m an Athlete <span className="arr inline-block">→</span>
+              Apply as an Athlete <span className="arr inline-block">→</span>
             </Link>
  
             <Link
               href="/brands"
               className="btn-outline inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              I&apos;m a Brand <span className="arr inline-block">→</span>
+              Apply as a Brand <span className="arr inline-block">→</span>
             </Link>
           </div>
         </div>
