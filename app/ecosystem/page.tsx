@@ -1,30 +1,30 @@
 "use client";
-
+ 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "../src/components/navBar";
 import Footer from "../src/components/footer";
-
+ 
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
   variable: "--font-barlow",
 });
-
+ 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-montserrat",
 });
-
+ 
 const PRODUCTS = [
-  { id: "hero", label: "HERO", sub: "Documentary Series" },
-  { id: "athlink", label: "Athlink", sub: "Athlete Platform" },
-  { id: "teams", label: "Teams Elevated", sub: "Youth Sports Management" },
-  { id: "crm", label: "Eye In Teams", sub: "CRM Platform" },
+  { id: "hero", label: "HERO", sub: "Documentary" },
+  { id: "athlink", label: "Athlink", sub: "The Athlete Profile" },
+  { id: "teams", label: "Teams Elevated", sub: "Youth Sports Operations" },
+  { id: "crm", label: "Eye In Teams", sub: "The Relationship OS" },
 ];
-
+ 
 const FILMED = [
   { name: "Steve Young", detail: "Hall of Fame QB · 2× Super Bowl Champion" },
   { name: "Jerry Rice", detail: "Greatest WR in NFL History" },
@@ -38,100 +38,100 @@ const FILMED = [
     detail: "3× FA Cup · European Cup Winners Cup 1965",
   },
 ];
-
+ 
 const ATHLINK_FEATURES = [
   {
     icon: "01",
     title: "One Link",
-    desc: "Everything about you — one clean URL to share everywhere.",
+    desc: "Everything about you — at a single URL.",
   },
   {
     icon: "02",
-    title: "Stats & Highlights",
-    desc: "Showcase your numbers, clips, and career milestones.",
+    title: "Stats & Story",
+    desc: "Your numbers, your clips, the career milestones that define you.",
   },
   {
     icon: "03",
     title: "Sponsorships",
-    desc: "Showcase the brands, partnerships, and sponsors you’re connected with.",
+    desc: "Every brand, partnership, and sponsor in one place.",
   },
   {
     icon: "04",
-    title: "Instant Setup",
-    desc: "Live in minutes. No tech skills needed.",
+    title: "Live in Minutes",
+    desc: "From signup to public profile in minutes. No tech required.",
   },
 ];
-
+ 
 const TEAMS_FEATURES = [
   {
     n: "01",
-    title: "League & Team Management",
-    desc: "Full roster management, scheduling, and tournament tools for leagues of any size.",
+    title: "League & Roster Management",
+    desc: "Rosters, scheduling, and tournament tools at any scale.",
   },
   {
     n: "02",
     title: "Payments & Banking",
-    desc: "Leagues create their own bank accounts to collect fees from registrations, camps, uniforms, and gear.",
+    desc: "Leagues hold their own accounts — collecting registrations, camp fees, uniforms, and gear in one flow.",
   },
   {
     n: "03",
-    title: "Built-in Crowdfunding",
-    desc: "Proprietary crowdfunding and split payment options so cost is never why a kid sits out.",
+    title: "Crowdfunding, Built In",
+    desc: "Crowdfunding and split-pay so cost is never the reason a kid sits out.",
   },
   {
     n: "04",
-    title: "Parent Communication",
-    desc: "Automated updates, announcements, and messaging that keeps every family in the loop.",
+    title: "Family Communication",
+    desc: "Automated updates, announcements, and messaging that keep every family in the loop.",
   },
   {
     n: "05",
-    title: "Sponsor & Fundraising Tools",
-    desc: "Outreach and fundraising automation built for volunteer coaches who are already stretched thin.",
+    title: "Sponsorship & Fundraising",
+    desc: "Outreach and fundraising automation built for the volunteer coaches already stretched thin.",
   },
 ];
-
+ 
 const CRM_FEATURES = [
   {
     title: "Email Campaigns",
-    desc: "Build, send, and track large-scale email campaigns with custom templates.",
+    desc: "Send, track, and refine email at scale — with custom templates built in.",
   },
   {
     title: "SMS & Calls",
-    desc: "Text and call directly from the platform — all logged automatically.",
+    desc: "Text and call from inside the platform. Every interaction logged.",
   },
   {
-    title: "Marketing Templates",
-    desc: "Create branded templates for every touchpoint in your pipeline.",
+    title: "Branded Templates",
+    desc: "Branded assets for every touchpoint in your pipeline.",
   },
   {
     title: "Contact Import",
-    desc: "Import your entire contact database in seconds.",
+    desc: "Migrate your entire contact database in seconds.",
   },
   {
     title: "Post-Close Surveys",
-    desc: "Built-in feedback tool — no separate platform needed.",
+    desc: "Native feedback collection. No second platform required.",
   },
   {
     title: "Automated Outreach",
-    desc: "Set sequences and let the platform handle follow-ups at scale.",
+    desc: "Set the sequence. The system handles follow-up at scale.",
   },
   {
     title: "B2B & B2C Pipelines",
-    desc: "Manage both business and consumer relationships in one place.",
+    desc: "Business and consumer relationships, managed side by side.",
   },
   {
-    title: "Analytics Dashboard",
-    desc: "Track opens, clicks, calls, and conversions in real time.",
+    title: "Live Analytics",
+    desc: "Opens, clicks, calls, and conversions — tracked in real time.",
   },
 ];
-
+ 
 export default function EcosystemPage() {
   const [loaded, setLoaded] = useState(false);
   const [activeFilmed, setActiveFilmed] = useState(0);
-
+ 
   useEffect(() => {
     setTimeout(() => setLoaded(true), 80);
-
+ 
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
@@ -142,20 +142,20 @@ export default function EcosystemPage() {
         }),
       { threshold: 0.06 }
     );
-
+ 
     document
       .querySelectorAll(".sr, .sr-l, .sr-r")
       .forEach((el) => io.observe(el));
-
+ 
     return () => {
       io.disconnect();
     };
   }, []);
-
+ 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
-
+ 
   return (
     <div
       className={`${barlow.variable} ${montserrat.variable} bg-white font-(family-name:--font-montserrat) text-[#092866] overflow-x-hidden`}
@@ -179,64 +179,64 @@ export default function EcosystemPage() {
  
         .ww { overflow:hidden; display:inline-block; vertical-align:bottom; }
         .w { display:inline-block; animation:word-in .9s cubic-bezier(.22,1,.36,1) both; }
-
+ 
         .grain {
           background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
         }
-
+ 
         .tech-grid {
           background-image:
             linear-gradient(rgba(82,170,252,.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(82,170,252,.12) 1px, transparent 1px);
           background-size:52px 52px;
         }
-
+ 
         .btn-blue { background:#52aafc; color:#05070d; transition:transform .2s,box-shadow .2s; }
         .btn-blue:hover { transform:translateY(-2px); box-shadow:0 0 44px rgba(82,170,252,.48),0 10px 30px rgba(82,170,252,.25); }
-
+ 
         .btn-navy { background:#092866; color:white; transition:transform .2s,box-shadow .2s; }
         .btn-navy:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(9,40,102,.25); }
-
+ 
         .btn-outline { border:1px solid rgba(82,170,252,.45); color:#52aafc; transition:background .2s,color .2s,transform .2s; }
         .btn-outline:hover { background:#52aafc; color:#05070d; transform:translateY(-2px); }
-
+ 
         .product-link { transition:all .25s ease; border-left:2px solid transparent; }
         .product-link:hover { border-left-color:#52aafc; padding-left:18px; }
-
+ 
         .portal-card { border:1px solid rgba(82,170,252,.18); transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s; }
         .portal-card:hover { transform:translateY(-8px); border-color:rgba(82,170,252,.65); box-shadow:0 30px 90px rgba(9,40,102,.22); }
         .portal-card:hover .portal-line { transform:scaleX(1); }
         .portal-line { transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,1,.36,1); }
-
+ 
         .filmed-tab { transition:all .2s ease; border-left:2px solid transparent; }
         .filmed-tab.active { border-left-color:#52aafc; background:rgba(82,170,252,.08); }
-
+ 
         .profile-mock { background:white; border:1px solid rgba(9,40,102,.1); box-shadow:0 32px 80px rgba(9,40,102,.12); }
-
+ 
         .teams-row { transition:background .25s,padding-left .25s,border-color .25s; border-bottom:1px solid rgba(9,40,102,.08); }
         .teams-row:hover { background:rgba(82,170,252,.04); padding-left:10px; border-color:rgba(82,170,252,.25); }
-
+ 
         .crm-card { border:1px solid rgba(255,255,255,.1); transition:border-color .3s,background .3s,transform .3s; }
         .crm-card:hover { border-color:rgba(82,170,252,.55); background:rgba(82,170,252,.06); transform:translateY(-3px); }
         .crm-card:hover .crm-line { transform:scaleX(1); }
         .crm-line { transform:scaleX(0); transform-origin:left; transition:transform .4s ease; }
-
+ 
         .nav-lnk::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#52aafc; transition:width .3s; }
         .nav-lnk:hover::after { width:100%; }
       `}</style>
-
+ 
       <Navbar />
-
+ 
       {/* HERO */}
       <section className="grain relative flex min-h-screen flex-col justify-between overflow-hidden bg-[#071936] pt-24 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,rgba(82,170,252,.35),transparent_30%),linear-gradient(135deg,#071936_0%,#092866_52%,#030814_100%)]" />
         <div className="tech-grid absolute inset-0 opacity-30" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.98)_0%,rgba(3,8,20,.7)_42%,rgba(3,8,20,.16)_100%)]" />
-
+ 
         <div className="pointer-events-none absolute right-0 top-24 font-(family-name:--font-barlow) text-[17vw] font-extrabold uppercase leading-none text-white/[0.035]">
           SYSTEM
         </div>
-
+ 
         <div className="relative z-10 grid flex-1 grid-cols-1 gap-0 lg:grid-cols-2">
           <div className="flex flex-col justify-center px-6 py-24 md:px-12 lg:px-20">
             <div
@@ -248,10 +248,10 @@ export default function EcosystemPage() {
             >
               <span className="h-0.5 w-10 bg-[#52aafc]" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
-                The AE Ecosystem
+                The Ecosystem
               </span>
             </div>
-
+ 
             <h1
               className="font-(family-name:--font-barlow) max-w-[980px] font-extrabold uppercase leading-[0.83] tracking-[-0.025em]"
               style={{ fontSize: "clamp(56px,11vw,160px)" }}
@@ -278,7 +278,7 @@ export default function EcosystemPage() {
                 </span>
               </div>
             </h1>
-
+ 
             <p
               className="mt-9 max-w-[540px] text-[16px] font-light leading-[1.88] text-white/62"
               style={{
@@ -286,10 +286,10 @@ export default function EcosystemPage() {
                 opacity: loaded ? undefined : 0,
               }}
             >
-              Four products. One athlete-first ecosystem. Built to power storytelling, identity, youth sports, brand relationships, fan connection, and community impact.
+              Four products. One athlete-first system. Storytelling, identity, youth sports, brand relationships, fan connection, and impact — connected.
             </p>
           </div>
-
+ 
           <div
             className="flex flex-col justify-center border-l border-white/10 bg-white/[.03] px-8 py-24 backdrop-blur-sm md:px-12 lg:px-16"
             style={{
@@ -298,9 +298,9 @@ export default function EcosystemPage() {
             }}
           >
             <div className="mb-8 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]/70">
-              Explore the platform
+              Enter the system
             </div>
-
+ 
             <div className="space-y-0">
               {PRODUCTS.map((p, i) => (
                 <button
@@ -316,7 +316,7 @@ export default function EcosystemPage() {
                       {p.sub}
                     </div>
                   </div>
-
+ 
                   <span className="text-[22px] text-white/25 transition-all group-hover:translate-x-2 group-hover:text-[#52aafc]">
                     →
                   </span>
@@ -325,7 +325,7 @@ export default function EcosystemPage() {
             </div>
           </div>
         </div>
-
+ 
         <div
           className="relative z-10 grid grid-cols-2 border-t border-white/10 bg-[#071936]/80 backdrop-blur-xl md:grid-cols-4"
           style={{
@@ -335,9 +335,9 @@ export default function EcosystemPage() {
         >
           {[
             ["HERO", "Documentary in production"],
-            ["ATHLINK", "Athlete profile platform"],
-            ["TEAMS", "Youth sports management"],
-            ["CRM", "Relationship operating system"],
+            ["ATHLINK", "Athlete identity"],
+            ["TEAMS", "Youth sports operations"],
+            ["CRM", "Relationship OS"],
           ].map(([v, l]) => (
             <div
               key={l}
@@ -353,7 +353,7 @@ export default function EcosystemPage() {
           ))}
         </div>
       </section>
-
+ 
       {/* PRODUCT TICKER */}
       <div className="overflow-hidden bg-[#52aafc] py-3">
         <div
@@ -388,26 +388,26 @@ export default function EcosystemPage() {
           ))}
         </div>
       </div>
-
+ 
       {/* HERO DOC */}
       <section id="hero" className="relative overflow-hidden bg-[#071936] text-white">
         <div className="tech-grid absolute inset-0 opacity-20" />
         <div className="absolute left-1/2 top-0 h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-[#52aafc]/10 blur-3xl" />
-
+ 
         <div className="relative z-10 grid min-h-[760px] grid-cols-1 lg:grid-cols-2">
           <div className="sr-l relative flex flex-col justify-end overflow-hidden px-8 py-20 md:px-16">
             <div className="pointer-events-none absolute -top-10 left-0 right-0 text-center font-(family-name:--font-barlow) text-[30vw] font-extrabold uppercase leading-none text-white/[.035] select-none lg:text-[15vw]">
               HERO
             </div>
-
+ 
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.28em] text-white/25">
                 Film still / video placeholder
               </span>
             </div>
-
+ 
             <div className="absolute inset-0 bg-gradient-to-t from-[#071936] via-[#071936]/88 to-transparent" />
-
+ 
             <div className="relative z-10">
               <div className="mb-4 inline-flex items-center gap-3">
                 <span className="h-0.5 w-8 bg-[#52aafc]" />
@@ -415,24 +415,24 @@ export default function EcosystemPage() {
                   Documentary · January 2027
                 </span>
               </div>
-
+ 
               <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(38px,5vw,82px)] font-extrabold uppercase leading-[0.88]">
                 Legends become
                 <br />
                 <span className="text-[#52aafc]">catalysts.</span>
               </h2>
-
+ 
               <p className="mb-8 max-w-[500px] text-[15px] font-light leading-[1.9] text-white/58">
-                HERO explores how athletes evolve beyond competition to become cultural forces who shape conversations, inspire communities, and influence the world around them.
+                HERO examines the moment athletes become cultural forces — the figures who shape conversations, move communities, and influence the world beyond the arena.
               </p>
             </div>
           </div>
-
+ 
           <div className="sr flex flex-col justify-center border-l border-white/10 px-8 py-20 md:px-12 lg:px-16">
             <div className="mb-8 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]/70">
-              Already filmed
+              On record
             </div>
-
+ 
             {FILMED.map((a, i) => (
               <button
                 key={a.name}
@@ -449,14 +449,14 @@ export default function EcosystemPage() {
                   >
                     {a.name}
                   </span>
-
+ 
                   {activeFilmed === i && (
                     <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]/70">
                       Filmed ✓
                     </span>
                   )}
                 </div>
-
+ 
                 {activeFilmed === i && (
                   <p className="mt-2 text-[12px] font-light text-white/38">
                     {a.detail}
@@ -464,31 +464,31 @@ export default function EcosystemPage() {
                 )}
               </button>
             ))}
-
+ 
             <div className="mt-8 border border-[#52aafc]/25 bg-[#52aafc]/[.06] p-6">
               <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
                 In production
               </div>
               <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-white">
-                Created by Melissa Tittl · Hathor Studios
+                Directed by Melissa Tittl · Hathor Studios
               </div>
             </div>
           </div>
         </div>
       </section>
-
+ 
       {/* ATHLINK */}
       <section id="athlink" className="relative overflow-hidden bg-white px-6 py-32 md:px-12 lg:px-20">
         <div className="pointer-events-none absolute right-0 top-0 font-(family-name:--font-barlow) text-[18vw] font-extrabold uppercase leading-none text-[#092866]/[0.035]">
           PROFILE
         </div>
-
+ 
         <div className="sr relative z-10 mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-4 inline-flex items-center gap-3">
               <span className="h-0.5 w-8 bg-[#52aafc]" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                Athlete Platform
+                The Athlete Profile
               </span>
             </div>
             <h2 className="font-(family-name:--font-barlow) text-[clamp(38px,5vw,84px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
@@ -497,12 +497,12 @@ export default function EcosystemPage() {
               Everything.
             </h2>
           </div>
-
+ 
           <p className="max-w-[460px] text-[15px] font-light leading-[1.85] text-[#092866]/50">
-            Think Linktree — but built specifically for athletes. Your stats, highlights, socials, sponsors, and contact information all in one profile that brands can discover.
+            Like Linktree — built for athletes. Stats, highlights, social, sponsors, and contact, in one profile designed for the people brands are searching for.
           </p>
         </div>
-
+ 
         <div className="relative z-10 grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
           <div className="sr-l flex justify-center lg:justify-start">
             <div className="profile-mock w-full max-w-[390px] overflow-hidden rounded-2xl bg-white">
@@ -519,7 +519,7 @@ export default function EcosystemPage() {
                   </div>
                 </div>
               </div>
-
+ 
               <div className="p-6">
                 <div className="mb-5 grid grid-cols-3 gap-3">
                   {/* {[
@@ -537,7 +537,7 @@ export default function EcosystemPage() {
                     </div>
                   ))} */}
                 </div>
-
+ 
                 <div className="space-y-2">
                   {["Highlights", "Sponsors", "Socials", "Contact"].map((s) => (
                     <div
@@ -555,7 +555,7 @@ export default function EcosystemPage() {
               </div>
             </div>
           </div>
-
+ 
           <div className="sr-r grid grid-cols-1 gap-4 sm:grid-cols-2">
             {ATHLINK_FEATURES.map((f, i) => (
               <div
@@ -578,43 +578,43 @@ export default function EcosystemPage() {
           </div>
         </div>
       </section>
-
+ 
       {/* TRANSITION */}
       <div className="relative h-24 overflow-hidden bg-[#f0f5fd]">
         <div className="absolute inset-0 bg-gradient-to-b from-white to-[#f0f5fd]" />
       </div>
-
+ 
       {/* TEAMS */}
       <section id="teams" className="relative overflow-hidden bg-[#f0f5fd] px-6 py-32 md:px-12 lg:px-20">
         <div className="pointer-events-none absolute left-0 top-10 font-(family-name:--font-barlow) text-[18vw] font-extrabold uppercase leading-none text-[#092866]/[0.035]">
           TEAMS
         </div>
-
+ 
         <div className="relative z-10 grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
           <div className="sr-l">
             <div className="mb-4 inline-flex items-center gap-3">
               <span className="h-0.5 w-8 bg-[#52aafc]" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                Youth Sports Management
+                Youth Sports Operations
               </span>
             </div>
-
+ 
             <h2 className="font-(family-name:--font-barlow) text-[clamp(38px,5vw,84px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
               Teams
               <br />
               <span className="text-[#52aafc]">Elevated.</span>
             </h2>
-
+ 
             <p className="mt-10 max-w-[540px] text-[16px] font-light leading-[1.85] text-[#092866]/50">
-              The comprehensive youth sports management platform that handles the administrative complexity coaches, league organizers, and parents deal with behind the scenes.
+              The youth sports operating system. Built to absorb the administrative weight coaches, league organizers, and parents carry behind the scenes.
             </p>
-
+ 
             <div className="mt-10 grid grid-cols-2 gap-4">
               {[
                 ["Payments", "Built-in collection"],
-                ["Rosters", "Team management"],
+                ["Rosters", "Roster management"],
                 ["Funding", "Crowdfunding tools"],
-                ["Comms", "Parent updates"],
+                ["Comms", "Family updates"],
               ].map(([v, l]) => (
                 <div key={v} className="bg-white p-5">
                   <div className="font-(family-name:--font-barlow) text-[24px] font-extrabold uppercase text-[#52aafc]">
@@ -627,7 +627,7 @@ export default function EcosystemPage() {
               ))}
             </div>
           </div>
-
+ 
           <div className="sr-r space-y-0">
             {TEAMS_FEATURES.map((f, i) => (
               <div
@@ -639,7 +639,7 @@ export default function EcosystemPage() {
                   <span className="font-(family-name:--font-barlow) mt-1 shrink-0 text-[16px] font-bold text-[#52aafc]">
                     {f.n}
                   </span>
-
+ 
                   <div>
                     <h3 className="font-(family-name:--font-barlow) mb-1 text-[20px] font-bold uppercase text-[#092866] transition-colors group-hover:text-[#52aafc]">
                       {f.title}
@@ -654,40 +654,40 @@ export default function EcosystemPage() {
           </div>
         </div>
       </section>
-
+ 
       {/* CRM */}
       <section id="crm" className="grain relative overflow-hidden bg-[#071936] px-6 py-32 text-white md:px-12 lg:px-20">
         <div className="tech-grid absolute inset-0 opacity-20" />
         <div className="absolute right-0 top-0 h-[650px] w-[650px] rounded-full bg-[#52aafc]/10 blur-3xl" />
-
+ 
         <div className="relative z-10">
           <div className="sr mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
             <div>
               <div className="mb-4 inline-flex items-center gap-3">
                 <span className="h-0.5 w-8 bg-[#52aafc]" />
                 <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                  CRM Platform
+                  The Relationship OS
                 </span>
               </div>
-
+ 
               <h2 className="font-(family-name:--font-barlow) text-[clamp(38px,5vw,84px)] font-extrabold uppercase leading-[0.88]">
                 Eye In
                 <br />
                 <span className="text-[#52aafc]">Teams.</span>
               </h2>
             </div>
-
+ 
             <div className="flex flex-col justify-center">
               <p className="mb-5 text-[16px] font-light leading-[1.85] text-white/55">
-                A purpose-built relationship operating system designed to replace scattered tools and legacy CRMs. Email, text, calls, templates, contact import, surveys, B2B, and B2C pipelines — all in one platform.
+                A purpose-built relationship operating system designed to retire scattered tools and legacy CRMs. Email, text, calls, templates, imports, surveys, and pipelines — under one roof.
               </p>
-
+ 
               <div className="inline-flex w-fit items-center gap-2 border-b border-[#52aafc]/50 pb-1 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.18em] text-[#52aafc]">
-                Built to replace your entire stack →
+                Built to retire your stack →
               </div>
             </div>
           </div>
-
+ 
           <div className="-mx-6 overflow-x-auto px-6 pb-6 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-3">
               {CRM_FEATURES.map((f, i) => (
@@ -707,11 +707,11 @@ export default function EcosystemPage() {
               ))}
             </div>
           </div>
-
+ 
           <div className="sr mt-10 grid grid-cols-1 gap-6 border-t border-white/10 pt-10 sm:grid-cols-3">
             {[
               { v: "B2B + B2C", label: "Communication pipelines" },
-              { v: "Post-Close", label: "Built-in survey tool" },
+              { v: "Post-Close", label: "Native feedback" },
               { v: "Large-Scale", label: "Automated marketing" },
             ].map((s) => (
               <div key={s.v} className="flex items-center gap-4">
@@ -729,31 +729,31 @@ export default function EcosystemPage() {
           </div>
         </div>
       </section>
-
+ 
       {/* CTA */}
       <section className="bg-[#f0f5fd] px-6 py-28 md:px-12 lg:px-20">
         <div className="sr mb-14 text-center">
           <div className="mb-4 inline-flex items-center gap-4">
             <span className="h-0.5 w-8 bg-[#52aafc]" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-              Get Started
+              Choose your entry
             </span>
             <span className="h-0.5 w-8 bg-[#52aafc]" />
           </div>
-
+ 
           <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,78px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
             Which part of the
             <br />
             ecosystem is <span className="text-[#52aafc]">yours?</span>
           </h2>
         </div>
-
+ 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {[
             {
               tag: "For Athletes",
               title: "Build your legacy.",
-              body: "Get your Athlink profile, build your presence, and connect with the AE community.",
+              body: "Claim your Athlink profile, build your presence, and step into the Athletes Elevated network.",
               href: "/athletes",
               cta: "Apply as an Athlete →",
               dark: true,
@@ -761,7 +761,7 @@ export default function EcosystemPage() {
             {
               tag: "For Brands",
               title: "Be part of the journey.",
-              body: "Partner with us to reach athletes in a real, lasting way.",
+              body: "Partner with us to reach athletes the way relationships were meant to be built — real, sustained, true.",
               href: "/brands",
               cta: "Apply as a Brand →",
               dark: false,
@@ -769,7 +769,7 @@ export default function EcosystemPage() {
             {
               tag: "For Fans",
               title: "Follow what’s next.",
-              body: "Get access to athlete stories, new launches, and everything happening across AE.",
+              body: "Athlete stories, new launches, and everything moving across Athletes Elevated — first.",
               href: "/fans",
               cta: "Join The Circle →",
               dark: false,
@@ -787,16 +787,16 @@ export default function EcosystemPage() {
               <div className="pointer-events-none absolute -bottom-8 -right-8 font-(family-name:--font-barlow) text-[120px] font-extrabold uppercase leading-none opacity-[.06] select-none">
                 AE
               </div>
-
+ 
               <div className="relative z-10">
                 <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                   {card.tag}
                 </div>
-
+ 
                 <h3 className="font-(family-name:--font-barlow) mb-4 text-[clamp(28px,3vw,46px)] font-extrabold uppercase leading-[0.92]">
                   {card.title}
                 </h3>
-
+ 
                 <p
                   className={`mb-8 text-[14px] font-light leading-[1.8] ${
                     card.dark ? "text-white/62" : "text-[#092866]/48"
@@ -804,7 +804,7 @@ export default function EcosystemPage() {
                 >
                   {card.body}
                 </p>
-
+ 
                 <Link
                   href={card.href}
                   className={
@@ -820,7 +820,7 @@ export default function EcosystemPage() {
           ))}
         </div>
       </section>
-
+ 
       <Footer />
     </div>
   );

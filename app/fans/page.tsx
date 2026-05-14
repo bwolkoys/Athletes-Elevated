@@ -27,20 +27,20 @@ const REASONS = [
   {
     n: "01",
     tag: "Inside Access",
-    title: "First access to what is next.",
-    body: "New athletes. New partnerships. New drops from the AE ecosystem — Athlink, Teams Elevated, HERO, and FIELDDAY. When something launches, you'll know first.",
+    title: "First to what’s next.",
+    body: "New athletes. New partnerships. New drops across the Athletes Elevated ecosystem — Athlink, Teams Elevated, HERO, FIELDDAY. When something launches, you know before the rest.",
   },
   {
     n: "02",
     tag: "Real Stories",
-    title: "The journey beyond the highlight.",
-    body: "Not just the scoreboard. Not just the press conference. Fans get closer to the real athlete story — the pressure, the purpose, the comeback, and the legacy.",
+    title: "Past the highlight reel.",
+    body: "Not the scoreboard. Not the press conference. The story behind the athlete — the pressure, the purpose, the comeback, the legacy.",
   },
   {
     n: "03",
     tag: "Real Impact",
-    title: "Your support actually does something.",
-    body: "Following AE is not passive. Every share, donation, click, and signup helps amplify athletes, nonprofits, communities, and projects built around purpose.",
+    title: "Following matters here.",
+    body: "This isn’t a passive feed. Every share, donation, click, and signup amplifies the athletes, nonprofits, communities, and projects built around purpose.",
   },
 ];
  
@@ -67,24 +67,24 @@ const FIELDDAY_STATS = [
   {
     stat: "60",
     label: "Athletes",
-    body: "Follow athletes across sprints, distance, jumps, throws, relays, and more.",
+    body: "Follow elite athletes across sprints, distance, jumps, throws, and relays.",
   },
   {
     stat: "DL",
     label: "Diamond League",
-    body: "A fantasy season built around real track and field competition.",
+    body: "A season-long fantasy built around real Diamond League competition.",
   },
   {
     stat: "2027",
     label: "Mobile App",
-    body: "The native app experience is planned for iOS and Android.",
+    body: "iOS and Android. Built for season-long play.",
   },
 ];
  
 const MOVEMENT_CARDS = [
   { v: "3+", l: "Nonprofits supported", sub: "100% of donations pass through" },
   { v: "5", l: "Heroes already filmed", sub: "Steve Young, Jerry Rice & more" },
-  { v: "4", l: "Ecosystem products", sub: "HERO, Athlink, Teams Elevated, CRM" },
+  { v: "4", l: "Connected products", sub: "HERO, Athlink, Teams Elevated, CRM" },
   { v: "2027", l: "HERO launches", sub: "In production now" },
 ];
  
@@ -592,9 +592,7 @@ export default function ForFansPage() {
                 opacity: loaded ? undefined : 0,
               }}
             >
-              Athletes Elevated is built for the people who believe sports can
-              become something bigger — fans who follow the story, support the
-              mission, and help athletes create impact beyond the game.
+              Athletes Elevated is built for the people who believe sports can become something bigger — fans who follow the story, support the mission, and help athletes create impact beyond the game.
             </p>
  
             <div
@@ -695,7 +693,7 @@ export default function ForFansPage() {
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="accent-line w-8" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-              Why Follow AE
+              Why follow
             </span>
           </div>
  
@@ -785,9 +783,7 @@ export default function ForFansPage() {
               </h2>
  
               <p className="mb-8 max-w-[500px] text-[15px] font-light leading-[1.9] text-white/58">
-                HERO explores the evolving role athletes play in culture today —
-                from competition and leadership to influence, identity, and
-                impact beyond the game.
+                HERO examines the evolving role athletes play in culture — from competition and leadership to influence, identity, and impact beyond the game.
               </p>
  
               <Link
@@ -804,7 +800,7 @@ export default function ForFansPage() {
             <div className="mb-8 inline-flex items-center gap-3">
               <span className="live-dot" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">
-                Already filmed
+                On record
               </span>
             </div>
  
@@ -850,7 +846,7 @@ export default function ForFansPage() {
                 In production
               </div>
               <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-white">
-                Created by Melissa Tittl · Hathor Studios
+                Directed by Melissa Tittl · Hathor Studios
               </div>
             </div>
           </div>
@@ -886,9 +882,7 @@ export default function ForFansPage() {
             </h2>
  
             <p className="mb-8 max-w-[500px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
-              FIELDDAY turns Diamond League drama into a season-long fantasy
-              track league. Fans pick a pro-managed squad, follow live scoring,
-              earn captain bonuses, and compete for prizes and experiences.
+              FIELDDAY turns Diamond League drama into a season-long fantasy league. Pick a pro-managed squad, follow live scoring, earn captain bonuses, and compete for prizes and experiences.
             </p>
  
             <a
@@ -972,15 +966,11 @@ export default function ForFansPage() {
  
             <div className="flex flex-col justify-center">
               <p className="mb-6 text-[16px] font-light leading-[1.88] text-white/55">
-                Athletes Elevated is building an ecosystem that connects
-                athletes, brands, fans, and communities around shared values.
-                Fans are the foundation.
+                Athletes Elevated is building a system that connects athletes, brands, fans, and communities around shared values. Fans are the foundation.
               </p>
  
               <p className="text-[14px] font-light leading-[1.88] text-white/35">
-                From youth leagues to global documentaries, from athlete profiles
-                to community fundraising — every part of AE starts and ends with
-                people who care.
+                From youth leagues to global documentaries, from athlete profiles to community fundraising — every piece of Athletes Elevated starts and ends with people who care.
               </p>
             </div>
           </div>
@@ -1062,7 +1052,7 @@ export default function ForFansPage() {
           <div className="mb-6 inline-flex items-center gap-4">
             <span className="accent-line w-12" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.36em] text-[#52aafc]">
-              Stay Connected
+              The list
             </span>
             <span className="accent-line w-12" />
           </div>
@@ -1081,8 +1071,7 @@ export default function ForFansPage() {
           </h2>
  
           <p className="mx-auto mb-12 max-w-[460px] text-[16px] font-light leading-[1.82] text-[#092866]/50">
-            HERO updates. Athlete stories. Community moments. FIELDDAY. New
-            ecosystem launches. All delivered before anyone else.
+            HERO updates. Athlete stories. Community moments. FIELDDAY drops. New ecosystem launches. Before anyone else.
           </p>
  
           {subscribed ? (

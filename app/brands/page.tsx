@@ -27,24 +27,24 @@ const REASONS = [
   {
     n: "01",
     title: "Athlete-First Audience",
-    body: "Your brand reaches athletes, fans, families, and communities who genuinely care about the ecosystem — not just another ad impression.",
+    body: "Athletes, fans, families, and communities who actually care about the ecosystem.",
   },
   {
     n: "02",
-    title: "Real Cultural Alignment",
-    body: "We build meaningful partnerships around shared values, storytelling, and long-term impact.",
+    title: "Cultural Alignment",
+    body: "Partnerships built around shared values, storytelling, and long-form impact.",
   },
   {
     n: "03",
-    title: "Multi-Platform Reach",
-    body: "One partnership touches athlete profiles, documentary content, youth sports, fan engagement, and live experiences.",
+    title: "One Partnership, Every Surface",
+    body: "A single relationship that lives across athlete profiles, youth sports, fan engagement, and live experiences.",
   },
 ];
  
 const ECOSYSTEM_REACH = [
   {
     product: "Athlink",
-    desc: "Athlete profiles discoverable by brands",
+    desc: "Athlete profiles built for brand discovery",
     stat: "Live now",
   },
   {
@@ -54,12 +54,12 @@ const ECOSYSTEM_REACH = [
   },
   {
     product: "Eye In Teams",
-    desc: "CRM connecting brands to athletes at scale",
+    desc: "The relationship system connecting brands to athletes at scale",
     stat: "Built in-house",
   },
   {
     product: "Social Media",
-    desc: "Original athlete-driven content built to reach fans where culture lives.",
+    desc: "Original athlete-driven content meeting fans where culture lives.",
     stat: "Growing Daily",
   },
 ];
@@ -104,7 +104,7 @@ const FORM_STEPS: FormStep[] = [
     fields: [
       {
         id: "tier",
-        label: "Partnership tier interest",
+        label: "Partnership tier",
         type: "select",
         options: ["Community", "Partner", "Premier", "Not sure yet"],
       },
@@ -122,7 +122,7 @@ const FORM_STEPS: FormStep[] = [
       },
       {
         id: "goals",
-        label: "Primary goal",
+        label: "Primary goals",
         type: "multicheck",
         options: [
           "Brand awareness",
@@ -136,7 +136,7 @@ const FORM_STEPS: FormStep[] = [
   },
   {
     step: 3,
-    heading: "Anything else?",
+    heading: "Anything else",
     fields: [
       {
         id: "timeline",
@@ -545,7 +545,7 @@ export default function BrandsPage() {
             className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
             style={{ writingMode: "vertical-rl" }}
           >
-            Accepting partnerships
+            Accepting partners
           </span>
           <div className="h-20 w-px bg-white/20" />
           <div
@@ -599,7 +599,7 @@ export default function BrandsPage() {
                       animationDelay: loaded ? `${0.32 + i * 0.06}s` : "999s",
                     }}
                   >
-                    {char === " " ? "\u00A0" : char}
+                    {char === " " ? " " : char}
                   </span>
                 ))}
               </span>
@@ -613,9 +613,7 @@ export default function BrandsPage() {
               opacity: loaded ? undefined : 0,
             }}
           >
-            Athletes Elevated gives brands access to athlete storytelling, youth
-            sports, fan engagement, and community impact — all through one connected
-            ecosystem.
+            A single doorway into athlete storytelling, youth sports, fan engagement, and community impact. Built for the brands willing to show up beyond the deal.
           </p>
  
           <div
@@ -687,7 +685,7 @@ export default function BrandsPage() {
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="accent-line w-8" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-              Why AE
+              Why partner
             </span>
           </div>
  
@@ -768,15 +766,12 @@ export default function BrandsPage() {
               </h2>
  
               <p className="mb-12 mt-6 max-w-[400px] text-[15px] font-light leading-[1.85] text-white/45">
-                When you partner with Athletes Elevated, your brand shows up
-                across the entire ecosystem — from athlete platforms and youth
-                sports to original content, events, and community-driven
-                experiences.
+                Partner with Athletes Elevated and your brand shows up across the entire system — athlete platforms, youth sports, original content, events, and community-led experiences.
               </p>
  
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { v: "4", l: "AE products" },
+                  { v: "4", l: "Connected products" },
                   { v: "100%", l: "Athlete-first" },
                   { v: "Global", l: "Content reach" },
                   { v: "Growing", l: "Athlete network" },
@@ -863,7 +858,7 @@ export default function BrandsPage() {
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="accent-line w-8" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-              Current Partners
+              In the room
             </span>
             <span className="accent-line w-8" />
           </div>
@@ -913,7 +908,7 @@ export default function BrandsPage() {
           <div className="mb-8 inline-flex items-center gap-4">
             <span className="accent-line w-10" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
-              Ready To Build?
+              The invitation
             </span>
             <span className="accent-line w-10" />
           </div>
@@ -935,8 +930,7 @@ export default function BrandsPage() {
           </h2>
  
           <p className="mx-auto mt-8 max-w-[420px] text-[16px] font-light leading-[1.85] text-[#092866]/48">
-            Tell us about your brand and what you&rsquo;re looking for. We&rsquo;ll build
-            something meaningful together.
+            Tell us about your brand and what you&rsquo;re seeking. We&rsquo;ll build something meaningful together.
           </p>
  
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">

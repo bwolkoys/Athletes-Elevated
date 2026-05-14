@@ -70,17 +70,17 @@ const FORM_STEPS: FormStep[] = [
       { id: "name", label: "Full name", type: "text", required: true, placeholder: "Your full name" },
       { id: "email", label: "Email address", type: "email", required: true, placeholder: "you@email.com" },
       { id: "mobile", label: "Mobile number", type: "tel", placeholder: "+1 (000) 000-0000" },
-      { id: "city", label: "City and state of primary residence", type: "text", placeholder: "e.g. Los Angeles, CA" },
+      { id: "city", label: "Primary residence (city, state)", type: "text", placeholder: "e.g. Los Angeles, CA" },
       { id: "sport", label: "Primary sport", type: "select", required: true, options: SPORTS_LIST },
     ],
   },
   {
     step: 2,
-    heading: "Your athletic career",
+    heading: "Your career",
     fields: [
       {
         id: "status",
-        label: "Which best describes you today?",
+        label: "Which best describes you?",
         type: "select",
         required: true,
         options: [
@@ -92,7 +92,7 @@ const FORM_STEPS: FormStep[] = [
       },
       {
         id: "career_stage",
-        label: "Where are you in your athletic career right now?",
+        label: "Where are you in your career?",
         type: "select",
         required: true,
         options: [
@@ -107,14 +107,14 @@ const FORM_STEPS: FormStep[] = [
       },
       {
         id: "accomplishment",
-        label: "What is your top career accomplishment you're most proud of?",
+        label: "What career accomplishment are you most proud of?",
         type: "textarea",
         required: true,
         placeholder: "1–2 sentences",
       },
       {
         id: "verification",
-        label: "Provide one verification source we can use to confirm your athletic credentials",
+        label: "One source we can use to verify your athletic credentials",
         type: "textarea",
         required: true,
         placeholder:
@@ -124,11 +124,11 @@ const FORM_STEPS: FormStep[] = [
   },
   {
     step: 3,
-    heading: "What you're looking for",
+    heading: "What you seek",
     fields: [
       {
         id: "interests",
-        label: "What features that Athletes Elevated offers are you most interested in?",
+        label: "Which Athletes Elevated capabilities matter most to you?",
         type: "multicheck",
         required: true,
         options: [
@@ -141,11 +141,11 @@ const FORM_STEPS: FormStep[] = [
       },
       {
         id: "goals",
-        label: "What are you hoping Athletes Elevated will do for you?",
+        label: "What do you hope Athletes Elevated will do for you?",
         type: "textarea",
         required: true,
         placeholder:
-          'Be honest. We would rather you say "I want to make money on Athlink" than dress it up as something else. There is no wrong answer; there is only an unclear one. (3–5 sentences)',
+          'Be plain. We would rather you say "I want to earn on Athlink" than dress it up as something else. There is no wrong answer — only an unclear one. (3–5 sentences)',
       },
     ],
   },
@@ -155,13 +155,13 @@ const FORM_STEPS: FormStep[] = [
     fields: [
       {
         id: "contribution",
-        label: "What can you contribute to this network beyond your name?",
+        label: "What do you bring to this network beyond your name?",
         type: "textarea",
         required: true,
         placeholder:
-          "AE only functions if all members are active and engaged. Fan engagement, mentorship, industry expertise, introductions, content, time for younger members, capital — anything counts. (3–5 sentences)",
+          "Athletes Elevated only functions when members are active. Fan engagement, mentorship, expertise, introductions, content, time for younger members, capital — anything counts. (3–5 sentences)",
         helperText:
-          "* AE reserves the right to remove members who are not actively utilizing the platform.",
+          "* Athletes Elevated reserves the right to remove inactive members.",
       },
     ],
   },
@@ -179,22 +179,22 @@ const TOOLS = [
   {
     name: "Athlink",
     tag: "Athlete Profile",
-    desc: "One link for everything you are. Stats, highlights, social, contact, and brand discovery in one profile.",
+    desc: "One destination for everything you are. Stats, story, social, contact, and brand access in a single profile.",
   },
   {
     name: "Teams Elevated",
     tag: "Youth Sports",
-    desc: "Payments, rosters, scheduling, and crowdfunding so cost is never why a kid sits out.",
+    desc: "Payments, rosters, scheduling, and crowdfunding — so cost is never the reason a kid sits out.",
   },
   {
     name: "HERO",
     tag: "Documentary",
-    desc: "A cinematic series redefining what it means to be a hero-athlete beyond the arena.",
+    desc: "A cinematic series on what it means to be a hero — beyond the arena, beyond the score.",
   },
   {
     name: "CRM",
     tag: "Operating System",
-    desc: "A unified system for managing athlete, brand, and fan relationships across every channel.",
+    desc: "The single system beneath every athlete, brand, and fan relationship — across every channel.",
   },
 ];
  
@@ -663,7 +663,7 @@ export default function ForAthletesPage() {
           </span>
           <span className="h-3 w-px bg-white/20" />
           <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
-            Athlete Portal
+            Members Only
           </span>
         </div>
  
@@ -679,7 +679,7 @@ export default function ForAthletesPage() {
             className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
             style={{ writingMode: "vertical-rl" }}
           >
-            Scroll to enter
+            Enter
           </span>
           <div className="h-20 w-px bg-white/20" />
           <div
@@ -698,7 +698,7 @@ export default function ForAthletesPage() {
           >
             <span className="accent-line w-10" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
-              For Athletes · Brand Power · Legacy Systems
+              By Invitation · For Athletes Beyond the Arena
             </span>
           </div>
  
@@ -735,7 +735,7 @@ export default function ForAthletesPage() {
                       animationDelay: loaded ? `${0.38 + i * 0.05}s` : "999s",
                     }}
                   >
-                    {char === " " ? "\u00A0" : char}
+                    {char === " " ? " " : char}
                   </span>
                 ))}
               </span>
@@ -750,9 +750,7 @@ export default function ForAthletesPage() {
                 opacity: loaded ? undefined : 0,
               }}
             >
-              Athletes Elevated gives athletes the tools, visibility, brand
-              infrastructure, and community to turn performance into opportunity —
-              and opportunity into impact.
+              A private membership for athletes turning performance into platform — and platform into legacy. The tools, the access, and the room only members reach.
             </p>
  
             <div
@@ -787,10 +785,10 @@ export default function ForAthletesPage() {
           }}
         >
           {[
-            ["ATHLINK", "Athlete identity"],
-            ["HERO", "Storytelling"],
-            ["CRM", "Relationships"],
-            ["IMPACT", "Community"],
+            ["ATHLINK", "Identity"],
+            ["HERO", "Story"],
+            ["CRM", "Network"],
+            ["IMPACT", "Legacy"],
           ].map(([v, l]) => (
             <div
               key={l}
@@ -836,14 +834,14 @@ export default function ForAthletesPage() {
           <div className="mb-4 inline-flex items-center gap-3">
             <span className="accent-line w-8" />
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-              What we stand for
+              Our principles
             </span>
           </div>
  
           <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,84px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
             Built around
             <br />
-            the human.
+            the athlete.
           </h2>
         </div>
  
@@ -852,19 +850,19 @@ export default function ForAthletesPage() {
             {
               n: "01",
               tag: "Identity",
-              title: "You are not just the result",
-              body: "AE is built for the full athlete: the ambition, the story, the network, the next chapter, and the impact you want to leave behind.",
+              title: "Not just the result",
+              body: "Athletes Elevated is built for the entire athlete — the ambition, the story, the network, the next chapter, and the imprint you intend to leave.",
             },
             {
               n: "02",
               tag: "Opportunity",
-              title: "Turn attention into leverage",
-              body: "Visibility is only valuable when it becomes connection. We help athletes turn their story into real brand, fan, and business relationships.",
+              title: "Attention into leverage",
+              body: "Visibility means little without connection. We turn your story into the relationships — with brands, with fans, with builders — that compound over time.",
             },
             {
               n: "03",
               tag: "Legacy",
-              title: "Build past the final whistle",
+              title: "Build past the whistle",
               body: "Every tool, platform, and partnership is designed to help athletes build something that continues long after competition ends.",
             },
           ].map((v, i) => (
@@ -910,21 +908,19 @@ export default function ForAthletesPage() {
               <div className="mb-4 inline-flex items-center gap-3">
                 <span className="accent-line w-8" />
                 <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                  The AE Ecosystem
+                  The Ecosystem
                 </span>
               </div>
  
               <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,88px)] font-extrabold uppercase leading-[0.88] text-white">
-                Tools built
+                Built for
                 <br />
-                for athletes.
+                the athlete.
               </h2>
             </div>
  
             <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-white/48">
-              Profiles, storytelling, fan engagement, brand relationships, and
-              community impact — connected through one athlete-first operating
-              system.
+              Identity, story, audience, brand, and impact — connected through a single athlete-first system.
             </p>
           </div>
  
@@ -1002,9 +998,7 @@ export default function ForAthletesPage() {
               </h2>
  
               <p className="mb-8 max-w-[460px] text-[15px] font-light leading-[1.88] text-[#092866]/52">
-                HERO explores how athletes become cultural forces — from myth
-                and competition to leadership, activism, identity, and impact
-                beyond the arena.
+                HERO examines the moment athletes become cultural forces — from myth and competition to leadership, identity, and the imprint left beyond the arena.
               </p>
  
               <button
@@ -1020,7 +1014,7 @@ export default function ForAthletesPage() {
             <div className="mb-8 inline-flex items-center gap-3">
               <span className="live-dot" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">
-                Already filmed
+                On record
               </span>
             </div>
  
@@ -1055,7 +1049,7 @@ export default function ForAthletesPage() {
                 In production
               </div>
               <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-[#092866]">
-                Created by Melissa Tittl · Hathor Studios
+                Directed by Melissa Tittl · Hathor Studios
               </div>
             </div>
           </div>
@@ -1079,11 +1073,11 @@ export default function ForAthletesPage() {
             <div className="mb-5 inline-flex items-center gap-3">
               <span className="accent-line w-8" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                Ready?
+                The threshold
               </span>
             </div>
             <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(40px,5.5vw,88px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
-              Your story
+              Your legacy
               <br />
               starts
               <br />
@@ -1095,8 +1089,7 @@ export default function ForAthletesPage() {
               </span>
             </h2>
             <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/55">
-              Whether you&apos;re an athlete chasing your next chapter or a brand
-              looking to align with something real.
+              Whether you&apos;re an athlete building what comes next, or a brand seeking alignment with something true.
             </p>
           </div>
  
@@ -1176,7 +1169,7 @@ export default function ForAthletesPage() {
                   </h3>
  
                   <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">
-                    We&apos;ll be in touch soon.
+                    We&apos;ll be in touch.
                   </p>
  
                   <button
