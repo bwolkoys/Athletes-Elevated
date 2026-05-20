@@ -178,8 +178,8 @@ const FILMED = [
 const TOOLS = [
   {
     name: "Athlink",
-    tag: "Athlete Profile",
-    desc: "One destination for everything you are. Stats, story, social, contact, and brand access in a single profile.",
+    tag: "Athlete Marketplace",
+    desc: "Your storefront and your profile, in one place. Host your links, discount codes, and brand partnerships for fans to click through.",
   },
   {
     name: "Teams Elevated",

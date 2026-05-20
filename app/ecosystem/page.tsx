@@ -20,7 +20,7 @@ const montserrat = Montserrat({
  
 const PRODUCTS = [
   { id: "hero", label: "HERO", sub: "Documentary" },
-  { id: "athlink", label: "Athlink", sub: "The Athlete Profile" },
+  { id: "athlink", label: "Athlink", sub: "The Athlete Marketplace" },
   { id: "teams", label: "Teams Elevated", sub: "Youth Sports Operations" },
   { id: "crm", label: "Eye In Teams", sub: "The Relationship OS" },
 ];
@@ -42,23 +42,23 @@ const FILMED = [
 const ATHLINK_FEATURES = [
   {
     icon: "01",
-    title: "One Link",
-    desc: "Everything about you — at a single URL.",
+    title: "Your Athlink Profile",
+    desc: "Every link, code, and partnership in one clean URL you share everywhere.",
   },
   {
     icon: "02",
-    title: "Stats & Story",
-    desc: "Your numbers, your clips, the career milestones that define you.",
+    title: "The Marketplace",
+    desc: "Fans click your links and land in the Athlink marketplace — where they can shop products you promote, directly from you.",
   },
   {
     icon: "03",
-    title: "Sponsorships",
-    desc: "Every brand, partnership, and sponsor in one place.",
+    title: "Your Narrative",
+    desc: "The career you've built, the brand you're becoming, the story only you can tell.",
   },
   {
     icon: "04",
-    title: "Live in Minutes",
-    desc: "From signup to public profile in minutes. No tech required.",
+    title: "Built Around You",
+    desc: "Upload your products, add your links, set your codes. Your profile is yours to build exactly how you want it.",
   },
 ];
  
@@ -335,7 +335,7 @@ export default function EcosystemPage() {
         >
           {[
             ["HERO", "Documentary in production"],
-            ["ATHLINK", "Athlete identity"],
+            ["ATHLINK", "Athlete marketplace"],
             ["TEAMS", "Youth sports operations"],
             ["CRM", "Relationship OS"],
           ].map(([v, l]) => (
@@ -488,18 +488,18 @@ export default function EcosystemPage() {
             <div className="mb-4 inline-flex items-center gap-3">
               <span className="h-0.5 w-8 bg-[#52aafc]" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                The Athlete Profile
+                The Athlete Marketplace
               </span>
             </div>
             <h2 className="font-(family-name:--font-barlow) text-[clamp(38px,5vw,84px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
-              One link.
+              One profile.
               <br />
-              Everything.
+              One marketplace.
             </h2>
           </div>
  
           <p className="max-w-[460px] text-[15px] font-light leading-[1.85] text-[#092866]/50">
-            Like Linktree — built for athletes. Stats, highlights, social, sponsors, and contact, in one profile designed for the people brands are searching for.
+          Athlink is two things working together — a profile that hosts all your links, discount codes, and partnerships, and a marketplace where fans discover and buy directly from the athletes they follow.
           </p>
         </div>
  
@@ -522,20 +522,6 @@ export default function EcosystemPage() {
  
               <div className="p-6">
                 <div className="mb-5 grid grid-cols-3 gap-3">
-                  {/* {[
-                    ["NIL", "Ready"],
-                    ["4.8K", "Fans"],
-                    ["12", "Brands"],
-                  ].map(([v, l]) => (
-                    <div key={l} className="bg-[#f0f5fd] p-3 text-center">
-                      <div className="font-(family-name:--font-barlow) text-[20px] font-extrabold text-[#092866]">
-                        {v}
-                      </div>
-                      <div className="text-[9px] font-medium uppercase tracking-[0.15em] text-[#092866]/45">
-                        {l}
-                      </div>
-                    </div>
-                  ))} */}
                 </div>
  
                 <div className="space-y-2">

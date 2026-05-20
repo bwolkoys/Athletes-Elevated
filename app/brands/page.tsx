@@ -44,7 +44,7 @@ const REASONS = [
 const ECOSYSTEM_REACH = [
   {
     product: "Athlink",
-    desc: "Athlete profiles built for brand discovery",
+    desc: "The marketplace where fans buy from the athletes they follow — and where brands get found.",
     stat: "Live now",
   },
   {

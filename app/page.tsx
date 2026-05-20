@@ -36,9 +36,9 @@ const ECOSYSTEM = [
   {
     tag: "Athlete Platform",
     name: "Athlink",
-    sub: "One link for everything an athlete needs.",
+    sub: "The marketplace for athletes.",
     detail:
-      "Profiles, highlights, stats, brand discovery, and fan connection in one athlete-first hub.",
+      "Promote products, host links, share discount codes — fans shop directly from your profile.",
   },
   {
     tag: "Youth Sports",
@@ -615,7 +615,7 @@ export default function HomePage() {
             <div className="grid grid-cols-2 border-b border-white/10 lg:border-b-0 lg:border-r">
               {[
                 ["HERO", "Documentary"],
-                ["ATHLINK", "Athlete profiles"],
+                ["ATHLINK", "Athlete platform"],
                 ["TEAMS", "Youth sports"],
                 ["IMPACT", "Community"],
               ].map(([value, label]) => (
