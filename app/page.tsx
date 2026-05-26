@@ -4,12 +4,15 @@ import {
   useEffect,
   useRef,
   useState,
-  MouseEvent as ReactMouseEvent,
 } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "./src/components/navBar";
 import Footer from "./src/components/footer";
+import ProductCard from "./src/components/productCard";
+import StatusChip from "./src/components/statusChip";
+import { createParticles } from "./src/lib/particles";
+import { CTA, HERO_PROPOSITIONS, PRODUCTS as SHARED_PRODUCTS } from "./src/lib/uxContent";
  
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -25,61 +28,12 @@ const montserrat = Montserrat({
  
 const CYCLING_WORDS = ["ATHLETES", "COMMUNITIES", "TECHNOLOGY", "LEGACY"];
  
-const ECOSYSTEM = [
-  {
-    tag: "Documentary",
-    name: "HEROES",
-    sub: "Cinematic athlete stories that move culture.",
-    detail:
-      "A documentary platform built around legends, identity, leadership, and impact beyond the game.",
-  },
-  {
-    tag: "Athlete Platform",
-    name: "Athlink",
-    sub: "The marketplace for athletes.",
-    detail:
-      "Promote products, host links, share discount codes — fans shop directly from your profile.",
-  },
-  {
-    tag: "Youth Sports",
-    name: "Teams Elevated",
-    sub: "Helping more kids stay in the game.",
-    detail:
-      "Payments, fundraising, team communication, and community support built for youth sports.",
-  },
-  {
-    tag: "CRM + Marketing",
-    name: "Eye In Teams",
-    sub: "Relationship infrastructure for sports.",
-    detail:
-      "Email, text, calls, fan engagement, and brand communication powered through one system.",
-  },
-];
- 
 const FILMED = [
   "Steve Young",
   "Jerry Rice",
   "Sir Nick Faldo",
   "Picabo Street",
   "West Ham United",
-];
- 
-const NONPROFITS = [
-  {
-    name: "Park City Community Foundation",
-    desc: "Strengthening local nonprofits across Park City and Summit County.",
-    href: "https://parkcitycf.fcsuite.com/erp/donate",
-  },
-  {
-    name: "West Ham United Foundation",
-    desc: "Using the power of football to help communities thrive in East London.",
-    href: "https://www.whufc.com/en/the-club/community/foundation",
-  },
-  {
-    name: "McKenna Claire Foundation",
-    desc: "Advancing research for pediatric brain cancer.",
-    href: "https://mckennaclairefoundation.org/donate/",
-  },
 ];
  
 const PARTNERS = [
@@ -103,14 +57,6 @@ const STATS = [
 /* ──────────────────────────────────────────────────────────────────────────
    FLOATING PARTICLES — drifting dots for atmosphere in dark sections
    ────────────────────────────────────────────────────────────────────────── */
-type Particle = {
-  size: number;
-  left: number;
-  top: number;
-  duration: number;
-  delay: number;
-};
- 
 function FloatingParticles({
   count = 24,
   color = "rgba(82,170,252,0.5)",
@@ -118,18 +64,7 @@ function FloatingParticles({
   count?: number;
   color?: string;
 }) {
-  const [particles, setParticles] = useState<Particle[]>([]);
- 
-  useEffect(() => {
-    const ps: Particle[] = Array.from({ length: count }).map(() => ({
-      size: Math.random() * 2.4 + 1,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 14 + 14,
-      delay: Math.random() * 10,
-    }));
-    setParticles(ps);
-  }, [count]);
+  const particles = createParticles(count);
  
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -286,20 +221,6 @@ export default function HomePage() {
     el.addEventListener("mousemove", onMove);
     return () => el.removeEventListener("mousemove", onMove);
   }, []);
- 
-  /* card tilt */
-  const handleCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rY = (x / rect.width) * 7;
-    const rX = -(y / rect.height) * 7;
-    card.style.transform = `perspective(1200px) rotateX(${rX}deg) rotateY(${rY}deg) translateY(-6px)`;
-  };
-  const resetCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = "";
-  };
  
   return (
     <div
@@ -495,7 +416,7 @@ export default function HomePage() {
             {liveTime || "00:00:00"}
           </span>
           <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
+          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/60">
             Park City · UT
           </span>
         </div>
@@ -509,7 +430,7 @@ export default function HomePage() {
             />
           </div>
           <span
-            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
+            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/72"
             style={{ writingMode: "vertical-rl" }}
           >
             Scroll to enter the ecosystem
@@ -593,7 +514,7 @@ export default function HomePage() {
                 }}
               />
             ))}
-            <span className="ml-3 font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.3em] text-white/35">
+            <span className="ml-3 font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.3em] text-white/72">
               {String(wordIndex + 1).padStart(2, "0")} /{" "}
               {String(CYCLING_WORDS.length).padStart(2, "0")}
             </span>
@@ -607,8 +528,8 @@ export default function HomePage() {
             }}
           >
             <div className="border-b border-white/10 p-6 md:p-8 lg:border-b-0 lg:border-r">
-              <p className="max-w-[520px] text-[15px] font-light leading-[1.85] text-white/62">
-              An invite-only network where athletes, brands, and the fans who follow them gather inside one elevated ecosystem of media, technology, and impact.
+              <p className="max-w-[700px] text-[19px] font-normal leading-[1.75] text-white/88">
+                {HERO_PROPOSITIONS.home}
               </p>
             </div>
  
@@ -627,7 +548,7 @@ export default function HomePage() {
                   <div className="font-(family-name:--font-barlow) text-[26px] font-extrabold text-[#52aafc]">
                     {value}
                   </div>
-                  <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-white/38">
+                  <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-white/76">
                     {label}
                   </div>
                 </div>
@@ -639,13 +560,19 @@ export default function HomePage() {
                 href="/athletes"
                 className="btn-blue inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Apply as an Athlete <span className="arr inline-block">→</span>
+                {CTA.applyAthlete} <span className="arr inline-block">→</span>
               </Link>
               <Link
                 href="/brands"
                 className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Apply as a Brand <span className="arr inline-block">→</span>
+                {CTA.partner} <span className="arr inline-block">→</span>
+              </Link>
+              <Link
+                href="/ecosystem"
+                className="inline-flex items-center justify-center gap-2 px-8 py-2 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-widest text-white/76 transition hover:text-white"
+              >
+                {CTA.exploreEcosystem}
               </Link>
             </div>
           </div>
@@ -726,12 +653,12 @@ export default function HomePage() {
               the result.
             </h2>
  
-            <p className="mb-6 max-w-[520px] text-[16px] font-light leading-[1.9] text-[#092866]/55">
+            <p className="mb-6 max-w-[520px] text-[18px] font-normal leading-[1.9] text-[#092866]/70">
               Athletes Elevated is an ecosystem built around one belief: the
               impact of an athlete does not stop at the final whistle.
             </p>
  
-            <p className="max-w-[520px] text-[14px] font-light leading-[1.9] text-[#092866]/38">
+            <p className="max-w-[520px] text-[17px] font-normal leading-[1.9] text-[#092866]/62">
               We connect athletes with platforms, partners, fans, and
               communities that help turn performance into purpose, visibility
               into opportunity, and legacy into impact.
@@ -757,7 +684,7 @@ export default function HomePage() {
               <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#52aafc]">
                 {tag}
               </div>
-              <p className="text-[14px] font-light leading-[1.8] text-[#092866]/48">
+              <p className="text-[17px] font-normal leading-[1.8] text-[#092866]/66">
                 {body}
               </p>
             </div>
@@ -792,8 +719,8 @@ export default function HomePage() {
               </h2>
             </div>
  
-            <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-white/48">
-              Media, athlete profiles, youth sports, fan engagement, CRM, and
+            <p className="max-w-[420px] text-[17px] font-normal leading-[1.85] text-white/68">
+              Media, athlete profiles, youth sports, fan engagement, Eye In Teams, and
               community impact — connected through one elevated sports
               ecosystem.
             </p>
@@ -801,50 +728,13 @@ export default function HomePage() {
  
           <div className="-mx-6 overflow-x-auto px-6 pb-6 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-4">
-              {ECOSYSTEM.map((item, i) => (
+              {SHARED_PRODUCTS.slice(0, 4).map((product, i) => (
                 <div
-                  key={item.name}
-                  className="portal-card sr relative flex w-[320px] shrink-0 snap-start flex-col overflow-hidden bg-white text-[#092866] md:w-[380px]"
+                  key={product.name}
+                  className="w-[330px] shrink-0 snap-start md:w-[390px]"
                   style={{ transitionDelay: `${i * 80}ms` }}
-                  onMouseMove={handleCardTilt}
-                  onMouseLeave={resetCardTilt}
                 >
-                  <div className="portal-line absolute left-0 top-0 z-20 h-0.5 w-full bg-[#52aafc]" />
- 
-                  <div
-                    className="relative flex h-[170px] items-center justify-center overflow-hidden bg-[#d7e5fb]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(135deg,rgba(9,40,102,.15),rgba(82,170,252,.1))",
-                    }}
-                  >
-                    <div className="tech-grid absolute inset-0 opacity-20" />
-                    <div className="absolute right-6 top-6 h-2 w-2 animate-pulse rounded-full bg-[#52aafc]" />
-                    {/* corner brackets */}
-                    <div className="absolute left-3 top-3 h-4 w-4 border-l-2 border-t-2 border-[#52aafc]/40" />
-                    <div className="absolute bottom-3 right-3 h-4 w-4 border-b-2 border-r-2 border-[#52aafc]/40" />
-                    <span className="font-(family-name:--font-barlow) text-[120px] font-extrabold leading-none text-[#092866]/[0.08]">
-                      0{i + 1}
-                    </span>
-                  </div>
- 
-                  <div className="flex flex-1 flex-col p-7">
-                    <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">
-                      {item.tag}
-                    </span>
- 
-                    <h3 className="font-(family-name:--font-barlow) mb-3 text-[30px] font-extrabold uppercase leading-none text-[#092866]">
-                      {item.name}
-                    </h3>
- 
-                    <p className="mb-2 text-[13px] font-semibold text-[#092866]/65">
-                      {item.sub}
-                    </p>
- 
-                    <p className="text-[12px] font-light leading-[1.75] text-[#092866]/45">
-                      {item.detail}
-                    </p>
-                  </div>
+                  <ProductCard product={product} />
                 </div>
               ))}
             </div>
@@ -861,6 +751,7 @@ export default function HomePage() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">
                 HERO Documentary · January 2027
               </span>
+              <StatusChip status="In production" tone="light" />
             </div>
  
             <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(36px,5vw,78px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
@@ -899,7 +790,7 @@ export default function HomePage() {
                   </div>
  
                   {activeFilmed === i && (
-                    <p className="mt-2 text-[12px] font-light text-[#092866]/45">
+                    <p className="mt-2 text-[16px] font-normal text-[#092866]/72">
                       {
                         [
                           "Hall of Fame QB · 2× Super Bowl Champion",
@@ -917,7 +808,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative min-h-[680px] overflow-hidden bg-[#092866]">
-            <video
+              <video
               ref={heroVideoRef}
               src="/home/SirNickFaldoPreview.MP4"
               muted
@@ -925,6 +816,7 @@ export default function HomePage() {
               autoPlay
               loop
               controls
+              poster="/home/heroes.png"
               preload="auto"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -951,7 +843,7 @@ export default function HomePage() {
             </h2>
           </div>
  
-          <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/45">
+          <p className="max-w-[420px] text-[17px] font-normal leading-[1.85] text-[#092866]/64">
             Every part of AE is designed to create opportunity, tell better
             stories, and direct attention toward real communities.
           </p>
@@ -976,7 +868,7 @@ export default function HomePage() {
                 {np.name}
               </h3>
  
-              <p className="mb-8 text-[13px] font-light leading-[1.85] text-[#092866]/48">
+              <p className="mb-8 text-[17px] font-normal leading-[1.85] text-[#092866]/66">
                 {np.desc}
               </p>
  
@@ -1033,14 +925,14 @@ export default function HomePage() {
               href="/athletes"
               className="btn-blue inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              Apply as an Athlete <span className="arr inline-block">→</span>
+              {CTA.applyAthlete} <span className="arr inline-block">→</span>
             </Link>
  
             <Link
               href="/brands"
               className="btn-outline inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              Apply as a Brand <span className="arr inline-block">→</span>
+              {CTA.partner} <span className="arr inline-block">→</span>
             </Link>
           </div>
         </div>
@@ -1116,7 +1008,7 @@ export default function HomePage() {
                 By The Numbers
               </span>
             </div>
-            <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/30">
+            <span className="font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.28em] text-white/62">
               Live · Updated Continuously
             </span>
           </div>

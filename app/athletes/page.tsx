@@ -4,12 +4,14 @@ import {
   useState,
   useEffect,
   useRef,
-  MouseEvent as ReactMouseEvent,
 } from "react";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "../src/components/navBar";
 import Footer from "../src/components/footer";
+import StatusChip from "../src/components/statusChip";
+import { createParticles } from "../src/lib/particles";
+import { CTA, HERO_PROPOSITIONS } from "../src/lib/uxContent";
  
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -136,7 +138,7 @@ const FORM_STEPS: FormStep[] = [
           "Athlink",
           "Fan engagement",
           "Mentorship opportunities",
-          "CRM / Marketing",
+          "Eye In Teams / Relationship tools",
         ],
       },
       {
@@ -192,8 +194,8 @@ const TOOLS = [
     desc: "A cinematic series on what it means to be a hero — beyond the arena, beyond the score.",
   },
   {
-    name: "CRM",
-    tag: "Operating System",
+    name: "Eye In Teams",
+    tag: "Relationship CRM",
     desc: "The single system beneath every athlete, brand, and fan relationship — across every channel.",
   },
 ];
@@ -219,24 +221,9 @@ const SPORT_TICKER = [
   "Cycling",
 ];
  
-const STATS = [
-  { value: 5, suffix: "", label: "Heroes Filmed" },
-  { value: 18, suffix: "+", label: "Sports Represented" },
-  { value: 4, suffix: "", label: "Athlete Tools" },
-  { value: 100, suffix: "%", label: "Athlete-First" },
-];
- 
 /* ──────────────────────────────────────────────────────────────────────────
    FLOATING PARTICLES
    ────────────────────────────────────────────────────────────────────────── */
-type Particle = {
-  size: number;
-  left: number;
-  top: number;
-  duration: number;
-  delay: number;
-};
- 
 function FloatingParticles({
   count = 24,
   color = "rgba(82,170,252,0.5)",
@@ -244,18 +231,7 @@ function FloatingParticles({
   count?: number;
   color?: string;
 }) {
-  const [particles, setParticles] = useState<Particle[]>([]);
- 
-  useEffect(() => {
-    const ps: Particle[] = Array.from({ length: count }).map(() => ({
-      size: Math.random() * 2.4 + 1,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 14 + 14,
-      delay: Math.random() * 10,
-    }));
-    setParticles(ps);
-  }, [count]);
+  const particles = createParticles(count);
  
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -278,62 +254,12 @@ function FloatingParticles({
   );
 }
  
-/* ──────────────────────────────────────────────────────────────────────────
-   COUNT-UP
-   ────────────────────────────────────────────────────────────────────────── */
-function CountUp({
-  end,
-  duration = 1800,
-  suffix = "",
-}: {
-  end: number;
-  duration?: number;
-  suffix?: string;
-}) {
-  const [value, setValue] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLSpanElement | null>(null);
- 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) setStarted(true);
-      },
-      { threshold: 0.5 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [started]);
- 
-  useEffect(() => {
-    if (!started) return;
-    let frame = 0;
-    const startTime = performance.now();
-    const animate = (now: number) => {
-      const t = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(end * eased));
-      if (t < 1) frame = requestAnimationFrame(animate);
-    };
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [started, end, duration]);
- 
-  return (
-    <span ref={ref} className="tabular-nums">
-      {value}
-      {suffix}
-    </span>
-  );
-}
- 
 export default function ForAthletesPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Record<string, string | string[]>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [liveTime, setLiveTime] = useState("");
  
@@ -388,20 +314,6 @@ export default function ForAthletesPage() {
     return () => el.removeEventListener("mousemove", onMove);
   }, []);
  
-  /* card tilt */
-  const handleCardTilt = (e: ReactMouseEvent<HTMLAnchorElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rY = (x / rect.width) * 7;
-    const rX = -(y / rect.height) * 7;
-    card.style.transform = `perspective(1200px) rotateX(${rX}deg) rotateY(${rY}deg) translateY(-6px)`;
-  };
-  const resetCardTilt = (e: ReactMouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.transform = "";
-  };
- 
   const currentStep = FORM_STEPS.find((s) => s.step === step)!;
  
   const handleField = (id: string, value: string) =>
@@ -417,6 +329,8 @@ export default function ForAthletesPage() {
     });
  
   const handleNext = async () => {
+    if (submitting) return;
+
     const missingField = currentStep.fields.find((field) => {
       if (!field.required) return false;
       const value = formData[field.id];
@@ -434,24 +348,31 @@ export default function ForAthletesPage() {
       return;
     }
  
-    const response = await fetch("/api/airtable", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/airtable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
  
-    if (!response.ok) {
-      alert("Something went wrong. Please try again.");
-      return;
+      if (!response.ok) {
+        alert("Something went wrong. Please try again.");
+        return;
+      }
+ 
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
     }
- 
-    setSubmitted(true);
   };
  
   const openModal = () => {
     setModalOpen(true);
     setStep(1);
     setSubmitted(false);
+    setSubmitting(false);
+    setFormData({});
   };
  
   const closeModal = () => setModalOpen(false);
@@ -662,7 +583,7 @@ export default function ForAthletesPage() {
             {liveTime || "00:00:00"}
           </span>
           <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
+          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/60">
             Members Only
           </span>
         </div>
@@ -676,7 +597,7 @@ export default function ForAthletesPage() {
             />
           </div>
           <span
-            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
+            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/72"
             style={{ writingMode: "vertical-rl" }}
           >
             Enter
@@ -744,13 +665,13 @@ export default function ForAthletesPage() {
  
           <div className="mt-9 flex flex-col gap-8 pb-10 lg:flex-row lg:items-end lg:justify-between">
             <p
-              className="max-w-[520px] text-[16px] font-light leading-[1.88] text-white/62"
+              className="max-w-[680px] text-[19px] font-normal leading-[1.75] text-white/88"
               style={{
                 animation: loaded ? "slide-up .7s ease 1.05s both" : "none",
                 opacity: loaded ? undefined : 0,
               }}
             >
-              A private membership for athletes turning performance into platform — and platform into legacy. The tools, the access, and the room only members reach.
+              {HERO_PROPOSITIONS.athletes}
             </p>
  
             <div
@@ -764,14 +685,14 @@ export default function ForAthletesPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Apply for Induction <span className="arr inline-block">→</span>
+                {CTA.applyAthlete} <span className="arr inline-block">→</span>
               </button>
  
               <Link
-                href="#hero-doc"
+                href="#tools"
                 className="btn-ghost-dark inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Watch HERO <span className="arr inline-block">↓</span>
+                {CTA.athleteTools} <span className="arr inline-block">↓</span>
               </Link>
             </div>
           </div>
@@ -787,7 +708,7 @@ export default function ForAthletesPage() {
           {[
             ["ATHLINK", "Identity"],
             ["HERO", "Story"],
-            ["CRM", "Network"],
+            ["EYE IN TEAMS", "Network"],
             ["IMPACT", "Legacy"],
           ].map(([v, l]) => (
             <div
@@ -798,7 +719,7 @@ export default function ForAthletesPage() {
               <div className="font-(family-name:--font-barlow) text-[clamp(24px,3vw,44px)] font-extrabold leading-none text-[#52aafc]">
                 {v}
               </div>
-              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/42">
+              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-white/78">
                 {l}
               </div>
             </div>
@@ -884,7 +805,7 @@ export default function ForAthletesPage() {
                 </h3>
               </div>
  
-              <p className="mt-3 text-[14px] font-light leading-[1.85] text-[#092866]/50 md:mt-0">
+              <p className="mt-3 text-[17px] font-normal leading-[1.85] text-[#092866]/68 md:mt-0">
                 {v.body}
               </p>
             </div>
@@ -893,7 +814,7 @@ export default function ForAthletesPage() {
       </section>
  
       {/* TOOLS */}
-      <section className="relative overflow-hidden bg-[#071936] px-6 py-28 text-white md:px-12 lg:px-20">
+      <section id="tools" className="relative overflow-hidden bg-[#071936] px-6 py-28 text-white md:px-12 lg:px-20">
         <div className="tech-grid absolute inset-0 opacity-20" />
         <div
           className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#52aafc]/10 blur-3xl"
@@ -919,7 +840,7 @@ export default function ForAthletesPage() {
               </h2>
             </div>
  
-            <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-white/48">
+            <p className="max-w-[420px] text-[17px] font-normal leading-[1.85] text-white/68">
               Identity, story, audience, brand, and impact — connected through a single athlete-first system.
             </p>
           </div>
@@ -961,7 +882,7 @@ export default function ForAthletesPage() {
                       {tool.name}
                     </h3>
  
-                    <p className="mb-7 flex-1 text-[13px] font-light leading-[1.78] text-[#092866]/48">
+                    <p className="mb-7 flex-1 text-[17px] font-normal leading-[1.78] text-[#092866]/66">
                       {tool.desc}
                     </p>
  
@@ -989,6 +910,7 @@ export default function ForAthletesPage() {
                 <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                   Documentary · January 2027
                 </span>
+                <StatusChip status="In production" tone="light" />
               </div>
  
               <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
@@ -997,7 +919,7 @@ export default function ForAthletesPage() {
                 become <span className="text-[#52aafc]">catalysts</span>.
               </h2>
  
-              <p className="mb-8 max-w-[460px] text-[15px] font-light leading-[1.88] text-[#092866]/52">
+              <p className="mb-8 max-w-[460px] text-[17px] font-normal leading-[1.88] text-[#092866]/68">
                 HERO examines the moment athletes become cultural forces — from myth and competition to leadership, identity, and the imprint left beyond the arena.
               </p>
  
@@ -1005,7 +927,7 @@ export default function ForAthletesPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
               >
-                Apply for Induction <span className="arr inline-block">→</span>
+                {CTA.applyAthlete} <span className="arr inline-block">→</span>
               </button>
             </div>
           </div>
@@ -1026,13 +948,13 @@ export default function ForAthletesPage() {
                       <span className="font-(family-name:--font-barlow) block text-[24px] font-bold uppercase text-[#092866] transition-colors group-hover:text-[#52aafc]">
                         {a.name}
                       </span>
-                      <span className="mt-0.5 block text-[11px] font-light text-[#092866]/42">
+                      <span className="mt-0.5 block text-[11px] font-light text-[#092866]/62">
                         {a.detail}
                       </span>
                     </div>
  
                     <div className="text-right">
-                      <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#092866]/30">
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#092866]/68">
                         {a.sport}
                       </span>
                       <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#52aafc]">
@@ -1088,7 +1010,7 @@ export default function ForAthletesPage() {
                 here.
               </span>
             </h2>
-            <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/55">
+            <p className="max-w-[420px] text-[17px] font-normal leading-[1.85] text-[#092866]/70">
               Whether you&apos;re an athlete building what comes next, or a brand seeking alignment with something true.
             </p>
           </div>
@@ -1098,7 +1020,7 @@ export default function ForAthletesPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center justify-center gap-2 px-10 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
             >
-              Apply for Induction <span className="arr inline-block">→</span>
+              {CTA.applyAthlete} <span className="arr inline-block">→</span>
             </button>
             <Link
               href="/brands"
@@ -1137,7 +1059,7 @@ export default function ForAthletesPage() {
             <button
               onClick={closeModal}
               aria-label="Close"
-              className="absolute right-4 top-4 text-[#092866]/30 transition-colors hover:text-[#092866]"
+              className="absolute right-4 top-4 text-[#092866]/68 transition-colors hover:text-[#092866]"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path
@@ -1168,8 +1090,8 @@ export default function ForAthletesPage() {
                     You&apos;re in.
                   </h3>
  
-                  <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">
-                    We&apos;ll be in touch.
+                  <p className="text-[17px] font-normal leading-[1.75] text-[#092866]/68">
+                    Thanks for applying. The team reviews athlete applications manually and will follow up by email with next steps.
                   </p>
  
                   <button
@@ -1199,13 +1121,19 @@ export default function ForAthletesPage() {
                   <h3 className="font-(family-name:--font-barlow) mb-6 text-[26px] font-extrabold uppercase text-[#092866]">
                     {currentStep.heading}
                   </h3>
+
+                  <p className="mb-6 border border-[#52aafc]/20 bg-[#52aafc]/8 p-4 text-[16px] leading-[1.65] text-[#092866]/62">
+                    Takes about 3-5 minutes. Required fields are marked with
+                    <span className="px-1 font-semibold text-[#52aafc]">*</span>
+                    and applications are reviewed manually before follow-up.
+                  </p>
  
                   <div className="space-y-5">
                     {currentStep.fields.map((field) => {
                       if (field.type === "select")
                         return (
                           <div key={field.id}>
-                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/70">
                               {field.label}
                               {field.required && (
                                 <span className="ml-1 text-[#52aafc]">*</span>
@@ -1230,7 +1158,7 @@ export default function ForAthletesPage() {
                       if (field.type === "textarea")
                         return (
                           <div key={field.id}>
-                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/70">
                               {field.label}
                               {field.required && (
                                 <span className="ml-1 text-[#52aafc]">*</span>
@@ -1245,7 +1173,7 @@ export default function ForAthletesPage() {
                               onChange={(e) => handleField(field.id, e.target.value)}
                             />
                             {field.helperText && (
-                              <p className="mt-2 text-[12px] italic leading-relaxed text-[#092866]/30">
+                              <p className="mt-2 text-[14px] italic leading-relaxed text-[#092866]/70">
                                 {field.helperText}
                               </p>
                             )}
@@ -1256,7 +1184,7 @@ export default function ForAthletesPage() {
                         const selected = (formData[field.id] as string[]) ?? [];
                         return (
                           <div key={field.id}>
-                            <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                            <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/70">
                               {field.label}
                               {field.required && (
                                 <span className="ml-1 text-[#52aafc]">*</span>
@@ -1273,7 +1201,7 @@ export default function ForAthletesPage() {
                                     className={`flex items-center gap-2.5 border px-3.5 py-2.5 text-left text-[12px] font-medium transition-all ${
                                       checked
                                         ? "border-[#52aafc] bg-[#52aafc]/8 text-[#092866]"
-                                        : "border-[#092866]/12 text-[#092866]/50 hover:border-[#52aafc]/50"
+                                        : "border-[#092866]/12 text-[#092866]/68 hover:border-[#52aafc]/50"
                                     }`}
                                   >
                                     <span
@@ -1309,7 +1237,7 @@ export default function ForAthletesPage() {
  
                       return (
                         <div key={field.id}>
-                          <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/55">
+                          <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092866]/70">
                             {field.label}
                             {field.required && (
                               <span className="ml-1 text-[#52aafc]">*</span>
@@ -1332,7 +1260,7 @@ export default function ForAthletesPage() {
                     {step > 1 ? (
                       <button
                         onClick={() => setStep(step - 1)}
-                        className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/38 hover:text-[#092866]"
+                        className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/62 hover:text-[#092866]"
                       >
                         ← Back
                       </button>
@@ -1342,9 +1270,10 @@ export default function ForAthletesPage() {
  
                     <button
                       onClick={handleNext}
+                      disabled={submitting}
                       className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.18em]"
                     >
-                      {step === FORM_STEPS.length ? "Submit" : "Next →"}
+                      {submitting ? "Submitting..." : step === FORM_STEPS.length ? "Submit application" : "Next →"}
                     </button>
                   </div>
                 </>

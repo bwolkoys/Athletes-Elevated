@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --ae-navy: #092866;
+  --ae-deep: #071936;
+  --ae-blue: #52aafc;
 }
 
 @theme inline {
@@ -36,8 +39,40 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
 }
 html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: rgba(82, 170, 252, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ae-blue);
+  outline-offset: 4px;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
