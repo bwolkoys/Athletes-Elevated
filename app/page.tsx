@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "./src/components/navBar";
@@ -27,6 +28,13 @@ const montserrat = Montserrat({
 });
  
 const CYCLING_WORDS = ["ATHLETES", "COMMUNITIES", "TECHNOLOGY", "LEGACY"];
+
+const HERO_ECOSYSTEM_NODES = [
+  { title: "HERO", label: "Media", x: 50, y: 16 },
+  { title: "ATHLINK", label: "Marketplace", x: 80, y: 48 },
+  { title: "TEAMS", label: "Youth sports", x: 50, y: 82 },
+  { title: "IMPACT", label: "Community", x: 20, y: 48 },
+];
  
 const FILMED = [
   "Steve Young",
@@ -250,6 +258,14 @@ export default function HomePage() {
           0%,100% { transform:translateY(0); }
           50% { transform:translateY(-6px); }
         }
+        @keyframes orbit-scan {
+          0%,100% { transform:rotate(0deg); opacity:.28; }
+          50% { transform:rotate(1.25deg); opacity:.55; }
+        }
+        @keyframes node-pulse {
+          0%,100% { box-shadow:0 0 0 rgba(82,170,252,0); }
+          50% { box-shadow:0 0 24px rgba(82,170,252,.22); }
+        }
  
         .sr { opacity:0; transform:translateY(34px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
         .sr.in { opacity:1; transform:translateY(0); }
@@ -360,6 +376,18 @@ export default function HomePage() {
           background:#ff3b30;
           animation: pulse-ring 1.6s ease-out infinite;
         }
+
+        .ecosystem-orbit {
+          animation: orbit-scan 8s ease-in-out infinite;
+        }
+
+        .ecosystem-node {
+          backdrop-filter: blur(18px);
+        }
+
+        .ecosystem-node.active {
+          animation: node-pulse 2.6s ease-in-out infinite;
+        }
       `}</style>
  
       <Navbar />
@@ -382,9 +410,87 @@ export default function HomePage() {
         <FloatingParticles count={32} />
  
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.96)_0%,rgba(3,8,20,.72)_42%,rgba(3,8,20,.22)_100%)]" />
+
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-[6] hidden w-[46vw] max-w-[760px] xl:block"
+          style={{
+            animation: loaded ? "fade .9s ease .45s both" : "none",
+            opacity: loaded ? undefined : 0,
+          }}
+          aria-hidden="true"
+        >
+          <div className="absolute right-[13vw] top-[14vh] h-[420px] w-[480px] origin-top-right scale-[.98] 2xl:scale-[1.1]">
+            <div className="absolute left-1/2 top-1/2 h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(82,170,252,.18),rgba(82,170,252,.05)_42%,transparent_70%)] blur-2xl" />
+            <Image
+              src="/brand/athletes-elevated-app-icon.svg"
+              alt=""
+              width={1200}
+              height={1200}
+              className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 opacity-[.052]"
+            />
+
+            <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 480 420">
+              <defs>
+                <linearGradient id="hero-map-line" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#52aafc" stopOpacity=".04" />
+                  <stop offset="52%" stopColor="#52aafc" stopOpacity=".38" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity=".08" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M240 70 L384 200 L240 352 L96 200 Z"
+                fill="none"
+                stroke="url(#hero-map-line)"
+                strokeWidth="1"
+              />
+              <path
+                className="ecosystem-orbit"
+                d="M240 102 C330 102 384 150 384 210 C384 272 325 326 240 326 C155 326 96 272 96 210 C96 150 150 102 240 102 Z"
+                fill="none"
+                stroke="rgba(82,170,252,.2)"
+                strokeDasharray="5 14"
+                strokeWidth="1"
+              />
+              <line x1="240" y1="70" x2="240" y2="210" stroke="rgba(82,170,252,.18)" strokeWidth="1" />
+              <line x1="384" y1="200" x2="240" y2="210" stroke="rgba(82,170,252,.16)" strokeWidth="1" />
+              <line x1="240" y1="352" x2="240" y2="210" stroke="rgba(82,170,252,.16)" strokeWidth="1" />
+              <line x1="96" y1="200" x2="240" y2="210" stroke="rgba(82,170,252,.16)" strokeWidth="1" />
+            </svg>
+
+            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-[#52aafc]/28 bg-[#071936]/62 shadow-[0_0_46px_rgba(82,170,252,.14)]">
+              <div className="text-center">
+                <div className="font-(family-name:--font-barlow) text-[30px] font-extrabold leading-none text-white">
+                  AE
+                </div>
+                <div className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]">
+                  Core
+                </div>
+              </div>
+            </div>
+
+            {HERO_ECOSYSTEM_NODES.map((node, i) => (
+              <div
+                key={node.title}
+                className={`ecosystem-node absolute flex min-w-[128px] -translate-x-1/2 -translate-y-1/2 flex-col border px-4 py-3 ${
+                  i === wordIndex
+                    ? "active border-[#52aafc]/62 bg-[#52aafc]/10"
+                    : "border-white/10 bg-[#071936]/48"
+                }`}
+                style={{ left: `${node.x}%`, top: `${node.y}%` }}
+              >
+                <span className="font-(family-name:--font-barlow) text-[18px] font-extrabold uppercase leading-none text-white">
+                  {node.title}
+                </span>
+                <span className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#52aafc]">
+                  {node.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
  
         {/* right scroll indicator */}
-        <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
+        <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex xl:hidden">
           <div className="relative h-20 w-px overflow-hidden bg-white/20">
             <span
               className="absolute left-0 right-0 h-6 bg-[#52aafc]"
