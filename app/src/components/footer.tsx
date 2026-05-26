@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CTA } from "../lib/uxContent";
 
 const FOOTER_LINKS = [
@@ -57,9 +58,15 @@ export default function Footer() {
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-14 grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.1fr_1.4fr]">
           <div className="max-w-[420px]">
-            <div className="mb-3 font-(family-name:--font-barlow) text-[28px] font-extrabold uppercase tracking-[0.05em] text-white">
-              ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
-            </div>
+            <Link href="/" className="mb-5 inline-flex" aria-label="Athletes Elevated home">
+              <Image
+                src="/brand/athletes-elevated-color-reverse.svg"
+                alt="Athletes Elevated"
+                width={1200}
+                height={355}
+                className="h-auto w-[230px] sm:w-[260px]"
+              />
+            </Link>
             <p className="max-w-80 text-[17px] font-normal leading-[1.72] text-white/78">
               Athlete media, marketplace tools, youth sports infrastructure,
               and brand relationships connected through one purpose-built

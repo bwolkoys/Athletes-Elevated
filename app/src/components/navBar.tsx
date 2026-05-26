@@ -1,6 +1,7 @@
 'use client';
  
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CTA } from '../lib/uxContent';
@@ -103,12 +104,18 @@ export default function Navbar() {
         <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-6 md:px-12">
           <Link
             href="/"
-            className={`font-[family-name:var(--font-barlow)] text-[21px] font-extrabold uppercase tracking-[0.06em] transition-colors ${
-              scrolled || menuOpen ? 'text-white' : 'text-white'
-            }`}
+            className="flex shrink-0 items-center"
             onClick={() => setMenuOpen(false)}
+            aria-label="Athletes Elevated home"
           >
-            ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
+            <Image
+              src="/brand/athletes-elevated-color-reverse.svg"
+              alt="Athletes Elevated"
+              width={1200}
+              height={355}
+              priority
+              className="h-auto w-[158px] sm:w-[176px] lg:w-[190px]"
+            />
           </Link>
  
           <ul className="hidden items-center gap-8 md:flex">
