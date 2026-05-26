@@ -109,12 +109,12 @@ export default function Navbar() {
             aria-label="Athletes Elevated home"
           >
             <Image
-              src="/brand/athletes-elevated-color-reverse.svg"
+              src="/brand/athletes-elevated-color-reverse-display.svg"
               alt="Athletes Elevated"
-              width={1200}
-              height={355}
+              width={868}
+              height={264}
               priority
-              className="h-auto w-[158px] sm:w-[176px] lg:w-[190px]"
+              className="h-auto w-[128px] sm:w-[142px] lg:w-[152px]"
             />
           </Link>
  

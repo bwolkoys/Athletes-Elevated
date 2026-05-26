@@ -194,7 +194,6 @@ export default function BrandsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<Record<string, string | string[]>>({});
-  const [liveTime, setLiveTime] = useState("");
  
   const heroRef = useRef<HTMLElement | null>(null);
  
@@ -215,20 +214,6 @@ export default function BrandsPage() {
  
     document.querySelectorAll(".sr, .sr-l, .sr-r").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
- 
-  /* live time HUD */
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      const h = d.getHours().toString().padStart(2, "0");
-      const m = d.getMinutes().toString().padStart(2, "0");
-      const s = d.getSeconds().toString().padStart(2, "0");
-      setLiveTime(`${h}:${m}:${s}`);
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
   }, []);
  
   /* mouse spotlight on hero */
@@ -514,29 +499,6 @@ export default function BrandsPage() {
  
         {/* bottom right glow */}
         <div className="pointer-events-none absolute bottom-0 right-0 h-[70vh] w-[55vw] bg-[radial-gradient(circle_at_60%_55%,rgba(82,170,252,.18),transparent_62%)]" />
- 
-        {/* LIVE HUD */}
-        <div
-          className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-20"
-          style={{
-            top: "96px",
-            animation: loaded ? "fade .8s ease .4s both" : "none",
-            opacity: loaded ? undefined : 0,
-          }}
-        >
-          <span className="live-dot" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">
-            Live
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">
-            {liveTime || "00:00:00"}
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/60">
-            Partner Portal
-          </span>
-        </div>
  
         {/* right scroll indicator */}
         <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">

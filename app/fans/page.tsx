@@ -101,7 +101,6 @@ export default function ForFansPage() {
   const [subscribed, setSubscribed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [activeFilmed, setActiveFilmed] = useState(0);
-  const [liveTime, setLiveTime] = useState("");
   const heroRef = useRef<HTMLElement | null>(null);
  
   useEffect(() => {
@@ -112,16 +111,6 @@ export default function ForFansPage() {
     );
     document.querySelectorAll(".sr, .sr-l, .sr-r").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
- 
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      setLiveTime(`${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`);
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
   }, []);
  
   useEffect(() => {
@@ -255,15 +244,6 @@ export default function ForFansPage() {
         <FloatingParticles count={32} />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.98)_0%,rgba(3,8,20,.7)_42%,rgba(3,8,20,.18)_100%)]" />
         <div className="pointer-events-none absolute right-0 top-24 font-(family-name:--font-barlow) text-[17vw] font-extrabold uppercase leading-none text-white/[0.035]" style={{ animation: "float-soft 12s ease-in-out infinite" }}>FANS</div>
-
-        <div className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-20" style={{ top: "96px", animation: loaded ? "fade .8s ease .4s both" : "none", opacity: loaded ? undefined : 0 }}>
-          <span className="live-dot" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">Live</span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">{liveTime || "00:00:00"}</span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/60">Fan Channel</span>
-        </div>
 
         <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
           <div className="relative h-20 w-px overflow-hidden bg-white/20">

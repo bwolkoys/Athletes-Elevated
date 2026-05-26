@@ -60,11 +60,11 @@ export default function Footer() {
           <div className="max-w-[420px]">
             <Link href="/" className="mb-5 inline-flex" aria-label="Athletes Elevated home">
               <Image
-                src="/brand/athletes-elevated-color-reverse.svg"
+                src="/brand/athletes-elevated-color-reverse-display.svg"
                 alt="Athletes Elevated"
-                width={1200}
-                height={355}
-                className="h-auto w-[230px] sm:w-[260px]"
+                width={868}
+                height={264}
+                className="h-auto w-[220px] sm:w-[240px]"
               />
             </Link>
             <p className="max-w-80 text-[17px] font-normal leading-[1.72] text-white/78">
