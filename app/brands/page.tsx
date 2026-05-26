@@ -550,7 +550,7 @@ export default function BrandsPage() {
             </div>
  
             {/* punch line: character-split + breathing glow */}
-            <div className="ww block">
+            <div className="block">
               <span
                 className="inline-block text-[#52aafc]"
                 style={{

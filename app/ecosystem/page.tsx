@@ -172,6 +172,10 @@ export default function EcosystemPage() {
         @keyframes scan { 0%{transform:translateY(-100%);opacity:0} 20%{opacity:.5} 100%{transform:translateY(100%);opacity:0} }
         @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.72)} }
         @keyframes glow-orb { 0%,100%{opacity:.13;transform:scale(1)} 50%{opacity:.04;transform:scale(1.14)} }
+        @keyframes breathe-glow {
+          0%,100% { text-shadow:0 0 60px rgba(82,170,252,.45); }
+          50% { text-shadow:0 0 120px rgba(82,170,252,.9), 0 0 30px rgba(82,170,252,.6); }
+        }
  
         .sr { opacity:0; transform:translateY(34px); transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1); }
         .sr.in { opacity:1; transform:translateY(0); }
@@ -269,12 +273,16 @@ export default function EcosystemPage() {
                   tool.
                 </span>
               </div>
-              <div className="ww block">
+              <div className="block">
                 <span
-                  className="w text-[#52aafc]"
+                  className="w inline-block text-[#52aafc]"
                   style={{
                     animationDelay: loaded ? ".38s" : "999s",
-                    textShadow: "0 0 90px rgba(82,170,252,.65)",
+                    animationName: loaded ? "word-in, breathe-glow" : "word-in",
+                    animationDuration: loaded ? ".9s, 3s" : ".9s",
+                    animationTimingFunction: loaded ? "cubic-bezier(.22,1,.36,1), ease-in-out" : "cubic-bezier(.22,1,.36,1)",
+                    animationFillMode: loaded ? "both, both" : "both",
+                    animationIterationCount: loaded ? "1, infinite" : "1",
                   }}
                 >
                   One mission.
@@ -706,24 +714,22 @@ export default function EcosystemPage() {
             </div>
           </div>
  
-          <div className="-mx-6 overflow-x-auto px-6 pb-6 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex w-max gap-3">
-              {CRM_FEATURES.map((f, i) => (
-                <div
-                  key={f.title}
-                  className="crm-card sr relative w-[260px] shrink-0 overflow-hidden p-6"
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                >
-                  <div className="crm-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
-                  <h3 className="font-(family-name:--font-barlow) mb-2 text-[18px] font-bold uppercase text-white">
-                    {f.title}
-                  </h3>
-                  <p className="text-[17px] font-normal leading-[1.75] text-white/78">
-                    {f.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {CRM_FEATURES.map((f, i) => (
+              <div
+                key={f.title}
+                className="crm-card sr relative min-h-[204px] overflow-hidden p-6"
+                style={{ transitionDelay: `${i * 50}ms` }}
+              >
+                <div className="crm-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
+                <h3 className="font-(family-name:--font-barlow) mb-2 text-[18px] font-bold uppercase text-white">
+                  {f.title}
+                </h3>
+                <p className="text-[17px] font-normal leading-[1.75] text-white/78">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
           </div>
  
           <div className="sr mt-10 grid grid-cols-1 gap-6 border-t border-white/10 pt-10 sm:grid-cols-3">
@@ -795,7 +801,7 @@ export default function EcosystemPage() {
           ].map((card, i) => (
             <div
               key={card.tag}
-              className={`portal-card sr relative overflow-hidden p-10 ${
+              className={`portal-card sr relative flex min-h-[342px] flex-col overflow-hidden p-10 ${
                 card.dark
                   ? "bg-[#092866] text-white"
                   : "bg-white text-[#092866]"
@@ -806,7 +812,7 @@ export default function EcosystemPage() {
                 AE
               </div>
  
-              <div className="relative z-10">
+              <div className="relative z-10 flex flex-1 flex-col">
                 <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
                   {card.tag}
                 </div>
@@ -816,19 +822,19 @@ export default function EcosystemPage() {
                 </h3>
  
                 <p
-                  className={`mb-8 text-[17px] font-normal leading-[1.8] ${
+                  className={`text-[17px] font-normal leading-[1.8] ${
                     card.dark ? "text-white/78" : "text-[#092866]/66"
                   }`}
                 >
                   {card.body}
                 </p>
- 
+
                 <Link
                   href={card.href}
                   className={
                     card.dark
-                      ? "btn-blue inline-flex items-center px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
-                      : "btn-navy inline-flex items-center px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
+                      ? "btn-blue mt-auto inline-flex w-fit items-center px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
+                      : "btn-navy mt-auto inline-flex w-fit items-center px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
                   }
                 >
                   {card.cta}

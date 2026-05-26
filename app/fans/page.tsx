@@ -262,7 +262,7 @@ export default function ForFansPage() {
 
           <h1 className="font-(family-name:--font-barlow) max-w-[1100px] font-extrabold uppercase leading-[0.83] tracking-[-0.025em]" style={{ fontSize: "clamp(58px,12vw,170px)" }}>
             <div className="ww block"><span className="w" style={{ animationDelay: loaded ? ".12s" : "999s" }}>Not just</span></div>
-            <div className="ww block">
+            <div className="block">
               <span className="inline-block text-[#52aafc]" style={{ animation: loaded ? "breathe-glow 3s ease-in-out 1.4s infinite" : "none" }}>
                 {"WATCHING.".split("").map((char, i) => (
                   <span key={i} className="w inline-block" style={{ animationDelay: loaded ? `${0.26 + i * 0.055}s` : "999s" }}>{char}</span>

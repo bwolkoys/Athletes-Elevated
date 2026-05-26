@@ -253,6 +253,120 @@ function FloatingParticles({
     </div>
   );
 }
+
+function ToolVisual({ name }: { name: string }) {
+  if (name === "Athlink") {
+    return (
+      <div className="relative h-[214px] overflow-hidden bg-[#d7e5fb]">
+        <div className="tech-grid absolute inset-0 opacity-25" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(82,170,252,.32),transparent_34%),linear-gradient(135deg,rgba(255,255,255,.72),rgba(82,170,252,.18))]" />
+        <div className="absolute left-7 top-8 w-[164px] border border-white/70 bg-white/88 p-4 shadow-[0_22px_50px_rgba(9,40,102,.16)]">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-[linear-gradient(135deg,#092866,#52aafc)]" />
+            <div>
+              <div className="h-2.5 w-16 rounded-full bg-[#092866]" />
+              <div className="mt-2 h-1.5 w-12 rounded-full bg-[#52aafc]/55" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="h-7 border border-[#092866]/10 bg-[#092866]/[.04]" />
+            <div className="h-7 border border-[#092866]/10 bg-[#092866]/[.04]" />
+          </div>
+        </div>
+        <div className="absolute right-7 top-10 grid w-[128px] grid-cols-2 gap-2">
+          {[0, 1, 2, 3].map((item) => (
+            <div key={item} className="aspect-square border border-white/65 bg-white/62 shadow-sm">
+              <div className="m-2 h-5 rounded-full bg-[#52aafc]/45" />
+              <div className="mx-2 mt-6 h-1.5 rounded-full bg-[#092866]/20" />
+            </div>
+          ))}
+        </div>
+        <div className="absolute bottom-6 right-7 border border-[#52aafc]/60 bg-[#092866] px-4 py-2 font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.16em] text-white">
+          Code AE20
+        </div>
+      </div>
+    );
+  }
+
+  if (name === "Teams Elevated") {
+    return (
+      <div className="relative h-[214px] overflow-hidden bg-[#092866]">
+        <div className="tech-grid absolute inset-0 opacity-20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_30%,rgba(82,170,252,.34),transparent_42%),linear-gradient(135deg,#071936,#092866)]" />
+        <div className="absolute left-7 top-8 h-[150px] w-[150px] rounded-full border border-[#52aafc]/35" />
+        <div className="absolute left-7 top-[83px] h-px w-[150px] bg-[#52aafc]/24" />
+        <div className="absolute left-[82px] top-8 h-[150px] w-px bg-[#52aafc]/24" />
+        <div className="absolute right-7 top-8 w-[170px] border border-white/12 bg-white/[.08] p-4 backdrop-blur">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="font-(family-name:--font-barlow) text-[15px] font-extrabold uppercase text-white">
+              Roster
+            </div>
+            <div className="h-2 w-2 rounded-full bg-[#52aafc]" />
+          </div>
+          {[["Paid", "84%"], ["Forms", "19"], ["Games", "12"]].map(([label, value]) => (
+            <div key={label} className="mb-2 flex items-center justify-between border-t border-white/10 pt-2">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-white/55">{label}</span>
+              <span className="font-(family-name:--font-barlow) text-[16px] font-bold text-[#52aafc]">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (name === "HERO") {
+    return (
+      <div className="relative h-[214px] overflow-hidden bg-[#030814]">
+        <div className="absolute inset-x-0 top-0 h-8 bg-black" />
+        <div className="absolute inset-x-0 bottom-0 h-8 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_44%_40%,rgba(82,170,252,.4),transparent_34%),linear-gradient(135deg,rgba(9,40,102,.65),rgba(3,8,20,.94))]" />
+        <div className="absolute left-8 top-12 h-[118px] w-[190px] border border-white/14 bg-white/[.04] shadow-[0_24px_70px_rgba(0,0,0,.28)]">
+          <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,.14)_45%,transparent_48%)]" />
+          <div className="absolute left-5 top-5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">
+            Documentary
+          </div>
+          <div className="absolute bottom-5 left-5 font-(family-name:--font-barlow) text-[36px] font-extrabold uppercase leading-none text-white">
+            HERO
+          </div>
+        </div>
+        <div className="absolute right-8 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-[#52aafc]/40 bg-[#52aafc]/12">
+          <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[15px] border-y-transparent border-l-white" />
+        </div>
+        <div className="absolute bottom-12 right-8 flex gap-1">
+          {[0, 1, 2, 3, 4].map((item) => (
+            <div key={item} className="h-7 w-4 border border-white/12 bg-white/[.06]" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative h-[214px] overflow-hidden bg-[#071936]">
+      <div className="tech-grid absolute inset-0 opacity-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_40%,rgba(82,170,252,.28),transparent_42%),linear-gradient(135deg,#071936,#0d2f75)]" />
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 380 214" aria-hidden="true">
+        <path d="M190 108 L82 58 M190 108 L306 60 M190 108 L92 164 M190 108 L296 162" stroke="rgba(82,170,252,.36)" strokeWidth="1" />
+      </svg>
+      <div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-[#52aafc]/35 bg-[#071936]/80 font-(family-name:--font-barlow) text-[26px] font-extrabold text-white">
+        AE
+      </div>
+      {[
+        ["Brand", "left-8 top-8"],
+        ["Athlete", "right-8 top-9"],
+        ["Fan", "left-10 bottom-8"],
+        ["Ops", "right-10 bottom-8"],
+      ].map(([label, position]) => (
+        <div key={label} className={`absolute ${position} border border-white/12 bg-white/[.07] px-4 py-2 backdrop-blur`}>
+          <div className="font-(family-name:--font-barlow) text-[14px] font-bold uppercase text-white">
+            {label}
+          </div>
+          <div className="mt-1 h-1 w-14 rounded-full bg-[#52aafc]/55" />
+        </div>
+      ))}
+    </div>
+  );
+}
  
 export default function ForAthletesPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -601,7 +715,7 @@ export default function ForAthletesPage() {
             </div>
  
             {/* punch line: character-split + breathing glow on the whole phrase */}
-            <div className="ww block">
+            <div className="block">
               <span
                 className="inline-block text-[#52aafc]"
                 style={{
@@ -817,23 +931,7 @@ export default function ForAthletesPage() {
                 >
                   <div className="portal-line absolute left-0 top-0 z-20 h-0.5 w-full bg-[#52aafc]" />
  
-                  {/* art-directed empty state */}
-                  <div
-                    className="relative flex h-[200px] items-center justify-center overflow-hidden bg-[#d7e5fb]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(135deg,rgba(9,40,102,.18),rgba(82,170,252,.1))",
-                    }}
-                  >
-                    <div className="tech-grid absolute inset-0 opacity-20" />
-                    <div className="absolute right-5 top-5 h-2 w-2 animate-pulse rounded-full bg-[#52aafc]" />
-                    {/* corner brackets */}
-                    <div className="absolute left-3 top-3 h-4 w-4 border-l-2 border-t-2 border-[#52aafc]/40" />
-                    <div className="absolute bottom-3 right-3 h-4 w-4 border-b-2 border-r-2 border-[#52aafc]/40" />
-                    <span className="font-(family-name:--font-barlow) text-[110px] font-extrabold leading-none text-[#092866]/[0.08]">
-                      0{i + 1}
-                    </span>
-                  </div>
+                  <ToolVisual name={tool.name} />
  
                   <div className="flex flex-1 flex-col p-7">
                     <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">
