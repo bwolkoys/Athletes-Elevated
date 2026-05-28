@@ -17,7 +17,7 @@ export default function NewsletterForm() {
   const handleSubmit = async () => {
     setStatus('loading');
     try {
-      const res = await fetch('/api/newsletter', {
+      const res = await fetch('/api/fans', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -33,8 +33,8 @@ export default function NewsletterForm() {
   if (status === 'success') {
     return (
       <div className="mt-10 rounded border border-[#69aaf6]/30 bg-[#f5f8ff] px-8 py-10 text-center">
-        <p className="text-[22px] font-semibold text-[#122863]">You&apos;re on the list! 🎉</p>
-        <p className="mt-2 text-sm text-[#64748b]">We&apos;ll be in touch soon.</p>
+        <p className="text-[22px] font-semibold text-[#122863]">You&apos;re on the list.</p>
+        <p className="mt-2 text-sm text-[#64748b]">We&apos;ll send ecosystem updates when new athletes, products, and stories launch.</p>
       </div>
     );
   }
@@ -42,26 +42,35 @@ export default function NewsletterForm() {
   return (
     <div className={`${dmSans.className} mt-10 flex flex-col gap-4`}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <input
-          placeholder="First name"
-          value={form.firstName}
-          onChange={set('firstName')}
-          className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
-        />
-        <input
-          placeholder="Last name"
-          value={form.lastName}
-          onChange={set('lastName')}
-          className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
-        />
+        <label>
+          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-[#122863]/55">First name</span>
+          <input
+            placeholder="First name"
+            value={form.firstName}
+            onChange={set('firstName')}
+            className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
+          />
+        </label>
+        <label>
+          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-[#122863]/55">Last name</span>
+          <input
+            placeholder="Last name"
+            value={form.lastName}
+            onChange={set('lastName')}
+            className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
+          />
+        </label>
       </div>
-      <input
-        type="email"
-        placeholder="Email address"
-        value={form.email}
-        onChange={set('email')}
-        className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
-      />
+      <label>
+        <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-[#122863]/55">Email</span>
+        <input
+          type="email"
+          placeholder="Email address"
+          value={form.email}
+          onChange={set('email')}
+          className="w-full rounded border border-[#122863]/12 bg-[#f5f8ff] px-4.5 py-3.5 text-sm outline-none transition focus:border-[#69aaf6] focus:bg-white"
+        />
+      </label>
       <select
         value={form.interest}
         onChange={set('interest')}
@@ -82,7 +91,7 @@ export default function NewsletterForm() {
       <button
         onClick={handleSubmit}
         disabled={status === 'loading'}
-        className="self-start rounded bg-[#69aaf6] px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#0d1e4a] transition hover:-translate-y-0.5 hover:bg-[#a8ccf8] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="self-start rounded bg-[#69aaf6] px-8 py-4 text-[14px] font-semibold uppercase tracking-[0.08em] text-[#0d1e4a] transition hover:-translate-y-0.5 hover:bg-[#a8ccf8] disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? 'Submitting...' : 'Join The List'}
       </button>

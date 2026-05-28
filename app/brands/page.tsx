@@ -10,6 +10,9 @@ import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "../src/components/navBar";
 import Footer from "../src/components/footer";
+import StatusChip from "../src/components/statusChip";
+import { createParticles } from "../src/lib/particles";
+import { CTA, HERO_PROPOSITIONS } from "../src/lib/uxContent";
  
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -79,6 +82,7 @@ type FormField = {
   label: string;
   type: "text" | "email" | "select" | "textarea" | "multicheck";
   placeholder?: string;
+  required?: boolean;
   options?: string[];
 };
  
@@ -93,9 +97,9 @@ const FORM_STEPS: FormStep[] = [
     step: 1,
     heading: "Tell us about your brand",
     fields: [
-      { id: "company", label: "Company name", type: "text", placeholder: "Your company" },
-      { id: "name", label: "Your name", type: "text", placeholder: "Full name" },
-      { id: "email", label: "Email", type: "email", placeholder: "you@company.com" },
+      { id: "company", label: "Company name", type: "text", placeholder: "Your company", required: true },
+      { id: "name", label: "Your name", type: "text", placeholder: "Full name", required: true },
+      { id: "email", label: "Email", type: "email", placeholder: "you@company.com", required: true },
     ],
   },
   {
@@ -106,6 +110,7 @@ const FORM_STEPS: FormStep[] = [
         id: "tier",
         label: "Partnership tier",
         type: "select",
+        required: true,
         options: ["Community", "Partner", "Premier", "Not sure yet"],
       },
       {
@@ -152,14 +157,6 @@ const FORM_STEPS: FormStep[] = [
 /* ──────────────────────────────────────────────────────────────────────────
    FLOATING PARTICLES
    ────────────────────────────────────────────────────────────────────────── */
-type Particle = {
-  size: number;
-  left: number;
-  top: number;
-  duration: number;
-  delay: number;
-};
- 
 function FloatingParticles({
   count = 24,
   color = "rgba(82,170,252,0.5)",
@@ -167,18 +164,7 @@ function FloatingParticles({
   count?: number;
   color?: string;
 }) {
-  const [particles, setParticles] = useState<Particle[]>([]);
- 
-  useEffect(() => {
-    const ps: Particle[] = Array.from({ length: count }).map(() => ({
-      size: Math.random() * 2.4 + 1,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 14 + 14,
-      delay: Math.random() * 10,
-    }));
-    setParticles(ps);
-  }, [count]);
+  const particles = createParticles(count);
  
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -206,8 +192,8 @@ export default function BrandsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<Record<string, string | string[]>>({});
-  const [liveTime, setLiveTime] = useState("");
  
   const heroRef = useRef<HTMLElement | null>(null);
  
@@ -228,20 +214,6 @@ export default function BrandsPage() {
  
     document.querySelectorAll(".sr, .sr-l, .sr-r").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
- 
-  /* live time HUD */
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      const h = d.getHours().toString().padStart(2, "0");
-      const m = d.getMinutes().toString().padStart(2, "0");
-      const s = d.getSeconds().toString().padStart(2, "0");
-      setLiveTime(`${h}:${m}:${s}`);
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
   }, []);
  
   /* mouse spotlight on hero */
@@ -288,10 +260,26 @@ export default function BrandsPage() {
     });
  
   const handleNext = () => {
+    if (submitting) return;
+
+    const missingField = currentStep.fields.find((field) => {
+      if (!field.required) return false;
+      const value = formData[field.id];
+      if (Array.isArray(value)) return value.length === 0;
+      return !value || value.toString().trim() === "";
+    });
+
+    if (missingField) {
+      alert(`${missingField.label} is required`);
+      return;
+    }
+
     if (step < FORM_STEPS.length) {
       setStep(step + 1);
     } else {
+      setSubmitting(true);
       setSubmitted(true);
+      setSubmitting(false);
     }
   };
  
@@ -299,6 +287,8 @@ export default function BrandsPage() {
     setModalOpen(true);
     setStep(1);
     setSubmitted(false);
+    setSubmitting(false);
+    setFormData({});
   };
  
   const closeModal = () => setModalOpen(false);
@@ -510,29 +500,6 @@ export default function BrandsPage() {
         {/* bottom right glow */}
         <div className="pointer-events-none absolute bottom-0 right-0 h-[70vh] w-[55vw] bg-[radial-gradient(circle_at_60%_55%,rgba(82,170,252,.18),transparent_62%)]" />
  
-        {/* LIVE HUD */}
-        <div
-          className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-20"
-          style={{
-            top: "96px",
-            animation: loaded ? "fade .8s ease .4s both" : "none",
-            opacity: loaded ? undefined : 0,
-          }}
-        >
-          <span className="live-dot" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">
-            Live
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">
-            {liveTime || "00:00:00"}
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
-            Partner Portal
-          </span>
-        </div>
- 
         {/* right scroll indicator */}
         <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
           <div className="relative h-20 w-px overflow-hidden bg-white/20">
@@ -542,7 +509,7 @@ export default function BrandsPage() {
             />
           </div>
           <span
-            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
+            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/72"
             style={{ writingMode: "vertical-rl" }}
           >
             Accepting partners
@@ -566,6 +533,7 @@ export default function BrandsPage() {
             <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
               For Brands
             </span>
+            <StatusChip status="Invite-only" />
           </div>
  
           <h1
@@ -582,7 +550,7 @@ export default function BrandsPage() {
             </div>
  
             {/* punch line: character-split + breathing glow */}
-            <div className="ww block">
+            <div className="block">
               <span
                 className="inline-block text-[#52aafc]"
                 style={{
@@ -607,13 +575,13 @@ export default function BrandsPage() {
           </h1>
  
           <p
-            className="mt-10 max-w-[560px] text-[16px] font-light leading-[1.9] text-white/58"
+            className="mt-10 max-w-[700px] text-[19px] font-normal leading-[1.75] text-white/88"
             style={{
               animation: loaded ? "slide-up .7s ease 1.1s both" : "none",
               opacity: loaded ? undefined : 0,
             }}
           >
-            A single doorway into athlete storytelling, youth sports, fan engagement, and community impact. Built for the brands willing to show up beyond the deal.
+            {HERO_PROPOSITIONS.brands}
           </p>
  
           <div
@@ -627,14 +595,14 @@ export default function BrandsPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.15em]"
             >
-              Apply for Partnership <span className="arr inline-block">→</span>
+              {CTA.partner} <span className="arr inline-block">→</span>
             </button>
  
             <Link
               href="/ecosystem"
               className="btn-outline inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.15em]"
             >
-              Explore Ecosystem <span className="arr inline-block">→</span>
+              {CTA.exploreEcosystem} <span className="arr inline-block">→</span>
             </Link>
           </div>
         </div>
@@ -718,7 +686,7 @@ export default function BrandsPage() {
                 {r.title}
               </h3>
  
-              <p className="text-[15px] font-light leading-[1.9] text-[#092866]/50">
+              <p className="text-[17px] font-normal leading-[1.9] text-[#092866]/68">
                 {r.body}
               </p>
             </div>
@@ -726,6 +694,46 @@ export default function BrandsPage() {
         </div>
       </section>
  
+      {/* PARTNERSHIP PROCESS */}
+      <section className="relative overflow-hidden bg-[#f0f5fd] px-6 py-24 md:px-12 lg:px-20">
+        <div className="sr mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-3">
+              <span className="accent-line w-8" />
+              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
+                Partnership process
+              </span>
+            </div>
+            <h2 className="font-(family-name:--font-barlow) text-[clamp(34px,4.5vw,76px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
+              Clear path.
+              <br />
+              Real launch.
+            </h2>
+          </div>
+          <p className="max-w-[430px] text-[17px] font-normal leading-[1.85] text-[#092866]/70">
+            Brand conversations should feel specific quickly. This is the working path from first contact to reporting.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 border-y border-[#092866]/10 md:grid-cols-5">
+          {["Apply", "Discovery", "Proposal", "Launch", "Reporting"].map((stepName, i) => (
+            <div
+              key={stepName}
+              className="sr group relative border-b border-[#092866]/10 px-6 py-8 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
+              style={{ transitionDelay: `${i * 70}ms` }}
+            >
+              <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
+              <div className="font-(family-name:--font-barlow) text-[48px] font-extrabold leading-none text-[#092866]/[.08]">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3 className="mt-4 font-(family-name:--font-barlow) text-[21px] font-bold uppercase text-[#092866]">
+                {stepName}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ECOSYSTEM (dark, energized) */}
       <section className="relative overflow-hidden bg-[#071936]">
         <div className="tech-grid absolute inset-0 opacity-15" />
@@ -765,7 +773,7 @@ export default function BrandsPage() {
                 </span>
               </h2>
  
-              <p className="mb-12 mt-6 max-w-[400px] text-[15px] font-light leading-[1.85] text-white/45">
+              <p className="mb-12 mt-6 max-w-[400px] text-[17px] font-normal leading-[1.85] text-white/68">
                 Partner with Athletes Elevated and your brand shows up across the entire system — athlete platforms, youth sports, original content, events, and community-led experiences.
               </p>
  
@@ -791,7 +799,7 @@ export default function BrandsPage() {
                       {s.v}
                     </div>
  
-                    <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/38">
+                    <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/76">
                       {s.l}
                     </div>
                   </div>
@@ -824,7 +832,7 @@ export default function BrandsPage() {
                       <div className="font-(family-name:--font-barlow) text-[24px] font-extrabold uppercase text-white transition-colors group-hover:text-[#52aafc]">
                         {item.product}
                       </div>
-                      <div className="mt-0.5 text-[12px] font-light text-white/40">
+                      <div className="mt-0.5 text-[12px] font-light text-white/60">
                         {item.desc}
                       </div>
                     </div>
@@ -845,7 +853,7 @@ export default function BrandsPage() {
                 onClick={openModal}
                 className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.15em]"
               >
-                Apply for Partnership <span className="arr inline-block">→</span>
+                {CTA.partner} <span className="arr inline-block">→</span>
               </button>
             </div>
           </div>
@@ -878,7 +886,7 @@ export default function BrandsPage() {
             {[...PARTNERS, ...PARTNERS].map((p, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-10 px-10 font-(family-name:--font-barlow) text-[15px] font-bold uppercase tracking-[0.12em] text-[#092866]/30 transition-colors hover:text-[#52aafc]"
+                className="inline-flex items-center gap-10 px-10 font-(family-name:--font-barlow) text-[15px] font-bold uppercase tracking-[0.12em] text-[#092866]/68 transition-colors hover:text-[#52aafc]"
               >
                 {p}
                 <span className="h-1 w-1 rounded-full bg-[#092866]/20" />
@@ -929,7 +937,7 @@ export default function BrandsPage() {
             </span>
           </h2>
  
-          <p className="mx-auto mt-8 max-w-[420px] text-[16px] font-light leading-[1.85] text-[#092866]/48">
+          <p className="mx-auto mt-8 max-w-[420px] text-[18px] font-normal leading-[1.85] text-[#092866]/66">
             Tell us about your brand and what you&rsquo;re seeking. We&rsquo;ll build something meaningful together.
           </p>
  
@@ -938,7 +946,7 @@ export default function BrandsPage() {
               onClick={openModal}
               className="btn-blue inline-flex items-center gap-2 px-12 py-5 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-[0.15em]"
             >
-              Apply for Partnership <span className="arr inline-block">→</span>
+              {CTA.partner} <span className="arr inline-block">→</span>
             </button>
  
             <Link
@@ -978,7 +986,7 @@ export default function BrandsPage() {
             <button
               onClick={closeModal}
               aria-label="Close"
-              className="absolute right-4 top-4 text-[#092866]/30 transition-colors hover:text-[#092866]"
+              className="absolute right-4 top-4 text-[#092866]/68 transition-colors hover:text-[#092866]"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path
@@ -1009,8 +1017,8 @@ export default function BrandsPage() {
                     We&apos;ll be in touch.
                   </h3>
  
-                  <p className="mt-3 text-[14px] font-light leading-[1.8] text-[#092866]/50">
-                    Thanks for reaching out to Athletes Elevated.
+                  <p className="mt-3 text-[17px] font-normal leading-[1.8] text-[#092866]/68">
+                    Thanks for reaching out. We review partnership inquiries manually and will follow up by email with fit, timing, and next-step questions.
                   </p>
  
                   <button
@@ -1040,16 +1048,24 @@ export default function BrandsPage() {
                   <h3 className="font-(family-name:--font-barlow) mb-8 text-[30px] font-extrabold uppercase text-[#092866]">
                     {currentStep.heading}
                   </h3>
+
+                  <p className="mb-6 border border-[#52aafc]/20 bg-[#52aafc]/8 p-4 text-[16px] leading-[1.65] text-[#092866]/62">
+                    Takes about 2 minutes. Required fields are marked with
+                    <span className="px-1 font-semibold text-[#52aafc]">*</span>
+                    and the AE team follows up manually.
+                  </p>
  
                   <div className="space-y-5">
                     {currentStep.fields.map((field) => {
                       if (field.type === "select") {
                         return (
                           <div key={field.id}>
-                            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/55">
+                            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">
                               {field.label}
+                              {field.required && <span className="ml-1 text-[#52aafc]">*</span>}
                             </label>
                             <select
+                              required={field.required}
                               className="w-full border border-[#092866]/12 px-4 py-3 text-[14px] outline-none focus:border-[#52aafc]"
                               value={(formData[field.id] as string) ?? ""}
                               onChange={(e) => handleField(field.id, e.target.value)}
@@ -1068,8 +1084,9 @@ export default function BrandsPage() {
                       if (field.type === "textarea") {
                         return (
                           <div key={field.id}>
-                            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/55">
+                            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">
                               {field.label}
+                              {field.required && <span className="ml-1 text-[#52aafc]">*</span>}
                             </label>
                             <textarea
                               rows={4}
@@ -1086,8 +1103,9 @@ export default function BrandsPage() {
                         const selected = (formData[field.id] as string[]) ?? [];
                         return (
                           <div key={field.id}>
-                            <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/55">
+                            <label className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">
                               {field.label}
+                              {field.required && <span className="ml-1 text-[#52aafc]">*</span>}
                             </label>
                             <div className="grid grid-cols-2 gap-2">
                               {field.options?.map((opt) => {
@@ -1100,7 +1118,7 @@ export default function BrandsPage() {
                                     className={`border px-3 py-3 text-left text-[12px] transition-all ${
                                       checked
                                         ? "border-[#52aafc] bg-[#52aafc]/10 text-[#092866]"
-                                        : "border-[#092866]/10 text-[#092866]/55 hover:border-[#52aafc]/40"
+                                        : "border-[#092866]/10 text-[#092866]/70 hover:border-[#52aafc]/40"
                                     }`}
                                   >
                                     {opt}
@@ -1114,11 +1132,13 @@ export default function BrandsPage() {
  
                       return (
                         <div key={field.id}>
-                          <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/55">
+                          <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">
                             {field.label}
+                            {field.required && <span className="ml-1 text-[#52aafc]">*</span>}
                           </label>
                           <input
                             type={field.type}
+                            required={field.required}
                             className="w-full border border-[#092866]/12 px-4 py-3 text-[14px] outline-none focus:border-[#52aafc]"
                             placeholder={field.placeholder}
                             value={(formData[field.id] as string) ?? ""}
@@ -1133,7 +1153,7 @@ export default function BrandsPage() {
                     {step > 1 ? (
                       <button
                         onClick={() => setStep(step - 1)}
-                        className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/35 hover:text-[#092866]"
+                        className="text-[12px] font-medium uppercase tracking-[0.12em] text-[#092866]/70 hover:text-[#092866]"
                       >
                         ← Back
                       </button>
@@ -1143,9 +1163,10 @@ export default function BrandsPage() {
  
                     <button
                       onClick={handleNext}
+                      disabled={submitting}
                       className="btn-blue inline-flex items-center gap-2 px-8 py-3.5 font-(family-name:--font-barlow) text-[12px] font-bold uppercase tracking-[0.15em]"
                     >
-                      {step === FORM_STEPS.length ? "Submit" : "Next →"}
+                      {submitting ? "Submitting..." : step === FORM_STEPS.length ? "Submit inquiry" : "Next →"}
                     </button>
                   </div>
                 </>

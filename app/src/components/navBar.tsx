@@ -1,12 +1,14 @@
 'use client';
  
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { CTA } from '../lib/uxContent';
  
 const NAV_LINKS = [
-  ['For Athletes', '/athletes'],
   ['Ecosystem',    '/ecosystem'],
+  ['For Athletes', '/athletes'],
   ['For Brands',   '/brands'],
   ['For Fans',     '/fans'],
 ];
@@ -25,7 +27,8 @@ export default function Navbar() {
   }, []);
  
   useEffect(() => {
-    setMenuOpen(false);
+    const id = requestAnimationFrame(() => setMenuOpen(false));
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
  
   useEffect(() => {
@@ -101,12 +104,18 @@ export default function Navbar() {
         <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-6 md:px-12">
           <Link
             href="/"
-            className={`font-[family-name:var(--font-barlow)] text-[21px] font-extrabold uppercase tracking-[0.06em] transition-colors ${
-              scrolled || menuOpen ? 'text-white' : 'text-white'
-            }`}
+            className="flex shrink-0 items-center"
             onClick={() => setMenuOpen(false)}
+            aria-label="Athletes Elevated home"
           >
-            ATHLETES <span className="text-[#52aafc]">ELEVATED</span>
+            <Image
+              src="/brand/athletes-elevated-color-reverse-display.svg"
+              alt="Athletes Elevated"
+              width={868}
+              height={264}
+              priority
+              className="h-auto w-[128px] sm:w-[142px] lg:w-[152px]"
+            />
           </Link>
  
           <ul className="hidden items-center gap-8 md:flex">
@@ -114,7 +123,7 @@ export default function Navbar() {
               <li key={l}>
                 <Link
                   href={h}
-                  className={`nav-lnk relative text-[12px] font-medium uppercase tracking-[0.1em] transition-colors ${
+                  className={`nav-lnk relative px-1 py-3 text-[14px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                     pathname === h
                       ? 'active text-[#52aafc]'
                       : scrolled || menuOpen
@@ -127,6 +136,15 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
+          <div className="hidden items-center gap-3 md:flex">
+            <Link
+              href="/athletes"
+              className="border border-[#52aafc]/45 bg-[#52aafc] px-4 py-2.5 font-[family-name:var(--font-barlow)] text-[12px] font-bold uppercase tracking-[0.14em] text-[#071936] transition hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(82,170,252,.28)]"
+            >
+              {CTA.applyAthlete}
+            </Link>
+          </div>
  
           <button
             onClick={() => setMenuOpen((o) => !o)}
@@ -172,12 +190,19 @@ export default function Navbar() {
                     {pathname === h ? (
                       <span className="h-2 w-2 rounded-full bg-[#52aafc]" />
                     ) : (
-                      <span className="text-white/35 text-[16px]">→</span>
+                      <span className="text-white/72 text-[16px]">→</span>
                     )}
                   </Link>
                 </li>
               ))}
             </ul>
+            <Link
+              href="/athletes"
+              className="flex items-center justify-center bg-[#52aafc] px-5 py-4 font-[family-name:var(--font-barlow)] text-[14px] font-bold uppercase tracking-[0.14em] text-[#071936]"
+              onClick={() => setMenuOpen(false)}
+            >
+              {CTA.applyAthlete}
+            </Link>
           </div>
         )}
       </nav>

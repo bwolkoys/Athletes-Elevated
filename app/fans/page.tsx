@@ -10,6 +10,9 @@ import Link from "next/link";
 import { Barlow_Condensed, Montserrat } from "next/font/google";
 import Navbar from "../src/components/navBar";
 import Footer from "../src/components/footer";
+import StatusChip from "../src/components/statusChip";
+import { createParticles } from "../src/lib/particles";
+import { CTA, HERO_PROPOSITIONS } from "../src/lib/uxContent";
  
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
@@ -68,7 +71,7 @@ const FIELDDAY_STATS = [
 const MOVEMENT_CARDS = [
   { v: "3+", l: "Nonprofits supported", sub: "100% of donations pass through" },
   { v: "5", l: "Heroes already filmed", sub: "Steve Young, Jerry Rice & more" },
-  { v: "4", l: "Connected products", sub: "HERO, Athlink, Teams Elevated, CRM" },
+  { v: "4", l: "Connected products", sub: "HERO, Athlink, Teams Elevated, Eye In Teams" },
   { v: "2027", l: "HERO launches", sub: "In production now" },
 ];
 
@@ -78,20 +81,8 @@ const ATHLINK_HOW = [
   { n: "03", title: "Shop what they use", body: "Click through directly to the products and brands your favorite athletes actually promote. No middleman. No algorithm." },
 ];
  
-type Particle = { size: number; left: number; top: number; duration: number; delay: number; };
- 
 function FloatingParticles({ count = 24, color = "rgba(82,170,252,0.5)" }: { count?: number; color?: string; }) {
-  const [particles, setParticles] = useState<Particle[]>([]);
-  useEffect(() => {
-    const ps: Particle[] = Array.from({ length: count }).map(() => ({
-      size: Math.random() * 2.4 + 1,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 14 + 14,
-      delay: Math.random() * 10,
-    }));
-    setParticles(ps);
-  }, [count]);
+  const particles = createParticles(count);
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {particles.map((p, i) => (
@@ -110,7 +101,6 @@ export default function ForFansPage() {
   const [subscribed, setSubscribed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [activeFilmed, setActiveFilmed] = useState(0);
-  const [liveTime, setLiveTime] = useState("");
   const heroRef = useRef<HTMLElement | null>(null);
  
   useEffect(() => {
@@ -121,16 +111,6 @@ export default function ForFansPage() {
     );
     document.querySelectorAll(".sr, .sr-l, .sr-r").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
- 
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      setLiveTime(`${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`);
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
   }, []);
  
   useEffect(() => {
@@ -265,20 +245,11 @@ export default function ForFansPage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.98)_0%,rgba(3,8,20,.7)_42%,rgba(3,8,20,.18)_100%)]" />
         <div className="pointer-events-none absolute right-0 top-24 font-(family-name:--font-barlow) text-[17vw] font-extrabold uppercase leading-none text-white/[0.035]" style={{ animation: "float-soft 12s ease-in-out infinite" }}>FANS</div>
 
-        <div className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-20" style={{ top: "96px", animation: loaded ? "fade .8s ease .4s both" : "none", opacity: loaded ? undefined : 0 }}>
-          <span className="live-dot" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">Live</span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">{liveTime || "00:00:00"}</span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">Fan Channel</span>
-        </div>
-
         <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
           <div className="relative h-20 w-px overflow-hidden bg-white/20">
             <span className="absolute left-0 right-0 h-6 bg-[#52aafc]" style={{ animation: "vertical-scan 3s ease-in-out infinite" }} />
           </div>
-          <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35" style={{ writingMode: "vertical-rl" }}>More than watching</span>
+          <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/72" style={{ writingMode: "vertical-rl" }}>More than watching</span>
           <div className="h-20 w-px bg-white/20" />
           <div className="h-2 w-2 rounded-full bg-[#52aafc]" style={{ animation: "pulse-dot 1.6s ease-in-out infinite" }} />
         </div>
@@ -291,7 +262,7 @@ export default function ForFansPage() {
 
           <h1 className="font-(family-name:--font-barlow) max-w-[1100px] font-extrabold uppercase leading-[0.83] tracking-[-0.025em]" style={{ fontSize: "clamp(58px,12vw,170px)" }}>
             <div className="ww block"><span className="w" style={{ animationDelay: loaded ? ".12s" : "999s" }}>Not just</span></div>
-            <div className="ww block">
+            <div className="block">
               <span className="inline-block text-[#52aafc]" style={{ animation: loaded ? "breathe-glow 3s ease-in-out 1.4s infinite" : "none" }}>
                 {"WATCHING.".split("").map((char, i) => (
                   <span key={i} className="w inline-block" style={{ animationDelay: loaded ? `${0.26 + i * 0.055}s` : "999s" }}>{char}</span>
@@ -302,15 +273,15 @@ export default function ForFansPage() {
           </h1>
 
           <div className="mt-9 flex flex-col gap-8 pb-10 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-[540px] text-[16px] font-light leading-[1.88] text-white/62" style={{ animation: loaded ? "slide-up .7s ease 1.3s both" : "none", opacity: loaded ? undefined : 0 }}>
-              Athletes Elevated is built for the people who believe sports can become something bigger — fans who follow the story, support the mission, and help athletes create impact beyond the game.
+            <p className="max-w-[700px] text-[19px] font-normal leading-[1.75] text-white/88" style={{ animation: loaded ? "slide-up .7s ease 1.3s both" : "none", opacity: loaded ? undefined : 0 }}>
+              {HERO_PROPOSITIONS.fans}
             </p>
             <div className="flex flex-wrap gap-3" style={{ animation: loaded ? "slide-up .65s ease 1.46s both" : "none", opacity: loaded ? undefined : 0 }}>
               <Link href="#athlink" className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-                Shop Athletes <span className="arr inline-block">↓</span>
+                {CTA.shopAthlink} <span className="arr inline-block">↓</span>
               </Link>
               <Link href="#newsletter" className="btn-ghost-dark inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-                Join the Circle <span className="arr inline-block">↓</span>
+                {CTA.joinNewsletter} <span className="arr inline-block">↓</span>
               </Link>
             </div>
           </div>
@@ -321,7 +292,7 @@ export default function ForFansPage() {
             <div key={l} className="group relative border-r border-white/10 px-6 py-6 transition-colors last:border-r-0 hover:bg-white/[.03] md:px-10">
               <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
               <div className="font-(family-name:--font-barlow) text-[clamp(22px,3vw,42px)] font-extrabold leading-none text-[#52aafc]">{v}</div>
-              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white/42">{l}</div>
+              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white/78">{l}</div>
             </div>
           ))}
         </div>
@@ -356,11 +327,11 @@ export default function ForFansPage() {
             </h2>
           </div>
           <div>
-            <p className="mb-4 text-[16px] font-light leading-[1.88] text-[#092866]/55">
+            <p className="mb-4 text-[18px] font-normal leading-[1.88] text-[#092866]/70">
               Athlink is the athlete marketplace built into Athletes Elevated. Every athlete has their own profile — a single link that holds their discount codes, brand partnerships, and product promotions.
             </p>
-            <p className="text-[15px] font-light leading-[1.88] text-[#092866]/38">
-              As a fan, you visit their Athlink profile, click through to anything they're promoting, and shop it directly — no algorithm filtering what you see, no middleman between you and your athlete.
+            <p className="text-[17px] font-normal leading-[1.88] text-[#092866]/62">
+              As a fan, you visit their Athlink profile, click through to anything they&apos;re promoting, and shop it directly — no algorithm filtering what you see, no middleman between you and your athlete.
             </p>
           </div>
         </div>
@@ -393,7 +364,7 @@ export default function ForFansPage() {
                 ].map((item) => (
                   <div key={item.label} className="mb-2 flex items-center gap-3 rounded-lg border border-[#092866]/8 px-4 py-3 transition-colors hover:border-[#52aafc]/40 hover:bg-[#f0f5fd]">
                     <span className="text-[14px]">{item.icon}</span>
-                    <span className="text-[13px] font-medium text-[#092866]/65">{item.label}</span>
+                    <span className="text-[14px] font-medium text-[#092866]/65">{item.label}</span>
                     <span className="ml-auto text-[11px] text-[#52aafc]">→</span>
                   </div>
                 ))}
@@ -406,7 +377,7 @@ export default function ForFansPage() {
 
           {/* RIGHT — how it works steps */}
           <div className="sr-r flex flex-col gap-4" style={{ transitionDelay: "100ms" }}>
-            <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#092866]/40">How it works for fans</div>
+            <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#092866]/72">How it works for fans</div>
             {ATHLINK_HOW.map((step, i) => (
               <div key={step.n} className="athlink-step relative overflow-hidden bg-[#f0f5fd] p-6" style={{ transitionDelay: `${i * 60}ms` }}>
                 <div className="athlink-line absolute left-0 top-0 h-[2px] w-full bg-[#52aafc]" />
@@ -414,7 +385,7 @@ export default function ForFansPage() {
                   <span className="athlink-num font-(family-name:--font-barlow) text-[42px] font-extrabold leading-none shrink-0">{step.n}</span>
                   <div>
                     <h3 className="font-(family-name:--font-barlow) mb-1 text-[18px] font-bold uppercase text-[#092866]">{step.title}</h3>
-                    <p className="text-[13px] font-light leading-[1.78] text-[#092866]/50">{step.body}</p>
+                    <p className="text-[17px] font-normal leading-[1.78] text-[#092866]/68">{step.body}</p>
                   </div>
                 </div>
               </div>
@@ -446,7 +417,7 @@ export default function ForFansPage() {
                 <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.24em] text-[#52aafc]">{r.tag}</span>
                 <h3 className="font-(family-name:--font-barlow) text-[24px] font-bold uppercase text-[#092866]">{r.title}</h3>
               </div>
-              <p className="mt-3 text-[15px] font-light leading-[1.85] text-[#092866]/50 md:mt-0">{r.body}</p>
+              <p className="mt-3 text-[17px] font-normal leading-[1.85] text-[#092866]/68 md:mt-0">{r.body}</p>
             </div>
           ))}
         </div>
@@ -473,11 +444,11 @@ export default function ForFansPage() {
                 <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Documentary · January 2027</span>
               </div>
               <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(38px,5vw,82px)] font-extrabold uppercase leading-[0.88]">More than<br />a documentary.</h2>
-              <p className="mb-8 max-w-[500px] text-[15px] font-light leading-[1.9] text-white/58">
+              <p className="mb-8 max-w-[500px] text-[17px] font-normal leading-[1.9] text-white/76">
                 HERO examines the evolving role athletes play in culture — from competition and leadership to influence, identity, and impact beyond the game.
               </p>
               <Link href="#newsletter" className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-                Join the Circle <span className="arr inline-block">→</span>
+                {CTA.heroUpdates} <span className="arr inline-block">→</span>
               </Link>
             </div>
           </div>
@@ -491,13 +462,13 @@ export default function ForFansPage() {
               <button key={a.name} onClick={() => setActiveFilmed(i)}
                 className={`filmed-tab w-full px-5 py-5 text-left ${activeFilmed === i ? "active" : "hover:bg-white/[.03]"}`}>
                 <div className="flex items-center justify-between gap-4">
-                  <span className={`font-(family-name:--font-barlow) text-[24px] font-bold uppercase transition-colors ${activeFilmed === i ? "text-[#52aafc]" : "text-white/62"}`}>{a.name}</span>
+                  <span className={`font-(family-name:--font-barlow) text-[24px] font-bold uppercase transition-colors ${activeFilmed === i ? "text-[#52aafc]" : "text-white/78"}`}>{a.name}</span>
                   {activeFilmed === i && <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]/70">Filmed ✓</span>}
                 </div>
                 {activeFilmed === i && (
                   <div className="mt-2">
-                    <p className="text-[11px] font-medium text-white/42">{a.sport}</p>
-                    <p className="text-[12px] font-light text-white/38">{a.detail}</p>
+                    <p className="text-[11px] font-medium text-white/78">{a.sport}</p>
+                    <p className="text-[16px] font-normal text-white/80">{a.detail}</p>
                   </div>
                 )}
               </button>
@@ -518,17 +489,18 @@ export default function ForFansPage() {
             <div className="mb-4 inline-flex items-center gap-3">
               <span className="accent-line w-8" />
               <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">Fantasy Track & Field</span>
+              <StatusChip status="Coming soon" tone="light" />
             </div>
             <h2 className="font-(family-name:--font-barlow) mb-6 text-[clamp(38px,5vw,84px)] font-extrabold uppercase leading-[0.88] text-[#092866]">
               Play the<br />season.<br />
               <span className="inline-block text-[#52aafc]" style={{ animation: "breathe-glow 3s ease-in-out infinite" }}>Back your team.</span>
             </h2>
-            <p className="mb-8 max-w-[500px] text-[15px] font-light leading-[1.88] text-[#092866]/50">
+            <p className="mb-8 max-w-[500px] text-[17px] font-normal leading-[1.88] text-[#092866]/68">
               FIELDDAY turns Diamond League drama into a season-long fantasy league. Pick a pro-managed squad, follow live scoring, earn captain bonuses, and compete for prizes and experiences.
             </p>
-            <a href="https://afieldday.netlify.app/" target="_blank" rel="noreferrer"
+            <a href="#newsletter"
               className="btn-blue inline-flex items-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest">
-              Explore FIELDDAY <span className="arr inline-block">→</span>
+              {CTA.fielddayWaitlist} <span className="arr inline-block">→</span>
             </a>
           </div>
           <div className="sr-r -mx-6 overflow-x-auto px-6 pb-6 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -538,7 +510,7 @@ export default function ForFansPage() {
                   <div className="absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]/40" style={{ animation: "shimmer-line 2.6s ease-in-out infinite" }} />
                   <div className="font-(family-name:--font-barlow) text-[56px] font-extrabold leading-none text-[#52aafc]" style={{ textShadow: "0 0 30px rgba(82,170,252,.2)" }}>{item.stat}</div>
                   <h3 className="mt-3 font-(family-name:--font-barlow) text-[20px] font-bold uppercase text-[#092866]">{item.label}</h3>
-                  <p className="mt-2 text-[12px] font-light leading-[1.75] text-[#092866]/48">{item.body}</p>
+                  <p className="mt-2 text-[17px] font-normal leading-[1.75] text-[#092866]/66">{item.body}</p>
                 </div>
               ))}
             </div>
@@ -565,8 +537,8 @@ export default function ForFansPage() {
               </h2>
             </div>
             <div className="flex flex-col justify-center">
-              <p className="mb-6 text-[16px] font-light leading-[1.88] text-white/55">Athletes Elevated is building a system that connects athletes, brands, fans, and communities around shared values. Fans are the foundation.</p>
-              <p className="text-[14px] font-light leading-[1.88] text-white/35">From youth leagues to global documentaries, from athlete profiles to community fundraising — every piece of Athletes Elevated starts and ends with people who care.</p>
+              <p className="mb-6 text-[18px] font-normal leading-[1.88] text-white/72">Athletes Elevated is building a system that connects athletes, brands, fans, and communities around shared values. Fans are the foundation.</p>
+              <p className="text-[17px] font-normal leading-[1.88] text-white/72">From youth leagues to global documentaries, from athlete profiles to community fundraising — every piece of Athletes Elevated starts and ends with people who care.</p>
             </div>
           </div>
 
@@ -577,14 +549,14 @@ export default function ForFansPage() {
                   <div className="portal-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
                   <div className="font-(family-name:--font-barlow) text-[56px] font-extrabold leading-none text-[#52aafc]" style={{ textShadow: "0 0 24px rgba(82,170,252,.18)" }}>{s.v}</div>
                   <div className="mt-3 font-(family-name:--font-barlow) text-[18px] font-bold uppercase text-[#092866]">{s.l}</div>
-                  <div className="mt-1 text-[12px] font-light text-[#092866]/42">{s.sub}</div>
+                  <div className="mt-1 text-[12px] font-light text-[#092866]/62">{s.sub}</div>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="sr mt-10 border-t border-white/10 pt-10">
-            <div className="mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/40">
+            <div className="mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/60">
               <span className="live-dot" />
               Support the nonprofits we champion — 100% pass-through
             </div>
@@ -619,7 +591,7 @@ export default function ForFansPage() {
             Be the<br />first to<br />
             <span className="inline-block text-[#52aafc]" style={{ animation: "breathe-glow 3s ease-in-out infinite" }}>know.</span>
           </h2>
-          <p className="mx-auto mb-12 max-w-[460px] text-[16px] font-light leading-[1.82] text-[#092866]/50">
+          <p className="mx-auto mb-12 max-w-[460px] text-[18px] font-normal leading-[1.82] text-[#092866]/68">
             HERO updates. Athlete stories. Community moments. FIELDDAY drops. New Athlink athlete profiles. New ecosystem launches. Before anyone else.
           </p>
 
@@ -631,28 +603,43 @@ export default function ForFansPage() {
                     <path d="M3 8l3.5 3.5 6.5-7" stroke="#092866" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <span className="font-(family-name:--font-barlow) text-[16px] font-bold uppercase tracking-[0.1em] text-[#092866]">You&apos;re on the list!</span>
+                <span className="font-(family-name:--font-barlow) text-[16px] font-bold uppercase tracking-[0.1em] text-[#092866]">You&apos;re on the list.</span>
               </div>
+              <p className="mt-4 text-[16px] leading-[1.65] text-[#092866]/70">
+                We&apos;ll send HERO updates, Athlink launches, FIELDDAY access, and fan-only ecosystem news.
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="mx-auto flex max-w-[540px] flex-col gap-3">
+              <p className="mb-3 border border-[#52aafc]/20 bg-white/65 p-4 text-left text-[16px] leading-[1.65] text-[#092866]/72">
+                Join once for HERO updates, Athlink profiles, FIELDDAY access, and launch news. Required fields are marked.
+              </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name"
-                  className="border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
-                <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name"
-                  className="border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
+                <label className="text-left">
+                  <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">First name *</span>
+                  <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name"
+                    className="w-full border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
+                </label>
+                <label className="text-left">
+                  <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">Last name *</span>
+                  <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name"
+                    className="w-full border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
+                </label>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address"
-                  className="flex-1 border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
+                <label className="flex-1 text-left">
+                  <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.15em] text-[#092866]/70">Email *</span>
+                  <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address"
+                    className="w-full border border-[#092866]/10 bg-white px-5 py-4 text-[14px] font-light text-[#092866] placeholder-[#092866]/30 outline-none transition-colors focus:border-[#52aafc]" />
+                </label>
                 <button type="submit" disabled={submitting}
-                  className="btn-blue inline-flex shrink-0 items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.1em] disabled:cursor-not-allowed disabled:opacity-50">
-                  {submitting ? "Submitting..." : <><span>Join the Circle</span><span className="arr inline-block">→</span></>}
+                  className="btn-blue inline-flex shrink-0 items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.1em] disabled:cursor-not-allowed disabled:opacity-50 sm:self-end">
+                  {submitting ? "Submitting..." : <><span>{CTA.joinNewsletter}</span><span className="arr inline-block">→</span></>}
                 </button>
               </div>
             </form>
           )}
-          <p className="mt-6 text-[11px] font-light text-[#092866]/35">No spam. Just the good stuff. Unsubscribe anytime.</p>
+          <p className="mt-6 text-[11px] font-light text-[#092866]/70">No spam. Just the good stuff. Unsubscribe anytime.</p>
         </div>
       </section>
  
