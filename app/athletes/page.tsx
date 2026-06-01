@@ -1165,11 +1165,11 @@ export default function ForAthletesPage() {
                   </div>
  
                   <h3 className="font-(family-name:--font-barlow) mb-3 text-[28px] font-extrabold uppercase text-[#092866]">
-                    You&apos;re in.
+                  Application Received
                   </h3>
  
                   <p className="text-[14px] font-light leading-[1.75] text-[#092866]/50">
-                    We&apos;ll be in touch.
+                  We review every application personally. You'll hear from us within a few business days.
                   </p>
  
                   <button
