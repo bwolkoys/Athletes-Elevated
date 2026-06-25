@@ -3,6 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
+import { DM_Sans, Montserrat } from 'next/font/google'
+
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

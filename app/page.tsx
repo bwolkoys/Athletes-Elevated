@@ -1,1150 +1,617 @@
-"use client";
+'use client';
  
-import {
-  useEffect,
-  useRef,
-  useState,
-  MouseEvent as ReactMouseEvent,
-} from "react";
-import Link from "next/link";
-import { Barlow_Condensed, Montserrat } from "next/font/google";
-import Navbar from "./src/components/navBar";
-import Footer from "./src/components/footer";
+import Navbar from './src/components/navBar';
+import Footer from './src/components/footer';
+import Link from 'next/link';
+import { motion, useInView, type Variants } from 'framer-motion';
+import { useRef, ReactNode } from 'react';
  
-const barlow = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-barlow",
-});
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
  
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-montserrat",
-});
+function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
  
-const CYCLING_WORDS = ["ATHLETES", "COMMUNITIES", "TECHNOLOGY", "LEGACY"];
+function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
+}
  
-const ECOSYSTEM = [
-  {
-    tag: "Documentary",
-    name: "HEROES",
-    sub: "Cinematic athlete stories that move culture.",
-    detail:
-      "A documentary platform built around legends, identity, leadership, and impact beyond the game.",
-  },
-  {
-    tag: "Athlete Platform",
-    name: "Athlink",
-    sub: "The marketplace for athletes.",
-    detail:
-      "Promote products, host links, share discount codes — fans shop directly from your profile.",
-  },
-  {
-    tag: "Youth Sports",
-    name: "Teams Elevated",
-    sub: "Helping more kids stay in the game.",
-    detail:
-      "Payments, fundraising, team communication, and community support built for youth sports.",
-  },
-  {
-    tag: "CRM + Marketing",
-    name: "Eye In Teams",
-    sub: "Relationship infrastructure for sports.",
-    detail:
-      "Email, text, calls, fan engagement, and brand communication powered through one system.",
-  },
-];
+function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
  
-const FILMED = [
-  "Steve Young",
-  "Jerry Rice",
-  "Sir Nick Faldo",
-  "Picabo Street",
-  "West Ham United",
-];
+function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
  
-const NONPROFITS = [
-  {
-    name: "Park City Community Foundation",
-    desc: "Strengthening local nonprofits across Park City and Summit County.",
-    href: "https://parkcitycf.fcsuite.com/erp/donate",
-  },
-  {
-    name: "West Ham United Foundation",
-    desc: "Using the power of football to help communities thrive in East London.",
-    href: "https://www.whufc.com/en/the-club/community/foundation",
-  },
-  {
-    name: "McKenna Claire Foundation",
-    desc: "Advancing research for pediatric brain cancer.",
-    href: "https://mckennaclairefoundation.org/donate/",
-  },
-];
+function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
  
-const PARTNERS = [
-  "Essex Mortgage",
-  "Salt Box PC",
-  "Holistic Beverages",
-  "TBX Golf",
-  "Essex Shield",
-  "Bloom Intelligence",
-  "Dos Amigos",
-  "Mother's Comfort Foods",
-];
+function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
+}
  
-const STATS = [
-  { value: 5, suffix: "", label: "Legends Filmed" },
-  { value: 4, suffix: "", label: "Ecosystem Engines" },
-  { value: 3, suffix: "+", label: "Nonprofits Supported" },
-  { value: 100, suffix: "%", label: "Pass-Through Donations" },
-];
+function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
+  return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
+}
  
-/* ──────────────────────────────────────────────────────────────────────────
-   FLOATING PARTICLES — drifting dots for atmosphere in dark sections
-   ────────────────────────────────────────────────────────────────────────── */
-type Particle = {
-  size: number;
-  left: number;
-  top: number;
-  duration: number;
-  delay: number;
+function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+ 
+const cardHoverVariants: Variants = {
+  rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
+  hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
 };
  
-function FloatingParticles({
-  count = 24,
-  color = "rgba(82,170,252,0.5)",
-}: {
-  count?: number;
-  color?: string;
-}) {
-  const [particles, setParticles] = useState<Particle[]>([]);
+const MotionDiv = motion.div;
  
-  useEffect(() => {
-    const ps: Particle[] = Array.from({ length: count }).map(() => ({
-      size: Math.random() * 2.4 + 1,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 14 + 14,
-      delay: Math.random() * 10,
-    }));
-    setParticles(ps);
-  }, [count]);
+// ─── Shared color tokens ───────────────────────────────────────────────────────
+// Update these with exact hex values from your Figma/design file once you have them.
+const NAVY       = '#080F1C';   // main dark headings & text
+const NAVY_HERO  = '#0B1220';   // hero / navbar / footer backgrounds
+const BLUE       = '#1A6EF0';   // "Explore →" links, Apply button
+const BLUE_LIGHT = '#4E9AF5';   // eyebrow label dots & text
+const CARD_BG    = '#EBF2FF';   // light-blue feature card background
  
+// ─── Reusable sub-components ──────────────────────────────────────────────────
+ 
+// Eyebrow label  •  CONNECTION
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {particles.map((p, i) => (
-        <span
-          key={i}
-          className="absolute block rounded-full"
-          style={{
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            background: color,
-            opacity: 0,
-            animation: `drift ${p.duration}s ease-in-out ${p.delay}s infinite`,
-          }}
-        />
-      ))}
+    <div className="flex items-center gap-2 mb-3">
+      <span
+        style={{
+          width: '7px',
+          height: '7px',
+          borderRadius: '50%',
+          backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT,
+          display: 'inline-block',
+          flexShrink: 0,
+        }}
+      />
+      <span
+        style={{
+          fontFamily: 'var(--font-label)',
+          color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT,
+          fontSize: '11px',
+          letterSpacing: '0.18em',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+        }}
+      >
+        {children}
+      </span>
     </div>
   );
 }
  
-/* ──────────────────────────────────────────────────────────────────────────
-   COUNT-UP — animates from 0 → target when scrolled into view
-   ────────────────────────────────────────────────────────────────────────── */
-function CountUp({
-  end,
-  duration = 1800,
-  suffix = "",
-}: {
-  end: number;
-  duration?: number;
-  suffix?: string;
-}) {
-  const [value, setValue] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLSpanElement | null>(null);
- 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) setStarted(true);
-      },
-      { threshold: 0.5 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [started]);
- 
-  useEffect(() => {
-    if (!started) return;
-    let frame = 0;
-    const startTime = performance.now();
-    const animate = (now: number) => {
-      const t = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(end * eased));
-      if (t < 1) frame = requestAnimationFrame(animate);
-    };
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [started, end, duration]);
- 
+// "Explore X →" link
+function ExploreLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <span ref={ref} className="tabular-nums">
-      {value}
-      {suffix}
-    </span>
+    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+      <Link
+        href={href}
+        style={{
+          fontFamily: 'var(--font-body)',
+          color: BLUE,
+          fontSize: '14px',
+          fontWeight: 600,
+          letterSpacing: '0.02em',
+        }}
+        className="hover:opacity-75 transition-opacity"
+      >
+        {children} →
+      </Link>
+    </motion.div>
   );
 }
  
-export default function HomePage() {
-  const [loaded, setLoaded] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
-  const [wordVisible, setWordVisible] = useState(true);
-  const [activeFilmed, setActiveFilmed] = useState(0);
-  const [liveTime, setLiveTime] = useState("");
- 
-  const heroRef = useRef<HTMLElement | null>(null);
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
- 
-  /* load + scroll reveal + cycling word + video play */
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 80);
- 
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08 }
-    );
-    document
-      .querySelectorAll(".sr, .sr-l, .sr-r")
-      .forEach((el) => io.observe(el));
- 
-    const cycle = setInterval(() => {
-      setWordVisible(false);
-      setTimeout(() => {
-        setWordIndex((i) => (i + 1) % CYCLING_WORDS.length);
-        setWordVisible(true);
-      }, 350);
-    }, 2200);
- 
-    const videoObserver = new IntersectionObserver(
-      ([entry]) => {
-        const v = heroVideoRef.current;
-        if (!v) return;
-        if (entry.isIntersecting) v.play().catch(() => {});
-        else v.pause();
-      },
-      { threshold: 0.45 }
-    );
-    if (heroVideoRef.current) videoObserver.observe(heroVideoRef.current);
- 
-    return () => {
-      clearTimeout(t);
-      io.disconnect();
-      videoObserver.disconnect();
-      clearInterval(cycle);
-    };
-  }, []);
- 
-  /* live time HUD */
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      const h = d.getHours().toString().padStart(2, "0");
-      const m = d.getMinutes().toString().padStart(2, "0");
-      const s = d.getSeconds().toString().padStart(2, "0");
-      setLiveTime(`${h}:${m}:${s}`);
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
-  }, []);
- 
-  /* mouse spotlight on hero */
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      el.style.setProperty("--mx", `${x}%`);
-      el.style.setProperty("--my", `${y}%`);
-    };
-    el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
-  }, []);
- 
-  /* card tilt */
-  const handleCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rY = (x / rect.width) * 7;
-    const rX = -(y / rect.height) * 7;
-    card.style.transform = `perspective(1200px) rotateX(${rX}deg) rotateY(${rY}deg) translateY(-6px)`;
-  };
-  const resetCardTilt = (e: ReactMouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = "";
-  };
- 
+// Image placeholder — swap each one for <Image fill style={{objectFit:'cover'}} ... />
+function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
   return (
     <div
-      className={`${barlow.variable} ${montserrat.variable} bg-white font-(family-name:--font-montserrat) text-[#092866] overflow-x-hidden`}
+      className="w-full h-full"
+      style={{
+        backgroundColor: '#1A2540',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'rgba(255,255,255,0.2)',
+        fontFamily: 'var(--font-body)',
+        fontSize: '13px',
+        letterSpacing: '0.05em',
+        userSelect: 'none',
+        minHeight: 'inherit',
+      }}
     >
-      <style>{`
-        @keyframes marquee { to { transform: translateX(-50%); } }
-        @keyframes marqueeReverse { to { transform: translateX(50%); } }
-        @keyframes word-in { from { opacity:0; transform:translateY(110%) skewY(4deg); } to { opacity:1; transform:translateY(0) skewY(0); } }
-        @keyframes fade { from { opacity:0; } to { opacity:1; } }
-        @keyframes slide-up { from { opacity:0; transform:translateY(44px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.35; transform:scale(.72); } }
-        @keyframes scan { 0% { transform:translateY(-100%); opacity:0; } 12% { opacity:.6; } 100% { transform:translateY(100%); opacity:0; } }
-        @keyframes drift {
-          0% { opacity:0; transform:translate(0,0) scale(1); }
-          15% { opacity:1; }
-          85% { opacity:.85; }
-          100% { opacity:0; transform:translate(28px,-80px) scale(.6); }
-        }
-        @keyframes breathe-glow {
-          0%,100% { text-shadow:0 0 60px rgba(82,170,252,.45); }
-          50% { text-shadow:0 0 120px rgba(82,170,252,.9), 0 0 30px rgba(82,170,252,.6); }
-        }
-        @keyframes arrow-bounce {
-          0%,100% { transform:translateX(0); }
-          50% { transform:translateX(6px); }
-        }
-        @keyframes shimmer-line {
-          0%,100% { box-shadow:0 0 6px rgba(82,170,252,.5); }
-          50% { box-shadow:0 0 18px rgba(82,170,252,1); }
-        }
-        @keyframes pulse-ring {
-          0% { transform:scale(1); opacity:.7; }
-          100% { transform:scale(2.4); opacity:0; }
-        }
-        @keyframes vertical-scan {
-          0% { transform:translateY(0); }
-          50% { transform:translateY(80px); }
-          100% { transform:translateY(0); }
-        }
-        @keyframes float-soft {
-          0%,100% { transform:translateY(0); }
-          50% { transform:translateY(-6px); }
-        }
+      {label}
+    </div>
+  );
+}
  
-        .sr { opacity:0; transform:translateY(34px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
-        .sr.in { opacity:1; transform:translateY(0); }
-        .sr-l { opacity:0; transform:translateX(-38px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
-        .sr-l.in { opacity:1; transform:translateX(0); }
-        .sr-r { opacity:0; transform:translateX(38px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
-        .sr-r.in { opacity:1; transform:translateX(0); }
- 
-        .ww { overflow:hidden; display:inline-block; vertical-align:bottom; }
-        .w { display:inline-block; animation:word-in .9s cubic-bezier(.22,1,.36,1) both; }
- 
-        .accent-line {
-          display:inline-block;
-          height:2px;
-          background:#52aafc;
-          animation:shimmer-line 2.4s ease-in-out infinite;
-        }
- 
-        .grain {
-          background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-        }
- 
-        .tech-grid {
-          background-image:
-            linear-gradient(rgba(82,170,252,.11) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(82,170,252,.11) 1px, transparent 1px);
-          background-size: 56px 56px;
-        }
- 
-        .spotlight {
-          background: radial-gradient(circle 420px at var(--mx,70%) var(--my,30%), rgba(82,170,252,.22), transparent 65%);
-          transition: background .15s ease;
-        }
- 
-        .scanline {
-          position:absolute; left:0; right:0; height:140px;
-          background: linear-gradient(180deg, transparent, rgba(82,170,252,.18), transparent);
-          mix-blend-mode: screen;
-          pointer-events:none;
-          animation: scan 9s ease-in-out infinite;
-          animation-delay: 1s;
-        }
- 
-        .marquee-track { width:max-content; }
-        .marquee-track:hover { animation-play-state:paused; }
- 
-        .btn-blue {
-          background:#52aafc;
-          color:#05070d;
-          transition:transform .2s, box-shadow .2s;
-          position:relative;
-        }
-        .btn-blue:hover {
-          transform:translateY(-2px);
-          box-shadow:0 0 40px rgba(82,170,252,.5), 0 10px 30px rgba(82,170,252,.25);
-        }
-        .btn-blue:hover .arr { animation: arrow-bounce .55s ease-in-out infinite; }
- 
-        .btn-outline {
-          border:1px solid rgba(82,170,252,.45);
-          color:#52aafc;
-          transition:background .2s, color .2s, transform .2s;
-        }
-        .btn-outline:hover {
-          background:#52aafc;
-          color:#05070d;
-          transform:translateY(-2px);
-        }
-        .btn-outline:hover .arr { animation: arrow-bounce .55s ease-in-out infinite; }
- 
-        .portal-card {
-          border:1px solid rgba(82,170,252,.18);
-          transition:transform .55s cubic-bezier(.22,1,.36,1), border-color .3s, box-shadow .3s;
-          transform-style: preserve-3d;
-          will-change: transform;
-        }
-        .portal-card:hover {
-          border-color:rgba(82,170,252,.65);
-          box-shadow:0 30px 90px rgba(9,40,102,.18);
-        }
-        .portal-card:hover .portal-line {
-          transform:scaleX(1);
-        }
-        .portal-line {
-          transform:scaleX(0);
-          transform-origin:left;
-          transition:transform .45s cubic-bezier(.22,1,.36,1);
-        }
- 
-        .filmed-tab {
-          transition:background .25s, border-color .25s, color .25s;
-        }
-        .filmed-tab.active {
-          background:rgba(82,170,252,.09);
-          border-left-color:#52aafc;
-        }
- 
-        .live-dot {
-          position:relative;
-          display:inline-block;
-          width:8px; height:8px;
-          border-radius:9999px;
-          background:#ff3b30;
-        }
-        .live-dot::before {
-          content:""; position:absolute; inset:0;
-          border-radius:9999px;
-          background:#ff3b30;
-          animation: pulse-ring 1.6s ease-out infinite;
-        }
-      `}</style>
- 
-      <Navbar />
- 
-      {/* HERO */}
-      <section
-        ref={heroRef}
-        className="grain relative min-h-screen overflow-hidden bg-[#071936] pt-24 text-white"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(82,170,252,.32),transparent_32%),linear-gradient(135deg,#071936_0%,#092866_52%,#030814_100%)]" />
-        <div className="tech-grid absolute inset-0 opacity-30" />
- 
-        {/* mouse-tracked spotlight */}
-        <div className="spotlight pointer-events-none absolute inset-0" />
- 
-        {/* periodic scanline sweep */}
-        <div className="scanline" />
- 
-        {/* floating particles */}
-        <FloatingParticles count={32} />
- 
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(3,8,20,.96)_0%,rgba(3,8,20,.72)_42%,rgba(3,8,20,.22)_100%)]" />
- 
-        {/* LIVE HUD */}
+// ─── Hero ──────────────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section
+      style={{ backgroundColor: NAVY_HERO, minHeight: '92vh', position: 'relative', overflow: 'hidden' }}
+      className="flex items-center py-24 md:py-0"
+    >
+      {/*
+        Background image:
+        • Mobile  — full-bleed with heavy dark overlay so text stays readable
+        • Desktop — right 55% only, fades left into navy
+        Replace ImagePlaceholder with:
+        <Image fill style={{ objectFit: 'cover' }} src="/images/hero.jpg" alt="Hero" priority />
+      */}
+      <div className="absolute inset-0 md:left-[45%] md:right-0 md:inset-y-0" style={{ zIndex: 0 }}>
+        <ImagePlaceholder label="Hero background image" />
+        {/* Mobile: heavy overlay */}
         <div
-          className="absolute z-30 hidden items-center gap-3 px-6 md:flex md:px-12 lg:px-16"
-          style={{
-            top: "96px",
-            animation: loaded ? "fade .8s ease .4s both" : "none",
-            opacity: loaded ? undefined : 0,
-          }}
-        >
-          <span className="live-dot" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.4em] text-white/85">
-            Live
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) tabular-nums text-[10px] font-bold uppercase tracking-[0.32em] text-[#52aafc]">
-            {liveTime || "00:00:00"}
-          </span>
-          <span className="h-3 w-px bg-white/20" />
-          <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/40">
-            Park City · UT
-          </span>
-        </div>
- 
-        {/* right scroll indicator */}
-        <div className="absolute right-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
-          <div className="relative h-20 w-px overflow-hidden bg-white/20">
-            <span
-              className="absolute left-0 right-0 h-6 bg-[#52aafc]"
-              style={{ animation: "vertical-scan 3s ease-in-out infinite" }}
-            />
-          </div>
-          <span
-            className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.4em] text-white/35"
-            style={{ writingMode: "vertical-rl" }}
-          >
-            Scroll to enter the ecosystem
-          </span>
-          <div className="h-20 w-px bg-white/20" />
-          <div
-            className="h-2 w-2 rounded-full bg-[#52aafc]"
-            style={{ animation: "pulse-dot 1.6s ease-in-out infinite" }}
-          />
-        </div>
- 
-        <div className="relative z-10 flex min-h-[calc(100vh-96px)] flex-col justify-end px-6 pb-0 md:px-12 lg:px-16">
-          <div
-            className="mb-8 inline-flex items-center gap-3"
-            style={{
-              animation: loaded ? "slide-up .7s ease .1s both" : "none",
-              opacity: loaded ? undefined : 0,
-            }}
-          >
-            <span className="accent-line w-10" />
-            <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.35em] text-[#52aafc]">
-              Sports · Media · Technology · Impact
-            </span>
-          </div>
- 
-          <h1
-            className="font-(family-name:--font-barlow) max-w-[1200px] font-extrabold uppercase leading-[0.83] tracking-[-0.025em]"
-            style={{ fontSize: "clamp(62px,13vw,190px)" }}
-          >
-            {/* character-split ELEVATE */}
-            <div className="ww block">
-              {"ELEVATE".split("").map((char, i) => (
-                <span
-                  key={i}
-                  className="w inline-block text-white"
-                  style={{
-                    animationDelay: loaded ? `${0.12 + i * 0.055}s` : "999s",
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-            </div>
- 
-            {/* cycling word with breathing glow */}
-            <div className="block min-h-[.9em] text-[#52aafc]">
-              <span
-                className="block"
-                style={{
-                  transition: "opacity .35s ease, transform .35s ease",
-                  opacity: wordVisible ? 1 : 0,
-                  transform: wordVisible ? "translateY(0)" : "translateY(18px)",
-                  animation: wordVisible
-                    ? "breathe-glow 3s ease-in-out infinite"
-                    : "none",
-                }}
-              >
-                {CYCLING_WORDS[wordIndex]}
-              </span>
-            </div>
-          </h1>
- 
-          {/* cycling word progress dots */}
-          <div
-            className="mt-6 flex items-center gap-2"
-            style={{
-              animation: loaded ? "fade .8s ease 1.2s both" : "none",
-              opacity: loaded ? undefined : 0,
-            }}
-          >
-            {CYCLING_WORDS.map((w, i) => (
-              <span
-                key={w}
-                className="block h-[3px] rounded-full transition-all duration-500"
-                style={{
-                  width: i === wordIndex ? "36px" : "10px",
-                  background:
-                    i === wordIndex ? "#52aafc" : "rgba(255,255,255,.18)",
-                  boxShadow:
-                    i === wordIndex ? "0 0 12px rgba(82,170,252,.7)" : "none",
-                }}
-              />
-            ))}
-            <span className="ml-3 font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.3em] text-white/35">
-              {String(wordIndex + 1).padStart(2, "0")} /{" "}
-              {String(CYCLING_WORDS.length).padStart(2, "0")}
-            </span>
-          </div>
- 
-          <div
-            className="mt-10 grid grid-cols-1 border-t border-white/10 bg-[#071936]/80 backdrop-blur-xl lg:grid-cols-[1fr_1fr_360px]"
-            style={{
-              animation: loaded ? "fade .8s ease 1s both" : "none",
-              opacity: loaded ? undefined : 0,
-            }}
-          >
-            <div className="border-b border-white/10 p-6 md:p-8 lg:border-b-0 lg:border-r">
-              <p className="max-w-[520px] text-[15px] font-light leading-[1.85] text-white/62">
-              An invite-only network where athletes, brands, and the fans who follow them gather inside one elevated ecosystem of media, technology, and impact.
-              </p>
-            </div>
- 
-            <div className="grid grid-cols-2 border-b border-white/10 lg:border-b-0 lg:border-r">
-              {[
-                ["HERO", "Documentary"],
-                ["ATHLINK", "Athlete platform"],
-                ["TEAMS", "Youth sports"],
-                ["IMPACT", "Community"],
-              ].map(([value, label]) => (
-                <div
-                  key={value}
-                  className="group relative border-b border-r border-white/10 p-5 transition-colors even:border-r-0 hover:bg-white/[.03]"
-                >
-                  <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
-                  <div className="font-(family-name:--font-barlow) text-[26px] font-extrabold text-[#52aafc]">
-                    {value}
-                  </div>
-                  <div className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-white/38">
-                    {label}
-                  </div>
-                </div>
-              ))}
-            </div>
- 
-            <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
-              <Link
-                href="/athletes"
-                className="btn-blue inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
-              >
-                Apply as an Athlete <span className="arr inline-block">→</span>
-              </Link>
-              <Link
-                href="/brands"
-                className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-widest"
-              >
-                Apply as a Brand <span className="arr inline-block">→</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
- 
-      {/* MARQUEE (pause-on-hover) */}
-      <div className="overflow-hidden bg-[#52aafc] py-3">
+          className="absolute inset-0 md:hidden"
+          style={{ background: `linear-gradient(to bottom, ${NAVY_HERO}D9 0%, ${NAVY_HERO}BF 100%)` }}
+        />
+        {/* Desktop: left-fade into navy */}
         <div
-          className="marquee-track flex whitespace-nowrap"
-          style={{ animation: "marquee 22s linear infinite" }}
-        >
-          {[
-            "Athletes Elevated",
-            "Sports Technology",
-            "Community Impact",
-            "Athlink",
-            "HERO",
-            "Teams Elevated",
-            "Athletes Elevated",
-            "Sports Technology",
-            "Community Impact",
-            "Athlink",
-            "HERO",
-            "Teams Elevated",
-          ].map((item, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center gap-7 px-7 font-(family-name:--font-barlow) text-[13px] font-bold uppercase tracking-[0.2em] text-[#05070d]"
-            >
-              {item}
-              <span className="h-1 w-1 rounded-full bg-[#05070d]/35" />
-            </span>
-          ))}
-        </div>
+          className="absolute inset-0 hidden md:block"
+          style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}D9 10%, ${NAVY_HERO}80 40%, transparent 75%)` }}
+        />
       </div>
  
-      {/* MISSION */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative min-h-[430px] overflow-hidden bg-[#d7e5fb] lg:min-h-[760px]">
-            <div
-              className="absolute inset-0 hidden lg:block"
+      {/* Hero content */}
+      <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '560px' }}>
+          <HeroText delay={0}>
+            <SectionLabel light>An Invite-Only Ecosystem</SectionLabel>
+          </HeroText>
+ 
+          {/* Big Shoulders Display — main display heading */}
+          <HeroText delay={0.15}>
+            <h1
               style={{
-                backgroundImage: "url('/home/PicaboStreet.png')",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "left center",
-                backgroundSize: "65%",
-                backgroundAttachment: "fixed",
+                fontFamily: 'var(--font-heading)',
+                color: '#ffffff',
+                fontSize: 'clamp(40px, 6vw, 80px)',
+                fontWeight: 900,
+                lineHeight: '1.0',
+                letterSpacing: '0.01em',
+                marginTop: '16px',
+                marginBottom: '24px',
+                textTransform: 'uppercase',
               }}
-            />
-            <div
-              className="absolute inset-0 lg:hidden"
+            >
+              Transforming<br />Performance<br />Into Purpose.
+            </h1>
+          </HeroText>
+ 
+          {/* DM Sans — body */}
+          <HeroText delay={0.3}>
+            <p
               style={{
-                backgroundImage: "url('/home/PicaboStreet.png')",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center top",
-                backgroundSize: "cover",
-                backgroundAttachment: "fixed",
+                fontFamily: 'var(--font-body)',
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: 'clamp(15px, 2vw, 16px)',
+                fontWeight: 300,
+                lineHeight: '1.75',
+                marginBottom: '40px',
+                maxWidth: '420px',
               }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#092866]/20 to-transparent" />
-          </div>
- 
-          <div className="sr flex flex-col justify-center px-8 py-20 md:px-16 lg:px-20">
-            <div className="mb-6 inline-flex items-center gap-3">
-              <span className="accent-line w-8" />
-              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                Our Mission
-              </span>
-            </div>
- 
-            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(34px,4.5vw,72px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
-              Built for the
-              <br />
-              human behind
-              <br />
-              the result.
-            </h2>
- 
-            <p className="mb-6 max-w-[520px] text-[16px] font-light leading-[1.9] text-[#092866]/55">
-              Athletes Elevated is an ecosystem built around one belief: the
-              impact of an athlete does not stop at the final whistle.
-            </p>
- 
-            <p className="max-w-[520px] text-[14px] font-light leading-[1.9] text-[#092866]/38">
-              We connect athletes with platforms, partners, fans, and
-              communities that help turn performance into purpose, visibility
-              into opportunity, and legacy into impact.
-            </p>
-          </div>
-        </div>
- 
-        <div className="grid grid-cols-1 border-y border-[#092866]/10 md:grid-cols-3">
-          {[
-            ["01", "Athlete First", "We show up for the person behind the scoreboard."],
-            ["02", "Community Connection", "Strong communities make strong athletes."],
-            ["03", "Technology That Connects", "We build systems that turn attention into opportunity."],
-          ].map(([n, tag, body], i) => (
-            <div
-              key={tag}
-              className="sr group relative border-r border-[#092866]/10 px-8 py-12 last:border-r-0 transition-colors hover:bg-[#092866]/[.02]"
-              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
-              <div className="mb-4 font-(family-name:--font-barlow) text-[72px] font-extrabold leading-none text-[#092866]/[.06] transition-colors group-hover:text-[#52aafc]/15">
-                {n}
-              </div>
-              <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#52aafc]">
-                {tag}
-              </div>
-              <p className="text-[14px] font-light leading-[1.8] text-[#092866]/48">
-                {body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
- 
-      {/* ECOSYSTEM */}
-      <section className="relative overflow-hidden bg-[#071936] px-6 py-28 text-white md:px-12 lg:px-20">
-        <div className="tech-grid absolute inset-0 opacity-20" />
-        <div
-          className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#52aafc]/10 blur-3xl"
-          style={{ animation: "float-soft 8s ease-in-out infinite" }}
-        />
-        <FloatingParticles count={26} />
-        <div className="scanline" />
- 
-        <div className="relative z-10">
-          <div className="sr mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div className="mb-4 inline-flex items-center gap-3">
-                <span className="accent-line w-8" />
-                <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                  The Ecosystem
-                </span>
-              </div>
- 
-              <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,88px)] font-extrabold uppercase leading-[0.88] text-white">
-                One movement.
-                <br />
-                Multiple engines.
-              </h2>
-            </div>
- 
-            <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-white/48">
-              Media, athlete profiles, youth sports, fan engagement, CRM, and
-              community impact — connected through one elevated sports
-              ecosystem.
+              Athletes Elevated connects athletes, investors, brands, charities,
+              and fans through connection, opportunity, and storytelling.
             </p>
-          </div>
+          </HeroText>
  
-          <div className="-mx-6 overflow-x-auto px-6 pb-6 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex w-max gap-4">
-              {ECOSYSTEM.map((item, i) => (
-                <div
-                  key={item.name}
-                  className="portal-card sr relative flex w-[320px] shrink-0 snap-start flex-col overflow-hidden bg-white text-[#092866] md:w-[380px]"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                  onMouseMove={handleCardTilt}
-                  onMouseLeave={resetCardTilt}
+          {/* Buttons — stacked on mobile, inline on sm+ */}
+          <HeroText delay={0.45}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+                <Link
+                  href="/apply"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    border: '1.5px solid rgba(255,255,255,0.55)',
+                    color: '#ffffff',
+                    padding: '13px 26px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    letterSpacing: '0.02em',
+                    textAlign: 'center',
+                    transition: 'border-color 0.2s, background 0.2s',
+                  }}
+                  className="hover:border-white hover:bg-white/10"
                 >
-                  <div className="portal-line absolute left-0 top-0 z-20 h-0.5 w-full bg-[#52aafc]" />
- 
-                  <div
-                    className="relative flex h-[170px] items-center justify-center overflow-hidden bg-[#d7e5fb]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(135deg,rgba(9,40,102,.15),rgba(82,170,252,.1))",
-                    }}
-                  >
-                    <div className="tech-grid absolute inset-0 opacity-20" />
-                    <div className="absolute right-6 top-6 h-2 w-2 animate-pulse rounded-full bg-[#52aafc]" />
-                    {/* corner brackets */}
-                    <div className="absolute left-3 top-3 h-4 w-4 border-l-2 border-t-2 border-[#52aafc]/40" />
-                    <div className="absolute bottom-3 right-3 h-4 w-4 border-b-2 border-r-2 border-[#52aafc]/40" />
-                    <span className="font-(family-name:--font-barlow) text-[120px] font-extrabold leading-none text-[#092866]/[0.08]">
-                      0{i + 1}
-                    </span>
-                  </div>
- 
-                  <div className="flex flex-1 flex-col p-7">
-                    <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#52aafc]">
-                      {item.tag}
-                    </span>
- 
-                    <h3 className="font-(family-name:--font-barlow) mb-3 text-[30px] font-extrabold uppercase leading-none text-[#092866]">
-                      {item.name}
-                    </h3>
- 
-                    <p className="mb-2 text-[13px] font-semibold text-[#092866]/65">
-                      {item.sub}
-                    </p>
- 
-                    <p className="text-[12px] font-light leading-[1.75] text-[#092866]/45">
-                      {item.detail}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
- 
-      {/* HERO MOVIE */}
-      <section className="relative overflow-hidden bg-[#f7f9ff]">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="sr relative flex flex-col justify-center bg-white px-8 py-20 md:px-12 lg:px-16">
-            <div className="mb-8 inline-flex items-center gap-3">
-              <span className="live-dot" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#52aafc]">
-                HERO Documentary · January 2027
-              </span>
-            </div>
- 
-            <h2 className="font-(family-name:--font-barlow) mb-8 text-[clamp(36px,5vw,78px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
-              Legends become
-              <br />
-              catalysts.
-            </h2>
- 
-            <div className="space-y-0 border-t border-[#092866]/10">
-              {FILMED.map((name, i) => (
-                <button
-                  key={name}
-                  onClick={() => setActiveFilmed(i)}
-                  className={`filmed-tab w-full border-b border-l-[3px] border-b-[#092866]/10 px-5 py-5 text-left ${
-                    activeFilmed === i
-                      ? "active border-l-[#52aafc]"
-                      : "border-l-transparent hover:bg-[#092866]/[.02]"
-                  }`}
+                  Request an Invitation →
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+                <a
+                  href="#what-we-are"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    border: '1.5px solid rgba(255,255,255,0.3)',
+                    color: 'rgba(255,255,255,0.75)',
+                    padding: '13px 26px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    letterSpacing: '0.02em',
+                    textAlign: 'center',
+                    transition: 'border-color 0.2s',
+                  }}
+                  className="hover:border-white/60 hover:text-white"
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <span
-                      className={`font-(family-name:--font-barlow) text-[24px] font-bold uppercase ${
-                        activeFilmed === i
-                          ? "text-[#52aafc]"
-                          : "text-[#092866]/65"
-                      }`}
-                    >
-                      {name}
-                    </span>
- 
-                    {activeFilmed === i && (
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#52aafc]/70">
-                        Filmed ✓
-                      </span>
-                    )}
-                  </div>
- 
-                  {activeFilmed === i && (
-                    <p className="mt-2 text-[12px] font-light text-[#092866]/45">
-                      {
-                        [
-                          "Hall of Fame QB · 2× Super Bowl Champion",
-                          "Greatest WR in NFL history · 3× Super Bowl",
-                          "6× Major Champion · Ryder Cup legend",
-                          "Olympic Gold · 1998 Nagano · World Champion",
-                          "3× FA Cup · European Cup Winners Cup 1965",
-                        ][i]
-                      }
-                    </p>
-                  )}
-                </button>
-              ))}
+                  Learn More ↓
+                </a>
+              </motion.div>
             </div>
-          </div>
-
-          <div className="relative min-h-[680px] overflow-hidden bg-[#092866]">
-            <video
-              ref={heroVideoRef}
-              src="/home/SirNickFaldoPreview.MP4"
-              muted
-              playsInline
-              autoPlay
-              loop
-              controls
-              preload="auto"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-          </div>
-
+          </HeroText>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
  
-      {/* IMPACT */}
-      {/* <section className="bg-white px-6 py-28 md:px-12 lg:px-20">
-        <div className="sr mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="mb-4 inline-flex items-center gap-3">
-              <span className="accent-line w-8" />
-              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                Impact
-              </span>
-            </div>
- 
-            <h2 className="font-(family-name:--font-barlow) text-[clamp(36px,5vw,82px)] font-extrabold uppercase leading-[0.9] text-[#092866]">
-              Built to
-              <br />
-              move people.
-            </h2>
-          </div>
- 
-          <p className="max-w-[420px] text-[15px] font-light leading-[1.85] text-[#092866]/45">
-            Every part of AE is designed to create opportunity, tell better
-            stories, and direct attention toward real communities.
-          </p>
-        </div>
- 
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {NONPROFITS.map((np, i) => (
-            <div
-              key={np.name}
-              className="portal-card sr relative overflow-hidden bg-[#f0f5fd] p-8"
-              style={{ transitionDelay: `${i * 100}ms` }}
-              onMouseMove={handleCardTilt}
-              onMouseLeave={resetCardTilt}
-            >
-              <div className="portal-line absolute left-0 top-0 h-0.5 w-full bg-[#52aafc]" />
- 
-              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                100% Pass-Through
-              </div>
- 
-              <h3 className="font-(family-name:--font-barlow) mb-4 text-[24px] font-extrabold uppercase leading-[1.05] text-[#092866]">
-                {np.name}
-              </h3>
- 
-              <p className="mb-8 text-[13px] font-light leading-[1.85] text-[#092866]/48">
-                {np.desc}
-              </p>
- 
-              <a
-                href={np.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 border-b border-[#52aafc]/40 pb-1 font-(family-name:--font-barlow) text-[11px] font-bold uppercase tracking-[0.2em] text-[#52aafc] transition-all hover:gap-4"
-              >
-                Donate <span className="arr inline-block">→</span>
-              </a>
-            </div>
-          ))}
-        </div>
-      </section> */}
- 
-      {/* CTA */}
-      <section className="grain relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-[#071936] px-6 py-24 text-center text-white">
-        <div className="tech-grid absolute inset-0 opacity-20" />
-        <div
-          className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#52aafc]/10 blur-3xl"
-          style={{ animation: "float-soft 9s ease-in-out infinite" }}
-        />
-        <FloatingParticles count={30} />
-        <div className="scanline" />
- 
-        <div className="sr relative z-10 max-w-[980px]">
-          <div className="mb-6 inline-flex items-center gap-4">
-            <span className="h-px w-10 bg-[#52aafc]/50" />
-            <span className="font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.32em] text-[#52aafc]">
-              Ready to be part of something bigger?
-            </span>
-            <span className="h-px w-10 bg-[#52aafc]/50" />
-          </div>
- 
+// ─── What We Are ───────────────────────────────────────────────────────────────
+function WhatWeAre() {
+  return (
+    <section id="what-we-are" style={{ backgroundColor: '#ffffff' }} className="py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <FadeUp>
+          <SectionLabel>What We Are</SectionLabel>
           <h2
-            className="font-(family-name:--font-barlow) font-extrabold uppercase leading-[0.86]"
-            style={{ fontSize: "clamp(58px,13vw,170px)" }}
-          >
-            Your story
-            <br />
-            starts
-            <br />
-            <span
-              className="inline-block text-[#52aafc]"
-              style={{ animation: "breathe-glow 3s ease-in-out infinite" }}
-            >
-              here.
-            </span>
-          </h2>
- 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/athletes"
-              className="btn-blue inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
-            >
-              Apply as an Athlete <span className="arr inline-block">→</span>
-            </Link>
- 
-            <Link
-              href="/brands"
-              className="btn-outline inline-flex items-center gap-2 px-10 py-4 font-(family-name:--font-barlow) text-[14px] font-bold uppercase tracking-widest"
-            >
-              Apply as a Brand <span className="arr inline-block">→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
- 
-      {/* PARTNERS */}
-      <section className="overflow-hidden border-y border-[#092866]/8 bg-[#f7f9ff] py-16">
-        <div className="sr mb-10 text-center font-(family-name:--font-barlow) text-[10px] font-semibold uppercase tracking-[0.36em] text-[#092866]/25">
-          Ecosystem Partners
-        </div>
- 
-        <div
-          className="mb-3 overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(90deg,transparent,black 12%,black 88%,transparent)",
-          }}
-        >
-          <div
-            className="marquee-track flex whitespace-nowrap"
-            style={{ animation: "marquee 28s linear infinite" }}
-          >
-            {[...PARTNERS, ...PARTNERS].map((p, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/25"
-              >
-                {p}
-                <span className="h-1 w-1 rounded-full bg-[#092866]/12" />
-              </span>
-            ))}
-          </div>
-        </div>
- 
-        <div
-          className="overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(90deg,transparent,black 12%,black 88%,transparent)",
-          }}
-        >
-          <div
-            className="marquee-track flex whitespace-nowrap"
             style={{
-              animation: "marqueeReverse 34s linear infinite",
-              transform: "translateX(-50%)",
+              fontFamily: 'var(--font-heading)',
+              color: NAVY,
+              fontSize: 'clamp(26px, 3.5vw, 44px)',
+              fontWeight: 800,
+              lineHeight: '1.15',
+              letterSpacing: '0.01em',
+              textTransform: 'uppercase',
+              marginBottom: '20px',
+              maxWidth: '800px',
             }}
           >
-            {[...PARTNERS, ...PARTNERS].map((p, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center gap-9 px-9 font-(family-name:--font-barlow) text-[14px] font-semibold uppercase tracking-widest text-[#092866]/15"
-              >
-                {p}
-                <span className="h-1 w-1 rounded-full bg-[#092866]/10" />
-              </span>
-            ))}
-          </div>
+            Built Around Athletes. Built for What Comes Next.
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.15}>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              color: '#4A5568',
+              fontSize: 'clamp(15px, 2vw, 16px)',
+              fontWeight: 300,
+              lineHeight: '1.75',
+              maxWidth: '680px',
+            }}
+          >
+            Athletes Elevated is an invite-only ecosystem designed to unlock opportunities beyond
+            competition. We bring together the right people, create meaningful revenue streams, and
+            tell the stories that inspire future generations.
+          </p>
+        </FadeUp>
+      </div>
+    </section>
+  );
+}
+ 
+// ─── Connection (image left, text right) ──────────────────────────────────────
+function ConnectionSection() {
+  return (
+    <section style={{ backgroundColor: '#ffffff' }}>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
+        {/* Image — top on mobile, left on desktop */}
+        <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
+          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/connection.jpg" alt="Connection" /> */}
+          <ScaleIn>
+            <ImagePlaceholder label="Connection image" />
+          </ScaleIn>
         </div>
-      </section>
-
-      {/* STAT STRIP — count-up numbers */}
-      <section className="relative overflow-hidden bg-[#030814] py-20 text-white">
-        <div className="tech-grid absolute inset-0 opacity-15" />
-        <FloatingParticles count={18} />
-        <div className="scanline" />
  
-        <div className="relative z-10 px-6 md:px-12 lg:px-20">
-          <div className="sr mb-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="inline-flex items-center gap-3">
-              <span className="accent-line w-8" />
-              <span className="font-(family-name:--font-barlow) text-[11px] font-semibold uppercase tracking-[0.3em] text-[#52aafc]">
-                By The Numbers
-              </span>
-            </div>
-            <span className="font-(family-name:--font-barlow) text-[10px] font-bold uppercase tracking-[0.32em] text-white/30">
-              Live · Updated Continuously
-            </span>
-          </div>
+        {/* Text card */}
+        <MotionDiv
+          whileHover="hover"
+          initial="rest"
+          animate="rest"
+          variants={cardHoverVariants}
+          style={{ backgroundColor: CARD_BG }}
+          className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
+        >
+          <SlideInLeft>
+            <SectionLabel>Connection</SectionLabel>
+            <h3
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: NAVY,
+                fontSize: 'clamp(22px, 2.5vw, 30px)',
+                fontWeight: 800,
+                lineHeight: '1.15',
+                letterSpacing: '0.01em',
+                textTransform: 'uppercase',
+                marginBottom: '16px',
+              }}
+            >
+              The Right People. The Right Room.
+            </h3>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                color: '#4A5568',
+                fontSize: '15px',
+                fontWeight: 300,
+                lineHeight: '1.75',
+                marginBottom: '28px',
+              }}
+            >
+              A private network bringing together athletes, investors, brands, charities,
+              mentors, and fans — built to create meaningful outcomes through meaningful
+              relationships.
+            </p>
+            <ExploreLink href="/connection">Explore Connection</ExploreLink>
+          </SlideInLeft>
+        </MotionDiv>
+      </div>
+    </section>
+  );
+}
  
-          <div className="grid grid-cols-2 gap-px bg-white/8 md:grid-cols-4">
-            {STATS.map((s) => (
-              <div
-                key={s.label}
-                className="group relative overflow-hidden bg-[#030814] px-6 py-10 transition-colors hover:bg-[#071936] md:px-8 md:py-12"
-              >
-                <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-[#52aafc] transition-transform duration-500 group-hover:scale-x-100" />
-                <div
-                  className="font-(family-name:--font-barlow) text-[clamp(56px,8vw,120px)] font-extrabold leading-none text-white"
-                  style={{ textShadow: "0 0 60px rgba(82,170,252,.25)" }}
+// ─── Opportunity (text left, image right) ─────────────────────────────────────
+// Order via Tailwind classes only — inline `order` style would override breakpoint classes.
+function OpportunitySection() {
+  return (
+    <section style={{ backgroundColor: '#ffffff' }}>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
+        {/* Image — top on mobile (order-1), right on desktop (order-2) */}
+        <div className="order-1 md:order-2 min-h-[280px] md:min-h-[440px] relative overflow-hidden">
+          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/opportunity.jpg" alt="Opportunity" /> */}
+          <ScaleIn>
+            <ImagePlaceholder label="Opportunity image" />
+          </ScaleIn>
+        </div>
+ 
+        {/* Text card — bottom on mobile (order-2), left on desktop (order-1) */}
+        <MotionDiv
+          whileHover="hover"
+          initial="rest"
+          animate="rest"
+          variants={cardHoverVariants}
+          style={{ backgroundColor: CARD_BG }}
+          className="order-2 md:order-1 px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
+        >
+          <SlideInRight>
+            <SectionLabel>Opportunity</SectionLabel>
+            <h3
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: NAVY,
+                fontSize: 'clamp(22px, 2.5vw, 30px)',
+                fontWeight: 800,
+                lineHeight: '1.15',
+                letterSpacing: '0.01em',
+                textTransform: 'uppercase',
+                marginBottom: '16px',
+              }}
+            >
+              Your Career Was Just the Beginning.
+            </h3>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                color: '#4A5568',
+                fontSize: '15px',
+                fontWeight: 300,
+                lineHeight: '1.75',
+                marginBottom: '28px',
+              }}
+            >
+              Through the Athletes Elevated Marketplace, athletes and brands showcase products,
+              earn commissions, engage fans, and build sustainable revenue — rewarding everyone
+              who participates.
+            </p>
+            <ExploreLink href="/opportunity">Explore Opportunity</ExploreLink>
+          </SlideInRight>
+        </MotionDiv>
+      </div>
+    </section>
+  );
+}
+ 
+// ─── Storytelling (image left, text right) ────────────────────────────────────
+function StorytellingSection() {
+  return (
+    <section style={{ backgroundColor: '#ffffff' }}>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
+        {/* Image — top on mobile, left on desktop */}
+        <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
+          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/storytelling.jpg" alt="Storytelling" /> */}
+          <ScaleIn>
+            <ImagePlaceholder label="Storytelling image" />
+          </ScaleIn>
+        </div>
+ 
+        {/* Text card */}
+        <MotionDiv
+          whileHover="hover"
+          initial="rest"
+          animate="rest"
+          variants={cardHoverVariants}
+          style={{ backgroundColor: CARD_BG }}
+          className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
+        >
+          <SlideInLeft>
+            <SectionLabel>Storytelling</SectionLabel>
+            <h3
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: NAVY,
+                fontSize: 'clamp(22px, 2.5vw, 30px)',
+                fontWeight: 800,
+                lineHeight: '1.15',
+                letterSpacing: '0.01em',
+                textTransform: 'uppercase',
+                marginBottom: '16px',
+              }}
+            >
+              Every Athlete Has a Story Worth Telling.
+            </h3>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                color: '#4A5568',
+                fontSize: '15px',
+                fontWeight: 300,
+                lineHeight: '1.75',
+                marginBottom: '28px',
+              }}
+            >
+              Through the Heroes Docuseries, athletes share the resilience, adversity, and
+              purpose behind their success — inspiring future generations to see that character
+              is what makes a hero.
+            </p>
+            <ExploreLink href="/storytelling">Explore Storytelling</ExploreLink>
+          </SlideInLeft>
+        </MotionDiv>
+      </div>
+    </section>
+  );
+}
+ 
+// ─── Impact Banner ─────────────────────────────────────────────────────────────
+function ImpactBanner() {
+  const words = ['Connection', 'Opportunity', 'Storytelling', 'Impact'];
+  return (
+    <section style={{ backgroundColor: '#0E1E3D' }} className="py-7 md:py-8">
+      <div className="max-w-7xl mx-auto px-6">
+        <FadeIn>
+          <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-3 md:gap-x-8">
+            {words.map((word, i) => (
+              <span key={word} className="flex items-center gap-5 md:gap-8">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: '#ffffff',
+                    fontSize: 'clamp(13px, 2.5vw, 18px)',
+                    fontWeight: 700,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                  }}
                 >
-                  <CountUp end={s.value} suffix={s.suffix} />
-                </div>
-                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#52aafc]">
-                  {s.label}
-                </div>
-                <div className="absolute right-6 top-6 h-1.5 w-1.5 rounded-full bg-[#52aafc] opacity-0 transition-opacity group-hover:opacity-100" />
-              </div>
+                  {word}
+                </span>
+                {i < words.length - 1 && (
+                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '18px', lineHeight: 1 }}>·</span>
+                )}
+              </span>
             ))}
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
  
+// ─── Membership ────────────────────────────────────────────────────────────────
+function MembershipSection() {
+  return (
+    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+ 
+          {/* Left */}
+          <SlideInLeft>
+            <div>
+              <SectionLabel>Membership</SectionLabel>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  color: NAVY,
+                  fontSize: 'clamp(28px, 3.5vw, 50px)',
+                  fontWeight: 900,
+                  lineHeight: '1.1',
+                  letterSpacing: '0.01em',
+                  textTransform: 'uppercase',
+                  marginBottom: '32px',
+                }}
+              >
+                Membership Is Not Discovered. It Is Earned.
+              </h2>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+                <Link
+                  href="/apply"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    border: `1.5px solid ${NAVY}`,
+                    color: NAVY,
+                    padding: '13px 26px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    letterSpacing: '0.02em',
+                    display: 'inline-block',
+                    transition: 'background 0.2s',
+                  }}
+                  className="hover:bg-black/5 w-full sm:w-auto text-center sm:text-left"
+                >
+                  Request an Invitation →
+                </Link>
+              </motion.div>
+            </div>
+          </SlideInLeft>
+ 
+          {/* Right */}
+          <SlideInRight>
+            <div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  color: '#4A5568',
+                  fontSize: 'clamp(15px, 2vw, 16px)',
+                  fontWeight: 300,
+                  lineHeight: '1.8',
+                }}
+              >
+                Athletes Elevated is invite-only. Every member joins through a trusted referral.
+                Every connection is made with intention. This is not a platform you stumble
+                upon — it is one you are welcomed into.
+              </p>
+            </div>
+          </SlideInRight>
+        </div>
+      </div>
+    </section>
+  );
+}
+ 
+// ─── Page ──────────────────────────────────────────────────────────────────────
+export default function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <main style={{ paddingTop: '64px' }}>
+        <Hero />
+        <WhatWeAre />
+        <ConnectionSection />
+        <OpportunitySection />
+        <StorytellingSection />
+        <ImpactBanner />
+        <MembershipSection />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
