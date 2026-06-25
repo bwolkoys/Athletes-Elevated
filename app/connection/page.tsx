@@ -1,12 +1,68 @@
 // Place this file at: app/connection/page.tsx
 // Fonts used: Montserrat (headings/labels) and DM Sans (body) — both loaded in your layout.tsx
 
+'use client';
+import { motion, useInView, type Variants } from 'framer-motion';
+import { useRef, ReactNode } from 'react';
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
+}
+
+function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
+  return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
+}
+
+function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+}
+
+const cardHoverVariants: Variants = {
+  rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
+  hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
+};
+
+const MotionDiv = motion.div;
 import Navbar from '../src/components/navBar';
 import Footer from '../src/components/footer';
 import Link from 'next/link';
 
 // ─── Color tokens ─────────────────────────────────────────────────────────────
-const NAVY      = '#080F1C';
+const NAVY      = '#092866';
 const NAVY_HERO = '#0B1220';
 const BLUE      = '#1A6EF0';
 const BLUE_MID  = '#1559C7';
@@ -14,7 +70,7 @@ const BLUE_LIGHT = '#4E9AF5';
 const CARD_BG   = '#F4F8FF';
 
 // ─── Font shorthands ──────────────────────────────────────────────────────────
-const HEADING = "'Montserrat', sans-serif";
+const HEADING = "'Apotek Extended', sans-serif";
 const BODY    = "'DM Sans', sans-serif";
 
 // ─── Reusable pieces ──────────────────────────────────────────────────────────
@@ -22,8 +78,7 @@ const BODY    = "'DM Sans', sans-serif";
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT, display: 'inline-block', flexShrink: 0 }} />
-      <span style={{ fontFamily: HEADING, color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
+      <span style={{ fontFamily: HEADING, color: light ? '#52aafc' : BLUE_LIGHT, fontSize: 15, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
         {children}
       </span>
     </div>
@@ -97,15 +152,23 @@ function Hero() {
 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '600px' }}>
-          <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 900, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 24, textTransform: 'uppercase' as const }}>
-            The Right People. The Right Room.
-          </h1>
-          <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, marginBottom: 40, maxWidth: 480 }}>
-            Athletes Elevated is a private network built around the belief that meaningful relationships create meaningful outcomes. We bring together athletes, investors, brands, charities, mentors, and fans — not by chance, but by design.
-          </p>
-          <Link href="/apply" style={{ fontFamily: BODY, border: '1.5px solid rgba(255,255,255,0.55)', color: '#ffffff', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'border-color 0.2s, background 0.2s' }} className="hover:border-white hover:bg-white/10">
-            Request an Invitation →
-          </Link>
+          <HeroText delay={0}>
+            <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 24 as const }}>
+              The Right People. The Right Room.
+            </h1>
+          </HeroText>
+          <HeroText delay={0.2}>
+            <p style={{ fontFamily: BODY, color: '#ffffff)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, marginBottom: 40, maxWidth: 480 }}>
+              Athletes Elevated is a private network built around the belief that meaningful relationships create meaningful outcomes. We bring together athletes, investors, brands, charities, mentors, and fans — not by chance, but by design.
+            </p>
+          </HeroText>
+          <HeroText delay={0.35}>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+              <Link href="/apply" style={{ fontFamily: BODY, border: '1.5px solid #52aafc', background: '#52aafc', color: '#092866', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'border-color 0.2s, background 0.2s' }} className="hover:border-white hover:bg-white/10">
+                Request an Invitation →
+              </Link>
+            </motion.div>
+          </HeroText>
         </div>
       </div>
     </section>
@@ -115,11 +178,13 @@ function Hero() {
 // ─── Section: Membership Banner ────────────────────────────────────────────────
 function MembershipBanner() {
   return (
-    <section style={{ backgroundColor: BLUE_MID }} className="py-5">
+    <section style={{ backgroundColor: '#52aafc' }} className="py-5">
       <div className="max-w-7xl mx-auto px-6 flex justify-center">
-        <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(13px, 2vw, 17px)', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' as const, textAlign: 'center' }}>
-          Membership Is Not Discovered. It Is Earned.
-        </p>
+        <FadeIn>
+          <p style={{ fontFamily: BODY, color: '#092866', fontSize: 'clamp(13px, 4vw, 26px)', fontWeight: 1000, letterSpacing: '0.10em', textTransform: 'uppercase' as const, textAlign: 'center' }}>
+            Membership Is Not Discovered. It Is Earned.
+          </p>
+        </FadeIn>
       </div>
     </section>
   );
@@ -166,39 +231,48 @@ function WhoIsInside() {
 
         {/* Header row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 mb-14 md:mb-16">
-          <div>
-            <SectionLabel>The Network</SectionLabel>
-            <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const }}>
-              Who is Inside
-            </h2>
-          </div>
-          <div className="flex items-center">
-            <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.75 }}>
-              Every member has a role. Every role serves the athlete at the center. This is not a database — it is a community built with purpose.
-            </p>
-          </div>
+          <SlideInLeft>
+            <div>
+              <SectionLabel>The Network</SectionLabel>
+              <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em' as const }}>
+                Who is Inside
+              </h2>
+            </div>
+          </SlideInLeft>
+          <SlideInRight>
+            <div className="flex items-center">
+              <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.75 }}>
+                Every member has a role. Every role serves the athlete at the center. This is not a database — it is a community built with purpose.
+              </p>
+            </div>
+          </SlideInRight>
         </div>
 
         {/* Member cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {memberTypes.map(({ Icon, title, desc }) => (
-            <div
-              key={title}
-              style={{ backgroundColor: CARD_BG, borderRadius: 10, padding: '28px 24px', border: '1px solid rgba(26,110,240,0.08)' }}
-            >
-              {/* Icon circle */}
-              <div style={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: BLUE, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
-                <Icon />
-              </div>
-              <h3 style={{ fontFamily: HEADING, color: BLUE, fontSize: 16, fontWeight: 700, letterSpacing: '0.01em', marginBottom: 10, textTransform: 'uppercase' as const }}>
-                {title}
-              </h3>
-              <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75 }}>
-                {desc}
-              </p>
-            </div>
+            <StaggerItem key={title}>
+              <MotionDiv
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                variants={cardHoverVariants}
+                style={{ backgroundColor: CARD_BG, borderRadius: 10, padding: '28px 24px', border: '1px solid #52aafc)' }}
+              >
+                {/* Icon circle */}
+                <div style={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: '#52aafc', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
+                  <Icon />
+                </div>
+                <h3 style={{ fontFamily: HEADING, color: '#092866', fontSize: 16, fontWeight: 300, letterSpacing: '0.01em', marginBottom: 10, textTransform: 'uppercase' as const }}>
+                  {title}
+                </h3>
+                <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75 }}>
+                  {desc}
+                </p>
+              </MotionDiv>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );
@@ -227,27 +301,41 @@ function HowItWorks() {
   return (
     <section style={{ backgroundColor: '#F7F9FC' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionLabel>How It Works</SectionLabel>
-        <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 48 }}>
-          Intentional by Design
-        </h2>
+        <FadeUp>
+          <SectionLabel>How It Works</SectionLabel>
+          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 48 }}>
+            Intentional by Design
+          </h2>
+        </FadeUp>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map(({ num, title, desc }) => (
-            <div key={num} style={{ backgroundColor: '#ffffff', borderRadius: 10, padding: '32px 28px', border: '1px solid rgba(0,0,0,0.06)' }}>
-              {/* Number badge */}
-              <div style={{ width: 52, height: 52, borderRadius: '50%', background: `linear-gradient(135deg, ${BLUE} 0%, ${BLUE_MID} 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
-                <span style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 15, fontWeight: 800, letterSpacing: '0.04em' }}>{num}</span>
-              </div>
-              <h3 style={{ fontFamily: HEADING, color: NAVY, fontSize: 18, fontWeight: 800, letterSpacing: '0.01em', textTransform: 'uppercase' as const, marginBottom: 12 }}>
-                {title}
-              </h3>
-              <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75 }}>
-                {desc}
-              </p>
-            </div>
+            <StaggerItem key={num}>
+              <MotionDiv
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                variants={cardHoverVariants}
+                style={{ backgroundColor: '#ffffff', borderRadius: 10, padding: '32px 28px', border: '1px solid rgba(0,0,0,0.06)' }}
+              >
+                {/* Number badge */}
+                <MotionDiv
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                  style={{ width: 52, height: 52, borderRadius: '50%', background: `linear-gradient(135deg, ${BLUE} 0%, ${BLUE_MID} 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}
+                >
+                  <span style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 15, fontWeight: 800, letterSpacing: '0.04em' }}>{num}</span>
+                </MotionDiv>
+                <h3 style={{ fontFamily: HEADING, color: NAVY, fontSize: 18, fontWeight: 800, letterSpacing: '0.01em', textTransform: 'uppercase' as const, marginBottom: 12 }}>
+                  {title}
+                </h3>
+                <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75 }}>
+                  {desc}
+                </p>
+              </MotionDiv>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );
@@ -266,17 +354,21 @@ function QuoteSection() {
 
       <div className="max-w-4xl mx-auto px-6 text-center" style={{ position: 'relative', zIndex: 1 }}>
         {/* Blue quotation marks */}
-        <div style={{ fontFamily: HEADING, color: BLUE, fontSize: 'clamp(56px, 8vw, 96px)', lineHeight: 0.8, fontWeight: 900, marginBottom: 24, userSelect: 'none' }} aria-hidden="true">
-          "
-        </div>
-        <blockquote>
-          <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(20px, 3.5vw, 36px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.4, letterSpacing: '-0.01em', marginBottom: 28 }}>
-            Meaningful relationships create meaningful outcomes.
-          </p>
-          <cite style={{ fontFamily: BODY, color: BLUE_LIGHT, fontSize: 14, fontWeight: 400, letterSpacing: '0.05em', fontStyle: 'normal' }}>
-            Athletes Elevated — Core Value
-          </cite>
-        </blockquote>
+        <FadeIn delay={0.1}>
+          <div style={{ fontFamily: HEADING, color: BLUE, fontSize: 'clamp(56px, 8vw, 96px)', lineHeight: 0.8, fontWeight: 900, marginBottom: 24, userSelect: 'none' }} aria-hidden="true">
+            "
+          </div>
+        </FadeIn>
+        <FadeUp delay={0.25}>
+          <blockquote>
+            <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(20px, 3.5vw, 36px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.4, letterSpacing: '-0.01em', marginBottom: 28 }}>
+              Meaningful relationships create meaningful outcomes.
+            </p>
+            <cite style={{ fontFamily: BODY, color: BLUE_LIGHT, fontSize: 14, fontWeight: 400, letterSpacing: '0.05em', fontStyle: 'normal' }}>
+              Athletes Elevated — Core Value
+            </cite>
+          </blockquote>
+        </FadeUp>
       </div>
     </section>
   );
@@ -287,19 +379,27 @@ function CTASection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }} className="py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-6 text-center">
-        <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 20 }}>
-          You Were Referred. Now It's Your Move.
-        </h2>
-        <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, marginBottom: 40 }}>
-          Membership is by invitation only. If someone believed you belonged here, we'd like to hear from you.
-        </p>
-        <Link
-          href="/apply"
-          style={{ fontFamily: BODY, border: `1.5px solid ${BLUE}`, color: BLUE, padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s, color 0.2s' }}
-          className="hover:bg-blue-50"
-        >
-          Request an Invitation →
-        </Link>
+        <FadeUp>
+          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 20 }}>
+            You Were Referred. Now It's Your Move.
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.15}>
+          <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, marginBottom: 40 }}>
+            Membership is by invitation only. If someone believed you belonged here, we'd like to hear from you.
+          </p>
+        </FadeUp>
+        <FadeUp delay={0.3}>
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+            <Link
+              href="/apply"
+              style={{ fontFamily: BODY, border: `1.5px solid ${BLUE}`, color: BLUE, padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s, color 0.2s' }}
+              className="hover:bg-blue-50"
+            >
+              Request an Invitation →
+            </Link>
+          </motion.div>
+        </FadeUp>
       </div>
     </section>
   );

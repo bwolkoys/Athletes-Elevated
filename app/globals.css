@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-heading: 'Apotek Extended', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-label: 'Montserrat', sans-serif;
 }
 
 @theme inline {
@@ -10,6 +13,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Black.otf') format('opentype');
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Wide_Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
 }
 
 html {

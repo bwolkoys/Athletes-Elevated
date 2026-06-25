@@ -3,10 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-import { DM_Sans, Montserrat } from 'next/font/google'
+import { DM_Sans, Montserrat } from "next/font/google";
 
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +36,15 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children} <Analytics /> </body>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-full flex flex-col">
+        {children} <Analytics />
+      </body>
     </html>
   );
 }

@@ -61,10 +61,10 @@ const MotionDiv = motion.div;
  
 // ─── Shared color tokens ───────────────────────────────────────────────────────
 // Update these with exact hex values from your Figma/design file once you have them.
-const NAVY       = '#080F1C';   // main dark headings & text
+const NAVY       = '#092866';   // main dark headings & text
 const NAVY_HERO  = '#080F1C';   // hero / navbar / footer backgrounds
-const BLUE       = '#1A6EF0';   // "Explore →" links, Apply button
-const BLUE_LIGHT = '#4E9AF5';   // eyebrow label dots & text
+const BLUE       = '#52aafc';   // "Explore →" links, Apply button
+const BLUE_LIGHT = '#52aafc';   // eyebrow label dots & text
 const CARD_BG    = '#EBF2FF';   // light-blue feature card background
  
 // ─── Reusable sub-components ──────────────────────────────────────────────────
@@ -75,21 +75,11 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
     <div className="flex items-center gap-2 mb-3">
       <span
         style={{
-          width: '7px',
-          height: '7px',
-          borderRadius: '50%',
-          backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT,
-          display: 'inline-block',
-          flexShrink: 0,
-        }}
-      />
-      <span
-        style={{
           fontFamily: 'var(--font-label)',
-          color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT,
-          fontSize: '11px',
+          color: light ? '#52aafc' : BLUE_LIGHT,
+          fontSize: '14px',
           letterSpacing: '0.18em',
-          fontWeight: 600,
+          fontWeight: 700,
           textTransform: 'uppercase',
         }}
       >
@@ -109,7 +99,7 @@ function ExploreLink({ href, children }: { href: string; children: React.ReactNo
           fontFamily: 'var(--font-body)',
           color: BLUE,
           fontSize: '14px',
-          fontWeight: 600,
+          fontWeight: 900,
           letterSpacing: '0.02em',
         }}
         className="hover:opacity-75 transition-opacity"
@@ -173,7 +163,7 @@ function Hero() {
  
       {/* Hero content */}
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: '560px' }}>
+        <div style={{ maxWidth: '660px' }}>
           <HeroText delay={0}>
             <SectionLabel light>An Invite-Only Ecosystem</SectionLabel>
           </HeroText>
@@ -184,13 +174,12 @@ function Hero() {
               style={{
                 fontFamily: 'var(--font-heading)',
                 color: '#ffffff',
-                fontSize: 'clamp(40px, 6vw, 80px)',
-                fontWeight: 900,
+                fontSize: 'clamp(40px, 5vw, 80px)',
+                fontWeight: 300,
                 lineHeight: '1.0',
                 letterSpacing: '0.01em',
                 marginTop: '16px',
                 marginBottom: '24px',
-                textTransform: 'uppercase',
               }}
             >
               Transforming<br />Performance<br />Into Purpose.
@@ -223,7 +212,8 @@ function Hero() {
                   href="/apply"
                   style={{
                     fontFamily: 'var(--font-body)',
-                    border: '1.5px solid rgba(255,255,255,0.55)',
+                    border: '1.5px solid #52aafc',
+                    backgroundColor: '#52aafc',
                     color: '#ffffff',
                     padding: '13px 26px',
                     borderRadius: '6px',
@@ -243,7 +233,7 @@ function Hero() {
                   href="#what-we-are"
                   style={{
                     fontFamily: 'var(--font-body)',
-                    border: '1.5px solid rgba(255,255,255,0.3)',
+                    border: '1.5px solid #52aafc',
                     color: 'rgba(255,255,255,0.75)',
                     padding: '13px 26px',
                     borderRadius: '6px',
@@ -277,13 +267,13 @@ function WhatWeAre() {
             style={{
               fontFamily: 'var(--font-heading)',
               color: NAVY,
-              fontSize: 'clamp(26px, 3.5vw, 44px)',
-              fontWeight: 800,
+              fontSize: 'clamp(26px, 3vw, 44px)',
+              fontWeight: 300,
               lineHeight: '1.15',
               letterSpacing: '0.01em',
-              textTransform: 'uppercase',
+              // textTransform: 'uppercase',
               marginBottom: '20px',
-              maxWidth: '800px',
+              maxWidth: '2000px',
             }}
           >
             Built Around Athletes. Built for What Comes Next.
@@ -294,10 +284,10 @@ function WhatWeAre() {
             style={{
               fontFamily: 'var(--font-body)',
               color: '#4A5568',
-              fontSize: 'clamp(15px, 2vw, 16px)',
+              fontSize: 'clamp(15px, 1.5vw, 16px)',
               fontWeight: 300,
               lineHeight: '1.75',
-              maxWidth: '680px',
+              maxWidth: '1000px',
             }}
           >
             Athletes Elevated is an invite-only ecosystem designed to unlock opportunities beyond
@@ -339,10 +329,10 @@ function ConnectionSection() {
                 fontFamily: 'var(--font-heading)',
                 color: NAVY,
                 fontSize: 'clamp(22px, 2.5vw, 30px)',
-                fontWeight: 800,
+                fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                textTransform: 'uppercase',
+                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -400,10 +390,10 @@ function OpportunitySection() {
                 fontFamily: 'var(--font-heading)',
                 color: NAVY,
                 fontSize: 'clamp(22px, 2.5vw, 30px)',
-                fontWeight: 800,
+                fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                textTransform: 'uppercase',
+                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -460,10 +450,10 @@ function StorytellingSection() {
                 fontFamily: 'var(--font-heading)',
                 color: NAVY,
                 fontSize: 'clamp(22px, 2.5vw, 30px)',
-                fontWeight: 800,
+                fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                textTransform: 'uppercase',
+                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -493,21 +483,21 @@ function StorytellingSection() {
  
 // ─── Impact Banner ─────────────────────────────────────────────────────────────
 function ImpactBanner() {
-  const words = ['Connection', 'Opportunity', 'Storytelling', 'Impact'];
+  const words = ['Connection.', 'Opportunity.', 'Storytelling.', 'Impact.'];
   return (
-    <section style={{ backgroundColor: '#0E1E3D' }} className="py-7 md:py-8">
+    <section style={{ backgroundColor: '#52aafc' }} className="py-7 md:py-8">
       <div className="max-w-7xl mx-auto px-6">
         <FadeIn>
           <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-3 md:gap-x-8">
             {words.map((word, i) => (
-              <span key={word} className="flex items-center gap-5 md:gap-8">
+              <span key={word} className="flex items-center gap-1 md:gap-1">
                 <span
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    color: '#ffffff',
-                    fontSize: 'clamp(13px, 2.5vw, 18px)',
-                    fontWeight: 700,
-                    letterSpacing: '0.16em',
+                    color: '#092866',
+                    fontSize: 'clamp(13px, 3.5vw, 26px)',
+                    fontWeight: 300,
+                    letterSpacing: '0.10em',
                     textTransform: 'uppercase',
                   }}
                 >
@@ -540,11 +530,11 @@ function MembershipSection() {
                 style={{
                   fontFamily: 'var(--font-heading)',
                   color: NAVY,
-                  fontSize: 'clamp(28px, 3.5vw, 50px)',
-                  fontWeight: 900,
+                  fontSize: 'clamp(28px, 3vw, 50px)',
+                  fontWeight: 300,
                   lineHeight: '1.1',
                   letterSpacing: '0.01em',
-                  textTransform: 'uppercase',
+                  // textTransform: 'uppercase',
                   marginBottom: '32px',
                 }}
               >
@@ -555,7 +545,8 @@ function MembershipSection() {
                   href="/apply"
                   style={{
                     fontFamily: 'var(--font-body)',
-                    border: `1.5px solid ${NAVY}`,
+                    background: '#52aafc',
+                    border: `1.5px solid #52aafc`,
                     color: NAVY,
                     padding: '13px 26px',
                     borderRadius: '6px',
