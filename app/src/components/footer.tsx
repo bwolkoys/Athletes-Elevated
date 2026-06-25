@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from "next/image";
 
 const footerLinks = [
   { label: 'Home', href: '/' },
@@ -18,39 +19,22 @@ export default function Footer() {
           {/* Left column — Logo + tagline + blurb */}
           <div className="flex flex-col gap-5">
 
-            {/* Logo — Big Shoulders Display */}
-            <Link href="/" className="flex flex-col leading-none select-none w-fit">
-              <span
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  color: '#ffffff',
-                  letterSpacing: '0.2em',
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                }}
-              >
-                Athletes
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  color: '#ffffff',
-                  letterSpacing: '0.2em',
-                  fontSize: '14px',
-                  fontWeight: 900,
-                  textTransform: 'uppercase',
-                }}
-              >
-                Elevated
-              </span>
-            </Link>
+          <Link href="/" className="flex items-center select-none">
+  <Image
+    src="/AthletesElevated_Final_color reverse.svg"
+    alt="Athletes Elevated"
+    width={190}
+    height={50}
+    priority
+    className="h-10 w-auto"
+  />
+</Link>
 
             {/* Tagline badge — Montserrat */}
             <p
               style={{
                 fontFamily: 'var(--font-label)',
-                color: 'rgba(255,255,255,0.35)',
+                color: '#4E9AF5',
                 fontSize: '9px',
                 letterSpacing: '0.14em',
                 fontWeight: 500,
@@ -94,7 +78,7 @@ export default function Footer() {
             <h4
               style={{
                 fontFamily: 'var(--font-label)',
-                color: 'rgba(255,255,255,0.4)',
+                color: '#4E9AF5',
                 fontSize: '11px',
                 letterSpacing: '0.16em',
                 fontWeight: 600,
@@ -129,7 +113,7 @@ export default function Footer() {
             <h4
               style={{
                 fontFamily: 'var(--font-label)',
-                color: 'rgba(255,255,255,0.4)',
+                color: '#4E9AF5',
                 fontSize: '11px',
                 letterSpacing: '0.16em',
                 fontWeight: 600,

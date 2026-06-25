@@ -2,6 +2,7 @@
 
 
 import { useState } from 'react';
+import Image from "next/image";
 import Link from 'next/link';
 
 const navLinks = [
@@ -17,38 +18,21 @@ export default function Navbar() {
 
   return (
     <nav
-      style={{ backgroundColor: '#0B1220', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+      style={{ backgroundColor: '#080F1C', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
       className="fixed top-0 left-0 right-0 z-50 w-full"
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
 
-        {/* Logo — Big Shoulders Display (Apotek Extended substitute) */}
-        <Link href="/" className="flex flex-col leading-none select-none">
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              color: '#ffffff',
-              letterSpacing: '0.2em',
-              fontSize: '10px',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-            }}
-          >
-            Athletes
-          </span>
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              color: '#ffffff',
-              letterSpacing: '0.2em',
-              fontSize: '14px',
-              fontWeight: 900,
-              textTransform: 'uppercase',
-            }}
-          >
-            Elevated
-          </span>
-        </Link>
+      <Link href="/" className="flex items-center select-none">
+  <Image
+    src="/AthletesElevated_Final_color reverse.svg"
+    alt="Athletes Elevated"
+    width={180}
+    height={50}
+    priority
+    className="h-10 w-auto"
+  />
+</Link>
 
         {/* Desktop nav links — DM Sans */}
         <ul className="hidden md:flex items-center gap-8">

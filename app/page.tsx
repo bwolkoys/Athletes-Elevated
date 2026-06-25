@@ -62,7 +62,7 @@ const MotionDiv = motion.div;
 // ─── Shared color tokens ───────────────────────────────────────────────────────
 // Update these with exact hex values from your Figma/design file once you have them.
 const NAVY       = '#080F1C';   // main dark headings & text
-const NAVY_HERO  = '#0B1220';   // hero / navbar / footer backgrounds
+const NAVY_HERO  = '#080F1C';   // hero / navbar / footer backgrounds
 const BLUE       = '#1A6EF0';   // "Explore →" links, Apply button
 const BLUE_LIGHT = '#4E9AF5';   // eyebrow label dots & text
 const CARD_BG    = '#EBF2FF';   // light-blue feature card background
