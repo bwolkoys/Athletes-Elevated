@@ -474,7 +474,7 @@ function ImpactBanner() {
                   {word}
                 </span>
                 {i < words.length - 1 && (
-                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '18px', lineHeight: 1 }}>·</span>
+                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '18px', lineHeight: 1 }}></span>
                 )}
               </span>
             ))}
