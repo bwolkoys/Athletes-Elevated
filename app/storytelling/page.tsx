@@ -75,8 +75,7 @@ const BODY    = "'DM Sans', sans-serif";
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT, display: 'inline-block', flexShrink: 0 }} />
-      <span style={{ fontFamily: HEADING, color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
+      <span style={{ fontFamily: HEADING, color: light ? '#52aafc' : BLUE_LIGHT, fontSize: 15, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
         {children}
       </span>
     </div>
@@ -114,12 +113,11 @@ function Hero() {
               style={{
                 fontFamily: HEADING,
                 color: '#ffffff',
-                fontSize: 'clamp(40px, 6vw, 80px)',
-                fontWeight: 900,
+                fontSize: 'clamp(40px, 5vw, 80px)',
+                fontWeight: 300,
                 lineHeight: 1.0,
                 letterSpacing: '-0.01em',
                 marginBottom: 24,
-                textTransform: 'uppercase' as const,
               }}
             >
               Every Athlete Has a Story Worth Telling.
@@ -145,7 +143,7 @@ function Hero() {
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/apply"
-                  style={{ fontFamily: BODY, border: '1.5px solid rgba(255,255,255,0.55)', color: '#ffffff', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s, background 0.2s', display: 'block' }}
+                  style={{ fontFamily: BODY, border: '1.5px solid #52aafc', background: '#52aafc', color: '#092866', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s, background 0.2s', display: 'block' }}
                   className="hover:border-white hover:bg-white/10"
                 >
                   Request an Invitation →
@@ -154,7 +152,7 @@ function Hero() {
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <a
                   href="#the-series"
-                  style={{ fontFamily: BODY, border: '1.5px solid rgba(255,255,255,0.3)', color: 'rgba(255,255,255,0.75)', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 400, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s', display: 'block' }}
+                  style={{ fontFamily: BODY, border: '1.5px solid #52aafc', color: 'rgba(255,255,255,0.75)', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 400, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s', display: 'block' }}
                   className="hover:border-white/60 hover:text-white"
                 >
                   The Heroes Series ↓
@@ -176,7 +174,7 @@ function Ticker() {
  
   return (
     <FadeIn>
-      <section style={{ backgroundColor: NAVY_HERO, borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }} className="py-4">
+      <section style={{ backgroundColor: '#52aafc', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }} className="py-6">
         {/* CSS keyframes defined inline — no globals.css change needed */}
         <style>{`
           @keyframes ticker-scroll {
@@ -199,10 +197,10 @@ function Ticker() {
               <span
                 style={{
                   fontFamily: HEADING,
-                  color: 'rgba(255,255,255,0.75)',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  letterSpacing: '0.2em',
+                  color: '#092866',
+                  fontSize: 28,
+                  fontWeight: 300,
+                  letterSpacing: '0.0em',
                   textTransform: 'uppercase' as const,
                   whiteSpace: 'nowrap',
                   padding: '0 24px',
@@ -228,20 +226,19 @@ function DocuseriesSection() {
         {/* Header */}
         <FadeUp>
           <div className="max-w-3xl mb-12">
-            <SectionLabel>The Series</SectionLabel>
+            <SectionLabel>The Movie</SectionLabel>
             <h2
               style={{
                 fontFamily: HEADING,
-                color: NAVY,
-                fontSize: 'clamp(28px, 3.5vw, 44px)',
-                fontWeight: 900,
+                color: '#092866',
+                fontSize: 'clamp(28px, 4vw, 44px)',
+                fontWeight: 300,
                 lineHeight: 1.1,
                 letterSpacing: '-0.01em',
-                textTransform: 'uppercase' as const,
                 marginBottom: 20,
               }}
             >
-              Heroes Docuseries
+              Heroes Documentary
             </h2>
             <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.8, marginBottom: 12 }}>
               Heroes is the storytelling arm of Athletes Elevated — a documentary series that goes behind the medal, the contract, and the headline to find what actually made these athletes who they are.
@@ -294,7 +291,7 @@ function DocuseriesSection() {
 // ─── Section: Quote ────────────────────────────────────────────────────────────
 function QuoteSection() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-20 md:py-28">
+    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-16 md:py-16">
       {/*
         Replace ImagePlaceholder with:
         <Image fill style={{ objectFit: 'cover', opacity: 0.2 }} src="/images/crowd-bg.jpg" alt="" />
@@ -329,7 +326,7 @@ function QuoteSection() {
                 fontFamily: HEADING,
                 color: '#ffffff',
                 fontSize: 'clamp(18px, 3vw, 34px)',
-                fontWeight: 400,
+                fontWeight: 300,
                 fontStyle: 'italic',
                 lineHeight: 1.45,
                 letterSpacing: '-0.01em',
@@ -373,12 +370,11 @@ function WhyItMatters() {
             <h2
               style={{
                 fontFamily: HEADING,
-                color: NAVY,
+                color: '#092866',
                 fontSize: 'clamp(28px, 3.5vw, 44px)',
-                fontWeight: 900,
+                fontWeight: 300,
                 lineHeight: 1.1,
                 letterSpacing: '-0.01em',
-                textTransform: 'uppercase' as const,
                 marginBottom: 48,
               }}
             >
@@ -390,7 +386,8 @@ function WhyItMatters() {
         <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {reasons.map(({ title, desc, imgLabel }) => (
             <StaggerItem key={title}>
-              <MotionDiv whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants}>
+              <MotionDiv whileHover={{ y: -6 }}
+  transition={{ duration: 0.25, ease: 'easeOut' }}>
                 {/* Image */}
                 <div style={{ height: 200, borderRadius: 10, overflow: 'hidden', marginBottom: 20, position: 'relative' }}>
                   {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src={`/images/${imgLabel}.jpg`} alt={title} /> */}
@@ -400,12 +397,13 @@ function WhyItMatters() {
                 <h3
                   style={{
                     fontFamily: HEADING,
-                    color: BLUE,
+                    color: NAVY,
                     fontSize: 16,
-                    fontWeight: 700,
+                    fontWeight: 300,
                     letterSpacing: '0.02em',
                     textTransform: 'uppercase' as const,
                     marginBottom: 12,
+                    
                   }}
                 >
                   {title}
@@ -439,12 +437,11 @@ function CTASection() {
           <h2
             style={{
               fontFamily: HEADING,
-              color: NAVY,
+              color: '#092866',
               fontSize: 'clamp(26px, 4vw, 48px)',
-              fontWeight: 900,
+              fontWeight: 300,
               lineHeight: 1.1,
               letterSpacing: '-0.01em',
-              textTransform: 'uppercase' as const,
               marginBottom: 20,
             }}
           >
@@ -471,8 +468,9 @@ function CTASection() {
               href="/apply"
               style={{
                 fontFamily: BODY,
-                border: `1.5px solid ${BLUE}`,
-                color: BLUE,
+                background: '#52aafc',
+                border: `1.5px solid #52aafc`,
+                color: '#092866',
                 padding: '13px 32px',
                 borderRadius: 6,
                 fontSize: 15,

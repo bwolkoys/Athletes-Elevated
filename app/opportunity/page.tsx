@@ -75,8 +75,7 @@ const BODY    = "'DM Sans', sans-serif";
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT, display: 'inline-block', flexShrink: 0 }} />
-      <span style={{ fontFamily: HEADING, color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
+      <span style={{ fontFamily: HEADING, color: light ? '#52aafc' : BLUE_LIGHT, fontSize: 15, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
         {children}
       </span>
     </div>
@@ -126,18 +125,17 @@ function Hero() {
       </div>
  
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: '580px' }}>
+        <div style={{ maxWidth: '540px' }}>
           <HeroText delay={0}>
             <h1
               style={{
                 fontFamily: HEADING,
                 color: '#ffffff',
-                fontSize: 'clamp(40px, 6vw, 80px)',
-                fontWeight: 900,
+                fontSize: 'clamp(40px, 5vw, 80px)',
+                fontWeight: 300,
                 lineHeight: 1.0,
                 letterSpacing: '-0.01em',
                 marginBottom: 24,
-                textTransform: 'uppercase' as const,
               }}
             >
               Your Career Was Just the Beginning.
@@ -164,8 +162,9 @@ function Hero() {
                 href="/apply"
                 style={{
                   fontFamily: BODY,
-                  border: '1.5px solid rgba(255,255,255,0.55)',
-                  color: '#ffffff',
+                  border: '1.5px solid #52aafc',
+                  background: '#52aafc',
+                  color: '#092866',
                   padding: '13px 28px',
                   borderRadius: 6,
                   fontSize: 14,
@@ -189,16 +188,16 @@ function Hero() {
 // ─── Section: Stats Banner ─────────────────────────────────────────────────────
 function StatsBanner() {
   return (
-    <section style={{ backgroundColor: BLUE_MID }} className="py-6">
+    <section style={{ backgroundColor: '#52aafc' }} className="py-6">
       <div className="max-w-5xl mx-auto px-6">
         <FadeIn>
           <p
             style={{
-              fontFamily: HEADING,
-              color: '#ffffff',
-              fontSize: 'clamp(12px, 2vw, 16px)',
-              fontWeight: 700,
-              letterSpacing: '0.12em',
+              fontFamily: BODY,
+              color: '#092866',
+              fontSize: 'clamp(13px, 4vw, 26px)',
+              fontWeight: 1000,
+              letterSpacing: '0.0em',
               textTransform: 'uppercase' as const,
               textAlign: 'center',
               lineHeight: 1.5,
@@ -238,7 +237,7 @@ const pathways = [
  
 function PathwaysSection() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
+    <section style={{ backgroundColor: 'white', position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
       {/* Subtle background image behind the whole section */}
       <div className="absolute inset-0" style={{ zIndex: 0, opacity: 0.15 }}>
         {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/pathways-bg.jpg" alt="" /> */}
@@ -253,12 +252,11 @@ function PathwaysSection() {
             <h2
               style={{
                 fontFamily: HEADING,
-                color: '#ffffff',
+                color: '#092866',
                 fontSize: 'clamp(28px, 3.5vw, 44px)',
-                fontWeight: 900,
+                fontWeight: 300,
                 lineHeight: 1.1,
                 letterSpacing: '-0.01em',
-                textTransform: 'uppercase' as const,
                 marginBottom: 16,
               }}
             >
@@ -269,7 +267,7 @@ function PathwaysSection() {
             <p
               style={{
                 fontFamily: BODY,
-                color: 'rgba(255,255,255,0.6)',
+                color: NAVY,
                 fontSize: 'clamp(15px, 2vw, 16px)',
                 fontWeight: 300,
                 lineHeight: 1.75,
@@ -304,11 +302,10 @@ function PathwaysSection() {
                   <h3
                     style={{
                       fontFamily: HEADING,
-                      color: BLUE_LIGHT,
-                      fontSize: 15,
-                      fontWeight: 700,
+                      color: NAVY,
+                      fontSize: 18,
+                      fontWeight: 300,
                       letterSpacing: '0.04em',
-                      textTransform: 'uppercase' as const,
                       marginBottom: 10,
                     }}
                   >
@@ -317,7 +314,7 @@ function PathwaysSection() {
                   <p
                     style={{
                       fontFamily: BODY,
-                      color: 'rgba(255,255,255,0.6)',
+                      color: NAVY,
                       fontSize: 14,
                       fontWeight: 300,
                       lineHeight: 1.75,
@@ -361,7 +358,7 @@ const marketplaceFeatures = [
  
 function MarketplaceSection() {
   return (
-    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
+    <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
  
@@ -372,12 +369,11 @@ function MarketplaceSection() {
               <h2
                 style={{
                   fontFamily: HEADING,
-                  color: NAVY,
+                  color: "#ffffff",
                   fontSize: 'clamp(28px, 3.5vw, 44px)',
-                  fontWeight: 900,
+                  fontWeight: 300,
                   lineHeight: 1.1,
                   letterSpacing: '-0.01em',
-                  textTransform: 'uppercase' as const,
                   marginBottom: 24,
                 }}
               >
@@ -386,7 +382,7 @@ function MarketplaceSection() {
               <p
                 style={{
                   fontFamily: BODY,
-                  color: '#4A5568',
+                  color: '#ffffff',
                   fontSize: 'clamp(15px, 2vw, 16px)',
                   fontWeight: 300,
                   lineHeight: 1.8,
@@ -400,7 +396,8 @@ function MarketplaceSection() {
                   href="/marketplace"
                   style={{
                     fontFamily: BODY,
-                    border: `1.5px solid ${NAVY}`,
+                    background: '#52aafc',
+                    border: `1.5px solid #52aafc`,
                     color: NAVY,
                     padding: '13px 28px',
                     borderRadius: 6,
@@ -424,11 +421,10 @@ function MarketplaceSection() {
               <h3
                 style={{
                   fontFamily: HEADING,
-                  color: NAVY,
-                  fontSize: 13,
-                  fontWeight: 700,
+                  color: '#ffffff',
+                  fontSize: 28,
+                  fontWeight: 300,
                   letterSpacing: '0.14em',
-                  textTransform: 'uppercase' as const,
                   marginBottom: 20,
                 }}
               >
@@ -454,11 +450,10 @@ function MarketplaceSection() {
                       style={{
                         fontFamily: HEADING,
                         color: highlight ? '#ffffff' : BLUE,
-                        fontSize: 14,
-                        fontWeight: 700,
+                        fontSize: 18,
+                        fontWeight: 300,
                         letterSpacing: '0.03em',
                         marginBottom: 8,
-                        textTransform: 'uppercase' as const,
                       }}
                     >
                       {title}
@@ -494,12 +489,11 @@ function CTASection() {
           <h2
             style={{
               fontFamily: HEADING,
-              color: NAVY,
+              color: '#092866',
               fontSize: 'clamp(26px, 4vw, 48px)',
-              fontWeight: 900,
+              fontWeight: 300,
               lineHeight: 1.1,
               letterSpacing: '-0.01em',
-              textTransform: 'uppercase' as const,
               marginBottom: 20,
             }}
           >
@@ -526,8 +520,9 @@ function CTASection() {
               href="/apply"
               style={{
                 fontFamily: BODY,
-                border: `1.5px solid ${BLUE}`,
-                color: BLUE,
+                background: '#52aafc',
+                border: `1.5px solid #52aafc`,
+                color: '#092866',
                 padding: '13px 32px',
                 borderRadius: 6,
                 fontSize: 15,

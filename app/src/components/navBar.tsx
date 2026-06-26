@@ -19,10 +19,11 @@ export default function Navbar() {
   return (
     <nav
       style={{ backgroundColor: '#080F1C', borderBottom: '1px solid rgba(255,255,255,0.18)' }}
-      className="fixed top-2 left-0 right-0 z-50 w-full"
+      className="fixed top-0 left-0 right-0 z-50 w-full"
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-6 flex items-center h-16" style={{ position: 'relative' }}>
 
+        {/* Logo — left */}
         <Link href="/" className="flex items-center select-none">
           <Image
             src="/AthletesElevated_Final_color reverse.svg"
@@ -34,8 +35,11 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-8">
+        {/* Desktop nav links — absolutely centered */}
+        <ul
+          className="hidden md:flex items-center gap-8"
+          style={{ position: 'absolute', left: '55%', transform: 'translateX(-50%)' }}
+        >
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -70,8 +74,8 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Apply button */}
-        <div className="hidden md:block">
+        {/* Apply button — commented out */}
+        {/* <div className="hidden md:block ml-auto">
           <Link
             href="/apply"
             style={{
@@ -89,12 +93,12 @@ export default function Navbar() {
           >
             Apply
           </Link>
-        </div>
+        </div> */}
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col justify-center items-center gap-1.5 p-2"
+          className="md:hidden flex flex-col justify-center items-center gap-1.5 p-2 ml-auto"
           aria-label="Toggle menu"
         >
           <span style={{ backgroundColor: '#ffffff', height: '2px', width: '22px', display: 'block', transition: 'transform 0.2s', transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
@@ -131,7 +135,8 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <Link
+          {/* Apply button — commented out */}
+          {/* <Link
             href="/apply"
             onClick={() => setMenuOpen(false)}
             style={{
@@ -148,7 +153,7 @@ export default function Navbar() {
             }}
           >
             Apply
-          </Link>
+          </Link> */}
         </div>
       )}
     </nav>

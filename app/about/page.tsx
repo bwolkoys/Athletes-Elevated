@@ -76,8 +76,7 @@ const BODY    = "'DM Sans', sans-serif";
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: light ? 'rgba(255,255,255,0.7)' : BLUE_LIGHT, display: 'inline-block', flexShrink: 0 }} />
-      <span style={{ fontFamily: HEADING, color: light ? 'rgba(255,255,255,0.6)' : BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
+      <span style={{ fontFamily: HEADING, color: light ? '#52aafc' : BLUE_LIGHT, fontSize: 15, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
         {children}
       </span>
     </div>
@@ -124,11 +123,10 @@ function Hero() {
                 fontFamily: HEADING,
                 color: '#ffffff',
                 fontSize: 'clamp(38px, 6vw, 76px)',
-                fontWeight: 900,
+                fontWeight: 300,
                 lineHeight: 1.0,
                 letterSpacing: '-0.01em',
                 marginBottom: 24,
-                textTransform: 'uppercase' as const,
               }}
             >
               Athletes Are More Than Their Sport.
@@ -148,18 +146,18 @@ function Hero() {
 // ─── Section: Mission / Vision ─────────────────────────────────────────────────
 function MissionVision() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO }} className="py-16 md:py-20">
+    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
  
           {/* Mission */}
           <SlideInLeft>
-            <div style={{ borderLeft: `3px solid ${BLUE}`, paddingLeft: 28 }}>
+            <div style={{ borderLeft: `3px solid #52aafc`, paddingLeft: 28 }}>
               <SectionLabel light>Mission</SectionLabel>
-              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 900, lineHeight: 1.15, textTransform: 'uppercase' as const, marginBottom: 16 }}>
+              <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>
                 Why We Exist
               </h2>
-              <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.6)', fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.8 }}>
+              <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.8 }}>
                 To empower athletes to transform their performance into purpose and their influence into lasting impact — through connection, opportunity, and storytelling.
               </p>
             </div>
@@ -167,12 +165,12 @@ function MissionVision() {
  
           {/* Vision */}
           <SlideInRight delay={0.1}>
-            <div style={{ borderLeft: `3px solid ${BLUE}`, paddingLeft: 28 }}>
+            <div style={{ borderLeft: `3px solid #52aafc`, paddingLeft: 28 }}>
               <SectionLabel light>Vision</SectionLabel>
-              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 900, lineHeight: 1.15, textTransform: 'uppercase' as const, marginBottom: 16 }}>
+              <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>
                 Where We're Going
               </h2>
-              <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.6)', fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.8 }}>
+              <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.8 }}>
                 A place where athletes have the network, resources, and opportunities to create meaningful impact during and after their competitive career.
               </p>
             </div>
@@ -186,15 +184,15 @@ function MissionVision() {
  
 // ─── Section: Impact Banner ─────────────────────────────────────────────────────
 function ImpactBanner() {
-  const words = ['Connection', 'Opportunity', 'Storytelling', 'Impact'];
+  const words = ['Connection.', 'Opportunity.', 'Storytelling.', 'Impact.'];
   return (
-    <section style={{ backgroundColor: BLUE_MID }} className="py-5">
+    <section style={{ backgroundColor: '#52aafc' }} className="py-5">
       <div className="max-w-7xl mx-auto px-6">
         <FadeIn>
           <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 md:gap-x-8">
             {words.map((word, i) => (
               <span key={word} className="flex items-center gap-5 md:gap-8">
-                <span style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(12px, 2vw, 16px)', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' as const }}>
+                <span style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(12px, 2vw, 26px)', fontWeight: 300, letterSpacing: '0.0em', textTransform: 'uppercase' as const }}>
                   {word}
                 </span>
                 {i < words.length - 1 && (
@@ -237,7 +235,7 @@ function ThePlatform() {
       <div className="max-w-7xl mx-auto px-6">
         <FadeUp>
           <SectionLabel>The Platform</SectionLabel>
-          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 16 }}>
+          <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 16 }}>
             An Invite-Only Ecosystem
           </h2>
           <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.8, maxWidth: 720, marginBottom: 48 }}>
@@ -257,13 +255,13 @@ function ThePlatform() {
  
                 {/* Text */}
                 <div style={{ padding: '24px 24px 28px' }}>
-                  <h3 style={{ fontFamily: HEADING, color: BLUE, fontSize: 16, fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase' as const, marginBottom: 10 }}>
+                  <h3 style={{ fontFamily: HEADING, color: '#092866', fontSize: 20, fontWeight: 300, letterSpacing: '0.03em', marginBottom: 10 }}>
                     {title}
                   </h3>
                   <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75, marginBottom: 18 }}>
                     {desc}
                   </p>
-                  <Link href={href} style={{ fontFamily: BODY, color: BLUE, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }} className="hover:opacity-75 transition-opacity">
+                  <Link href={href} style={{ fontFamily: BODY, color: '#52aafc', fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }} className="hover:opacity-75 transition-opacity">
                     Learn More →
                   </Link>
                 </div>
@@ -307,7 +305,7 @@ function CoreValues() {
   const next = () => setCurrent((c) => (c + 1) % coreValues.length);
  
   return (
-    <section style={{ backgroundColor: NAVY_HERO }} className="py-16 md:py-24">
+    <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
  
@@ -315,7 +313,7 @@ function CoreValues() {
           <SlideInLeft>
             <div>
               <SectionLabel light>Core Values</SectionLabel>
-              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, textTransform: 'uppercase' as const }}>
+              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1 }}>
                 What We Stand For
               </h2>
             </div>
@@ -331,7 +329,7 @@ function CoreValues() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
               style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '32px 36px', minHeight: 180 }}
             >
-              <h3 style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 18, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase' as const, marginBottom: 14 }}>
+              <h3 style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 20, fontWeight: 300, letterSpacing: '0.04em', marginBottom: 14 }}>
                 {coreValues[current].title}
               </h3>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 15, fontWeight: 300, lineHeight: 1.8 }}>
@@ -399,7 +397,7 @@ function CTASection() {
     <section style={{ backgroundColor: '#ffffff' }} className="py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-6 text-center">
         <FadeUp>
-          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(24px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 36 }}>
+          <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(24px, 4vw, 48px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 36 }}>
             Transforming Performance Into Purpose. Influence Into Impact.
           </h2>
         </FadeUp>
@@ -407,7 +405,7 @@ function CTASection() {
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
             <Link
               href="/apply"
-              style={{ fontFamily: BODY, border: `1.5px solid ${BLUE}`, color: BLUE, padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s' }}
+              style={{ fontFamily: BODY, border: `1.5px solid #52aafc`, background: '#52aafc',color: '#092866', padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s' }}
               className="hover:bg-blue-50"
             >
               Request an Invitation →

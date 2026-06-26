@@ -1,9 +1,7 @@
-// Place this file at: app/connection/page.tsx
-// Fonts used: Montserrat (headings/labels) and DM Sans (body) — both loaded in your layout.tsx
-
 'use client';
 import { motion, useInView, type Variants } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
+import Image from 'next/image';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -85,15 +83,6 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
   );
 }
 
-// Image placeholder — replace with <Image fill style={{objectFit:'cover'}} ... />
-function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
-  return (
-    <div className="w-full h-full" style={{ backgroundColor: '#1A2540', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.2)', fontFamily: BODY, fontSize: 13, userSelect: 'none' as const, minHeight: 'inherit' }}>
-      {label}
-    </div>
-  );
-}
-
 // ─── Member type card icons (simple SVG outlines) ─────────────────────────────
 function IconAthletes() {
   return (
@@ -142,18 +131,15 @@ function IconFans() {
 function Hero() {
   return (
     <section style={{ backgroundColor: NAVY_HERO, minHeight: '80vh', position: 'relative', overflow: 'hidden' }} className="flex items-center py-24 md:py-0">
-      {/* Background image — full bleed with dark overlay */}
-      {/* Replace ImagePlaceholder with: <Image fill style={{ objectFit: 'cover' }} src="/images/connection-hero.jpg" alt="Connection hero" priority /> */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Connection hero image" />
-        {/* Dark gradient overlay — heavier on left so text is readable */}
+        <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src="/images/AdobeStock_1873466064.jpeg" alt="Connection hero" priority />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 35%, ${NAVY_HERO}99 65%, ${NAVY_HERO}40 100%)` }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: '600px' }}>
+        <div style={{ maxWidth: '500px' }}>
           <HeroText delay={0}>
-            <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 24 as const }}>
+            <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(40px, 5vw, 80px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 24 as const }}>
               The Right People. The Right Room.
             </h1>
           </HeroText>
@@ -303,7 +289,7 @@ function HowItWorks() {
       <div className="max-w-7xl mx-auto px-6">
         <FadeUp>
           <SectionLabel>How It Works</SectionLabel>
-          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 48 }}>
+          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em' as const, marginBottom: 48 }}>
             Intentional by Design
           </h2>
         </FadeUp>
@@ -322,11 +308,11 @@ function HowItWorks() {
                 <MotionDiv
                   whileHover={{ rotate: 5, scale: 1.1 }}
                   transition={{ duration: 0.2 }}
-                  style={{ width: 52, height: 52, borderRadius: '50%', background: `linear-gradient(135deg, ${BLUE} 0%, ${BLUE_MID} 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}
+                  style={{ width: 52, height: 52, borderRadius: '50%', background: `linear-gradient(135deg, ${BLUE} 0%, #52aafc 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}
                 >
                   <span style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 15, fontWeight: 800, letterSpacing: '0.04em' }}>{num}</span>
                 </MotionDiv>
-                <h3 style={{ fontFamily: HEADING, color: NAVY, fontSize: 18, fontWeight: 800, letterSpacing: '0.01em', textTransform: 'uppercase' as const, marginBottom: 12 }}>
+                <h3 style={{ fontFamily: HEADING, color: NAVY, fontSize: 18, fontWeight: 300, letterSpacing: '0.01em', textTransform: 'uppercase' as const, marginBottom: 12 }}>
                   {title}
                 </h3>
                 <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75 }}>
@@ -344,16 +330,19 @@ function HowItWorks() {
 // ─── Section: Quote ────────────────────────────────────────────────────────────
 function QuoteSection() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-20 md:py-28">
+    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-20 md:py-16">
       {/* Background image */}
-      {/* Replace ImagePlaceholder with: <Image fill style={{ objectFit: 'cover', opacity: 0.25 }} src="/images/quote-bg.jpg" alt="" /> */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Quote background image" />
+        <Image
+          fill
+          style={{ objectFit: 'cover', opacity: 0.65, objectPosition: 'center top' }}
+          src="/images/AthleteCityView.png"
+          alt=""
+        />
         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(8,15,28,0.82)' }} />
       </div>
 
       <div className="max-w-4xl mx-auto px-6 text-center" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Blue quotation marks */}
         <FadeIn delay={0.1}>
           <div style={{ fontFamily: HEADING, color: BLUE, fontSize: 'clamp(56px, 8vw, 96px)', lineHeight: 0.8, fontWeight: 900, marginBottom: 24, userSelect: 'none' }} aria-hidden="true">
             "
@@ -380,7 +369,7 @@ function CTASection() {
     <section style={{ backgroundColor: '#ffffff' }} className="py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-6 text-center">
         <FadeUp>
-          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.01em', textTransform: 'uppercase' as const, marginBottom: 20 }}>
+          <h2 style={{ fontFamily: HEADING, color: NAVY, fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em' as const, marginBottom: 20 }}>
             You Were Referred. Now It's Your Move.
           </h2>
         </FadeUp>
@@ -393,7 +382,7 @@ function CTASection() {
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
             <Link
               href="/apply"
-              style={{ fontFamily: BODY, border: `1.5px solid ${BLUE}`, color: BLUE, padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s, color 0.2s' }}
+              style={{ fontFamily: BODY, border: `1.5px solid #52aafc`, color: '#ffffff', padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', background: '#52aafc' }}
               className="hover:bg-blue-50"
             >
               Request an Invitation →

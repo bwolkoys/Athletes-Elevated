@@ -1,75 +1,71 @@
 'use client';
- 
+
 import Navbar from './src/components/navBar';
 import Footer from './src/components/footer';
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, type Variants } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
- 
+
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
- 
+
 function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 const cardHoverVariants: Variants = {
   rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
   hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
 };
- 
+
 const MotionDiv = motion.div;
- 
-// ─── Shared color tokens ───────────────────────────────────────────────────────
-// Update these with exact hex values from your Figma/design file once you have them.
-const NAVY       = '#092866';   // main dark headings & text
-const NAVY_HERO  = '#080F1C';   // hero / navbar / footer backgrounds
-const BLUE       = '#52aafc';   // "Explore →" links, Apply button
-const BLUE_LIGHT = '#52aafc';   // eyebrow label dots & text
-const CARD_BG    = '#EBF2FF';   // light-blue feature card background
- 
-// ─── Reusable sub-components ──────────────────────────────────────────────────
- 
-// Eyebrow label  •  CONNECTION
+
+const NAVY      = '#092866';
+const NAVY_HERO = '#080F1C';
+const BLUE      = '#52aafc';
+const BLUE_LIGHT = '#52aafc';
+const CARD_BG   = '#EBF2FF';
+
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
@@ -88,8 +84,7 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
     </div>
   );
 }
- 
-// "Explore X →" link
+
 function ExploreLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
@@ -109,8 +104,7 @@ function ExploreLink({ href, children }: { href: string; children: React.ReactNo
     </motion.div>
   );
 }
- 
-// Image placeholder — swap each one for <Image fill style={{objectFit:'cover'}} ... />
+
 function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
   return (
     <div
@@ -132,7 +126,7 @@ function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
     </div>
   );
 }
- 
+
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
@@ -140,35 +134,34 @@ function Hero() {
       style={{ backgroundColor: NAVY_HERO, minHeight: '92vh', position: 'relative', overflow: 'hidden' }}
       className="flex items-center py-24 md:py-0"
     >
-      {/*
-        Background image:
-        • Mobile  — full-bleed with heavy dark overlay so text stays readable
-        • Desktop — right 55% only, fades left into navy
-        Replace ImagePlaceholder with:
-        <Image fill style={{ objectFit: 'cover' }} src="/images/hero.jpg" alt="Hero" priority />
-      */}
-      <div className="absolute inset-0 md:left-[45%] md:right-0 md:inset-y-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Hero background image" />
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        <Image
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          src="/images/AdobeStock_2064460536.jpeg"
+          alt="Hero"
+          priority
+        />
         {/* Mobile: heavy overlay */}
         <div
           className="absolute inset-0 md:hidden"
           style={{ background: `linear-gradient(to bottom, ${NAVY_HERO}D9 0%, ${NAVY_HERO}BF 100%)` }}
         />
-        {/* Desktop: left-fade into navy */}
+        {/* Desktop: left-fade so text stays readable */}
         <div
           className="absolute inset-0 hidden md:block"
-          style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}D9 10%, ${NAVY_HERO}80 40%, transparent 75%)` }}
+          style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}D9 20%, ${NAVY_HERO}80 50%, transparent 80%)` }}
         />
       </div>
- 
+
       {/* Hero content */}
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '660px' }}>
           <HeroText delay={0}>
             <SectionLabel light>An Invite-Only Ecosystem</SectionLabel>
           </HeroText>
- 
-          {/* Big Shoulders Display — main display heading */}
+
           <HeroText delay={0.15}>
             <h1
               style={{
@@ -185,8 +178,7 @@ function Hero() {
               Transforming<br />Performance<br />Into Purpose.
             </h1>
           </HeroText>
- 
-          {/* DM Sans — body */}
+
           <HeroText delay={0.3}>
             <p
               style={{
@@ -203,11 +195,10 @@ function Hero() {
               and fans through connection, opportunity, and storytelling.
             </p>
           </HeroText>
- 
-          {/* Buttons — stacked on mobile, inline on sm+ */}
+
           <HeroText delay={0.45}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/apply"
                   style={{
@@ -222,13 +213,14 @@ function Hero() {
                     letterSpacing: '0.02em',
                     textAlign: 'center',
                     transition: 'border-color 0.2s, background 0.2s',
+                    display: 'block',
                   }}
                   className="hover:border-white hover:bg-white/10"
                 >
                   Request an Invitation →
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <a
                   href="#what-we-are"
                   style={{
@@ -242,6 +234,7 @@ function Hero() {
                     letterSpacing: '0.02em',
                     textAlign: 'center',
                     transition: 'border-color 0.2s',
+                    display: 'block',
                   }}
                   className="hover:border-white/60 hover:text-white"
                 >
@@ -255,7 +248,7 @@ function Hero() {
     </section>
   );
 }
- 
+
 // ─── What We Are ───────────────────────────────────────────────────────────────
 function WhatWeAre() {
   return (
@@ -271,7 +264,6 @@ function WhatWeAre() {
               fontWeight: 300,
               lineHeight: '1.15',
               letterSpacing: '0.01em',
-              // textTransform: 'uppercase',
               marginBottom: '20px',
               maxWidth: '2000px',
             }}
@@ -299,21 +291,15 @@ function WhatWeAre() {
     </section>
   );
 }
- 
-// ─── Connection (image left, text right) ──────────────────────────────────────
+
+// ─── Connection ────────────────────────────────────────────────────────────────
 function ConnectionSection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        {/* Image — top on mobile, left on desktop */}
         <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/connection.jpg" alt="Connection" /> */}
-          <ScaleIn>
-            <ImagePlaceholder label="Connection image" />
-          </ScaleIn>
+          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_758246697.jpeg" alt="Connection" />
         </div>
- 
-        {/* Text card */}
         <MotionDiv
           whileHover="hover"
           initial="rest"
@@ -332,7 +318,6 @@ function ConnectionSection() {
                 fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -359,22 +344,15 @@ function ConnectionSection() {
     </section>
   );
 }
- 
-// ─── Opportunity (text left, image right) ─────────────────────────────────────
-// Order via Tailwind classes only — inline `order` style would override breakpoint classes.
+
+// ─── Opportunity ───────────────────────────────────────────────────────────────
 function OpportunitySection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        {/* Image — top on mobile (order-1), right on desktop (order-2) */}
         <div className="order-1 md:order-2 min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/opportunity.jpg" alt="Opportunity" /> */}
-          <ScaleIn>
-            <ImagePlaceholder label="Opportunity image" />
-          </ScaleIn>
+          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_618947628.jpeg" alt="Opportunity" />
         </div>
- 
-        {/* Text card — bottom on mobile (order-2), left on desktop (order-1) */}
         <MotionDiv
           whileHover="hover"
           initial="rest"
@@ -393,7 +371,6 @@ function OpportunitySection() {
                 fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -420,21 +397,15 @@ function OpportunitySection() {
     </section>
   );
 }
- 
-// ─── Storytelling (image left, text right) ────────────────────────────────────
+
+// ─── Storytelling ──────────────────────────────────────────────────────────────
 function StorytellingSection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        {/* Image — top on mobile, left on desktop */}
         <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/storytelling.jpg" alt="Storytelling" /> */}
-          <ScaleIn>
-            <ImagePlaceholder label="Storytelling image" />
-          </ScaleIn>
+          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_1275667575.jpeg" alt="Storytelling" />
         </div>
- 
-        {/* Text card */}
         <MotionDiv
           whileHover="hover"
           initial="rest"
@@ -453,7 +424,6 @@ function StorytellingSection() {
                 fontWeight: 300,
                 lineHeight: '1.15',
                 letterSpacing: '0.01em',
-                // textTransform: 'uppercase',
                 marginBottom: '16px',
               }}
             >
@@ -480,7 +450,7 @@ function StorytellingSection() {
     </section>
   );
 }
- 
+
 // ─── Impact Banner ─────────────────────────────────────────────────────────────
 function ImpactBanner() {
   const words = ['Connection.', 'Opportunity.', 'Storytelling.', 'Impact.'];
@@ -514,15 +484,13 @@ function ImpactBanner() {
     </section>
   );
 }
- 
+
 // ─── Membership ────────────────────────────────────────────────────────────────
 function MembershipSection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
- 
-          {/* Left */}
           <SlideInLeft>
             <div>
               <SectionLabel>Membership</SectionLabel>
@@ -534,7 +502,6 @@ function MembershipSection() {
                   fontWeight: 300,
                   lineHeight: '1.1',
                   letterSpacing: '0.01em',
-                  // textTransform: 'uppercase',
                   marginBottom: '32px',
                 }}
               >
@@ -546,7 +513,7 @@ function MembershipSection() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     background: '#52aafc',
-                    border: `1.5px solid #52aafc`,
+                    border: '1.5px solid #52aafc',
                     color: NAVY,
                     padding: '13px 26px',
                     borderRadius: '6px',
@@ -563,8 +530,6 @@ function MembershipSection() {
               </motion.div>
             </div>
           </SlideInLeft>
- 
-          {/* Right */}
           <SlideInRight>
             <div>
               <p
@@ -587,7 +552,7 @@ function MembershipSection() {
     </section>
   );
 }
- 
+
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function HomePage() {
   return (
