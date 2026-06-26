@@ -4,73 +4,74 @@
 import Navbar from '../src/components/navBar';
 import Footer from '../src/components/footer';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useInView, type Variants } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
- 
+
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
- 
+
 function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 const cardHoverVariants: Variants = {
   rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
   hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
 };
- 
+
 const MotionDiv = motion.div;
- 
+
 // ─── Color tokens ─────────────────────────────────────────────────────────────
 const NAVY       = '#080F1C';
 const NAVY_HERO  = '#0B1220';
 const BLUE       = '#1A6EF0';
 const BLUE_MID   = '#1559C7';
 const BLUE_LIGHT = '#4E9AF5';
- 
+
 // ─── Font shorthands ──────────────────────────────────────────────────────────
 const HEADING = "'Apotek Extended', sans-serif";
 const BODY    = "'DM Sans', sans-serif";
- 
+
 // ─── Reusable ─────────────────────────────────────────────────────────────────
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
@@ -81,49 +82,22 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
     </div>
   );
 }
- 
-// Image placeholder — replace each with <Image fill style={{objectFit:'cover'}} src="..." alt="..." />
-function ImagePlaceholder({ label = 'Image coming soon', rounded = false }: { label?: string; rounded?: boolean }) {
-  return (
-    <div
-      className="w-full h-full"
-      style={{
-        backgroundColor: '#1A2540',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'rgba(255,255,255,0.2)',
-        fontFamily: BODY,
-        fontSize: 12,
-        userSelect: 'none' as const,
-        minHeight: 'inherit',
-        borderRadius: rounded ? 8 : 0,
-      }}
-    >
-      {label}
-    </div>
-  );
-}
- 
+
 // ─── Section: Hero ─────────────────────────────────────────────────────────────
 function Hero() {
   return (
     <section
-      style={{ backgroundColor: NAVY_HERO, minHeight: '80vh', position: 'relative', overflow: 'hidden' }}
-      className="flex items-center py-24 md:py-0"
+      style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }}
+      className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]"
     >
-      {/*
-        Replace ImagePlaceholder with:
-        <Image fill style={{ objectFit: 'cover' }} src="/images/opportunity-hero.jpg" alt="Opportunity hero" priority />
-      */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Opportunity hero image" />
+        <Image fill style={{ objectFit: 'cover', objectPosition: 'top' }} src="/images/AdobeStock_2045098548.png" alt="Opportunity hero" priority />
         <div
           className="absolute inset-0"
           style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 40%, ${NAVY_HERO}80 65%, ${NAVY_HERO}33 100%)` }}
         />
       </div>
- 
+
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '540px' }}>
           <HeroText delay={0}>
@@ -184,7 +158,7 @@ function Hero() {
     </section>
   );
 }
- 
+
 // ─── Section: Stats Banner ─────────────────────────────────────────────────────
 function StatsBanner() {
   return (
@@ -210,40 +184,39 @@ function StatsBanner() {
     </section>
   );
 }
- 
+
 // ─── Section: Pathways Beyond Competition ──────────────────────────────────────
 const pathways = [
   {
     title: 'Build Businesses',
     desc: 'Athletes have the discipline, resilience, and network to build extraordinary companies. We provide the connections, capital introductions, and mentorship to help them do exactly that.',
-    imgLabel: 'Build businesses image',
+    img: '/images/Team.jpeg',
   },
   {
     title: 'Support Causes',
     desc: 'Athletes carry influence. We help them direct that influence toward charitable initiatives and community organizations aligned with what they genuinely believe in.',
-    imgLabel: 'Support causes image',
+    img: '/images/basketball-team.jpg',
   },
   {
     title: 'Invest Strategically',
     desc: "From early-stage startups to established brands, the network surfaces investment opportunities that match an athlete's goals, values, and risk profile.",
-    imgLabel: 'Invest strategically image',
+    img: '/images/AdobeStock_802902722.jpeg',
   },
   {
     title: 'Mentor & Lead',
     desc: "Some of the most meaningful opportunities aren't financial — they're human. Athletes who mentor the next generation create ripple effects that outlast any competition result.",
-    imgLabel: 'Mentor and lead image',
+    img: '/images/AdobeStock_504801118-scaled.jpeg',
   },
 ];
- 
+
 function PathwaysSection() {
   return (
     <section style={{ backgroundColor: 'white', position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
       {/* Subtle background image behind the whole section */}
       <div className="absolute inset-0" style={{ zIndex: 0, opacity: 0.15 }}>
-        {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src="/images/pathways-bg.jpg" alt="" /> */}
-        <ImagePlaceholder label="" />
+        <Image fill style={{ objectFit: 'cover' }} src="/images/pathways-bg.png" alt="" />
       </div>
- 
+
       <div className="max-w-7xl mx-auto px-6" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <div className="mb-12">
@@ -278,10 +251,10 @@ function PathwaysSection() {
             </p>
           </FadeUp>
         </div>
- 
+
         {/* 2×2 pathway cards */}
         <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {pathways.map(({ title, desc, imgLabel }) => (
+          {pathways.map(({ title, desc, img }) => (
             <StaggerItem key={title}>
               <MotionDiv
                 whileHover="hover"
@@ -293,10 +266,9 @@ function PathwaysSection() {
               >
                 {/* Thumbnail image */}
                 <div className="sm:w-36 sm:flex-shrink-0 min-h-[160px] sm:min-h-0 relative overflow-hidden">
-                  {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src={`/images/${imgLabel}.jpg`} alt={title} /> */}
-                  <ImagePlaceholder label={imgLabel} />
+                  <Image fill style={{ objectFit: 'cover' }} src={img} alt={title} />
                 </div>
- 
+
                 {/* Text */}
                 <div className="p-6">
                   <h3
@@ -331,7 +303,7 @@ function PathwaysSection() {
     </section>
   );
 }
- 
+
 // ─── Section: Marketplace ──────────────────────────────────────────────────────
 const marketplaceFeatures = [
   {
@@ -355,13 +327,13 @@ const marketplaceFeatures = [
     highlight: false,
   },
 ];
- 
+
 function MarketplaceSection() {
   return (
     <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
- 
+
           {/* Left — heading + description + CTA */}
           <SlideInLeft>
             <div className="flex flex-col justify-center">
@@ -414,7 +386,7 @@ function MarketplaceSection() {
               </motion.div>
             </div>
           </SlideInLeft>
- 
+
           {/* Right — feature list */}
           <SlideInRight delay={0.15}>
             <div>
@@ -430,7 +402,7 @@ function MarketplaceSection() {
               >
                 Marketplace Features
               </h3>
- 
+
               <div className="flex flex-col gap-3">
                 {marketplaceFeatures.map(({ title, desc, highlight }) => (
                   <MotionDiv
@@ -479,7 +451,7 @@ function MarketplaceSection() {
     </section>
   );
 }
- 
+
 // ─── Section: CTA ──────────────────────────────────────────────────────────────
 function CTASection() {
   return (
@@ -541,7 +513,7 @@ function CTASection() {
     </section>
   );
 }
- 
+
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function OpportunityPage() {
   return (

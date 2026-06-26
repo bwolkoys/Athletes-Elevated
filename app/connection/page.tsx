@@ -130,7 +130,7 @@ function IconFans() {
 // ─── Section: Hero ─────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO, minHeight: '80vh', position: 'relative', overflow: 'hidden' }} className="flex items-center py-24 md:py-0">
+    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]">
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src="/images/AdobeStock_1873466064.jpeg" alt="Connection hero" priority />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 35%, ${NAVY_HERO}99 65%, ${NAVY_HERO}40 100%)` }} />

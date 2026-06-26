@@ -70,7 +70,7 @@ export default function Footer() {
           </div>
 
           {/* Middle column — Links (centered) */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start md:items-center">
             <div className="w-full max-w-[160px]">
               <h4
                 style={{

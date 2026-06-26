@@ -131,8 +131,8 @@ function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
 function Hero() {
   return (
     <section
-      style={{ backgroundColor: NAVY_HERO, minHeight: '92vh', position: 'relative', overflow: 'hidden' }}
-      className="flex items-center py-24 md:py-0"
+      style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }}
+      className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]"
     >
       {/* Full-bleed background image */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>

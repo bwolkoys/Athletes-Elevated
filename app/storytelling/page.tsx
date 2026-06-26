@@ -4,73 +4,74 @@
 import Navbar from '../src/components/navBar';
 import Footer from '../src/components/footer';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useInView, type Variants } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
- 
+
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
- 
+
 function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
 }
- 
+
 const cardHoverVariants: Variants = {
   rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
   hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
 };
- 
+
 const MotionDiv = motion.div;
- 
+
 // ─── Color tokens ─────────────────────────────────────────────────────────────
 const NAVY       = '#080F1C';
 const NAVY_HERO  = '#0B1220';
 const BLUE       = '#1A6EF0';
 const BLUE_MID   = '#1559C7';
 const BLUE_LIGHT = '#4E9AF5';
- 
+
 // ─── Font shorthands ──────────────────────────────────────────────────────────
 const HEADING = "'Apotek Extended', sans-serif";
 const BODY    = "'DM Sans', sans-serif";
- 
+
 // ─── Reusable ─────────────────────────────────────────────────────────────────
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
@@ -81,31 +82,19 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
     </div>
   );
 }
- 
-function ImagePlaceholder({ label = 'Image coming soon' }: { label?: string }) {
-  return (
-    <div className="w-full h-full" style={{ backgroundColor: '#1A2540', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.2)', fontFamily: BODY, fontSize: 12, userSelect: 'none' as const, minHeight: 'inherit' }}>
-      {label}
-    </div>
-  );
-}
- 
+
 // ─── Section: Hero ─────────────────────────────────────────────────────────────
 function Hero() {
   return (
     <section
-      style={{ backgroundColor: NAVY_HERO, minHeight: '80vh', position: 'relative', overflow: 'hidden' }}
-      className="flex items-center py-24 md:py-0"
+      style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }}
+      className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]"
     >
-      {/*
-        Replace ImagePlaceholder with:
-        <Image fill style={{ objectFit: 'cover', objectPosition: 'right center' }} src="/images/storytelling-hero.jpg" alt="Storytelling hero" priority />
-      */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Storytelling hero image" />
+        <Image fill style={{ objectFit: 'cover', objectPosition: 'right center' }} src="/images/AdobeStock_1894201700.png" alt="Storytelling hero" priority />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 40%, ${NAVY_HERO}80 65%, ${NAVY_HERO}26 100%)` }} />
       </div>
- 
+
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '560px' }}>
           <HeroText delay={0}>
@@ -165,17 +154,15 @@ function Hero() {
     </section>
   );
 }
- 
+
 // ─── Section: Scrolling Ticker ─────────────────────────────────────────────────
 function Ticker() {
   const words = ['Resilience', 'Adversity', 'Purpose', 'Impact', 'Courage', 'Character', 'Perseverance', 'Legacy'];
-  // Duplicate the list so the loop is seamless
   const repeated = [...words, ...words, ...words];
- 
+
   return (
     <FadeIn>
       <section style={{ backgroundColor: '#52aafc', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }} className="py-6">
-        {/* CSS keyframes defined inline — no globals.css change needed */}
         <style>{`
           @keyframes ticker-scroll {
             0%   { transform: translateX(0); }
@@ -190,7 +177,7 @@ function Ticker() {
             animation-play-state: paused;
           }
         `}</style>
- 
+
         <div className="ticker-track">
           {repeated.map((word, i) => (
             <span key={i} className="flex items-center">
@@ -216,13 +203,13 @@ function Ticker() {
     </FadeIn>
   );
 }
- 
+
 // ─── Section: Heroes Docuseries ────────────────────────────────────────────────
 function DocuseriesSection() {
   return (
     <section id="the-series" style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
- 
+
         {/* Header */}
         <FadeUp>
           <div className="max-w-3xl mb-12">
@@ -248,22 +235,18 @@ function DocuseriesSection() {
             </p>
           </div>
         </FadeUp>
- 
+
         {/* Video player placeholder */}
         <ScaleIn delay={0.15}>
-          <div style={{ position: 'relative', width: '100%', maxWidth: 960, borderRadius: 12, overflow: 'hidden', aspectRatio: '16/9', backgroundColor: '#0B1220' }}>
-            {/*
-              Replace this block with your video embed:
-              <video src="/videos/heroes-trailer.mp4" poster="/images/heroes-poster.jpg" controls />
-              or an iframe for YouTube/Vimeo
-            */}
-            <ImagePlaceholder label="Heroes Docuseries trailer" />
- 
+          <div style={{ position: 'relative', width: '100%', maxWidth: 960, borderRadius: 12, overflow: 'hidden', aspectRatio: '16/9', backgroundColor: '#0B1220' }} className="mx-auto">
+            <Image fill style={{ objectFit: 'cover' }} src="/images/pic.jpeg" alt="Heroes Documentary" />
+
             {/* Play button overlay */}
             <div
               className="absolute inset-0 flex items-center justify-center"
               style={{ background: 'rgba(8,15,28,0.35)' }}
             >
+              <a href="https://drive.google.com/file/d/1CdeePbYiqLYS0w-O5x4cq5EzUKpUE4bg/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(8,15,28,0.35)' }}>
               <div
                 style={{
                   width: 68,
@@ -277,9 +260,9 @@ function DocuseriesSection() {
                   backdropFilter: 'blur(4px)',
                 }}
               >
-                {/* Play triangle */}
                 <div style={{ width: 0, height: 0, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', borderLeft: '20px solid rgba(255,255,255,0.9)', marginLeft: 4 }} />
               </div>
+              </a>
             </div>
           </div>
         </ScaleIn>
@@ -287,22 +270,17 @@ function DocuseriesSection() {
     </section>
   );
 }
- 
+
 // ─── Section: Quote ────────────────────────────────────────────────────────────
 function QuoteSection() {
   return (
     <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="py-16 md:py-16">
-      {/*
-        Replace ImagePlaceholder with:
-        <Image fill style={{ objectFit: 'cover', opacity: 0.2 }} src="/images/crowd-bg.jpg" alt="" />
-      */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <ImagePlaceholder label="Quote background image" />
+        <Image fill style={{ objectFit: 'cover', objectPosition: 'center 30%', opacity: 55 }} src="/images/maxresdefault.jpg" alt="" />
         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(8,15,28,0.8)' }} />
       </div>
- 
+
       <div className="max-w-4xl mx-auto px-6" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Blue double-quote mark */}
         <FadeIn>
           <div
             style={{
@@ -311,7 +289,7 @@ function QuoteSection() {
               fontSize: 'clamp(64px, 10vw, 110px)',
               lineHeight: 0.75,
               fontWeight: 900,
-              marginBottom: 32,
+              marginBottom: 2,
               userSelect: 'none' as const,
             }}
             aria-hidden="true"
@@ -340,26 +318,26 @@ function QuoteSection() {
     </section>
   );
 }
- 
+
 // ─── Section: Why It Matters ───────────────────────────────────────────────────
 const reasons = [
   {
     title: 'For Athletes',
     desc: 'Your story is your most durable asset. Long after the competition ends, the person who overcame — and what they did with it — is what people remember and follow.',
-    imgLabel: 'For athletes image',
+    img: '/images/360_F_781926021_ejEZxJH5oiCtZt0RlVThxUhNRntxxl9o.jpg',
   },
   {
     title: 'For Future Generations',
     desc: "Young athletes don't need highlight reels. They need proof that someone who doubted like them, fell like them — got back up and built something.",
-    imgLabel: 'For future generations image',
+    img: '/images/Connection.png',
   },
   {
     title: 'For the Culture',
     desc: 'Sport shapes culture. The stories of athletes — told honestly and with depth — elevate what we all believe is possible.',
-    imgLabel: 'For the culture image',
+    img: '/images/AdobeStock_1974622747.jpeg',
   },
 ];
- 
+
 function WhyItMatters() {
   return (
     <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
@@ -382,18 +360,16 @@ function WhyItMatters() {
             </h2>
           </div>
         </FadeUp>
- 
+
         <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reasons.map(({ title, desc, imgLabel }) => (
+          {reasons.map(({ title, desc, img }) => (
             <StaggerItem key={title}>
-              <MotionDiv whileHover={{ y: -6 }}
-  transition={{ duration: 0.25, ease: 'easeOut' }}>
+              <MotionDiv whileHover={{ y: -6 }} transition={{ duration: 0.25, ease: 'easeOut' }}>
                 {/* Image */}
                 <div style={{ height: 200, borderRadius: 10, overflow: 'hidden', marginBottom: 20, position: 'relative' }}>
-                  {/* Replace with: <Image fill style={{ objectFit: 'cover' }} src={`/images/${imgLabel}.jpg`} alt={title} /> */}
-                  <ImagePlaceholder label={imgLabel} />
+                  <Image fill style={{ objectFit: 'cover' }} src={img} alt={title} />
                 </div>
- 
+
                 <h3
                   style={{
                     fontFamily: HEADING,
@@ -403,7 +379,6 @@ function WhyItMatters() {
                     letterSpacing: '0.02em',
                     textTransform: 'uppercase' as const,
                     marginBottom: 12,
-                    
                   }}
                 >
                   {title}
@@ -427,7 +402,7 @@ function WhyItMatters() {
     </section>
   );
 }
- 
+
 // ─── Section: CTA ──────────────────────────────────────────────────────────────
 function CTASection() {
   return (
@@ -489,7 +464,7 @@ function CTASection() {
     </section>
   );
 }
- 
+
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function StorytellingPage() {
   return (
