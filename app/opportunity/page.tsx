@@ -149,7 +149,7 @@ function Hero() {
                 }}
                 className="hover:border-white hover:bg-white/10"
               >
-                Request an Invitation →
+                Apply for Membership →
               </Link>
             </motion.div>
           </HeroText>
@@ -365,7 +365,7 @@ function MarketplaceSection() {
               </p>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
                 <Link
-                  href="/marketplace"
+                  href="https://athleteselevatedmarketplace.com/"
                   style={{
                     fontFamily: BODY,
                     background: '#52aafc',
@@ -505,7 +505,7 @@ function CTASection() {
               }}
               className="hover:bg-blue-50"
             >
-              Request an Invitation →
+              Apply for Membership →
             </Link>
           </motion.div>
         </FadeUp>

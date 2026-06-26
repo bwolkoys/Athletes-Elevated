@@ -135,7 +135,7 @@ function Hero() {
                   style={{ fontFamily: BODY, border: '1.5px solid #52aafc', background: '#52aafc', color: '#092866', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s, background 0.2s', display: 'block' }}
                   className="hover:border-white hover:bg-white/10"
                 >
-                  Request an Invitation →
+                  Apply for Membership →
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -144,7 +144,7 @@ function Hero() {
                   style={{ fontFamily: BODY, border: '1.5px solid #52aafc', color: 'rgba(255,255,255,0.75)', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 400, letterSpacing: '0.02em', textAlign: 'center', transition: 'border-color 0.2s', display: 'block' }}
                   className="hover:border-white/60 hover:text-white"
                 >
-                  The Heroes Series ↓
+                  The Heroes Teaser ↓
                 </a>
               </motion.div>
             </div>
@@ -456,7 +456,7 @@ function CTASection() {
               }}
               className="hover:bg-blue-50"
             >
-              Request an Invitation →
+              Apply for Membership →
             </Link>
           </motion.div>
         </FadeUp>

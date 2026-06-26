@@ -391,7 +391,7 @@ function CTASection() {
               style={{ fontFamily: BODY, border: `1.5px solid #52aafc`, background: '#52aafc', color: '#092866', padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'background 0.2s' }}
               className="hover:bg-blue-50"
             >
-              Request an Invitation →
+              Apply for Membership →
             </Link>
           </motion.div>
         </FadeUp>

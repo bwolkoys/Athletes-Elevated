@@ -151,7 +151,7 @@ function Hero() {
           <HeroText delay={0.35}>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
               <Link href="/apply" style={{ fontFamily: BODY, border: '1.5px solid #52aafc', background: '#52aafc', color: '#092866', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'border-color 0.2s, background 0.2s' }} className="hover:border-white hover:bg-white/10">
-                Request an Invitation →
+              Apply for Membership →
               </Link>
             </motion.div>
           </HeroText>
@@ -385,7 +385,7 @@ function CTASection() {
               style={{ fontFamily: BODY, border: `1.5px solid #52aafc`, color: '#ffffff', padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', background: '#52aafc' }}
               className="hover:bg-blue-50"
             >
-              Request an Invitation →
+              Apply for Membership →
             </Link>
           </motion.div>
         </FadeUp>

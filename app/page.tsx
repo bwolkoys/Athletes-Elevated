@@ -217,7 +217,7 @@ function Hero() {
                   }}
                   className="hover:border-white hover:bg-white/10"
                 >
-                  Request an Invitation →
+                  Apply for Membership →
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -525,7 +525,7 @@ function MembershipSection() {
                   }}
                   className="hover:bg-black/5 w-full sm:w-auto text-center sm:text-left"
                 >
-                  Request an Invitation →
+                  Apply for Membership →
                 </Link>
               </motion.div>
             </div>
