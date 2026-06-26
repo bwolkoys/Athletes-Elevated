@@ -130,7 +130,7 @@ function IconFans() {
 // ─── Section: Hero ─────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]">
+    <section style={{ backgroundColor: NAVY_HERO, minHeight: '80vh', position: 'relative', overflow: 'hidden' }} className="flex items-center py-24 md:py-0">
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src="/images/AdobeStock_1873466064.jpeg" alt="Connection hero" priority />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 35%, ${NAVY_HERO}99 65%, ${NAVY_HERO}40 100%)` }} />
@@ -151,7 +151,7 @@ function Hero() {
           <HeroText delay={0.35}>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
               <Link href="/apply" style={{ fontFamily: BODY, border: '1.5px solid #52aafc', background: '#52aafc', color: '#092866', padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', transition: 'border-color 0.2s, background 0.2s' }} className="hover:border-white hover:bg-white/10">
-              Apply for Membership →
+                Request an Invitation →
               </Link>
             </motion.div>
           </HeroText>
@@ -259,6 +259,94 @@ function WhoIsInside() {
             </StaggerItem>
           ))}
         </StaggerGrid>
+      </div>
+    </section>
+  );
+}
+
+// ─── Section: Members ─────────────────────────────────────────────────────────
+const members = [
+  { name: 'Picabo', sport: 'Alpine Ski Racer',    img: '/images/picabo-street-thumbnail.png' },
+  { name: 'Lauren',   sport: 'Alpine Ski Racer',           img: '/images/Lauren-Macuga.jpg' },
+  { name: 'Anton',   sport: 'Professional Footballer',          img: '/images/anton.jpeg' },
+  { name: 'Marlon',  sport: 'Professional Footballer',img: '/images/Marlon_Harewood.JPG' },
+];
+
+function LockIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  );
+}
+
+function MembersSection() {
+  return (
+    <section style={{ backgroundColor: NAVY_HERO }} className="py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Header */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 mb-12">
+          <SlideInLeft>
+            <div>
+              <SectionLabel light>The Network</SectionLabel>
+              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em' }}>
+                The Members
+              </h2>
+            </div>
+          </SlideInLeft>
+          {/* <SlideInRight>
+            <div className="flex items-center">
+              <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 'clamp(14px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.75 }}>
+                Membership is private. Who's inside stays inside — until you're one of them.
+              </p>
+            </div>
+          </SlideInRight> */}
+        </div>
+
+        {/* Cards grid */}
+        <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {members.map(({ name, sport, img }) => (
+            <StaggerItem key={name}>
+              <div style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', aspectRatio: '4/4', backgroundColor: '#1a2540' }}>
+                {/* Blurred photo */}
+                <Image
+                  fill
+                  src={img}
+                  alt=""
+                  style={{ objectFit: 'cover', filter: 'blur(10px) brightness(0.55)', transform: 'scale(1.08)' }}
+                />
+
+                {/* Gradient overlay */}
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(9,40,102,0.92) 0%, rgba(9,40,102,0.4) 50%, transparent 100%)' }} />
+
+                {/* Lock badge */}
+                <div className="absolute top-3 right-3" style={{ backgroundColor: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 20, padding: '4px 10px', display: 'flex', alignItems: 'center', gap: 5, color: 'rgba(255,255,255,0.7)', fontSize: 10 }}>
+                  <LockIcon />
+                  <span style={{ fontFamily: HEADING, letterSpacing: '0.12em', fontSize: 9 }}>MEMBER</span>
+                </div>
+
+                {/* Name + sport */}
+                <div className="absolute bottom-0 left-0 right-0" style={{ padding: '16px 14px' }}>
+                  <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 15, fontWeight: 300, letterSpacing: '0.04em', marginBottom: 4 }}>
+                    {name}
+                  </p>
+                  <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 11, fontWeight: 300, letterSpacing: '0.04em' }}>
+                    {sport}
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerGrid>
+
+        {/* Bottom note */}
+        <FadeUp delay={0.2}>
+          <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.3)', fontSize: 12, fontWeight: 300, textAlign: 'center', marginTop: 36, letterSpacing: '0.06em' }}>
+            Member identities are kept private. Names and details are illustrative.
+          </p>
+        </FadeUp>
       </div>
     </section>
   );
@@ -385,7 +473,7 @@ function CTASection() {
               style={{ fontFamily: BODY, border: `1.5px solid #52aafc`, color: '#ffffff', padding: '13px 32px', borderRadius: 6, fontSize: 15, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block', background: '#52aafc' }}
               className="hover:bg-blue-50"
             >
-              Apply for Membership →
+              Request an Invitation →
             </Link>
           </motion.div>
         </FadeUp>
@@ -403,6 +491,7 @@ export default function ConnectionPage() {
         <Hero />
         <MembershipBanner />
         <WhoIsInside />
+        <MembersSection />
         <HowItWorks />
         <QuoteSection />
         <CTASection />

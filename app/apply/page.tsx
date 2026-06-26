@@ -87,7 +87,7 @@ function Hero() {
       className="flex items-center min-h-[55vh] md:min-h-[72vh] py-24 md:py-0"
     >
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <Image fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} src="/images/apply-hero.png" alt="Apply hero" priority />
+        <Image fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} src="/images/tjiRLn0A.jpeg" alt="Apply hero" priority />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}E6 40%, ${NAVY_HERO}99 70%, ${NAVY_HERO}66 100%)` }} />
       </div>
 
