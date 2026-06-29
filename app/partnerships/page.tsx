@@ -192,6 +192,12 @@ const partners = [
     width: 200,
     height: 80,
   },
+  {
+    name: 'USF 7 F',
+    src: '/images/USF7F.png',
+    width: 160,
+    height: 110,
+  },
 ];
 
 function OurPartners() {
