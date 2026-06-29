@@ -31,6 +31,17 @@ const BLUE_LIGHT = '#4E9AF5';
 const HEADING = "'Apotek Extended', sans-serif";
 const BODY    = "'DM Sans', sans-serif";
 
+// ─── Reusable ─────────────────────────────────────────────────────────────────
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2 mb-3">
+      <span style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 12, letterSpacing: '0.28em', fontWeight: 600, textTransform: 'uppercase' as const, borderLeft: '1.5px solid #52aafc', paddingLeft: 10, display: 'inline-block' }}>
+        {children}
+      </span>
+    </div>
+  );
+}
+
 // ─── Form field types ─────────────────────────────────────────────────────────
 type FormData = {
   firstName: string;
@@ -73,7 +84,7 @@ const inputStyle: React.CSSProperties = {
   color: NAVY,
   backgroundColor: '#F4F8FF',
   border: '1px solid rgba(9,40,102,0.15)',
-  borderRadius: 6,
+  borderRadius: 4,
   padding: '12px 16px',
   outline: 'none',
   width: '100%',
@@ -94,9 +105,7 @@ function Hero() {
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '540px' }} className="text-center md:text-left mx-auto md:mx-0">
           <HeroText delay={0}>
-            <p style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 11, letterSpacing: '0.22em', fontWeight: 300, textTransform: 'uppercase' as const, marginBottom: 16 }}>
-              Membership
-            </p>
+            <SectionLabel>Membership</SectionLabel>
           </HeroText>
           <HeroText delay={0.15}>
             <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(38px, 5.5vw, 76px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 24 }}>
@@ -170,7 +179,7 @@ function ApplicationForm() {
             <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 16, fontWeight: 300, lineHeight: 1.75, marginBottom: 36 }}>
               Thank you for applying. Our team reviews every application personally. We'll be in touch if there's a fit.
             </p>
-            <Link href="/" style={{ fontFamily: BODY, background: '#52aafc', border: '1.5px solid #52aafc', color: NAVY, padding: '13px 28px', borderRadius: 6, fontSize: 14, fontWeight: 600, letterSpacing: '0.02em', display: 'inline-block' }}>
+            <Link href="/" style={{ fontFamily: BODY, background: 'transparent', border: '1.5px solid #092866', color: NAVY, padding: '13px 28px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}>
               Back to Home
             </Link>
           </motion.div>
@@ -188,27 +197,21 @@ function ApplicationForm() {
           <div className="lg:col-span-1">
             <FadeUp>
               <div style={{ borderLeft: '3px solid #52aafc', paddingLeft: 24, marginBottom: 40 }}>
-                <p style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const, marginBottom: 10 }}>
-                  What to Expect
-                </p>
+                <SectionLabel>What to Expect</SectionLabel>
                 <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.8 }}>
                   Every application is reviewed by our team. We're not looking for followers — we're looking for fit. You'll hear from us within 5–7 business days.
                 </p>
               </div>
 
               <div style={{ borderLeft: '3px solid #52aafc', paddingLeft: 24, marginBottom: 40 }}>
-                <p style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const, marginBottom: 10 }}>
-                  Membership Is Earned
-                </p>
+                <SectionLabel>Membership Is Earned</SectionLabel>
                 <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.8 }}>
                   Athletes Elevated does not accept unsolicited applications. If you are here, someone believed you belonged.
                 </p>
               </div>
 
               <div style={{ borderLeft: '3px solid #52aafc', paddingLeft: 24 }}>
-                <p style={{ fontFamily: HEADING, color: BLUE_LIGHT, fontSize: 11, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const, marginBottom: 10 }}>
-                  Questions?
-                </p>
+                <SectionLabel>Questions?</SectionLabel>
                 <a href="mailto:info@athleteselevated.com" style={{ fontFamily: BODY, color: NAVY, fontSize: 14, fontWeight: 300, lineHeight: 1.8 }}>
                   info@athleteselevated.com
                 </a>
@@ -348,7 +351,7 @@ function ApplicationForm() {
                       border: '1.5px solid #52aafc',
                       color: NAVY,
                       padding: '14px 36px',
-                      borderRadius: 6,
+                      borderRadius: 4,
                       fontSize: 15,
                       fontWeight: 600,
                       letterSpacing: '0.02em',

@@ -49,8 +49,8 @@ function HeroText({ children, delay = 0, className = '', style = {} }: { childre
 }
 
 const cardHoverVariants: Variants = {
-  rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
-  hover: { y: -6, boxShadow: '0 16px 40px rgba(26,110,240,0.15)', transition: { duration: 0.25, ease: 'easeOut' } },
+  rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.06), inset 3px 0 0 rgba(82,170,252,0)' },
+  hover: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.06), inset 3px 0 0 rgba(82,170,252,1)', transition: { duration: 0.2, ease: 'easeOut' } },
 };
 
 const MotionDiv = motion.div;
@@ -69,7 +69,7 @@ const BODY    = "'DM Sans', sans-serif";
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span style={{ fontFamily: HEADING, color: light ? '#52aafc' : BLUE_LIGHT, fontSize: 15, letterSpacing: '0.18em', fontWeight: 600, textTransform: 'uppercase' as const }}>
+      <span style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 12, letterSpacing: '0.28em', fontWeight: 600, textTransform: 'uppercase' as const, borderLeft: '1.5px solid #52aafc', paddingLeft: 10, display: 'inline-block' }}>
         {children}
       </span>
     </div>
@@ -137,7 +137,7 @@ function Hero() {
                   background: '#52aafc',
                   color: '#092866',
                   padding: '13px 28px',
-                  borderRadius: 6,
+                  borderRadius: 4,
                   fontSize: 14,
                   fontWeight: 600,
                   letterSpacing: '0.02em',
@@ -161,9 +161,13 @@ function Banner() {
     <section style={{ backgroundColor: '#52aafc' }} className="py-5">
       <div className="max-w-7xl mx-auto px-6 flex justify-center">
         <FadeIn>
-          <p style={{ fontFamily: BODY, color: '#092866', fontSize: 'clamp(13px, 4vw, 22px)', fontWeight: 1000, letterSpacing: '0.06em', textTransform: 'uppercase' as const, textAlign: 'center' }}>
-            Partnerships Built on Values. Not Just Visibility.
-          </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20 }}>
+            <div style={{ flex: 1, maxWidth: 64, height: '0.5px', background: 'rgba(9,40,102,0.25)' }} />
+            <p style={{ fontFamily: BODY, color: '#092866', fontSize: 'clamp(13px, 4vw, 18px)', fontWeight: 300, letterSpacing: '0.16em', textTransform: 'uppercase' as const, textAlign: 'center', margin: 0 }}>
+              Partnerships Built on Values. Not Just Visibility.
+            </p>
+            <div style={{ flex: 1, maxWidth: 64, height: '0.5px', background: 'rgba(9,40,102,0.25)' }} />
+          </div>
         </FadeIn>
       </div>
     </section>
@@ -171,11 +175,14 @@ function Banner() {
 }
 
 // ─── Section: Our Partners ─────────────────────────────────────────────────────
-
+// Drop logo files into /public/images/partners/ and update the src paths below.
+// Recommended: use the color version of each logo (white bg, color logo).
 const partners = [
   {
     name: 'West Ham United',
     src: '/images/WHU.png',
+    // Adjust width/height to suit the aspect ratio of the actual logo file.
+    // These values target a consistent visual weight across different logo shapes.
     width: 160,
     height: 100,
   },
@@ -305,7 +312,7 @@ function PartnershipTypes() {
               style={{
                 backgroundColor: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 10,
+                borderRadius: 4,
                 padding: '36px 32px',
               }}
             >
@@ -321,7 +328,7 @@ function PartnershipTypes() {
                 Support a specific event, initiative, content series, or season. Sponsorships are defined in scope and designed for brands that want direct, visible association with a marquee moment or platform.
               </p>
               <ul style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 300, lineHeight: 2, listStyle: 'none', padding: 0 }}>
-                {['Event & activation sponsorships', 'Marketplace campaign sponsorships', 'Content & media placement'].map(item => (
+                {['Event & activation sponsorships', 'Heroes Docuseries episode sponsorships', 'Marketplace campaign sponsorships', 'Content & media placement'].map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#52aafc', flexShrink: 0, display: 'inline-block' }} />
                     {item}
@@ -337,7 +344,7 @@ function PartnershipTypes() {
               style={{
                 backgroundColor: BLUE,
                 border: 'none',
-                borderRadius: 10,
+                borderRadius: 4,
                 padding: '36px 32px',
               }}
             >
@@ -353,7 +360,7 @@ function PartnershipTypes() {
                 A deeper, ongoing collaboration where your brand becomes embedded in the Athletes Elevated ecosystem. Strategic partners don't just sponsor — they co-create, contribute, and grow alongside the network.
               </p>
               <ul style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.7)', fontSize: 13, fontWeight: 300, lineHeight: 2, listStyle: 'none', padding: 0 }}>
-                {['Long-term brand integration', 'Exclusive athlete access & introductions', 'Co-branded content & storytelling', 'Marketplace storefront', 'Event & community co-ownership'].map(item => (
+                {['Long-term brand integration', 'Exclusive athlete access & introductions', 'Co-branded content & storytelling', 'Marketplace preferred placement', 'Event & community co-ownership'].map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.6)', flexShrink: 0, display: 'inline-block' }} />
                     {item}
@@ -367,7 +374,6 @@ function PartnershipTypes() {
     </section>
   );
 }
-
 // ─── Section: Inquiry Form ─────────────────────────────────────────────────────
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -375,7 +381,7 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "'DM Sans', sans-serif",
   backgroundColor: '#F4F8FF',
   border: '1px solid rgba(26,110,240,0.15)',
-  borderRadius: 6,
+  borderRadius: 4,
   padding: '13px 16px',
   fontSize: 14,
   fontWeight: 300,
@@ -492,7 +498,7 @@ function InquiryForm() {
                 style={{
                   backgroundColor: '#EBF2FF',
                   border: '1px solid rgba(82,170,252,0.3)',
-                  borderRadius: 10,
+                  borderRadius: 4,
                   padding: '48px 36px',
                   textAlign: 'center',
                 }}
@@ -665,7 +671,7 @@ function InquiryForm() {
                     fontFamily: BODY,
                     backgroundColor: status === 'submitting' ? 'rgba(82,170,252,0.6)' : '#52aafc',
                     border: 'none',
-                    borderRadius: 6,
+                    borderRadius: 4,
                     color: '#092866',
                     fontSize: 14,
                     fontWeight: 600,
