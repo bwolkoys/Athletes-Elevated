@@ -263,6 +263,118 @@ function StorytellingSection() {
   );
 }
 
+// ─── Marketplace ───────────────────────────────────────────────────────────────
+const drops = [
+  { name: 'Anton Ferdinand', label: 'Ferdinand Collective', status: 'live' as const },
+  { name: 'Next Athlete', label: 'Members only', status: 'soon' as const, date: 'Jul 28' },
+  { name: 'Next Athlete', label: 'Members only', status: 'soon' as const, date: 'Aug 18' },
+];
+
+function MarketplaceSection() {
+  return (
+    <section style={{ backgroundColor: '#092866', position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
+      {/* Subtle radial glow behind the content */}
+      <div style={{ position: 'absolute', top: '50%', left: '30%', transform: 'translate(-50%, -50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(82,170,252,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <style>{`
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+        .live-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-6" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+          {/* Left — copy */}
+          <SlideInLeft>
+            <SectionLabel>Marketplace</SectionLabel>
+            <h2 style={{ fontFamily: 'var(--font-heading)', color: '#ffffff', fontSize: 'clamp(28px, 3vw, 50px)', fontWeight: 300, lineHeight: '1.1', letterSpacing: '0.01em', marginBottom: '20px' }}>
+              The Marketplace Is Live.
+            </h2>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8', marginBottom: '12px' }}>
+              Athletes curate their own storefront — products they trust, causes they care about. One founding athlete at a time.
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8', marginBottom: '32px' }}>
+              Members gaine xclusive access to every drop.
+            </p>
+            <div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    alignItems: 'flex-start', // keeps them left-aligned
+  }}
+>
+<motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
+              <a
+                href="/opportunity"
+                style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid rgba(255,255,255,0.4)', color: '#ffffff', padding: '13px 26px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
+              >
+                Learn More →
+              </a>
+            </motion.div>
+            <motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
+              <a
+                href="https://athleteselevatedmarketplace.com/"
+                style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid rgba(255,255,255,0.4)', color: '#ffffff', padding: '13px 26px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
+              >
+                Join the Marketplace →
+              </a>
+            </motion.div>
+            </div>
+          </SlideInLeft>
+
+          {/* Right — drop list */}
+          <SlideInRight delay={0.15}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {drops.map(({ name, label, status, date }, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, ease: EASE, delay: 0.1 + i * 0.1 }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '20px 24px',
+                    backgroundColor: status === 'live' ? 'rgba(82,170,252,0.12)' : 'rgba(255,255,255,0.04)',
+                    border: status === 'live' ? '1px solid rgba(82,170,252,0.35)' : '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: 4,
+                    borderLeft: status === 'live' ? '3px solid #52aafc' : '3px solid rgba(255,255,255,0.15)',
+                  }}
+                >
+                  <div>
+                    <p style={{ fontFamily: 'var(--font-heading)', color: status === 'live' ? '#ffffff' : 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>
+                      {name}
+                    </p>
+                    <p style={{ fontFamily: 'var(--font-body)', color: status === 'live' ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)', fontSize: 13, fontWeight: 300 }}>
+                      {label}
+                    </p>
+                  </div>
+                  <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
+                    {status === 'live' ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-body)', color: '#52aafc', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                        <span className="live-dot" style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#52aafc', display: 'inline-block' }} />
+                        Live Now
+                      </span>
+                    ) : (
+                      <span style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 300, letterSpacing: '0.06em' }}>
+                        {date}
+                      </span>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </SlideInRight>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Impact Banner ─────────────────────────────────────────────────────────────
 function ImpactBanner() {
   const words = ['Connection.', 'Opportunity.', 'Storytelling.', 'Impact.'];
@@ -336,6 +448,7 @@ export default function HomePage() {
         <ConnectionSection />
         <OpportunitySection />
         <StorytellingSection />
+        <MarketplaceSection />
         <ImpactBanner />
         <MembershipSection />
       </main>

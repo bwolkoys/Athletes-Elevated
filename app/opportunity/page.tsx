@@ -166,48 +166,137 @@ function PathwaysSection() {
   );
 }
 
-const marketplaceFeatures = [
-  { title: 'Athlete Storefront', desc: 'Each athlete member can showcase and sell products through a curated personal storefront — extending their brand beyond sport.', highlight: false },
-  { title: 'Brand Partnerships', desc: 'Brands gain access to authentic athlete relationships, not transactional endorsements. Partnerships are matched to values, not follower counts.', highlight: true },
-  { title: 'Commission Revenue', desc: 'Athletes earn commissions from every purchase in their storefront, building a sustainable income stream that compounds over time.', highlight: false },
-  { title: 'Fan Participation', desc: 'Fans are not spectators here. They participate, support, and are rewarded for their loyalty — creating a community built on reciprocity.', highlight: false },
+const drops = [
+  { name: 'Anton Ferdinand', label: 'Ferdinand Collective', status: 'live' as const },
+  { name: 'Next Athlete', label: 'Members notified first', status: 'soon' as const, date: 'Jul 28' },
+  { name: 'Next Athlete', label: 'Members notified first', status: 'soon' as const, date: 'Aug 18' },
+];
+
+const rewardsSteps = [
+  { step: 'Shop', desc: 'Browse athlete storefronts and buy from people you believe in.' },
+  { step: 'Earn Rewards', desc: 'Every purchase builds your rewards balance automatically.' },
+  { step: 'Unlock Experiences', desc: 'Redeem for athlete access, private events, and moments that dont exist anywhere else.' },
 ];
 
 function MarketplaceSection() {
   return (
-    <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-          <SlideInLeft>
-            <div className="flex flex-col justify-center">
-              <SectionLabel>The Marketplace</SectionLabel>
-              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 24 }}>
-                Built to Create Revenue For Athletes.
-              </h2>
-              <p style={{ fontFamily: BODY, color: '#ffffff', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.8, marginBottom: 36 }}>
-                Through the Athletes Elevated Marketplace, athletes and brands can showcase products, earn commissions, engage fans, and build sustainable revenue streams — while rewarding supporters for their participation.
-              </p>
-              <motion.div whileHover={{ opacity: 0.85 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
-                <Link href="https://athleteselevatedmarketplace.com/" style={{ fontFamily: BODY, background: 'transparent', border: `1.5px solid rgba(255,255,255,0.5)`, color: '#ffffff', padding: '13px 28px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'inline-block' }} className="hover:border-white transition-all w-full sm:w-auto text-center sm:text-left">
-                  Join the Marketplace →
-                </Link>
-              </motion.div>
+    <section style={{ backgroundColor: '#092866', position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
+      <div style={{ position: 'absolute', top: '50%', right: '10%', transform: 'translateY(-50%)', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(82,170,252,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <style>{`
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.6); } }
+        .live-dot-opp { animation: pulse-dot 1.8s ease-in-out infinite; }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-6" style={{ position: 'relative', zIndex: 1 }}>
+
+        {/* Header */}
+        <FadeUp>
+          <SectionLabel>The Marketplace</SectionLabel>
+          <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 16, maxWidth: 660 }}>
+            Built to Create Revenue For Athletes.
+          </h2>
+          <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.6)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.8, marginBottom: 52, maxWidth: 660 }}>
+            Through the Athletes Elevated Marketplace, athletes and brands showcase products, earn commissions, and engage fans — while rewarding supporters for their participation.
+          </p>
+        </FadeUp>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+
+          {/* Founding Drops box */}
+          <SlideInLeft delay={0.1}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, padding: '28px 28px 24px' }}>
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 11, letterSpacing: '0.24em', fontWeight: 600, textTransform: 'uppercase', marginBottom: 6 }}>Founding Drops</p>
+                <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 300 }}>25 athletes, one at a time</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {drops.map(({ name, label, status, date }, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, ease: EASE, delay: 0.15 + i * 0.1 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '14px 16px',
+                      backgroundColor: status === 'live' ? 'rgba(82,170,252,0.12)' : 'rgba(255,255,255,0.03)',
+                      border: status === 'live' ? '1px solid rgba(82,170,252,0.3)' : '1px solid rgba(255,255,255,0.06)',
+                      borderLeft: status === 'live' ? '3px solid #52aafc' : '3px solid rgba(255,255,255,0.12)',
+                      borderRadius: 4,
+                    }}
+                  >
+                    <div>
+                      <p style={{ fontFamily: HEADING, color: status === 'live' ? '#ffffff' : 'rgba(255,255,255,0.4)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 3 }}>{name}</p>
+                      <p style={{ fontFamily: BODY, color: status === 'live' ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 300 }}>{label}</p>
+                    </div>
+                    <div style={{ flexShrink: 0, marginLeft: 12 }}>
+                      {status === 'live' ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: BODY, color: '#52aafc', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                          <span className="live-dot-opp" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#52aafc', display: 'inline-block' }} />
+                          Live Now
+                        </span>
+                      ) : (
+                        <span style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 300, letterSpacing: '0.04em' }}>{date}</span>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </SlideInLeft>
-          <SlideInRight delay={0.15}>
-            <div>
-              <h3 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 24, fontWeight: 300, letterSpacing: '0.1em', marginBottom: 20 }}>Marketplace Features</h3>
-              <div className="flex flex-col gap-3">
-                {marketplaceFeatures.map(({ title, desc, highlight }) => (
-                  <MotionDiv key={title} whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants} style={{ backgroundColor: highlight ? BLUE : '#F4F8FF', borderRadius: 4, padding: '20px 22px', border: highlight ? 'none' : '1px solid rgba(26,110,240,0.08)', borderTop: highlight ? 'none' : '1.5px solid #092866' }}>
-                    <h4 style={{ fontFamily: HEADING, color: highlight ? '#ffffff' : BLUE, fontSize: 17, fontWeight: 300, letterSpacing: '0.03em', marginBottom: 8 }}>{title}</h4>
-                    <p style={{ fontFamily: BODY, color: highlight ? 'rgba(255,255,255,0.85)' : '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.7 }}>{desc}</p>
-                  </MotionDiv>
+
+          {/* Rewards flow box */}
+          <SlideInRight delay={0.1}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, padding: '28px 28px 24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 11, letterSpacing: '0.24em', fontWeight: 600, textTransform: 'uppercase', marginBottom: 6 }}>Every purchase earns rewards</p>
+                <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 14, fontWeight: 300, lineHeight: 1.7 }}>
+                  Members build rewards with every marketplace purchase. Those rewards unlock exclusive experiences — athlete access, private events, and moments that don't exist anywhere else.
+                </p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0, flex: 1 }}>
+                {rewardsSteps.map(({ step, desc }, i) => (
+                  <motion.div
+                    key={step}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, ease: EASE, delay: 0.2 + i * 0.1 }}
+                    style={{ display: 'flex', gap: 14, paddingBottom: i < rewardsSteps.length - 1 ? 16 : 0 }}
+                  >
+                    {/* Step indicator + connector */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', backgroundColor: '#52aafc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <span style={{ fontFamily: HEADING, color: '#092866', fontSize: 11, fontWeight: 700 }}>{i + 1}</span>
+                      </div>
+                      {i < rewardsSteps.length - 1 && (
+                        <div style={{ width: 1, flex: 1, minHeight: 16, backgroundColor: 'rgba(82,170,252,0.25)', marginTop: 4 }} />
+                      )}
+                    </div>
+                    <div style={{ paddingBottom: i < rewardsSteps.length - 1 ? 8 : 0 }}>
+                      <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 13, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>{step}</p>
+                      <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.45)', fontSize: 13, fontWeight: 300, lineHeight: 1.65 }}>{desc}</p>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </SlideInRight>
         </div>
+
+        {/* CTA */}
+        <FadeUp delay={0.2}>
+          <motion.div whileHover={{ opacity: 0.85 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+            <Link href="https://athleteselevatedmarketplace.com/" style={{ fontFamily: BODY, background: 'transparent', border: '1.5px solid rgba(255,255,255,0.4)', color: '#ffffff', padding: '13px 28px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'inline-block' }} className="hover:border-white transition-all">
+              Join the Marketplace →
+            </Link>
+          </motion.div>
+        </FadeUp>
+
       </div>
     </section>
   );
