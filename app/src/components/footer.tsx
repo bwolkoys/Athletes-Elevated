@@ -1,20 +1,13 @@
+// Place this file at: src/components/footer.tsx
 import Link from 'next/link';
 import Image from "next/image";
 
-const footerLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Connection', href: '/connection' },
-  { label: 'Opportunity', href: '/opportunity' },
-  { label: 'Storytelling', href: '/storytelling' },
-  { label: 'Partnership', href: '/partnerships' },
-  { label: 'Apply', href: '/apply' },
-];
 
 export default function Footer() {
   return (
     <footer style={{ background: 'linear-gradient(to right, #0D2A5E 0%, #080F1C 100%)' }}>
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-44">
 
           {/* Left column — Logo + tagline + blurb */}
           <div className="flex flex-col gap-5 items-start">
@@ -67,45 +60,6 @@ export default function Footer() {
               >
                 Transforming performance into purpose and influence into impact.
               </p>
-            </div>
-          </div>
-
-          {/* Middle column — Links (centered) */}
-          <div className="flex flex-col items-start md:items-center">
-            <div className="w-full max-w-[160px]">
-              <h4
-                style={{
-                  fontFamily: 'var(--font-label)',
-                  color: '#4E9AF5',
-                  fontSize: '11px',
-                  letterSpacing: '0.16em',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  paddingBottom: '10px',
-                  borderBottom: '1px solid rgba(255,255,255,0.2)',
-                }}
-                className="mb-5"
-              >
-                Links
-              </h4>
-              <ul className="flex flex-col">
-                {footerLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      style={{
-                        fontFamily: 'var(--font-body)',
-                        color: '#ffffff',
-                        fontSize: '14px',
-                        fontWeight: 300,
-                      }}
-                      className="hover:text-white transition-colors duration-200 py-1.5 block min-h-[36px] flex items-center"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
 

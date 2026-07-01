@@ -1,153 +1,299 @@
+// Place this file at: app/page.tsx
 'use client';
 
+import { useState, useRef, ReactNode } from 'react';
+import Image from 'next/image';
 import Navbar from './src/components/navBar';
 import Footer from './src/components/footer';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion, useInView, type Variants } from 'framer-motion';
-import { useRef, ReactNode } from 'react';
+import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// ─── Animation primitives ──────────────────────────────────────────────────────
 
 function FadeUp({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  return <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, y: 44 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function FadeIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-  return <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.9, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function SlideInLeft({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  return <motion.div ref={ref} initial={{ opacity: 0, x: -50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, x: -60 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.75, ease: EASE, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function SlideInRight({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  return <motion.div ref={ref} initial={{ opacity: 0, x: 50 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, x: 60 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.75, ease: EASE, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
+}
+
+function ScaleIn({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, scale: 0.92 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.6, ease: EASE, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function StaggerGrid({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  return <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.13 } } }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function StaggerItem({ children, className = '', style = {} }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
-  return <motion.div variants={{ hidden: { opacity: 0, y: 28, scale: 0.96 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: EASE } } }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div variants={{ hidden: { opacity: 0, y: 32, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: EASE } } }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
 function HeroText({ children, delay = 0, className = '', style = {} }: { children: ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
-  return <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay }} className={className} style={style}>{children}</motion.div>;
+  return (
+    <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: EASE, delay }} className={className} style={style}>
+      {children}
+    </motion.div>
+  );
 }
 
-// Left border reveal instead of lift
+// Stagger words in a banner row
+function StaggerWords({ words }: { words: string[] }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  return (
+    <motion.div ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} className="flex flex-wrap justify-center items-center gap-x-4 gap-y-3 md:gap-x-8">
+      {words.map((word, i) => (
+        <motion.span key={word} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }} className="flex items-center gap-5 md:gap-8">
+          <span style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(16px, 2vw, 22px)', fontWeight: 300, letterSpacing: '0.14em', textTransform: 'uppercase' as const }}>
+            {word}
+          </span>
+          {i < words.length - 1 && <span style={{ color: 'rgba(9,40,102,0.2)', fontSize: 14 }}></span>}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+}
+
 const cardHoverVariants: Variants = {
   rest: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.06), inset 3px 0 0 rgba(82,170,252,0)' },
-  hover: { y: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.06), inset 3px 0 0 rgba(82,170,252,1)', transition: { duration: 0.2, ease: 'easeOut' } },
+  hover: { y: -4, boxShadow: '0 12px 32px rgba(0,0,0,0.12), inset 3px 0 0 rgba(82,170,252,1)', transition: { duration: 0.25, ease: 'easeOut' } },
 };
 
 const MotionDiv = motion.div;
 
-const NAVY      = '#092866';
-const NAVY_HERO = '#080F1C';
-const BLUE      = '#52aafc';
-const BLUE_LIGHT = '#52aafc';
-const CARD_BG   = '#EBF2FF';
+const NAVY      = '#080F1C';
+const NAVY_HERO = '#0B1220';
+const HEADING   = "'Apotek Extended', sans-serif";
+const BODY      = "'DM Sans', sans-serif";
 
-// Left border rule + wider tracking
-function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span
-        style={{
-          fontFamily: 'var(--font-label)',
-          color: '#52aafc',
-          fontSize: '12px',
-          letterSpacing: '0.28em',
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          borderLeft: '1.5px solid #52aafc',
-          paddingLeft: '10px',
-          display: 'inline-block',
-        }}
-      >
+      <span style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 12, letterSpacing: '0.28em', fontWeight: 600, textTransform: 'uppercase' as const, borderLeft: '1.5px solid #52aafc', paddingLeft: 10, display: 'inline-block' }}>
         {children}
       </span>
     </div>
   );
 }
 
-// Uppercase underline explore link
-function ExploreLink({ href, children }: { href: string; children: React.ReactNode }) {
+const inputStyle: React.CSSProperties = {
+  fontFamily: BODY,
+  fontSize: 14,
+  fontWeight: 300,
+  color: '#092866',
+  backgroundColor: '#F4F8FF',
+  border: '1px solid rgba(9,40,102,0.15)',
+  borderRadius: 4,
+  padding: '13px 18px',
+  outline: 'none',
+  width: '100%',
+};
+
+// ─── Waitlist Form ─────────────────────────────────────────────────────────────
+function WaitlistForm() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email }),
+      });
+      if (!res.ok) throw new Error();
+      setStatus('success');
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  if (status === 'success') {
+    return (
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} style={{ padding: '28px 32px', backgroundColor: 'rgba(82,170,252,0.08)', border: '1px solid rgba(82,170,252,0.25)', borderRadius: 4, textAlign: 'center' }}>
+        <p style={{ fontFamily: HEADING, color: '#092866', fontSize: 18, fontWeight: 300, letterSpacing: '0.04em', marginBottom: 8 }}>You're on the list.</p>
+        <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300 }}>We'll reach out with early access details soon.</p>
+      </motion.div>
+    );
+  }
+
   return (
-    <motion.div whileHover={{ opacity: 0.65 }} style={{ display: 'inline-block' }}>
-      <Link
-        href={href}
-        style={{
-          fontFamily: 'var(--font-body)',
-          color: NAVY,
-          fontSize: '11px',
-          fontWeight: 700,
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          borderBottom: '1px solid rgba(9,40,102,0.4)',
-          paddingBottom: '2px',
-          display: 'inline-block',
-          transition: 'opacity 0.2s',
-        }}
-      >
-        {children}
-      </Link>
-    </motion.div>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* Name row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <input
+          type="text"
+          required
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          placeholder="First name"
+          style={inputStyle}
+        />
+        <input
+          type="text"
+          required
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          placeholder="Last name"
+          style={inputStyle}
+        />
+      </div>
+      {/* Email + submit row */}
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email address"
+          style={{ ...inputStyle, flex: 1, minWidth: 200 }}
+        />
+        <motion.button
+          type="submit"
+          disabled={status === 'submitting'}
+          whileHover={{ opacity: status === 'submitting' ? 1 : 0.85 }}
+          whileTap={{ scale: 0.97 }}
+          style={{
+            fontFamily: BODY,
+            background: '#52aafc',
+            border: 'none',
+            color: '#092866',
+            padding: '13px 24px',
+            borderRadius: 4,
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            cursor: status === 'submitting' ? 'not-allowed' : 'pointer',
+            opacity: status === 'submitting' ? 0.6 : 1,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {status === 'submitting' ? 'Joining…' : 'Join the Waitlist'}
+        </motion.button>
+      </div>
+      {status === 'error' && (
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontFamily: BODY, color: '#DC2626', fontSize: 13, fontWeight: 300 }}>
+          Something went wrong — try again or email us at info@athleteselevated.com.
+        </motion.p>
+      )}
+    </form>
   );
 }
 
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section
-      style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }}
-      className="flex items-center py-24 md:py-0 min-h-[55vh] md:min-h-[80vh]"
-    >
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src="/images/AdobeStock_2064460536.jpeg" alt="Hero" priority />
-        <div className="absolute inset-0 md:hidden" style={{ background: `linear-gradient(to bottom, ${NAVY_HERO}D9 0%, ${NAVY_HERO}BF 100%)` }} />
-        <div className="absolute inset-0 hidden md:block" style={{ background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}D9 20%, ${NAVY_HERO}80 50%, transparent 80%)` }} />
+    <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-end md:items-center pb-16 pt-28 md:py-0 min-h-[55vh] md:min-h-[85vh]">
+      {/* Background video — no absolute/inset shorthand, explicit positioning */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }}
+        >
+          <source src="/home/Tech.mp4" type="video/mp4" />
+        </video>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)` }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 128, background: `linear-gradient(to bottom, transparent, ${NAVY_HERO})` }} />
       </div>
-
+ 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: '660px' }}>
-          <HeroText delay={0}><SectionLabel light>An Invite-Only Ecosystem</SectionLabel></HeroText>
-          <HeroText delay={0.15}>
-            <h1 style={{ fontFamily: 'var(--font-heading)', color: '#ffffff', fontSize: 'clamp(40px, 5vw, 80px)', fontWeight: 300, lineHeight: '1.0', letterSpacing: '0.01em', marginTop: '16px', marginBottom: '24px' }}>
-              Transforming<br />Performance<br />Into Purpose.
+        <div style={{ maxWidth: '580px' }}>
+          <HeroText delay={0.1}>
+            <p style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 11, letterSpacing: '0.28em', fontWeight: 300, textTransform: 'uppercase' as const, marginBottom: 18, borderLeft: '1.5px solid #52aafc', paddingLeft: 10, display: 'inline-block' }}>Athletes Elevated</p>
+          </HeroText>
+          <HeroText delay={0.25}>
+            <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(38px, 6vw, 76px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 26 }}>
+              Where Athletes<br />and Fans Come<br />Together.
             </h1>
           </HeroText>
-          <HeroText delay={0.3}>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.75', marginBottom: '40px', maxWidth: '420px' }}>
-              Athletes Elevated connects athletes, investors, brands, charities, and fans through connection, opportunity, and storytelling.
-            </p>
-          </HeroText>
           <HeroText delay={0.45}>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Link href="/apply" style={{ fontFamily: 'var(--font-body)', border: '1.5px solid #52aafc', backgroundColor: '#52aafc', color: '#ffffff', padding: '13px 26px', borderRadius: '4px', fontSize: '14px', fontWeight: 600, letterSpacing: '0.02em', textAlign: 'center', display: 'block' }} className="hover:border-white hover:bg-white/10 transition-all">
-                  Apply for Membership →
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <a href="#what-we-are" style={{ fontFamily: 'var(--font-body)', border: '1.5px solid #52aafc', color: 'rgba(255,255,255,0.75)', padding: '13px 26px', borderRadius: '4px', fontSize: '14px', fontWeight: 400, letterSpacing: '0.02em', textAlign: 'center', display: 'block' }} className="hover:border-white/60 hover:text-white transition-all">
-                  Learn More ↓
-                </a>
-              </motion.div>
-            </div>
+            <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, maxWidth: 420, marginBottom: 40 }}>
+              Athletes Elevated exists to connect players, entrepreneurship, and philanthropy to a purpose beyond the pitch.
+            </p>
+          </HeroText>
+          <HeroText delay={0.6}>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+              <a
+                href="#waitlist"
+                style={{
+                  fontFamily: BODY,
+                  background: '#52aafc',
+                  border: '1.5px solid #52aafc',
+                  color: '#092866',
+                  padding: '14px 32px',
+                  borderRadius: 4,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  display: 'inline-block',
+                }}
+              >
+                Join the Waitlist →
+              </a>
+            </motion.div>
           </HeroText>
         </div>
       </div>
@@ -155,220 +301,38 @@ function Hero() {
   );
 }
 
-// ─── What We Are ───────────────────────────────────────────────────────────────
-function WhatWeAre() {
+// ─── Mission & Vision ──────────────────────────────────────────────────────────
+function MissionVision() {
   return (
-    <section id="what-we-are" style={{ backgroundColor: '#ffffff' }} className="py-14 md:py-20">
+    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
-        <FadeUp>
-          <SectionLabel>What We Are</SectionLabel>
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(26px, 3vw, 44px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '20px', maxWidth: '2000px' }}>
-            Built Around Athletes. Built for What Comes Next.
-          </h2>
-        </FadeUp>
-        <FadeUp delay={0.15}>
-          <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: 'clamp(15px, 1.5vw, 16px)', fontWeight: 300, lineHeight: '1.75', maxWidth: '1000px' }}>
-            Athletes Elevated is an invite-only ecosystem designed to unlock opportunities beyond competition. We bring together the right people, create meaningful revenue streams, and tell the stories that inspire future generations.
-          </p>
-        </FadeUp>
-      </div>
-    </section>
-  );
-}
-
-// ─── Connection ────────────────────────────────────────────────────────────────
-function ConnectionSection() {
-  return (
-    <section style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_758246697.jpeg" alt="Connection" />
-        </div>
-        <MotionDiv
-          whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants}
-          style={{ backgroundColor: CARD_BG, borderTop: '1.5px solid #092866' }}
-          className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <SlideInLeft>
-            <SectionLabel>Connection</SectionLabel>
-            <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
-              The Right People. The Right Room.
-            </h3>
-            <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              A private network bringing together athletes, investors, brands, charities, mentors, and fans — built to create meaningful outcomes through meaningful relationships.
-            </p>
-            <ExploreLink href="/connection">Explore Connection</ExploreLink>
-          </SlideInLeft>
-        </MotionDiv>
-      </div>
-    </section>
-  );
-}
-
-// ─── Opportunity ───────────────────────────────────────────────────────────────
-function OpportunitySection() {
-  return (
-    <section style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        <div className="order-1 md:order-2 min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_618947628.jpeg" alt="Opportunity" />
-        </div>
-        <MotionDiv
-          whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants}
-          style={{ backgroundColor: CARD_BG, borderTop: '1.5px solid #092866' }}
-          className="order-2 md:order-1 px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
-        >
-          <SlideInRight>
-            <SectionLabel>Opportunity</SectionLabel>
-            <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
-              Your Career Was Just the Beginning.
-            </h3>
-            <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              Through the Athletes Elevated Marketplace, athletes and brands showcase products, earn commissions, engage fans, and build sustainable revenue — rewarding everyone who participates.
-            </p>
-            <ExploreLink href="/opportunity">Explore Opportunity</ExploreLink>
-          </SlideInRight>
-        </MotionDiv>
-      </div>
-    </section>
-  );
-}
-
-// ─── Storytelling ──────────────────────────────────────────────────────────────
-function StorytellingSection() {
-  return (
-    <section style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
-        <div className="min-h-[280px] md:min-h-[440px] relative overflow-hidden">
-          <Image fill style={{ objectFit: 'cover' }} src="/images/AdobeStock_1275667575.jpeg" alt="Storytelling" />
-        </div>
-        <MotionDiv
-          whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants}
-          style={{ backgroundColor: CARD_BG, borderTop: '1.5px solid #092866' }}
-          className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
-        >
-          <SlideInLeft>
-            <SectionLabel>Storytelling</SectionLabel>
-            <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
-              Every Athlete Has a Story Worth Telling.
-            </h3>
-            <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              Through the Heroes Docuseries, athletes share the resilience, adversity, and purpose behind their success — inspiring future generations to see that character is what makes a hero.
-            </p>
-            <ExploreLink href="/storytelling">Explore Storytelling</ExploreLink>
-          </SlideInLeft>
-        </MotionDiv>
-      </div>
-    </section>
-  );
-}
-
-// ─── Marketplace ───────────────────────────────────────────────────────────────
-const drops = [
-  { name: 'Anton Ferdinand', label: 'Ferdinand Collective', status: 'live' as const },
-  { name: 'Next Athlete', label: 'Members only', status: 'soon' as const, date: 'Jul 28' },
-  { name: 'Next Athlete', label: 'Members only', status: 'soon' as const, date: 'Aug 18' },
-];
-
-function MarketplaceSection() {
-  return (
-    <section style={{ backgroundColor: '#092866', position: 'relative', overflow: 'hidden' }} className="py-16 md:py-24">
-      {/* Subtle radial glow behind the content */}
-      <div style={{ position: 'absolute', top: '50%', left: '30%', transform: 'translate(-50%, -50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(82,170,252,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-
-      <style>{`
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
-        .live-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
-      `}</style>
-
-      <div className="max-w-7xl mx-auto px-6" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-
-          {/* Left — copy */}
-          <SlideInLeft>
-            <SectionLabel>Marketplace</SectionLabel>
-            <h2 style={{ fontFamily: 'var(--font-heading)', color: '#ffffff', fontSize: 'clamp(28px, 3vw, 50px)', fontWeight: 300, lineHeight: '1.1', letterSpacing: '0.01em', marginBottom: '20px' }}>
-              The Marketplace Is Live.
-            </h2>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8', marginBottom: '12px' }}>
-              Athletes curate their own storefront — products they trust, causes they care about. One founding athlete at a time.
-            </p>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8', marginBottom: '32px' }}>
-              Members gaine xclusive access to every drop.
-            </p>
-            <div
-  style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    alignItems: 'flex-start', // keeps them left-aligned
-  }}
->
-<motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
-              <a
-                href="/opportunity"
-                style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid rgba(255,255,255,0.4)', color: '#ffffff', padding: '13px 26px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
-              >
-                Learn More →
-              </a>
+            <motion.div
+              whileHover={{ borderLeftColor: '#092866' }}
+              transition={{ duration: 0.25 }}
+              style={{ borderLeft: '3px solid #52aafc', paddingLeft: 28 }}
+            >
+              <SectionLabel>Mission</SectionLabel>
+              <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>Why We Exist</h2>
+              <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.85 }}>
+                To empower athletes to transform their performance into purpose and their influence into lasting impact — through connection, opportunity, and storytelling.
+              </p>
             </motion.div>
-            <motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
-              <a
-                href="https://athleteselevatedmarketplace.com/"
-                style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid rgba(255,255,255,0.4)', color: '#ffffff', padding: '13px 26px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
-              >
-                Join the Marketplace →
-              </a>
-            </motion.div>
-            </div>
           </SlideInLeft>
-
-          {/* Right — drop list */}
-          <SlideInRight delay={0.15}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {drops.map(({ name, label, status, date }, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, ease: EASE, delay: 0.1 + i * 0.1 }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '20px 24px',
-                    backgroundColor: status === 'live' ? 'rgba(82,170,252,0.12)' : 'rgba(255,255,255,0.04)',
-                    border: status === 'live' ? '1px solid rgba(82,170,252,0.35)' : '1px solid rgba(255,255,255,0.08)',
-                    borderRadius: 4,
-                    borderLeft: status === 'live' ? '3px solid #52aafc' : '3px solid rgba(255,255,255,0.15)',
-                  }}
-                >
-                  <div>
-                    <p style={{ fontFamily: 'var(--font-heading)', color: status === 'live' ? '#ffffff' : 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>
-                      {name}
-                    </p>
-                    <p style={{ fontFamily: 'var(--font-body)', color: status === 'live' ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)', fontSize: 13, fontWeight: 300 }}>
-                      {label}
-                    </p>
-                  </div>
-                  <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
-                    {status === 'live' ? (
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-body)', color: '#52aafc', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                        <span className="live-dot" style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#52aafc', display: 'inline-block' }} />
-                        Live Now
-                      </span>
-                    ) : (
-                      <span style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 300, letterSpacing: '0.06em' }}>
-                        {date}
-                      </span>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <SlideInRight delay={0.1}>
+            <motion.div
+              whileHover={{ borderLeftColor: '#092866' }}
+              transition={{ duration: 0.25 }}
+              style={{ borderLeft: '3px solid #52aafc', paddingLeft: 28 }}
+            >
+              <SectionLabel>Vision</SectionLabel>
+              <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>Where We're Going</h2>
+              <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.85 }}>
+                A place where athletes have the network, resources, and opportunities to create meaningful impact during and after their competitive career.
+              </p>
+            </motion.div>
           </SlideInRight>
-
         </div>
       </div>
     </section>
@@ -379,78 +343,209 @@ function MarketplaceSection() {
 function ImpactBanner() {
   const words = ['Connection.', 'Opportunity.', 'Storytelling.', 'Impact.'];
   return (
-    <section style={{ backgroundColor: '#52aafc' }} className="py-7 md:py-8">
+    <section style={{ backgroundColor: '#52aafc' }} className="py-5">
       <div className="max-w-7xl mx-auto px-6">
-        <FadeIn>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20 }}>
-            <div style={{ flex: 1, maxWidth: 64, height: '0.5px', background: 'rgba(9,40,102,0.25)' }} />
-            <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-3 md:gap-x-8">
-              {words.map((word, i) => (
-                <span key={word} className="flex items-center gap-1 md:gap-1">
-                  <span style={{ fontFamily: 'var(--font-heading)', color: '#092866', fontSize: 'clamp(11px, 3.5vw, 22px)', fontWeight: 300, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-                    {word}
-                  </span>
-                  {i < words.length - 1 && <span style={{ color: 'rgba(9,40,102,0.2)', fontSize: '18px', lineHeight: 1 }}></span>}
-                </span>
-              ))}
-            </div>
-            <div style={{ flex: 1, maxWidth: 64, height: '0.5px', background: 'rgba(9,40,102,0.25)' }} />
-          </div>
-        </FadeIn>
+        <StaggerWords words={words} />
       </div>
     </section>
   );
 }
 
-// ─── Membership ────────────────────────────────────────────────────────────────
-function MembershipSection() {
+// ─── The Platform ──────────────────────────────────────────────────────────────
+const pillars = [
+  { title: 'Connection', href: '/connection', desc: 'A private network built to create meaningful relationships between athletes, investors, brands, charities, and fans.', img: '/images/AdobeStock_758246697.jpeg' },
+  { title: 'Opportunity', href: '/opportunity', desc: 'The Athletes Elevated Marketplace creates sustainable revenue streams for athletes and authentic partnerships for brands.', img: '/images/cvg-sponsorship-mosaic2-01.png' },
+  { title: 'Storytelling', href: '/storytelling', desc: 'The Heroes Docuseries tells the stories behind athletic careers — the resilience, adversity, and purpose that define who these athletes are.', img: '/images/AdobeStock_1275667575.jpeg' },
+];
+
+function ThePlatform() {
   return (
-    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-24">
+    <section style={{ backgroundColor: '#ffffff' }} className="py-16 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+        <FadeUp>
+          <SectionLabel>The Platform</SectionLabel>
+          <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 16 }}>
+            An Invite-Only Ecosystem
+          </h2>
+          <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.85, maxWidth: 720, marginBottom: 52 }}>
+            Athletes Elevated is an invite-only ecosystem connecting athletes, investors, brands, charities, and fans through opportunity, storytelling, and community. It is built around three core pillars — each one designed to serve athletes beyond the competition.
+          </p>
+        </FadeUp>
+
+        <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-7">
+          {pillars.map(({ title, href, desc, img }) => (
+            <StaggerItem key={title}>
+              <MotionDiv whileHover="hover" initial="rest" animate="rest" variants={cardHoverVariants} style={{ borderRadius: 4, overflow: 'hidden', border: '1px solid rgba(0,0,0,0.07)', borderTop: '1.5px solid #092866', height: '100%' }}>
+                {/* Image with zoom on hover */}
+                <div style={{ height: 210, position: 'relative', overflow: 'hidden' }}>
+                  <motion.div style={{ position: 'absolute', inset: 0 }} variants={{ rest: { scale: 1 }, hover: { scale: 1.06, transition: { duration: 0.5, ease: EASE } } }}>
+                    <Image fill style={{ objectFit: 'cover' }} src={img} alt={title} />
+                  </motion.div>
+                </div>
+                <div style={{ padding: '24px 24px 28px' }}>
+                  <h3 style={{ fontFamily: HEADING, color: '#092866', fontSize: 20, fontWeight: 300, letterSpacing: '0.03em', marginBottom: 10 }}>{title}</h3>
+                  <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 14, fontWeight: 300, lineHeight: 1.75, marginBottom: 18 }}>{desc}</p>
+                </div>
+              </MotionDiv>
+            </StaggerItem>
+          ))}
+        </StaggerGrid>
+      </div>
+    </section>
+  );
+}
+
+// ─── Core Values ───────────────────────────────────────────────────────────────
+const coreValues = [
+  { title: 'Opportunity', desc: 'We create pathways for athletes to build businesses, support causes, invest, mentor, and unlock new possibilities beyond competition.' },
+  { title: 'Connection', desc: 'We believe that meaningful relationships are the foundation of meaningful outcomes. Every introduction is made with intention.' },
+  { title: 'Integrity', desc: 'We hold ourselves to the same standard we expect of our members. Trust is earned through consistency, not promise.' },
+  { title: 'Legacy', desc: 'We build for what endures. Every decision is made with the long game in mind — for athletes, their families, and the communities they serve.' },
+  { title: 'Resilience', desc: 'The athletes we serve have faced adversity and kept going. We carry that same conviction in everything we build.' },
+];
+
+function CoreValues() {
+  const [current, setCurrent] = useState(0);
+  const [dir, setDir] = useState(1);
+
+  const go = (idx: number) => {
+    setDir(idx > current ? 1 : -1);
+    setCurrent(idx);
+  };
+  const prev = () => go((current - 1 + coreValues.length) % coreValues.length);
+  const next = () => go((current + 1) % coreValues.length);
+
+  return (
+    <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-28">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+          {/* Left */}
           <SlideInLeft>
             <div>
-              <SectionLabel>Membership</SectionLabel>
-              <h2 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(28px, 3vw, 50px)', fontWeight: 300, lineHeight: '1.1', letterSpacing: '0.01em', marginBottom: '32px' }}>
-                Membership Is Not Discovered. It Is Earned.
-              </h2>
-              <motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
-                <Link
-                  href="/apply"
-                  style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid #092866', color: NAVY, padding: '13px 26px', borderRadius: '4px', fontSize: '13px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
-                  className="hover:bg-navy/5 w-full sm:w-auto text-center sm:text-left transition-opacity"
-                >
-                  Apply for Membership →
-                </Link>
-              </motion.div>
+              <SectionLabel>Core Values</SectionLabel>
+              <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, lineHeight: 1.1, marginBottom: 24 }}>What We Stand For</h2>
+              {/* All values listed as nav */}
+              <StaggerGrid style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {coreValues.map((v, i) => (
+                  <StaggerItem key={v.title}>
+                    <motion.button
+                      onClick={() => go(i)}
+                      whileHover={{ x: 6 }}
+                      transition={{ duration: 0.2 }}
+                      style={{
+                        fontFamily: BODY,
+                        fontSize: 14,
+                        fontWeight: i === current ? 600 : 300,
+                        color: i === current ? '#52aafc' : 'rgba(255,255,255,0.45)',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        padding: '4px 0',
+                        letterSpacing: '0.04em',
+                        transition: 'color 0.2s',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}
+                    >
+                      {i === current && (
+                        <motion.span layoutId="value-dot" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#52aafc', display: 'inline-block', flexShrink: 0 }} />
+                      )}
+                      {i !== current && <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'transparent', display: 'inline-block', flexShrink: 0 }} />}
+                      {v.title}
+                    </motion.button>
+                  </StaggerItem>
+                ))}
+              </StaggerGrid>
             </div>
           </SlideInLeft>
-          <SlideInRight>
-            <div>
-              <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8' }}>
-                Athletes Elevated is invite-only. Every member joins through a trusted referral. Every connection is made with intention. This is not a platform you stumble upon — it is one you are welcomed into.
-              </p>
+
+          {/* Right — animated card */}
+          <div>
+            <div style={{ position: 'relative', overflow: 'hidden' }}>
+              <AnimatePresence mode="wait" custom={dir}>
+                <motion.div
+                  key={current}
+                  custom={dir}
+                  initial={{ opacity: 0, x: dir * 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: dir * -40 }}
+                  transition={{ duration: 0.38, ease: EASE }}
+                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1.5px solid rgba(82,170,252,0.6)', borderRadius: 4, padding: '36px 40px', minHeight: 200 }}
+                >
+                  <p style={{ fontFamily: HEADING, color: 'rgba(82,170,252,0.35)', fontSize: 11, letterSpacing: '0.22em', fontWeight: 300, marginBottom: 12, textTransform: 'uppercase' }}>
+                    {String(current + 1).padStart(2, '0')} / {coreValues.length}
+                  </p>
+                  <h3 style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 24, fontWeight: 300, letterSpacing: '0.04em', marginBottom: 16 }}>{coreValues[current].title}</h3>
+                  <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 15, fontWeight: 300, lineHeight: 1.85 }}>{coreValues[current].desc}</p>
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </SlideInRight>
+
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center gap-2">
+                {coreValues.map((_, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={() => go(i)}
+                    aria-label={`Go to value ${i + 1}`}
+                    animate={{ width: i === current ? 22 : 8, backgroundColor: i === current ? '#52aafc' : 'rgba(255,255,255,0.2)' }}
+                    transition={{ duration: 0.3 }}
+                    style={{ height: 8, borderRadius: 9999, border: 'none', cursor: 'pointer', padding: 0 }}
+                  />
+                ))}
+              </div>
+              <div className="flex items-center gap-3">
+                <motion.button onClick={prev} aria-label="Previous" whileHover={{ scale: 1.12, backgroundColor: 'rgba(255,255,255,0.15)' }} whileTap={{ scale: 0.93 }} style={{ width: 42, height: 42, borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>‹</motion.button>
+                <motion.button onClick={next} aria-label="Next" whileHover={{ scale: 1.12, backgroundColor: '#3d9ef5' }} whileTap={{ scale: 0.93 }} style={{ width: 42, height: 42, borderRadius: '50%', backgroundColor: '#52aafc', border: 'none', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>›</motion.button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+// ─── Waitlist Section ──────────────────────────────────────────────────────────
+function WaitlistSection() {
+  return (
+    <section id="waitlist" style={{ backgroundColor: '#F4F8FF', position: 'relative', overflow: 'hidden' }} className="py-20 md:py-32">
+      <div className="max-w-xl mx-auto px-6" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+        <FadeUp>
+          <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.01em', marginBottom: 20 }}>
+            Be the First to Know.
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.15}>
+          <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.8, marginBottom: 36 }}>
+            Athletes Elevated is opening its doors. Join the waitlist for early access to athlete storefronts, the Heroes Docuseries, exclusive drops, and community events — before anyone else.
+          </p>
+        </FadeUp>
+        <ScaleIn delay={0.25}>
+          <WaitlistForm />
+          <p style={{ fontFamily: BODY, color: 'rgba(9,40,102,0.35)', fontSize: 12, fontWeight: 300, marginTop: 14, letterSpacing: '0.04em' }}>
+            No spam. Early access only.
+          </p>
+        </ScaleIn>
+      </div>
+    </section>
+  );
+}
+
+// ─── Page ──────────────────────────────────────────────────────────────────────
 export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: '64px' }}>
+      <main style={{ paddingTop: '0px' }}>
         <Hero />
-        <WhatWeAre />
-        <ConnectionSection />
-        <OpportunitySection />
-        <StorytellingSection />
-        <MarketplaceSection />
+        <MissionVision />
         <ImpactBanner />
-        <MembershipSection />
+        <ThePlatform />
+        <CoreValues />
+        <WaitlistSection />
       </main>
       <Footer />
     </>
