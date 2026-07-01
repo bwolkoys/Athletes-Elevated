@@ -353,9 +353,9 @@ function ImpactBanner() {
 
 // ─── The Platform ──────────────────────────────────────────────────────────────
 const pillars = [
-  { title: 'Connection', href: '/connection', desc: 'A private network built to create meaningful relationships between athletes, investors, brands, charities, and fans.', img: '/images/AdobeStock_758246697.jpeg' },
-  { title: 'Opportunity', href: '/opportunity', desc: 'The Athletes Elevated Marketplace creates sustainable revenue streams for athletes and authentic partnerships for brands.', img: '/images/cvg-sponsorship-mosaic2-01.png' },
-  { title: 'Storytelling', href: '/storytelling', desc: 'The Heroes Docuseries tells the stories behind athletic careers — the resilience, adversity, and purpose that define who these athletes are.', img: '/images/AdobeStock_1275667575.jpeg' },
+  { title: 'Connection', href: '/connection', desc: 'A private network built to create meaningful relationships between athletes, investors, brands, charities, and fans.', img: '/images/AdobeStock_1894201700.png' },
+  { title: 'Opportunity', href: '/opportunity', desc: 'The Athletes Elevated Marketplace creates sustainable revenue streams for athletes and authentic partnerships for brands.', img: '/images/AdobeStock_2064460536.jpeg' },
+  { title: 'Storytelling', href: '/storytelling', desc: 'The Heroes Documentary tells the stories behind athletic careers — the resilience, adversity, and purpose that define who these athletes are.', img: '/images/docu.png' },
 ];
 
 function ThePlatform() {
