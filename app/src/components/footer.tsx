@@ -81,7 +81,7 @@ export default function Footer() {
               Contact Info
             </h4>
             <div className="flex flex-col gap-3">
-              <a
+              {/* <a
                 href="mailto:info@athleteselevated.com"
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -92,7 +92,7 @@ export default function Footer() {
                 className="hover:text-white transition-colors duration-200"
               >
                 info@athleteselevated.com
-              </a>
+              </a> */}
               <address
                 style={{
                   fontFamily: 'var(--font-body)',
