@@ -124,7 +124,7 @@ function Hero() {
 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '660px' }}>
-          <HeroText delay={0}><SectionLabel light>An Invite-Only Ecosystem</SectionLabel></HeroText>
+          <HeroText delay={0}><SectionLabel light>An Impact Ecosystem of Curated Athletes</SectionLabel></HeroText>
           <HeroText delay={0.15}>
             <h1 style={{ fontFamily: 'var(--font-heading)', color: '#ffffff', fontSize: 'clamp(40px, 5vw, 80px)', fontWeight: 300, lineHeight: '1.0', letterSpacing: '0.01em', marginTop: '16px', marginBottom: '24px' }}>
               Transforming<br />Performance<br />Into Purpose.
@@ -132,14 +132,14 @@ function Hero() {
           </HeroText>
           <HeroText delay={0.3}>
             <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.75', marginBottom: '40px', maxWidth: '420px' }}>
-              Athletes Elevated connects athletes, investors, brands, charities, and fans through connection, opportunity, and storytelling.
+            A curated platform connecting athletes, investors, brands, philanthropies, and fans through the shared belief that access, storytelling, and sport can unlock economic growth and meaningful impact.
             </p>
           </HeroText>
           <HeroText delay={0.45}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link href="/apply" style={{ fontFamily: 'var(--font-body)', border: '1.5px solid #52aafc', backgroundColor: '#52aafc', color: '#ffffff', padding: '13px 26px', borderRadius: '4px', fontSize: '14px', fontWeight: 600, letterSpacing: '0.02em', textAlign: 'center', display: 'block' }} className="hover:border-white hover:bg-white/10 transition-all">
-                  Apply for Membership →
+                For Your Consideration →
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -163,12 +163,12 @@ function WhatWeAre() {
         <FadeUp>
           <SectionLabel>What We Are</SectionLabel>
           <h2 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(26px, 3vw, 44px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '20px', maxWidth: '2000px' }}>
-            Built Around Athletes. Built for What Comes Next.
+          Economic Innovation. Built for What Comes Next.
           </h2>
         </FadeUp>
         <FadeUp delay={0.15}>
           <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: 'clamp(15px, 1.5vw, 16px)', fontWeight: 300, lineHeight: '1.75', maxWidth: '1000px' }}>
-            Athletes Elevated is an invite-only ecosystem designed to unlock opportunities beyond competition. We bring together the right people, create meaningful revenue streams, and tell the stories that inspire future generations.
+            Athletes Elevated is an exclusive ecosystem designed to unlock opportunities beyond competition and image. We&apos;re curating a community of values-aligned athletes, investors, brands, philanthropies, and fans who believe in responsible revenue growth, influence, and long-term impact.
           </p>
         </FadeUp>
       </div>
@@ -176,7 +176,7 @@ function WhatWeAre() {
   );
 }
 
-// ─── Connection ────────────────────────────────────────────────────────────────
+// ─── Access ────────────────────────────────────────────────────────────────
 function ConnectionSection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
@@ -190,14 +190,14 @@ function ConnectionSection() {
           className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
         >
           <SlideInLeft>
-            <SectionLabel>Connection</SectionLabel>
+            <SectionLabel>Access</SectionLabel>
             <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
               The Right People. The Right Room.
             </h3>
             <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              A private network bringing together athletes, investors, brands, charities, mentors, and fans — built to create meaningful outcomes through meaningful relationships.
+            A private network of philanthropists, mentors, entrepreneurs, and consumers — built to create sustainable, economic outcomes.
             </p>
-            <ExploreLink href="/connection">Explore Connection</ExploreLink>
+            <ExploreLink href="/connection">Gain Access →</ExploreLink>
           </SlideInLeft>
         </MotionDiv>
       </div>
@@ -205,7 +205,7 @@ function ConnectionSection() {
   );
 }
 
-// ─── Opportunity ───────────────────────────────────────────────────────────────
+// ─── Growth ───────────────────────────────────────────────────────────────
 function OpportunitySection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
@@ -219,14 +219,14 @@ function OpportunitySection() {
           className="order-2 md:order-1 px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
         >
           <SlideInRight>
-            <SectionLabel>Opportunity</SectionLabel>
+            <SectionLabel>Growth</SectionLabel>
             <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
               Your Career Was Just the Beginning.
             </h3>
             <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              Through the Athletes Elevated Marketplace, athletes and brands showcase products, earn commissions, engage fans, and build sustainable revenue — rewarding everyone who participates.
+            Choose growth opportunities aligned to your end-game. Through the Athletes Elevated Marketplace, athletes and brands curate products, earn commissions, engage fans, and build sustainable revenue for you or your cause — affiliate relationships rewarding everyone who participates.
             </p>
-            <ExploreLink href="/opportunity">Explore Opportunity</ExploreLink>
+            <ExploreLink href="/opportunity">See Growth →</ExploreLink>
           </SlideInRight>
         </MotionDiv>
       </div>
@@ -234,7 +234,7 @@ function OpportunitySection() {
   );
 }
 
-// ─── Storytelling ──────────────────────────────────────────────────────────────
+// ─── Voice ──────────────────────────────────────────────────────────────
 function StorytellingSection() {
   return (
     <section style={{ backgroundColor: '#ffffff' }}>
@@ -248,14 +248,14 @@ function StorytellingSection() {
           className="px-6 py-12 md:px-12 md:py-16 flex flex-col justify-center"
         >
           <SlideInLeft>
-            <SectionLabel>Storytelling</SectionLabel>
+            <SectionLabel>Voice</SectionLabel>
             <h3 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, lineHeight: '1.15', letterSpacing: '0.01em', marginBottom: '16px' }}>
-              Every Athlete Has a Story Worth Telling.
+            Personal Journeys that Shape Generational Impact.
             </h3>
             <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: '15px', fontWeight: 300, lineHeight: '1.75', marginBottom: '28px' }}>
-              Through the Heroes Docuseries, athletes share the resilience, adversity, and purpose behind their success — inspiring future generations to see that character is what makes a hero.
+            Athletes, Investors, and Entrepreneurs share their stories of resilience, adversity, and purpose behind their success — inspiring others to learn what it takes to use your voice to achieve greatness.
             </p>
-            <ExploreLink href="/storytelling">Explore Storytelling</ExploreLink>
+            <ExploreLink href="/storytelling">Use Your Voice →</ExploreLink>
           </SlideInLeft>
         </MotionDiv>
       </div>
@@ -412,7 +412,7 @@ function MembershipSection() {
             <div>
               <SectionLabel>Membership</SectionLabel>
               <h2 style={{ fontFamily: 'var(--font-heading)', color: NAVY, fontSize: 'clamp(28px, 3vw, 50px)', fontWeight: 300, lineHeight: '1.1', letterSpacing: '0.01em', marginBottom: '32px' }}>
-                Membership Is Not Discovered. It Is Earned.
+              Membership Is Not Granted. It Is Earned.
               </h2>
               <motion.div whileHover={{ opacity: 0.8 }} style={{ display: 'inline-block' }}>
                 <Link
@@ -420,7 +420,7 @@ function MembershipSection() {
                   style={{ fontFamily: 'var(--font-body)', background: 'transparent', border: '1.5px solid #092866', color: NAVY, padding: '13px 26px', borderRadius: '4px', fontSize: '13px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block' }}
                   className="hover:bg-navy/5 w-full sm:w-auto text-center sm:text-left transition-opacity"
                 >
-                  Apply for Membership →
+                  For Your Consideration →
                 </Link>
               </motion.div>
             </div>
@@ -428,7 +428,7 @@ function MembershipSection() {
           <SlideInRight>
             <div>
               <p style={{ fontFamily: 'var(--font-body)', color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: '1.8' }}>
-                Athletes Elevated is invite-only. Every member joins through a trusted referral. Every connection is made with intention. This is not a platform you stumble upon — it is one you are welcomed into.
+              Athletes Elevated membership is achieved through a referral-based evaluation.  Every member joins through values alignment. Every connection is made with intention. This is not a platform you sign up for— it is one you are welcomed into.
               </p>
             </div>
           </SlideInRight>

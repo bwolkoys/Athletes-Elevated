@@ -106,7 +106,7 @@ function Hero() {
           </HeroText>
           <HeroText delay={0.2}>
             <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, marginBottom: 40, maxWidth: 480 }}>
-              Athletes Elevated is a private network built around the belief that meaningful relationships create meaningful outcomes. We bring together athletes, investors, brands, charities, mentors, and fans — not by chance, but by design.
+            Athletes Elevated is a private network built around the belief that purposeful relationships create meaningful outcomes. We bring together athletes, investors, brands, charities, mentors, and fans — not by chance, but by design.
             </p>
           </HeroText>
           <HeroText delay={0.35}>
@@ -130,7 +130,7 @@ function MembershipBanner() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <div style={{ width: 48, height: '0.5px', background: 'rgba(9,40,102,0.3)' }} />
             <p style={{ fontFamily: BODY, color: '#092866', fontSize: 'clamp(11px, 3vw, 18px)', fontWeight: 300, letterSpacing: '0.22em', textTransform: 'uppercase' as const, textAlign: 'center', margin: 0 }}>
-              Membership Is Not Discovered. It Is Earned.
+            Membership is not granted. It is earned.
             </p>
             <div style={{ width: 48, height: '0.5px', background: 'rgba(9,40,102,0.3)' }} />
           </div>
@@ -141,12 +141,12 @@ function MembershipBanner() {
 }
 
 const memberTypes = [
-  { Icon: IconAthletes, title: 'Professional Athletes', desc: 'Current and former competitors seeking to build, invest, and create impact beyond sport.' },
+  { Icon: IconAthletes, title: 'Competitor Athletes', desc: 'Current and former professional & amateur athletes seeking to build, invest, and create impact beyond sport.' },
   { Icon: IconInvestors, title: 'Investors', desc: 'Early-stage and experienced investors looking to partner with purpose-driven athlete founders.' },
   { Icon: IconBrands, title: 'Brands & Partners', desc: 'Companies seeking authentic relationships with elite athletes and like-minded communities.' },
-  { Icon: IconCharity, title: 'Charitable Organizations', desc: 'Mission-driven nonprofits aligned with the values athletes carry into the world.' },
+  { Icon: IconCharity, title: 'Philanthropic Organizations', desc: 'Mission-driven foundations aligned with the values athlete-members carry into the world.' },
   { Icon: IconMentors, title: 'Mentors & Industry Leaders', desc: 'Experienced professionals offering guidance, perspective, and access to those still climbing.' },
-  { Icon: IconFans, title: 'Fans & Community', desc: 'Supporters who want to be part of something bigger than the scoreboard.' },
+  // { Icon: IconFans, title: 'Fans & Community', desc: 'Supporters who want to be part of something bigger than the scoreboard.' },
 ];
 
 function WhoIsInside() {
@@ -163,7 +163,7 @@ function WhoIsInside() {
           <SlideInRight>
             <div className="flex items-center">
               <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.75 }}>
-                Every member has a role. Every role serves the athlete at the center. This is not a database — it is a community built with purpose.
+              Every member has a role. Every role serves the athlete at its center. This is not a database — it is a community built with purpose.
               </p>
             </div>
           </SlideInRight>
