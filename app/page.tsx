@@ -220,12 +220,12 @@ function Hero() {
           </HeroText>
           <HeroText delay={0.25}>
             <h1 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(36px, 6vw, 72px)', fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.01em', marginBottom: 26 }}>
-            Where Athletes and<br /> Fans Come Together
+              Where Athletes and<br />Fans Come Together
             </h1>
           </HeroText>
           <HeroText delay={0.42}>
             <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, maxWidth: 460, marginBottom: 36 }}>
-            Built alongside some of the most recognized names in professional sport. An invite-only ecosystem connecting elite athletes, brands, fans, and philanthropies through exclusive access, a curated marketplace, and the stories that define careers.
+              An invite-only ecosystem where fans get real access: exclusive drops, the stories behind the careers, and experiences that don't exist anywhere else. Built alongside some of the most recognized names in professional sport.
             </p>
           </HeroText>
           <HeroText delay={0.58}>
@@ -274,13 +274,13 @@ function VideoProof() {
               <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
                 <Image fill src="/images/IMG_6543.jpg" alt="Watch the Athletes Elevated teaser" style={{ objectFit: 'cover' }} />
               </div>
- 
+
               {/* Dark overlay on hover */}
               <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1, transition: { duration: 0.2 } } }}
                 style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.25)' }}
               />
- 
+
               {/* Play button */}
               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <motion.div
@@ -293,9 +293,6 @@ function VideoProof() {
             </motion.div>
           </a>
         </ScaleIn>
-
-
-
 
 {/* Use when I have video downloaded inside vs code */}
         {/* <ScaleIn>
@@ -331,7 +328,7 @@ function MissionVision() {
               <SectionLabel>Mission</SectionLabel>
               <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>Why We Exist</h2>
               <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.85 }}>
-                Athletes in this network are already building businesses, supporting causes, and creating income streams that outlast their career. We exist to make that the standard, not the exception.
+                Fans have always been the foundation of sport. We exist to make sure the support they give goes directly to the athletes they believe in — and comes back to them with access, experiences, and moments no one else gets.
               </p>
             </motion.div>
           </SlideInLeft>
@@ -344,7 +341,7 @@ function MissionVision() {
               <SectionLabel>Vision</SectionLabel>
               <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>Where We're Going</h2>
               <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.85 }}>
-                A world where every athlete has the network, resources, and opportunities to create lasting impact — during their career and long after it ends.
+                A world where being a fan means something real — where your loyalty is rewarded with direct access to the athletes you follow, the products they build, and the stories that don't get told anywhere else.
               </p>
             </motion.div>
           </SlideInRight>
@@ -397,7 +394,7 @@ function PartnerStrip() {
 const pillars = [
   {
     title: 'Access',
-    desc: 'A private network of philanthropists, mentors, entrepreneurs, and consumers — built to create sustainable, economic outcomes.',
+    desc: "A private network of philanthropists, mentors, entrepreneurs, and consumers — built to create sustainable, economic outcomes.",
     img: '/images/AdobeStock_1894201700.png',
   },
   {
@@ -422,7 +419,7 @@ function ThePlatform() {
             An Invite-Only Ecosystem
           </h2>
           <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.85, maxWidth: 720, marginBottom: 52 }}>
-          Athletes Elevated is an exclusive ecosystem designed to unlock opportunities beyond competition and image. We're curating a community of values-aligned athletes, investors, brands, philanthropies, and fans who believe in responsible revenue growth, influence, and long-term impact.
+            Athletes Elevated is where fans get closer than ever before. A curated ecosystem of values-aligned athletes, brands, philanthropies, and fans built around direct access, real products, and the stories behind the careers.
           </p>
         </FadeUp>
 
@@ -449,7 +446,6 @@ function ThePlatform() {
 }
 
 // ─── WHU Teaser Card ───────────────────────────────────────────────────────────
-// UPDATE: replace /images/whu-watch-party.jpg with your actual WHU image path
 function WHUTeaserCard() {
   return (
     <section style={{ backgroundColor: '#0B1220' }} className="py-16 md:py-24">
@@ -473,7 +469,7 @@ function WHUTeaserCard() {
                 Where Football Meets<br />Something Bigger.
               </h2>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 15, fontWeight: 300, lineHeight: 1.85, maxWidth: 440, marginBottom: 32 }}>
-                As an official partner of West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else.
+                As an official partner of West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
               </p>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
                 <a
@@ -489,7 +485,6 @@ function WHUTeaserCard() {
           {/* Right — image */}
           <SlideInRight delay={0.1}>
             <ScaleIn>
-              {/* UPDATE: replace src with your actual WHU watch party or ranch image */}
               <div style={{ position: 'relative', height: 380, borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.12)' }}>
                 <Image fill src="/images/JIM_0753_dUHhsYt0_20250730111701.JPG" alt="West Ham United at Weedon Family Ranch" style={{ objectFit: 'cover', objectPosition: 'center 25%' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,13,24,0.5) 0%, transparent 60%)' }} />
@@ -511,85 +506,7 @@ function WHUTeaserCard() {
 //   { title: 'Resilience', desc: 'The athletes we serve have faced adversity and kept going. We carry that same conviction in everything we build.' },
 // ];
 
-// function CoreValues() {
-//   const [current, setCurrent] = useState(0);
-//   const [dir, setDir] = useState(1);
-
-//   const go = (idx: number) => {
-//     setDir(idx > current ? 1 : -1);
-//     setCurrent(idx);
-//   };
-//   const prev = () => go((current - 1 + coreValues.length) % coreValues.length);
-//   const next = () => go((current + 1) % coreValues.length);
-
-//   return (
-//     <section style={{ backgroundColor: '#092866' }} className="py-16 md:py-28">
-//       <div className="max-w-7xl mx-auto px-6">
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-//           <SlideInLeft>
-//             <div>
-//               <SectionLabel light>Core Values</SectionLabel>
-//               <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, lineHeight: 1.1, marginBottom: 24 }}>What We Stand For</h2>
-//               <StaggerGrid style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-//                 {coreValues.map((v, i) => (
-//                   <StaggerItem key={v.title}>
-//                     <motion.button
-//                       onClick={() => go(i)}
-//                       whileHover={{ x: 6 }}
-//                       transition={{ duration: 0.2 }}
-//                       style={{ fontFamily: BODY, fontSize: 14, fontWeight: i === current ? 600 : 300, color: i === current ? '#52aafc' : 'rgba(255,255,255,0.45)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' as const, padding: '4px 0', letterSpacing: '0.04em', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: 10 }}
-//                     >
-//                       {i === current ? (
-//                         <motion.span layoutId="value-dot" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#52aafc', display: 'inline-block', flexShrink: 0 }} />
-//                       ) : (
-//                         <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'transparent', display: 'inline-block', flexShrink: 0 }} />
-//                       )}
-//                       {v.title}
-//                     </motion.button>
-//                   </StaggerItem>
-//                 ))}
-//               </StaggerGrid>
-//             </div>
-//           </SlideInLeft>
-
-//           <div>
-//             <div style={{ position: 'relative', overflow: 'hidden' }}>
-//               <AnimatePresence mode="wait" custom={dir}>
-//                 <motion.div
-//                   key={current}
-//                   custom={dir}
-//                   initial={{ opacity: 0, x: dir * 40 }}
-//                   animate={{ opacity: 1, x: 0 }}
-//                   exit={{ opacity: 0, x: dir * -40 }}
-//                   transition={{ duration: 0.38, ease: EASE }}
-//                   style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1.5px solid rgba(82,170,252,0.6)', borderRadius: 4, padding: '36px 40px', minHeight: 200 }}
-//                 >
-//                   <p style={{ fontFamily: HEADING, color: 'rgba(82,170,252,0.35)', fontSize: 11, letterSpacing: '0.22em', fontWeight: 300, marginBottom: 12, textTransform: 'uppercase' as const }}>
-//                     {String(current + 1).padStart(2, '0')} / {coreValues.length}
-//                   </p>
-//                   <h3 style={{ fontFamily: HEADING, color: '#52aafc', fontSize: 24, fontWeight: 300, letterSpacing: '0.04em', marginBottom: 16 }}>{coreValues[current].title}</h3>
-//                   <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 15, fontWeight: 300, lineHeight: 1.85 }}>{coreValues[current].desc}</p>
-//                 </motion.div>
-//               </AnimatePresence>
-//             </div>
-
-//             <div className="flex items-center justify-between mt-6">
-//               <div className="flex items-center gap-2">
-//                 {coreValues.map((_, i) => (
-//                   <motion.button key={i} onClick={() => go(i)} aria-label={`Go to value ${i + 1}`} animate={{ width: i === current ? 22 : 8, backgroundColor: i === current ? '#52aafc' : 'rgba(255,255,255,0.2)' }} transition={{ duration: 0.3 }} style={{ height: 8, borderRadius: 9999, border: 'none', cursor: 'pointer', padding: 0 }} />
-//                 ))}
-//               </div>
-//               <div className="flex items-center gap-3">
-//                 <motion.button onClick={prev} aria-label="Previous" whileHover={{ scale: 1.12, backgroundColor: 'rgba(255,255,255,0.15)' }} whileTap={{ scale: 0.93 }} style={{ width: 42, height: 42, borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>‹</motion.button>
-//                 <motion.button onClick={next} aria-label="Next" whileHover={{ scale: 1.12, backgroundColor: '#3d9ef5' }} whileTap={{ scale: 0.93 }} style={{ width: 42, height: 42, borderRadius: '50%', backgroundColor: '#52aafc', border: 'none', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>›</motion.button>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+// function CoreValues() { ... }
 
 // ─── Waitlist Section ──────────────────────────────────────────────────────────
 function WaitlistSection() {
@@ -598,12 +515,12 @@ function WaitlistSection() {
       <div className="max-w-xl mx-auto px-6" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <FadeUp>
           <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.01em', marginBottom: 20 }}>
-          Early Access Closes When We Launch.
+          Early Access Won't Last Long.
           </h2>
         </FadeUp>
         <FadeUp delay={0.15}>
           <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.8, marginBottom: 36 }}>
-          First access to exclusive offers from athlete and brand partners — drops, events, and experiences not available anywhere else, before they go public.
+            Sign up now and be the first to get exclusive offers from athlete and brand partners — drops, events, and experiences built for the fans who show up. Before anyone else gets access.
           </p>
         </FadeUp>
         <ScaleIn delay={0.25}>
