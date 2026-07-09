@@ -9,104 +9,64 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
         <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-44">
 
-          {/* Left column — Logo + tagline + blurb */}
-          <div className="flex flex-col gap-5 items-start">
-            <Link href="/" className="flex items-start select-none">
+          {/* Logo left on desktop, stacked on top on mobile */}
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start">
+
+            {/* Logo */}
+            <Link href="/" className="flex items-start select-none shrink-0">
               <Image
                 src="/AthletesElevated_Final_color reverse.svg"
                 alt="Athletes Elevated"
-                width={190}
-                height={50}
+                width={290}
+                height={100}
                 priority
-                className="h-14 w-auto"
+                className="h-24 w-auto"
               />
             </Link>
 
-            <p
-              style={{
-                fontFamily: 'var(--font-label)',
-                color: '#4E9AF5',
-                fontSize: '8px',
-                letterSpacing: '0.14em',
-                fontWeight: 500,
-                textTransform: 'uppercase',
-              }}
-            >
-              Invite-Only Network · Athlete-First Access
-            </p>
-
-            <div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  color: '#ffffff',
-                  fontSize: '36px',
-                  lineHeight: '1',
-                  fontWeight: 300,
-                }}
-              >
-                Performance Meets<br />Purpose.
-              </h3>
+            {/* Tagline + heading + blurb — centered on mobile, left on desktop */}
+            <div className="flex flex-col gap-5 items-center md:items-start text-center md:text-left">
               <p
                 style={{
-                  fontFamily: 'var(--font-body)',
-                  color: '#ffffff',
-                  fontSize: '15px',
-                  marginTop: '10px',
-                  lineHeight: '1.65',
-                  fontWeight: 300,
-                  maxWidth: '300px',
+                  fontFamily: 'var(--font-label)',
+                  color: '#4E9AF5',
+                  fontSize: '8px',
+                  letterSpacing: '0.14em',
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
                 }}
               >
-                Transforming performance into purpose and influence into impact.
+                Invite-Only Network · Athlete-First Access
               </p>
-            </div>
-          </div>
 
-          {/* Right column — Contact */}
-          <div>
-            <h4
-              style={{
-                fontFamily: 'var(--font-label)',
-                color: '#4E9AF5',
-                fontSize: '11px',
-                letterSpacing: '0.16em',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                paddingBottom: '10px',
-                borderBottom: '1px solid rgba(255,255,255,0.2)',
-              }}
-              className="mb-5"
-            >
-              Contact Info
-            </h4>
-            <div className="flex flex-col gap-3">
-              {/* <a
-                href="mailto:info@athleteselevated.com"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: '#ffffff',
-                  fontSize: '14px',
-                  fontWeight: 300,
-                }}
-                className="hover:text-white transition-colors duration-200"
-              >
-                info@athleteselevated.com
-              </a> */}
-              <address
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: '#ffffff',
-                  fontSize: '14px',
-                  fontStyle: 'normal',
-                  lineHeight: '1.65',
-                  fontWeight: 300,
-                }}
-              >
-                1417 N. Magnolia Ave.<br />
-                Ocala, FL 34475
-              </address>
+              <div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: '#ffffff',
+                    fontSize: 'clamp(26px, 5vw, 36px)',
+                    lineHeight: '1',
+                    fontWeight: 300,
+                  }}
+                >
+                  Performance Meets<br />Purpose.
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    color: '#ffffff',
+                    fontSize: '15px',
+                    marginTop: '10px',
+                    lineHeight: '1.65',
+                    fontWeight: 300,
+                    maxWidth: '300px',
+                  }}
+                >
+                  Transforming performance into purpose and influence into impact.
+                </p>
+              </div>
             </div>
+
           </div>
         </div>
 

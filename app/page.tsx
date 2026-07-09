@@ -270,7 +270,7 @@ function Hero() {
           </HeroText>
           <HeroText delay={0.45}>
             <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(15px, 2vw, 17px)', fontWeight: 300, lineHeight: 1.75, maxWidth: 420, marginBottom: 40 }}>
-              Athletes Elevated exists to connect players, entrepreneurship, and philanthropy to a purpose beyond the pitch.
+            A curated platform connecting athletes, investors, brands, philanthropies, and fans through the shared belief that access, storytelling, and sport can unlock economic growth and meaningful impact.
             </p>
           </HeroText>
           <HeroText delay={0.6}>
@@ -353,9 +353,9 @@ function ImpactBanner() {
 
 // ─── The Platform ──────────────────────────────────────────────────────────────
 const pillars = [
-  { title: 'Connection', href: '/connection', desc: 'A private network built to create meaningful relationships between athletes, investors, brands, charities, and fans.', img: '/images/AdobeStock_1894201700.png' },
-  { title: 'Opportunity', href: '/opportunity', desc: 'The Athletes Elevated Marketplace creates sustainable revenue streams for athletes and authentic partnerships for brands.', img: '/images/AdobeStock_2064460536.jpeg' },
-  { title: 'Storytelling', href: '/storytelling', desc: 'The Heroes Documentary tells the stories behind athletic careers — the resilience, adversity, and purpose that define who these athletes are.', img: '/images/docu.png' },
+  { title: 'Access', href: '/connection', desc: 'A private network of philanthropists, mentors, entrepreneurs, and consumers — built to create sustainable, economic outcomes.', img: '/images/AdobeStock_1894201700.png' },
+  { title: 'Growth', href: '/opportunity', desc: 'Choose growth opportunities aligned to your end-game. Through the Athletes Elevated Marketplace, athletes and brands curate products, earn commissions, engage fans, and build sustainable revenue for you or your cause — affiliate relationships rewarding everyone who participates.', img: '/images/AdobeStock_2064460536.jpeg' },
+  { title: 'Voice', href: '/storytelling', desc: 'Athletes, Investors, and Entrepreneurs share their stories of resilience, adversity, and purpose behind their success — inspiring others to learn what it takes to use your voice to achieve greatness.', img: '/images/docu.png' },
 ];
 
 function ThePlatform() {
@@ -368,7 +368,7 @@ function ThePlatform() {
             An Invite-Only Ecosystem
           </h2>
           <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.85, maxWidth: 720, marginBottom: 52 }}>
-            Athletes Elevated is an invite-only ecosystem connecting athletes, investors, brands, charities, and fans through opportunity, storytelling, and community. It is built around three core pillars — each one designed to serve athletes beyond the competition.
+          Athletes Elevated is an exclusive ecosystem designed to unlock opportunities beyond competition and image. We're curating a community of values-aligned athletes, investors, brands, philanthropies, and fans who believe in responsible revenue growth, influence, and long-term impact.
           </p>
         </FadeUp>
 
