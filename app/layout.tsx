@@ -42,18 +42,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
           rel="stylesheet"
         />
-        <Script
-          id="usercentrics-cmp-1"
-          src="https://web.cmp.usercentrics.eu/ui/loader.js"
-          data-settings-id="eOzSwaoOLPZ8_w"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="usercentrics-cmp-2"
-          src="https://web.cmp.usercentrics.eu/ui/loader.js"
-          data-settings-id="H5NsvoD0HujXFk"
-          strategy="beforeInteractive"
-        />
+       
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="H5NsvoD0HujXFk" async></script>
+
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="eOzSwaoOLPZ8_w" async></script>
       </head>
       <body className="min-h-full flex flex-col">
         {children}
