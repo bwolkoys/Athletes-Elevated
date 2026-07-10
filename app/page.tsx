@@ -1,7 +1,7 @@
 // Place this file at: app/page.tsx
 'use client';
 
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, ReactNode, useEffect } from 'react';
 import Image from 'next/image';
 import Navbar from './src/components/navBar';
 import Footer from './src/components/footer';
@@ -203,6 +203,16 @@ function WaitlistForm() {
 
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // iOS Safari requires muted to be set directly on the DOM node
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
+
   return (
     <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-end md:items-center pb-16 pt-28 md:py-0 min-h-[55vh] md:min-h-[85vh]">
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
