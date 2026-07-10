@@ -203,15 +203,43 @@ function WaitlistForm() {
 
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const video = document.createElement('video');
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('autoplay', '');
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.preload = 'auto';
+    video.style.cssText = 'display:block;width:100%;height:100%;object-fit:cover;object-position:center center';
+
+    const source = document.createElement('source');
+    source.src = '/home/Hero-new.mp4';
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    container.appendChild(video);
+
+    video.addEventListener('canplay', () => {
+      video.play().catch(() => {});
+    }, { once: true });
+
+    video.load();
+
+    return () => {
+      if (container.contains(video)) container.removeChild(video);
+    };
+  }, []);
+
   return (
     <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-end md:items-center pb-16 pt-28 md:py-0 min-h-[55vh] md:min-h-[85vh]">
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <div
-          style={{ width: '100%', height: '100%' }}
-          dangerouslySetInnerHTML={{
-            __html: `<video autoplay muted loop playsinline style="display:block;width:100%;height:100%;object-fit:cover;object-position:center center"><source src="/home/Hero-new.mp4" type="video/mp4"></video>`
-          }}
-        />
+        <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)`, pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 128, background: `linear-gradient(to bottom, transparent, ${NAVY_HERO})`, pointerEvents: 'none' }} />
       </div>
