@@ -42,13 +42,32 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
           rel="stylesheet"
         />
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="eOzSwaoOLPZ8_w" async></script>
-
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="H5NsvoD0HujXFk" async></script>
+        <Script
+          id="usercentrics-cmp-1"
+          src="https://web.cmp.usercentrics.eu/ui/loader.js"
+          data-settings-id="eOzSwaoOLPZ8_w"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="usercentrics-cmp-2"
+          src="https://web.cmp.usercentrics.eu/ui/loader.js"
+          data-settings-id="H5NsvoD0HujXFk"
+          strategy="beforeInteractive"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         {children}
         <Analytics />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-H2VPMK5NWK"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-H2VPMK5NWK');
+        `}</Script>
         <Script id="acsbapp" strategy="afterInteractive">{`
           (function(){
             var s = document.createElement('script');
