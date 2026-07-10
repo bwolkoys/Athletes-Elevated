@@ -209,7 +209,7 @@ function Hero() {
         <div
           style={{ width: '100%', height: '100%' }}
           dangerouslySetInnerHTML={{
-            __html: `<video autoplay muted loop playsinline style="display:block;width:100%;height:100%;object-fit:cover;object-position:center center"><source src="/home/Hero.mp4" type="video/mp4"></video>`
+            __html: `<video autoplay muted loop playsinline style="display:block;width:100%;height:100%;object-fit:cover;object-position:center center"><source src="/home/Hero-new.mp4" type="video/mp4"></video>`
           }}
         />
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)`, pointerEvents: 'none' }} />
