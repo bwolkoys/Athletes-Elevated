@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import "./globals.css";
 
 import { DM_Sans, Montserrat } from "next/font/google";
@@ -43,7 +44,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        {children} <Analytics />
+        {children}
+        <Analytics />
+        <Script id="acsbapp" strategy="afterInteractive">{`
+          (function(){
+            var s = document.createElement('script');
+            var h = document.querySelector('head') || document.body;
+            s.src = 'https://acsbapp.com/apps/app/dist/js/app.js';
+            s.async = true;
+            s.onload = function(){ acsbJS.init(); };
+            h.appendChild(s);
+          })();
+        `}</Script>
       </body>
     </html>
   );
