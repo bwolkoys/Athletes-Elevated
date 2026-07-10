@@ -203,26 +203,17 @@ function WaitlistForm() {
 
 // ─── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // iOS Safari requires muted to be set directly on the DOM node
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.setAttribute('muted', '');
-    video.muted = true;
-    video.defaultMuted = true;
-    video.play().catch(() => {});
-  }, []);
-
   return (
     <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-end md:items-center pb-16 pt-28 md:py-0 min-h-[55vh] md:min-h-[85vh]">
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <video ref={videoRef} autoPlay muted loop playsInline style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }}>
-          <source src="/home/Hero.mp4" type="video/mp4" />
-        </video>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)` }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 128, background: `linear-gradient(to bottom, transparent, ${NAVY_HERO})` }} />
+        <div
+          style={{ width: '100%', height: '100%' }}
+          dangerouslySetInnerHTML={{
+            __html: `<video autoplay muted loop playsinline style="display:block;width:100%;height:100%;object-fit:cover;object-position:center center"><source src="/home/Hero.mp4" type="video/mp4"></video>`
+          }}
+        />
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)`, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 128, background: `linear-gradient(to bottom, transparent, ${NAVY_HERO})`, pointerEvents: 'none' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
