@@ -260,53 +260,17 @@ function VideoProof() {
           See Who's Already<br />Building This With Us.
           </h2>
         </FadeUp>
-        <ScaleIn>
-
-          {/* USE FOR NOW UNTIL I HAVE VIDEO INSIDE VS CODE FILE*/}
-          <a href="https://drive.google.com/file/d/1CdeePbYiqLYS0w-O5x4cq5EzUKpUE4bg/view" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
-            <motion.div
-              whileHover="hover"
-              initial="rest"
-              animate="rest"
-              style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)', cursor: 'pointer' }}
-            >
-              {/* Thumbnail image */}
-              <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
-                <Image fill src="/images/IMG_6543.jpg" alt="Watch the Athletes Elevated teaser" style={{ objectFit: 'cover' }} />
-              </div>
-
-              {/* Dark overlay on hover */}
-              <motion.div
-                variants={{ rest: { opacity: 0 }, hover: { opacity: 1, transition: { duration: 0.2 } } }}
-                style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.25)' }}
-              />
-
-              {/* Play button */}
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <motion.div
-                  variants={{ rest: { scale: 1 }, hover: { scale: 1.1, transition: { duration: 0.2, ease: 'easeOut' } } }}
-                  style={{ width: 72, height: 72, borderRadius: '50%', backgroundColor: 'rgba(82,170,252,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
-                >
-                  <span style={{ fontSize: 28, color: '#ffffff', marginLeft: 4 }}>▶</span>
-                </motion.div>
-              </div>
-            </motion.div>
-          </a>
-        </ScaleIn>
-
-{/* Use when I have video downloaded inside vs code */}
-        {/* <ScaleIn>
-          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}>
-            {/* UPDATE: swap /home/teaser.mp4 for the real teaser video */}
-            {/* <video
-              controls
-              playsInline
-              style={{ display: 'block', width: '100%' }}
-            >
-              <source src="/home/teaser.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </ScaleIn> */}
+ {/* Use when I have video downloaded inside vs code  */}
+ <ScaleIn>
+  <div style={{position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)'}}>
+    <video 
+    controls
+    playsInline
+    style={{display: 'block', width: '100%'}}>
+      <source src="/home/teaser.mp4" type="video/mp4"/>
+    </video>
+  </div>
+ </ScaleIn>
       </div>
     </section>
   );
@@ -328,7 +292,7 @@ function MissionVision() {
               <SectionLabel>Mission</SectionLabel>
               <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 300, lineHeight: 1.15, marginBottom: 16 }}>Why We Exist</h2>
               <p style={{ fontFamily: BODY, color: NAVY, fontSize: 'clamp(14px, 1.8vw, 16px)', fontWeight: 300, lineHeight: 1.85 }}>
-                Fans have always been the foundation of sport. We exist to make sure the support they give goes directly to the athletes they believe in — and comes back to them with access, experiences, and moments no one else gets.
+                Fans have always been the foundation of sport. We exist to make sure the support they give goes directly to the causes athletes believe in — and comes back to them with access, experiences, and moments no one else gets.
               </p>
             </motion.div>
           </SlideInLeft>
@@ -369,20 +333,21 @@ function PartnerStrip() {
     <section style={{ backgroundColor: '#0B1220', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }} className="py-5">
       <div className="max-w-7xl mx-auto px-6">
         <FadeIn>
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
             <p style={{ fontFamily: HEADING, color: 'rgba(255,255,255,0.35)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase' as const, fontWeight: 300 }}>
-              Official Partner Of
+              Official Back of Jersey Sponsor For
             </p>
-            <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: 12 }}>·</span>
-            {/* UPDATE: swap this src for your local WHU logo path if preferred */}
-            <img
-              src="https://cdn.shopify.com/s/files/1/0726/5225/9510/files/West_Ham_United_FC_logo_svg_100x100.png?v=1780700207"
-              alt="West Ham United"
-              style={{ height: 36, width: 'auto', objectFit: 'contain' }}
-            />
-            <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 13, letterSpacing: '0.1em', fontWeight: 300, textTransform: 'uppercase' as const }}>
-              West Ham United
-            </p>
+            <span className="hidden md:inline" style={{ color: 'rgba(255,255,255,0.15)', fontSize: 12 }}>·</span>
+            <div className="flex flex-col-reverse md:flex-row items-center gap-2">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0726/5225/9510/files/West_Ham_United_FC_logo_svg_100x100.png?v=1780700207"
+                alt="West Ham United"
+                style={{ height: 36, width: 'auto', objectFit: 'contain' }}
+              />
+              <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 13, letterSpacing: '0.1em', fontWeight: 300, textTransform: 'uppercase' as const }}>
+                West Ham United
+              </p>
+            </div>
           </div>
         </FadeIn>
       </div>
@@ -419,7 +384,7 @@ function ThePlatform() {
             An Invite-Only Ecosystem
           </h2>
           <p style={{ fontFamily: BODY, color: '#4A5568', fontSize: 'clamp(15px, 2vw, 16px)', fontWeight: 300, lineHeight: 1.85, maxWidth: 720, marginBottom: 52 }}>
-            Athletes Elevated is where fans get closer than ever before. A curated ecosystem of values-aligned athletes, brands, philanthropies, and fans built around direct access, real products, and the stories behind the careers.
+            Athletes Elevated is where fans get closer than ever before. A curated ecosystem of athletes, brands, philanthropies, and fans — aligned by values, built around direct access, real products, and the stories behind the careers.
           </p>
         </FadeUp>
 
@@ -469,7 +434,7 @@ function WHUTeaserCard() {
                 Where Football Meets<br />Something Bigger.
               </h2>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 15, fontWeight: 300, lineHeight: 1.85, maxWidth: 440, marginBottom: 32 }}>
-                As an official partner of West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
+                As the official back of jersey sponsor for West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
               </p>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
                 <a
@@ -497,25 +462,14 @@ function WHUTeaserCard() {
   );
 }
 
-// ─── Core Values ───────────────────────────────────────────────────────────────
-// const coreValues = [
-//   { title: 'Opportunity', desc: 'We create pathways for athletes to build businesses, support causes, invest, mentor, and unlock new possibilities beyond competition.' },
-//   { title: 'Connection', desc: 'We believe that meaningful relationships are the foundation of meaningful outcomes. Every introduction is made with intention.' },
-//   { title: 'Integrity', desc: 'We hold ourselves to the same standard we expect of our members. Trust is earned through consistency, not promise.' },
-//   { title: 'Legacy', desc: 'We build for what endures. Every decision is made with the long game in mind — for athletes, their families, and the communities they serve.' },
-//   { title: 'Resilience', desc: 'The athletes we serve have faced adversity and kept going. We carry that same conviction in everything we build.' },
-// ];
-
-// function CoreValues() { ... }
-
 // ─── Waitlist Section ──────────────────────────────────────────────────────────
 function WaitlistSection() {
   return (
-    <section id="waitlist" style={{ backgroundColor: '#F4F8FF', position: 'relative', overflow: 'hidden' }} className="py-20 md:py-32">
+    <section id="waitlist" style={{ backgroundColor: '#ffffff', position: 'relative', overflow: 'hidden' }} className="py-20 md:py-32">
       <div className="max-w-xl mx-auto px-6" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <FadeUp>
           <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.01em', marginBottom: 20 }}>
-          Early Access Won't Last Long.
+          Early Access Won't Last Long
           </h2>
         </FadeUp>
         <FadeUp delay={0.15}>
@@ -541,13 +495,12 @@ export default function HomePage() {
       <Navbar />
       <main style={{ paddingTop: '0px' }}>
         <Hero />
-        <VideoProof />
+        {/* <VideoProof /> */}
         <MissionVision />
         <ImpactBanner />
-        <PartnerStrip />
+        {/* <PartnerStrip /> */}
         <ThePlatform />
-        <WHUTeaserCard />
-        {/* <CoreValues /> */}
+        {/* <WHUTeaserCard /> */}
         <WaitlistSection />
       </main>
       <Footer />
