@@ -207,10 +207,12 @@ function Hero() {
 
   // iOS Safari requires muted to be set directly on the DOM node
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {});
-    }
+    const video = videoRef.current;
+    if (!video) return;
+    video.setAttribute('muted', '');
+    video.muted = true;
+    video.defaultMuted = true;
+    video.play().catch(() => {});
   }, []);
 
   return (
