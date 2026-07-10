@@ -219,7 +219,7 @@ function Hero() {
     <section style={{ backgroundColor: NAVY_HERO, position: 'relative', overflow: 'hidden' }} className="flex items-end md:items-center pb-16 pt-28 md:py-0 min-h-[55vh] md:min-h-[85vh]">
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
         <video autoPlay muted loop playsInline style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }}>
-          <source src="/home/Tech.mp4" type="video/mp4" />
+          <source src="/home/Hero.mp4" type="video/mp4" />
         </video>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(to right, ${NAVY_HERO} 0%, ${NAVY_HERO}CC 0%, ${NAVY_HERO}66 20%, transparent 100%)` }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 128, background: `linear-gradient(to bottom, transparent, ${NAVY_HERO})` }} />
