@@ -225,13 +225,18 @@ function Hero() {
     video.appendChild(source);
     container.appendChild(video);
 
-    video.addEventListener('canplay', () => {
-      video.play().catch(() => {});
-    }, { once: true });
-
+    // Try immediately
     video.load();
+    video.play().catch(() => {});
+
+    // iOS fallback: play on first touch if autoplay was blocked
+    const onTouch = () => {
+      video.play().catch(() => {});
+    };
+    document.addEventListener('touchstart', onTouch, { once: true, passive: true });
 
     return () => {
+      document.removeEventListener('touchstart', onTouch);
       if (container.contains(video)) container.removeChild(video);
     };
   }, []);
