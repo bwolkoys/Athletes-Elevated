@@ -213,7 +213,6 @@ function Hero() {
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.setAttribute('autoplay', '');
     video.setAttribute('muted', '');
     video.setAttribute('playsinline', '');
     video.preload = 'auto';
@@ -225,11 +224,8 @@ function Hero() {
     video.appendChild(source);
     container.appendChild(video);
 
-    // Try immediately
     video.load();
-    video.play().catch(() => {});
 
-    // iOS fallback: play on first touch if autoplay was blocked
     const onTouch = () => {
       video.play().catch(() => {});
     };
