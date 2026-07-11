@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Athletes Elevated",
-  description: "An invite only ecosystem",
+  description: "A private, invite-only network connecting athletes, fans, brands, and philanthropies through access, opportunity, and storytelling.",
 };
 
 export default function RootLayout({
