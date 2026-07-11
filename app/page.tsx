@@ -272,6 +272,7 @@ function Hero() {
               </motion.div>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.35)', fontSize: 12, fontWeight: 300, letterSpacing: '0.06em' }}>
                 Trusted by athletes across the NFL, Premier League, and Olympic sport.
+                
               </p>
             </div>
           </HeroText>
