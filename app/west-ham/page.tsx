@@ -396,7 +396,7 @@ export default function WestHamPage() {
         }
       `}</style>
       <Navbar />
-      <main>
+      <main className="pt-10">
         <Hero />
         <FeatureCards />
         <CountdownSection />

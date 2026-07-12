@@ -240,8 +240,8 @@ export default function WestHamStorePage() {
         @media (max-width: 767px) {
           .whu-store-outlined { -webkit-text-stroke: 2px #52aafc !important; }
           .whu-coyi { display: none !important; }
-          .whu-store-outlined { -webkit-text-stroke: 1.5px #52aafc !important; }
-          .whu-store-solid { -webkit-text-stroke: 1.5px !important; }
+          .whu-store-outlined { -webkit-text-stroke: 1.5px #52aafc !important; text-align: right !important; font-size: 20vw !important; }
+          .whu-store-solid { -webkit-text-stroke: 1.5px !important; text-align: right !important; font-size: 20vw !important; }
         }
       `}</style>
       <Navbar />
