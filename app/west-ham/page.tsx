@@ -5,6 +5,7 @@ import { useState, useRef, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
 import Navbar from '../src/components/navBar';
 import Footer from '../src/components/footer';
+import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -353,24 +354,24 @@ function BottomBanner() {
           </p>
         </FadeUp>
         <FadeUp delay={0.25}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '22px' }}>
             <img
               src="/images/WHU_logo.png"
               alt="West Ham United"
-              style={{ height: 70, width: 'auto' }}
+              style={{ height: 65, width: 'auto' }}
             />
           </div>
         </FadeUp>
-        {/* <FadeUp delay={0.35}>
+        <FadeUp delay={0.35}>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
             <Link
-              href="/connection"
+              href="/west-ham-store"
               style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', padding: '14px 52px', fontSize: 20, letterSpacing: '0.14em', display: 'inline-block', textDecoration: 'none' }}
             >
               LEARN MORE
             </Link>
           </motion.div>
-        </FadeUp> */}
+        </FadeUp>
       </div>
     </section>
   );
