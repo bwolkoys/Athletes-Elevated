@@ -144,7 +144,8 @@ function Hero() {
       {/* CTA strip — pinned to bottom of hero */}
       <div className="py-4" style={{ position: 'relative', zIndex: 2 }}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          {/* On mobile: right-aligned column. On desktop: spaced row. */}
+          <div className="flex flex-col md:flex-row items-end md:items-center justify-between gap-4 text-right md:text-left">
             <p className="whu-cta-text" style={{ fontFamily: BEBAS, color: GOLD, fontSize: 'clamp(18px, 2.5vw, 26px)', letterSpacing: '0.1em', WebkitTextStroke: '1px' }}>ARE YOU IN?</p>
             <motion.a href="#join" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', padding: '12px 52px', fontSize: 20, letterSpacing: '0.12em', display: 'inline-block', textDecoration: 'none' }}>JOIN THE CLUB</motion.a>
             <p className="whu-cta-text" style={{ fontFamily: BEBAS, color: GOLD, fontSize: 'clamp(13px, 1.6vw, 17px)', WebkitTextStroke: '1px', letterSpacing: '0.06em', textAlign: 'right' as const }}>MEMBERS GET EXCLUSIVE<br />ACCESS LIMITED-EDITION GEAR</p>
