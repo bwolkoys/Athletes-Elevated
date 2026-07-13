@@ -121,22 +121,24 @@ function Hero() {
 
       {/* Main hero content */}
       <div className="flex-1 flex items-center" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="max-w-7xl mx-auto px-6 w-full pt-12">
           <HeroText delay={0.1}>
+            {/* Headline: ALL IN ON THE IRONS with crest below */}
             <h1
               className="whu-hero-h1"
               style={{ fontFamily: BEBAS, color: 'transparent', WebkitTextStroke: '5px #52aafc', fontSize: 'clamp(80px, 14vw, 200px)', paddingTop: '12px', lineHeight: 0.88, letterSpacing: '0.02em', marginBottom: 0 }}
             >
-              ALL IN<br />ON<br />
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 28px)' }}>
-                <span className="whu-irons" style={{ color: BLUE, WebkitTextStroke: '5px' }}>IRONS.</span>
-                <img src="/images/WHU_logo.png" alt="West Ham United" style={{ height: 'clamp(60px, 10vw, 140px)', width: 'auto', flexShrink: 0 }} />
-              </div>
+              ALL IN ON<br />
+              <span className="whu-irons" style={{ color: BLUE, WebkitTextStroke: '5px' }}>THE IRONS.</span>
             </h1>
+            {/* Crest sits below the headline */}
+            <div style={{ marginTop: 'clamp(14px, 2vw, 28px)', marginBottom: 'clamp(12px, 1.5vw, 20px)' }}>
+              <img src="/images/WHU_logo.png" alt="West Ham United" style={{ height: 'clamp(60px, 10vw, 140px)', width: 'auto' }} />
+            </div>
           </HeroText>
-          <HeroText delay={0.35}>
-            <p className="whu-hero-sub" style={{ fontFamily: BEBAS, color: '#ffffff', fontSize: 'clamp(16px, 2.8vw, 20px)', letterSpacing: '0.1em', maxWidth: 620, WebkitTextStroke: '1px' }}>
-              PROUD TO BE THE EXCLUSIVE REWARDS <br /> MARKETPLACE OF WEST HAM UNITED.
+          <HeroText delay={0.48}>
+            <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(13px, 1.6vw, 16px)', fontWeight: 300, lineHeight: 1.7, maxWidth: 540, marginTop: 14 }}>
+              Athletes Elevated is West Ham United&apos;s exclusive rewards marketplace, giving fans access to limited-edition products, rewards and unique experiences.
             </p>
           </HeroText>
         </div>
@@ -145,10 +147,25 @@ function Hero() {
       {/* CTA strip — pinned to bottom of hero */}
       <div className="py-4" style={{ position: 'relative', zIndex: 2 }}>
         <div className="max-w-7xl mx-auto px-6">
-          {/* On mobile: right-aligned column. On desktop: spaced row. */}
           <div className="flex flex-col md:flex-row items-end md:items-center justify-between gap-4 text-right md:text-left">
             <p className="whu-cta-text" style={{ fontFamily: BEBAS, color: GOLD, fontSize: 'clamp(18px, 2.5vw, 26px)', letterSpacing: '0.1em', WebkitTextStroke: '1px' }}>ARE YOU IN?</p>
-            <motion.a href="#join" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', padding: '12px 52px', fontSize: 20, letterSpacing: '0.12em', display: 'inline-block', textDecoration: 'none' }}>JOIN THE CLUB</motion.a>
+            {/* Both buttons together */}
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' as const, justifyContent: 'flex-end' }}>
+              <motion.a
+                href="#join"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', padding: '12px 52px', fontSize: 20, letterSpacing: '0.12em', display: 'inline-block', textDecoration: 'none' }}
+              >
+                JOIN THE CLUB
+              </motion.a>
+              <Link
+                href="/west-ham-store"
+                style={{ fontFamily: BEBAS, backgroundColor: 'transparent', border: `1.5px solid ${GOLD}`, color: GOLD, padding: '12px 52px', fontSize: 18, letterSpacing: '0.12em', display: 'inline-block', textDecoration: 'none' }}
+              >
+                LEARN MORE
+              </Link>
+            </div>
             <p className="whu-cta-text" style={{ fontFamily: BEBAS, color: GOLD, fontSize: 'clamp(13px, 1.6vw, 17px)', WebkitTextStroke: '1px', letterSpacing: '0.06em', textAlign: 'right' as const }}>MEMBERS GET EXCLUSIVE<br />ACCESS LIMITED-EDITION GEAR</p>
           </div>
         </div>
@@ -284,33 +301,37 @@ function StadiumForm() {
 
       <div className="max-w-7xl mx-auto px-6 w-full" style={{ position: 'relative', zIndex: 1 }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Left — headline */}
+          {/* Left — headline + sub-text */}
           <FadeUp>
             <h2 className="whu-form-title" style={{ fontFamily: BEBAS, color: GOLD, fontSize: 'clamp(64px, 10vw, 140px)', lineHeight: 0.88, letterSpacing: '0.02em', WebkitTextStroke: '5px' }}>
               BE A PART<br />OF THEIR<br />STORY.
             </h2>
+            {/* Announcement release language */}
+            <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.8)', fontSize: 'clamp(14px, 1.6vw, 16px)', fontWeight: 300, lineHeight: 1.75, maxWidth: 420, marginTop: 20 }}>
+              West Ham United fans are among the first invited to join Athletes Elevated. Sign up for early access to selected drops, experiences, hospitality opportunities and more.
+            </p>
           </FadeUp>
 
           {/* Right — form */}
           <FadeUp delay={0.15}>
             {status === 'success' ? (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ backgroundColor: 'rgba(255,255,255,0.65)', padding: '44px 32px', textAlign: 'center' as const }}>
-                <p style={{ fontFamily: BEBAS, color: '#000', fontSize: 30, letterSpacing: '0.06em', marginBottom: 10 }}>YOU'RE IN THE CLUB.</p>
+                <p style={{ fontFamily: BEBAS, color: '#000', fontSize: 30, letterSpacing: '0.06em', marginBottom: 10 }}>YOU'RE SIGNED UP.</p>
                 <p style={{ fontFamily: BODY, color: '#555', fontSize: 14, fontWeight: 300 }}>We'll be in touch with your exclusive member details soon.</p>
               </motion.div>
             ) : (
               <div style={{ backgroundColor: 'rgba(255,255,255,0.60)', padding: '36px 32px' }}>
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
-                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>First Name</label>
+                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>First Name *</label>
                     <input type="text" required value={form.firstName} onChange={update('firstName')} style={inputStyle} />
                   </div>
                   <div>
-                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>Last Name</label>
+                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>Last Name *</label>
                     <input type="text" required value={form.lastName} onChange={update('lastName')} style={inputStyle} />
                   </div>
                   <div>
-                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>Email Address</label>
+                    <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>Email Address *</label>
                     <input type="email" required value={form.email} onChange={update('email')} style={inputStyle} />
                   </div>
                   {status === 'error' && (
@@ -323,7 +344,7 @@ function StadiumForm() {
                     whileTap={{ scale: 0.97 }}
                     style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', border: 'none', padding: '14px 24px', fontSize: 22, letterSpacing: '0.1em', cursor: status === 'submitting' ? 'not-allowed' : 'pointer', opacity: status === 'submitting' ? 0.6 : 1, width: '100%', marginTop: 4 }}
                   >
-                    {status === 'submitting' ? 'JOINING...' : 'JOIN THE CLUB'}
+                    {status === 'submitting' ? 'SIGNING UP...' : 'SIGN UP FOR PRIORITY ACCESS'}
                   </motion.button>
                   <p style={{ fontFamily: BODY, color: 'rgba(0,0,0,0.4)', fontSize: 11, fontWeight: 300, textAlign: 'center' as const }}>
                     Your information is kept private. We never share or sell your data.
@@ -353,15 +374,29 @@ function BottomBanner() {
             ATHLETES ELEVATED BELIEVES THAT THE FUTURE OF SPORT IS BUILT TOGETHER TO GROW TOGETHER.
           </p>
         </FadeUp>
+
+        {/* Partnership lock-up: AE + WHU logos side by side with official designation */}
         <FadeUp delay={0.25}>
-          <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '22px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 28, marginBottom: 14 }}>
+            <Image
+              src="/AthletesElevated_Final_color reverse.svg"
+              alt="Athletes Elevated"
+              width={160}
+              height={56}
+              style={{ height: 52, width: 'auto' }}
+            />
+            <div style={{ width: 1, height: 48, backgroundColor: 'rgba(82,170,252,0.3)' }} />
             <img
               src="/images/WHU_logo.png"
               alt="West Ham United"
               style={{ height: 65, width: 'auto' }}
             />
           </div>
+          <p style={{ fontFamily: BEBAS, color: 'rgba(255,255,255,0.45)', fontSize: 12, letterSpacing: '0.2em', marginBottom: 36 }}>
+            OFFICIAL BACK OF JERSEY PARTNER OF WEST HAM UNITED
+          </p>
         </FadeUp>
+
         <FadeUp delay={0.35}>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
             <Link
@@ -399,7 +434,7 @@ export default function WestHamPage() {
       <main className="pt-10">
         <Hero />
         <FeatureCards />
-        <CountdownSection />
+        {/* <CountdownSection /> */}
         <StadiumForm />
         <BottomBanner />
       </main>
