@@ -178,7 +178,7 @@ function Hero() {
 const features = [
   { tag: 'FANS',  title: 'BEFORE THE REVEAL.',           desc: 'Be a founding member of the AExWHU Marketplace.' },
   { tag: 'GEAR',  title: 'PRIORITY ACCESS. FIRST DROPS.', desc: 'Limited-Edition merchandise available only to members.' },
-  { tag: 'STORY', title: 'STRONGER TOGETHER.',            desc: "Read about Athletes Elevated's commitment to West Ham United." },
+  { tag: 'REWARDS', title: 'MEMBER BENEFITS.',            desc: "Sign up to unlock exclusive drops, rewards points, Club collaborations and experiences." },
 ];
 
 function FeatureCards() {
@@ -366,7 +366,7 @@ function BottomBanner() {
       <div className="max-w-5xl mx-auto px-6 text-center">
         <FadeUp>
           <h2 className="whu-banner-title" style={{ fontFamily: BEBAS, color: BLUE, fontSize: 'clamp(36px, 7vw, 96px)', lineHeight: 1.0, letterSpacing: '0.02em', marginBottom: 20, WebkitTextStroke: '3px' }}>
-            AN EXCLUSIVE FAN-FIRST,<br />ATHLETE IMPACT ECOSYSTEM.
+            AN EXCLUSIVE <br /> FAN-FIRST ECOSYSTEM.
           </h2>
         </FadeUp>
         <FadeUp delay={0.15}>
@@ -393,7 +393,7 @@ function BottomBanner() {
             />
           </div>
           <p style={{ fontFamily: BEBAS, color: 'rgba(255,255,255,0.45)', fontSize: 12, letterSpacing: '0.2em', marginBottom: 36 }}>
-            OFFICIAL BACK OF JERSEY PARTNER OF WEST HAM UNITED
+            OFFICIAL BACK OF SHIRT PARTNER OF WEST HAM UNITED
           </p>
         </FadeUp>
 
