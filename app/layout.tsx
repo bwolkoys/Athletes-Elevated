@@ -43,9 +43,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
        
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="H5NsvoD0HujXFk" async></script>
-
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="eOzSwaoOLPZ8_w" async></script>
+       <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-ruleset-id="uA0It9dM8HWnmE" async></script>
       </head>
       <body className="min-h-full flex flex-col">
         {children}
