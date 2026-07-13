@@ -369,7 +369,7 @@ function PartnerStrip() {
         <FadeIn>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
             <p style={{ fontFamily: HEADING, color: 'rgba(255,255,255,0.35)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase' as const, fontWeight: 300 }}>
-              Official Back of Jersey Sponsor For
+              Official Back of Shirt Partner of
             </p>
             <span className="hidden md:inline" style={{ color: 'rgba(255,255,255,0.15)', fontSize: 12 }}>·</span>
             <div className="flex flex-col-reverse md:flex-row items-center gap-2">
@@ -455,12 +455,12 @@ function WHUTeaserCard() {
             <div>
               <div className="flex items-center gap-4 mb-6">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0726/5225/9510/files/West_Ham_United_FC_logo_svg_100x100.png?v=1780700207"
+                  src="/images/WHU_logo.png"
                   alt="West Ham United"
                   style={{ height: 52, width: 'auto' }}
                 />
                 <div>
-                  <p style={{ fontFamily: HEADING, color: 'rgba(255,255,255,0.4)', fontSize: 9, letterSpacing: '0.22em', textTransform: 'uppercase' as const, marginBottom: 4 }}>Official Fan Experience Partner</p>
+                  <p style={{ fontFamily: HEADING, color: 'rgba(255,255,255,0.4)', fontSize: 9, letterSpacing: '0.22em', textTransform: 'uppercase' as const, marginBottom: 4 }}>Official Back of Shirt Partner of</p>
                   <p style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 15, letterSpacing: '0.08em', fontWeight: 300, textTransform: 'uppercase' as const }}>West Ham United</p>
                 </div>
               </div>
@@ -468,7 +468,7 @@ function WHUTeaserCard() {
                 Where Football Meets<br />Something Bigger.
               </h2>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 15, fontWeight: 300, lineHeight: 1.85, maxWidth: 440, marginBottom: 32 }}>
-                As the official back of jersey sponsor for West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
+                As the official back of shirt sponsor for West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
               </p>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
                 <a
@@ -484,8 +484,8 @@ function WHUTeaserCard() {
           {/* Right — image */}
           <SlideInRight delay={0.1}>
             <ScaleIn>
-              <div style={{ position: 'relative', height: 380, borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.12)' }}>
-                <Image fill src="/images/JIM_0753_dUHhsYt0_20250730111701.JPG" alt="West Ham United at Weedon Family Ranch" style={{ objectFit: 'cover', objectPosition: 'center 25%' }} />
+              <div style={{ position: 'relative', height: 'clamp(220px, 50vw, 380px)', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.12)' }}>
+                <Image fill src="/images/JIM_1390.jpg" alt="West Ham United at Weedon Family Ranch" style={{ objectFit: 'cover', objectPosition: 'center 25%' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,13,24,0.5) 0%, transparent 60%)' }} />
               </div>
             </ScaleIn>
@@ -527,14 +527,14 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: '0px' }}>
+      <main style={{ paddingTop: '18px' }}>
         <Hero />
         {/* <VideoProof /> */}
         <MissionVision />
         <ImpactBanner />
-        {/* <PartnerStrip /> */}
+        <PartnerStrip />
         <ThePlatform />
-        {/* <WHUTeaserCard /> */}
+        <WHUTeaserCard />
         <WaitlistSection />
       </main>
       <Footer />

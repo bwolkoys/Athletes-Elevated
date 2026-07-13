@@ -38,7 +38,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav — hidden on mobile */}
-          {/* <div className="hidden md:flex items-center gap-14">
+          <div className="hidden md:flex items-center gap-14">
             {navLinks.map(({ label, href }) => (
               <Link
                 key={href}
@@ -76,10 +76,10 @@ export default function Navbar() {
             >
               EARLY ACCESS
             </Link>
-          </div> */}
+          </div>
 
           {/* Hamburger — visible on mobile only */}
-          {/* <button
+          <button
             className="md:hidden flex flex-col justify-center items-center gap-1.5 w-8 h-8"
             onClick={() => setMenuOpen(prev => !prev)}
             aria-label="Toggle menu"
@@ -100,13 +100,13 @@ export default function Navbar() {
               transition: 'transform 0.2s, opacity 0.2s',
               transform: menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none',
             }} />
-          </button> */}
+          </button>
 
         </div>
       </div>
 
       {/* Mobile dropdown */}
-      {/* {menuOpen && (
+      {menuOpen && (
         <div
           className="md:hidden"
           style={{
@@ -153,7 +153,7 @@ export default function Navbar() {
             EARLY ACCESS
           </Link>
         </div>
-      )} */}
+      )}
     </nav>
   );
 }

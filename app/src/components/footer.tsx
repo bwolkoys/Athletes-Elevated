@@ -1,4 +1,6 @@
 // Place this file at: src/components/footer.tsx
+'use client'
+
 import Link from 'next/link';
 import Image from "next/image";
 
@@ -48,12 +50,21 @@ export default function Footer() {
         >
           {/* T&C link */}
           <a
-            href="/terms.pdf"
+            href="/terms-and-conditions"
             target="_blank"
             rel="noopener noreferrer"
             style={{ fontFamily: 'var(--font-body)', color: '#ffffff', fontSize: '12px', fontWeight: 300, textDecoration: 'underline', textUnderlineOffset: 3 }}
           >
             Terms &amp; Conditions
+          </a>
+
+          <a
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontFamily: 'var(--font-body)', color: '#ffffff', fontSize: '12px', fontWeight: 300, textDecoration: 'underline', textUnderlineOffset: 3 }}
+          >
+            Privacy Policy
           </a>
 
           {/* Social icons */}
@@ -73,7 +84,7 @@ export default function Footer() {
             </a>
 
             {/* X / Twitter */}
-            {/* <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"
+            <a href="https://x.com/athelevated?s=21" target="_blank" rel="noopener noreferrer" aria-label="X"
               style={{ color: '#ffffff', transition: 'color 0.2s' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
@@ -81,10 +92,10 @@ export default function Footer() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
-            </a> */}
+            </a>
 
             {/* TikTok */}
-            {/* <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+            <a href="https://www.tiktok.com/@athletes.elevated?_r=1&_t=ZP-980hVbezLVH" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
               style={{ color: '#ffffff', transition: 'color 0.2s' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
@@ -92,7 +103,7 @@ export default function Footer() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z" />
               </svg>
-            </a> */}
+            </a>
 
             {/* LinkedIn */}
             <a href="https://www.linkedin.com/company/athletes-elevated/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
