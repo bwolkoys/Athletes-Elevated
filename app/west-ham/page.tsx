@@ -157,7 +157,7 @@ function Hero() {
                 whileTap={{ scale: 0.97 }}
                 style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', padding: '12px 52px', fontSize: 20, letterSpacing: '0.12em', display: 'inline-block', textDecoration: 'none' }}
               >
-                JOIN THE CLUB
+                JOIN NOW
               </motion.a>
               <Link
                 href="/west-ham-store"

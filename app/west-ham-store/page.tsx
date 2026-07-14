@@ -223,7 +223,7 @@ function CTASection() {
                 display: 'inline-block', textDecoration: 'none',
               }}
             >
-              JOIN THE CLUB
+              JOIN NOW
             </Link>
           </motion.div>
         </FadeUp>
