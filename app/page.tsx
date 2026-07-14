@@ -144,22 +144,31 @@ function WaitlistForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  // All three start unchecked — required by GDPR
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Belt-and-suspenders: block submit if required boxes aren't checked
+    if (!ageConfirmed || !termsAccepted) return;
     setStatus('submitting');
     try {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email }),
+        body: JSON.stringify({ firstName, lastName, email, ageConfirmed, marketingConsent, termsAccepted }),
       });
       if (!res.ok) throw new Error();
       setStatus('success');
       setFirstName('');
       setLastName('');
       setEmail('');
+      setAgeConfirmed(false);
+      setMarketingConsent(false);
+      setTermsAccepted(false);
     } catch {
       setStatus('error');
     }
@@ -184,14 +193,69 @@ function WaitlistForm() {
         <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address" style={{ ...inputStyle, flex: 1, minWidth: 200 }} />
         <motion.button
           type="submit"
-          disabled={status === 'submitting'}
-          whileHover={{ opacity: status === 'submitting' ? 1 : 0.85 }}
+          disabled={status === 'submitting' || !ageConfirmed || !termsAccepted}
+          whileHover={{ opacity: (status === 'submitting' || !ageConfirmed || !termsAccepted) ? 1 : 0.85 }}
           whileTap={{ scale: 0.97 }}
-          style={{ fontFamily: BODY, background: '#52aafc', border: 'none', color: '#092866', padding: '13px 24px', borderRadius: 4, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' as const, cursor: status === 'submitting' ? 'not-allowed' : 'pointer', opacity: status === 'submitting' ? 0.6 : 1, whiteSpace: 'nowrap' as const }}
+          style={{ fontFamily: BODY, background: '#52aafc', border: 'none', color: '#092866', padding: '13px 24px', borderRadius: 4, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' as const, cursor: (status === 'submitting' || !ageConfirmed || !termsAccepted) ? 'not-allowed' : 'pointer', opacity: (status === 'submitting' || !ageConfirmed || !termsAccepted) ? 0.45 : 1, whiteSpace: 'nowrap' as const }}
         >
           {status === 'submitting' ? 'Joining…' : 'Claim Early Access'}
         </motion.button>
       </div>
+
+      {/* ─── Consent checkboxes ─────────────────────────────────────────── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4, textAlign: 'left' as const }}>
+
+        {/* Age confirmation — required */}
+        <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            required
+            checked={ageConfirmed}
+            onChange={e => setAgeConfirmed(e.target.checked)}
+            style={{ marginTop: 2, flexShrink: 0, accentColor: '#52aafc', width: 15, height: 15, cursor: 'pointer' }}
+          />
+          <span style={{ fontFamily: BODY, fontSize: 12, fontWeight: 300, color: 'rgba(9,40,102,0.75)', lineHeight: 1.55 }}>
+            I confirm I am 16 years of age or older.{' '}
+            <span style={{ color: '#DC2626' }}>*</span>
+          </span>
+        </label>
+
+        {/* Marketing consent — optional */}
+        <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={marketingConsent}
+            onChange={e => setMarketingConsent(e.target.checked)}
+            style={{ marginTop: 2, flexShrink: 0, accentColor: '#52aafc', width: 15, height: 15, cursor: 'pointer' }}
+          />
+          <span style={{ fontFamily: BODY, fontSize: 12, fontWeight: 300, color: 'rgba(9,40,102,0.75)', lineHeight: 1.55 }}>
+            I want to receive marketing communications from Athletes Elevated, including updates on new athletes, brand partners, product drops, rewards, and events. I can unsubscribe at any time.
+          </span>
+        </label>
+
+        {/* Terms & Privacy — required */}
+        <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            required
+            checked={termsAccepted}
+            onChange={e => setTermsAccepted(e.target.checked)}
+            style={{ marginTop: 2, flexShrink: 0, accentColor: '#52aafc', width: 15, height: 15, cursor: 'pointer' }}
+          />
+          <span style={{ fontFamily: BODY, fontSize: 12, fontWeight: 300, color: 'rgba(9,40,102,0.75)', lineHeight: 1.55 }}>
+            I have read and agree to the{' '}
+            <a href="/privacy" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
+            {' '}and{' '}
+            <a href="/terms" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
+            <span style={{ color: '#DC2626' }}>*</span>
+          </span>
+        </label>
+
+        <p style={{ fontFamily: BODY, fontSize: 11, fontWeight: 300, color: 'rgba(9,40,102,0.4)', marginTop: 2 }}>
+          <span style={{ color: '#DC2626' }}>*</span> Required
+        </p>
+      </div>
+
       {status === 'error' && (
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontFamily: BODY, color: '#DC2626', fontSize: 13, fontWeight: 300 }}>
           Something went wrong — try again or email us at info@athleteselevated.com.
@@ -225,7 +289,7 @@ function Hero() {
     container.appendChild(video);
 
     video.load();
-    video.play().catch(() => {}); // ← add this back
+    video.play().catch(() => {});
 
     const onTouch = () => {
       video.play().catch(() => {});
@@ -273,7 +337,6 @@ function Hero() {
               </motion.div>
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.35)', fontSize: 12, fontWeight: 300, letterSpacing: '0.06em' }}>
                 Trusted by athletes across the NFL, Premier League, and Olympic sport.
-
               </p>
             </div>
           </HeroText>
@@ -288,28 +351,23 @@ function VideoProof() {
   return (
     <section style={{ backgroundColor: '#060D18' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
-      <FadeUp style={{ marginBottom: 52 }}>
+        <FadeUp style={{ marginBottom: 52 }}>
           <SectionLabel>The Proof</SectionLabel>
           <h2 style={{ fontFamily: HEADING, color: '#ffffff', fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: 16 }}>
-          See Who's Already<br />Building This With Us.
+            See Who's Already<br />Building This With Us.
           </h2>
         </FadeUp>
- {/* Use when I have video downloaded inside vs code  */}
- <ScaleIn>
-  <div style={{position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)'}}>
-    <video 
-    controls
-    playsInline
-    style={{display: 'block', width: '100%'}}>
-      <source src="/home/teaser.mp4" type="video/mp4"/>
-    </video>
-  </div>
- </ScaleIn>
+        <ScaleIn>
+          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}>
+            <video controls playsInline style={{ display: 'block', width: '100%' }}>
+              <source src="/home/teaser.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </ScaleIn>
       </div>
     </section>
   );
 }
-
 
 // ─── Mission & Vision ──────────────────────────────────────────────────────────
 function MissionVision() {
@@ -503,7 +561,7 @@ function WaitlistSection() {
       <div className="max-w-xl mx-auto px-6" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <FadeUp>
           <h2 style={{ fontFamily: HEADING, color: '#092866', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.01em', marginBottom: 20 }}>
-          Early Access Won't Last Long
+            Early Access Won't Last Long
           </h2>
         </FadeUp>
         <FadeUp delay={0.15}>
@@ -534,7 +592,7 @@ export default function HomePage() {
         <ImpactBanner />
         <PartnerStrip />
         <ThePlatform />
-        <WHUTeaserCard />
+        {/* <WHUTeaserCard /> */}
         <WaitlistSection />
       </main>
       <Footer />

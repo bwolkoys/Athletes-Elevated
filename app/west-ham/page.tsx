@@ -264,6 +264,10 @@ function CountdownSection() {
 // ─── Section: Stadium Form ─────────────────────────────────────────────────────
 function StadiumForm() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
+  // All three start unchecked — required by GDPR
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const update = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -271,12 +275,14 @@ function StadiumForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Belt-and-suspenders: block submit if required boxes aren't checked
+    if (!ageConfirmed || !termsAccepted) return;
     setStatus('submitting');
     try {
       const res = await fetch('/api/west-ham', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, ageConfirmed, marketingConsent, termsAccepted }),
       });
       if (!res.ok) throw new Error();
       setStatus('success');
@@ -334,15 +340,70 @@ function StadiumForm() {
                     <label style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, color: '#111', letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'block', marginBottom: 6 }}>Email Address *</label>
                     <input type="email" required value={form.email} onChange={update('email')} style={inputStyle} />
                   </div>
+
+                  {/* ─── Consent checkboxes ──────────────────────────────── */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
+
+                    {/* Age confirmation — required */}
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        required
+                        checked={ageConfirmed}
+                        onChange={e => setAgeConfirmed(e.target.checked)}
+                        style={{ marginTop: 2, flexShrink: 0, accentColor: GOLD, width: 15, height: 15, cursor: 'pointer' }}
+                      />
+                      <span style={{ fontFamily: BODY, fontSize: 11, fontWeight: 400, color: 'rgba(0,0,0,0.65)', lineHeight: 1.55 }}>
+                        I confirm I am 16 years of age or older.{' '}
+                        <span style={{ color: '#DC2626' }}>*</span>
+                      </span>
+                    </label>
+
+                    {/* Marketing consent — optional */}
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={marketingConsent}
+                        onChange={e => setMarketingConsent(e.target.checked)}
+                        style={{ marginTop: 2, flexShrink: 0, accentColor: GOLD, width: 15, height: 15, cursor: 'pointer' }}
+                      />
+                      <span style={{ fontFamily: BODY, fontSize: 11, fontWeight: 400, color: 'rgba(0,0,0,0.65)', lineHeight: 1.55 }}>
+                        I want to receive marketing communications from Athletes Elevated, including updates on new athletes, brand partners, product drops, rewards, and events. I can unsubscribe at any time.
+                      </span>
+                    </label>
+
+                    {/* Terms & Privacy — required */}
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        required
+                        checked={termsAccepted}
+                        onChange={e => setTermsAccepted(e.target.checked)}
+                        style={{ marginTop: 2, flexShrink: 0, accentColor: GOLD, width: 15, height: 15, cursor: 'pointer' }}
+                      />
+                      <span style={{ fontFamily: BODY, fontSize: 11, fontWeight: 400, color: 'rgba(0,0,0,0.65)', lineHeight: 1.55 }}>
+                        I have read and agree to the{' '}
+                        <a href="/privacy" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
+                        {' '}and{' '}
+                        <a href="/terms" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
+                        <span style={{ color: '#DC2626' }}>*</span>
+                      </span>
+                    </label>
+
+                    <p style={{ fontFamily: BODY, fontSize: 10, fontWeight: 300, color: 'rgba(0,0,0,0.4)', marginTop: 2 }}>
+                      <span style={{ color: '#DC2626' }}>*</span> Required
+                    </p>
+                  </div>
+
                   {status === 'error' && (
                     <p style={{ fontFamily: BODY, color: '#DC2626', fontSize: 13, fontWeight: 300 }}>Something went wrong. Please try again.</p>
                   )}
                   <motion.button
                     type="submit"
-                    disabled={status === 'submitting'}
+                    disabled={status === 'submitting' || !ageConfirmed || !termsAccepted}
                     whileHover={{ opacity: 0.88 }}
                     whileTap={{ scale: 0.97 }}
-                    style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', border: 'none', padding: '14px 24px', fontSize: 22, letterSpacing: '0.1em', cursor: status === 'submitting' ? 'not-allowed' : 'pointer', opacity: status === 'submitting' ? 0.6 : 1, width: '100%', marginTop: 4 }}
+                    style={{ fontFamily: BEBAS, backgroundColor: GOLD, color: '#000000', border: 'none', padding: '14px 24px', fontSize: 22, letterSpacing: '0.1em', cursor: (status === 'submitting' || !ageConfirmed || !termsAccepted) ? 'not-allowed' : 'pointer', opacity: (status === 'submitting' || !ageConfirmed || !termsAccepted) ? 0.45 : 1, width: '100%', marginTop: 4 }}
                   >
                     {status === 'submitting' ? 'SIGNING UP...' : 'SIGN UP FOR PRIORITY ACCESS'}
                   </motion.button>

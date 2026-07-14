@@ -46,7 +46,7 @@ const sections = [
   {
     number: '5.',
     title: 'Marketing communications',
-    content: `If you opt in to marketing communications during sign-up, you will receive emails from Athletes Elevated about the platform, athletes, brand partners, product drops, rewards, and events. You can unsubscribe at any time by clicking the unsubscribe link in any marketing email or by contacting us at ae@athleteselevated.com. Our handling of your personal information is described in our Privacy Policy at https://www.athleteselevated.com/privacy-policy.`,
+    content: `If you opt in to marketing communications during sign-up, you will receive emails from Athletes Elevated about the platform, athletes, brand partners, product drops, rewards, and events. You can unsubscribe at any time by clicking the unsubscribe link in any marketing email or by contacting us at privacy@athleteselevated.com. Our handling of your personal information is described in our Privacy Policy at https://www.athleteselevated.com/privacy-policy.`,
   },
   {
     number: '6.',
@@ -175,7 +175,7 @@ export default function TermsPage() {
               2329 Creek Crossing Loop<br />
               Park City, UT 84098<br />
               <a href="mailto:ae@athleteselevated.com" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                ae@athleteselevated.com
+              privacy@athleteselevated.com
               </a>
             </address>
           </div>

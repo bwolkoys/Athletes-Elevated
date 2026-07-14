@@ -14,7 +14,7 @@ const sections = [
   {
     number: '1.',
     title: 'Who we are',
-    content: `Athletes Elevated LLC is the data controller responsible for your personal information. We are a Nevada limited liability company with our principal place of business at 2329 Creek Crossing Loop, Park City, UT 84098.\n\nFor users in the United Kingdom or European Economic Area, our EU/UK representative can be reached at ae@athleteselevated.com.`,
+    content: `Athletes Elevated LLC is the data controller responsible for your personal information. We are a Nevada limited liability company with our principal place of business at 2329 Creek Crossing Loop, Park City, UT 84098.\n\nFor users in the United Kingdom or European Economic Area, our EU/UK representative can be reached at privacy@athleteselevated.com.`,
   },
   {
     number: '2.',
@@ -94,22 +94,22 @@ const sections = [
       'Withdraw consent to processing that is based on your consent',
       'Lodge a complaint with a supervisory authority (in the UK, the Information Commissioner\'s Office; in the EU, your local data protection authority)',
     ],
-    after: 'To exercise any of these rights, contact us at ae@athleteselevated.com. We will respond within the timeframe required by applicable law. We may need to verify your identity before we can act on your request.',
+    after: 'To exercise any of these rights, contact us at privacy@athleteselevated.com. We will respond within the timeframe required by applicable law. We may need to verify your identity before we can act on your request.',
   },
   {
     number: '10.',
     title: 'Marketing communications',
-    content: `If you have opted in to marketing communications, you can unsubscribe at any time by clicking the unsubscribe link in any marketing email or by contacting us at ae@athleteselevated.com. Unsubscribing from marketing does not affect service-related communications about your sign-up or account.`,
+    content: `If you have opted in to marketing communications, you can unsubscribe at any time by clicking the unsubscribe link in any marketing email or by contacting us at privacy@athleteselevated.com. Unsubscribing from marketing does not affect service-related communications about your sign-up or account.`,
   },
   {
     number: '11.',
     title: 'California and other U.S. state privacy rights',
-    content: `If you are a resident of California, Colorado, Connecticut, Virginia, Utah, Texas, Oregon, Montana, Delaware, or another U.S. state with a comprehensive privacy law, you have specific rights under those laws, including the rights described in Section 9 above.\n\nCalifornia residents: Under the California Consumer Privacy Act as amended by the California Privacy Rights Act, you have the right to know what personal information we collect about you, request deletion of your information, correct inaccurate information, and opt out of the "sale" or "sharing" of your personal information (as those terms are defined under California law). We do not sell your personal information as that term is commonly understood. To exercise your California rights, contact us at ae@athleteselevated.com.\n\nWe do not discriminate against users who exercise their privacy rights.`,
+    content: `If you are a resident of California, Colorado, Connecticut, Virginia, Utah, Texas, Oregon, Montana, Delaware, or another U.S. state with a comprehensive privacy law, you have specific rights under those laws, including the rights described in Section 9 above.\n\nCalifornia residents: Under the California Consumer Privacy Act as amended by the California Privacy Rights Act, you have the right to know what personal information we collect about you, request deletion of your information, correct inaccurate information, and opt out of the "sale" or "sharing" of your personal information (as those terms are defined under California law). We do not sell your personal information as that term is commonly understood. To exercise your California rights, contact us at privacy@athleteselevated.com.\n\nWe do not discriminate against users who exercise their privacy rights.`,
   },
   {
     number: '12.',
     title: 'Children\'s privacy',
-    content: `Our services are not intended for individuals under the age of 16. We do not knowingly collect personal information from anyone under 16. If we learn that we have collected information from a child under 16, we will delete it. If you believe a child has provided us with personal information, contact us at ae@athleteselevated.com.`,
+    content: `Our services are not intended for individuals under the age of 16. We do not knowingly collect personal information from anyone under 16. If we learn that we have collected information from a child under 16, we will delete it. If you believe a child has provided us with personal information, contact us at privacy@athleteselevated.com.`,
   },
   {
     number: '13.',
@@ -153,7 +153,7 @@ export default function PrivacyPage() {
             </a>{' '}
             or interact with our services. It also explains your rights and how to exercise them. If you have any questions, contact us at{' '}
             <a href="mailto:privacy@athleteselevated.com" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-              ae@athleteselevated.com
+            privacy@athleteselevated.com
             </a>.
           </p>
         </div>
@@ -206,7 +206,7 @@ export default function PrivacyPage() {
               2329 Creek Crossing Loop<br />
               Park City, UT 84098<br />
               <a href="mailto:privacy@athleteselevated.com" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                ae@athleteselevated.com
+              privacy@athleteselevated.com
               </a>
             </address>
           </div>

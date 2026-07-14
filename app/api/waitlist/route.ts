@@ -3,17 +3,20 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const { firstName, lastName, email } = await req.json();
+    const { firstName, lastName, email, ageConfirmed, marketingConsent, termsAccepted } = await req.json();
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    const apiKey  = process.env.AIRTABLE_TOKEN;
-    const baseId  = process.env.AIRTABLE_BASE_ID;
-    // Use a separate table for the waitlist — add AIRTABLE_WAITLIST_TABLE to .env.local
-    // e.g. AIRTABLE_WAITLIST_TABLE=Waitlist
-    const table   = process.env.AIRTABLE_TABLE_WAITLIST ?? 'Waitlist';
+    // Server-side guard: reject if required consent boxes weren't checked
+    if (!ageConfirmed || !termsAccepted) {
+      return NextResponse.json({ error: 'Required consents not provided' }, { status: 400 });
+    }
+
+    const apiKey = process.env.AIRTABLE_TOKEN;
+    const baseId = process.env.AIRTABLE_BASE_ID;
+    const table  = process.env.AIRTABLE_TABLE_WAITLIST ?? 'Waitlist';
 
     if (!apiKey || !baseId) {
       console.error('Missing Airtable env vars');
@@ -30,9 +33,12 @@ export async function POST(req: NextRequest) {
         },
         body: JSON.stringify({
           fields: {
-            'First Name': firstName ?? '',
-            'Last Name':  lastName  ?? '',
-            Email:        email,
+            'First Name':        firstName ?? '',
+            'Last Name':         lastName  ?? '',
+            'Email':             email,
+            'Age Confirmed':     ageConfirmed    === true,  // boolean checkbox field
+            'Marketing Consent': marketingConsent === true, // boolean checkbox field
+            'Terms Accepted':    termsAccepted    === true, // boolean checkbox field
           },
         }),
       }
