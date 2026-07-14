@@ -592,7 +592,7 @@ export default function HomePage() {
         <ImpactBanner />
         <PartnerStrip />
         <ThePlatform />
-        {/* <WHUTeaserCard /> */}
+        <WHUTeaserCard />
         <WaitlistSection />
       </main>
       <Footer />
