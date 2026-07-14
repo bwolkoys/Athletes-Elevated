@@ -348,6 +348,27 @@ function Hero() {
 
 // ─── Video Proof ───────────────────────────────────────────────────────────────
 function VideoProof() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
+
+  const toggleMute = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setMuted(videoRef.current.muted);
+  };
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
+  };
+
   return (
     <section style={{ backgroundColor: '#060D18' }} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -358,10 +379,43 @@ function VideoProof() {
           </h2>
         </FadeUp>
         <ScaleIn>
-          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}>
-            <video controls playsInline style={{ display: 'block', width: '100%' }}>
-              <source src="/home/teaser.mp4" type="video/mp4" />
+          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(82,170,252,0.15)', boxShadow: '0 24px 64px rgba(0,0,0,0.5)', maxWidth: '850px', margin: '0 auto' }}>
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{ display: 'block', width: '100%' }}
+            >
+              <source src="/home/HEROES_WEB_0713.mp4" type="video/mp4" />
             </video>
+            <div style={{ position: 'absolute', bottom: 12, right: 16, display: 'flex', gap: 8 }}>
+              <button
+                onClick={togglePlay}
+                style={{
+                  background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 4, color: '#ffffff', cursor: 'pointer',
+                  fontFamily: BODY, fontSize: 8, fontWeight: 600,
+                  letterSpacing: '0.08em', padding: '8px 14px',
+                  backdropFilter: 'blur(6px)',
+                }}
+              >
+                {playing ? '⏸ PAUSE' : '▶ PLAY'}
+              </button>
+              <button
+                onClick={toggleMute}
+                style={{
+                  background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 4, color: '#ffffff', cursor: 'pointer',
+                  fontFamily: BODY, fontSize: 8, fontWeight: 600,
+                  letterSpacing: '0.08em', padding: '8px 14px',
+                  backdropFilter: 'blur(6px)',
+                }}
+              >
+                {muted ? '🔇 UNMUTE' : '🔊 MUTE'}
+              </button>
+            </div>
           </div>
         </ScaleIn>
       </div>
@@ -587,7 +641,7 @@ export default function HomePage() {
       <Navbar />
       <main style={{ paddingTop: '18px' }}>
         <Hero />
-        {/* <VideoProof /> */}
+        <VideoProof />
         <MissionVision />
         <ImpactBanner />
         <PartnerStrip />
