@@ -582,6 +582,7 @@ function WHUTeaserCard() {
               <p style={{ fontFamily: BODY, color: 'rgba(255,255,255,0.55)', fontSize: 15, fontWeight: 300, lineHeight: 1.85, maxWidth: 440, marginBottom: 32 }}>
                 As the official back of shirt sponsor for West Ham United, Athletes Elevated brings supporters exclusive merchandise, watch party access, and athlete experiences you won't find anywhere else. This is what it means to be a fan here.
               </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'flex-start' }}>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
                 <a
                   href="/west-ham"
@@ -590,6 +591,16 @@ function WHUTeaserCard() {
                   Explore the Experience →
                 </a>
               </motion.div>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+                <a
+                  href="https://www.whufc.com/en/news/west-ham-united-welcome-athletes-elevated-as-mens-back-of-shirt-partner" target="_blank"
+  rel="noopener noreferrer"
+                  style={{ fontFamily: BODY, background: '#52aafc', border: '1.5px solid rgba(82,170,252,0.6)', color: '#ffffff', padding: '13px 28px', borderRadius: 4, fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const, display: 'inline-block' }}
+                >
+                  AE x WHU Partnership
+                </a>
+              </motion.div>
+              </div>
             </div>
           </SlideInLeft>
 
