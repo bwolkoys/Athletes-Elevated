@@ -388,7 +388,7 @@ function VideoProof() {
               playsInline
               style={{ display: 'block', width: '100%' }}
             >
-              <source src="https://res.cloudinary.com/o6gwovf6/video/upload/v1784003671/HEROES_WEB_0713_c8mtvb.mp4" type="video/mp4"/>
+              <source src="https://res.cloudinary.com/o6gwovf6/video/upload/v1784221192/HEROES_WEB_720p_nqho1n.mp4" type="video/mp4"/>
             </video>
             <div style={{ position: 'absolute', bottom: 12, right: 16, display: 'flex', gap: 8 }}>
               <button
