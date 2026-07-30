@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 const BEBAS = "'Bebas Neue', sans-serif";
 
 const navLinks = [
+  { label: 'Brands', href: '/brands' },
   { label: 'West Ham United', href: '/west-ham' },
 ];
 
