@@ -296,9 +296,7 @@ export default function BrandsPage() {
               width: '42%', flexShrink: 0,
               aspectRatio: '4/3',
               borderRadius: 12, overflow: 'hidden',
-              background: 'linear-gradient(145deg, #0D2040, #1A3A60)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              border: '1px solid rgba(82,170,252,0.15)',
             }}
           >
             <Image fill src="/brands/Brand.png" alt="Athletes" style={{ objectFit: 'cover' }} />
