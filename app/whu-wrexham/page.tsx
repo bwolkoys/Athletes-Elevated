@@ -275,7 +275,7 @@ export default function WHUxWrexham() {
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-14 sm:px-10 sm:pt-20 lg:pt-24">
+        <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-24 sm:px-10 sm:pt-20 lg:pt-24">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div>
               <span
@@ -327,7 +327,7 @@ export default function WHUxWrexham() {
                 className="h-32 w-auto drop-shadow-lg sm:h-40 lg:h-44"
                 priority
               />
-              <div className="h-32 w-px rotate-[20deg] bg-white/50 sm:h-40 lg:h-44" />
+              {/* <div className="h-32 w-px rotate-[20deg] bg-white/50 sm:h-40 lg:h-44" />
               <Image
                 src="/images/Wrexham_A.F.C._Logo.png"
                 alt="Wrexham AFC crest"
@@ -335,7 +335,7 @@ export default function WHUxWrexham() {
                 height={200}
                 className="h-32 w-auto drop-shadow-lg sm:h-40 lg:h-44"
                 priority
-              />
+              /> */}
             </div>
           </div>
 
