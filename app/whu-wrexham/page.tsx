@@ -80,10 +80,7 @@ const MARLON = {
   beatHisPicksCta: { label: "Beat His Picks", href: "#predict" },
 };
 
-// TODO: populate with the real matchday squad list once confirmed, e.g.
-// ["Jarrod Bowen", "Niclas Füllkrug", "Mohammed Kudus", ...].
-// Leaving this empty makes the form fall back to a free-text field instead
-// of a dropdown, so the page still works before the squad is finalized.
+
 const PLAYER_OPTIONS: string[] = [];
 
 const PREDICTIONS = {
@@ -114,30 +111,30 @@ const WHATS_ON_THE_LINE = {
   cardTitle: "The Athletes Elevated Fan Experience",
   winnerLine: "One winner + one guest (multiple winners chosen, each winner can bring a guest)",
   body: "Join Athletes Elevated for our Road to Matchday pre-game experience in London on September 11 before West Ham vs. Wrexham.",
-  includes: ["Free food and drink voucher"],
+  includes: ["Free food and drink voucher a performance by Joseph J. Jones. And who knows, perhaps Marlon will make an appearance?"],
   excludes: ["Travel to/from London, accommodation or tickets to the game."],
   eligibility:
-    "The selected winners must be 18+ and be in London on September 11 and respond to winner notification within 24 hours or an alternate winner may be selected.",
+    "Selected winners must be 18+, available in London on September 11 and respond within 24 hours of the winner notification email being sent. If a selected winner does not respond within that 24-hour period, Athletes Elevated may select an alternate winner. Please note: Athletes Elevated plans to photograph and film the Road to Matchday experience and may use this content in post-event coverage across its website, email and social channels.",
   oddsNote: "Everyone who calls the match is entered. Accuracy does not matter.",
-  entryClosesLabel: "Entry Closes Sept 9", // TODO: confirm exact date ("Sept __" in source design)
+  entryClosesLabel: "Entry Closes Sept 7",
   winnersNotifiedLabel: "Winners Notified Sept 8",
 };
 
-const BUY_FOR_A_MATE = {
-  liveDateLabel: "Live Sept 1",
-  titleLine1: "Buy For",
-  titleLine2: "A Mate",
-  body: "Someone in your group chat has called it wrong every week since August. Sort them out. Selected West Ham kit and gifting, straight through Athletes Elevated.",
-  marketplaceIntro: "Visit the Marketplace for More Options!",
+const MARKETPLACE_OFFER = {
+    liveDateLabel: "Live Sept 1",
+    titleLine1: "Get 15% Off",
+    titleLine2: "The Marketplace",
+    body: "Sign up to the Athletes Elevated Marketplace with your first name, last name and email, and we'll send you 15% off — kit, gifting and more, all in one place.",
+    cta: { label: "Sign Up for 15% Off", href: "#" }, // TODO: real marketplace signup URL
+    fulfilmentNote: "Discount code sent by email after signup. Offer managed through the Athletes Elevated Marketplace.", 
   // TODO: replace with real product photography, names, descriptions and prices.
   products: [
-    { name: "Product One", description: "Describe what it is", cost: "£00.00" },
-    { name: "Product Two", description: "Describe what it is", cost: "£00.00" },
-    { name: "Product Three", description: "Describe what it is", cost: "£00.00" },
+    { image:"/whu-wrexham-lp/home.png", name: "West Ham 26/27 Elite Home Shirt", description: "The West Ham United x New Balance 2026/27 Elite Home Shirt — iconic Claret and Blue, built to player-level performance."},
+    { image:"/whu-wrexham-lp/away.png", name: "West Ham 26/27 Elite Away Shirt", description: "The West Ham United x New Balance 2026/27 Elite Away Shirt — iconic Away white, built to player-level performance."},
+    { image:"/whu-wrexham-lp/third.png", name: "West Ham 26/27 Third Shirt", description: "The West Ham United x New Balance 2026/27 Third Shirt — bold bleach blue with fast-drying NB DRY comfort."},
   ],
   marketplaceCta: { label: "Visit the Marketplace", href: "#" },
-  fulfilmentNote: "Ordering and fulfilment handled through Athletes Elevated.", // TODO: add shipping cut-off if anything needs to land before September 11.
-};
+  };
 
 const TIMELINE = {
   eyebrow: "The Road",
@@ -194,14 +191,14 @@ const FAQ = {
   title: "Before You Call It",
   // TODO: fill in real answers before launch — placeholders kept from the source design.
   items: [
-    { question: "Does it cost anything to enter?", answer: "Answer" },
-    { question: "When do predictions close?", answer: "Answer" },
-    { question: "How are the pre-match experience places chosen?", answer: "Answer" },
-    { question: "What counts as calling the match correctly?", answer: "Answer" },
-    { question: "Who can enter?", answer: "Answer" },
-    { question: "Can I change my predictions?", answer: "Answer" },
-    { question: "What happens to my details?", answer: "Answer" },
-    { question: "Full terms and conditions.", answer: "Answer" },
+    { question: "Does it cost anything to enter?", answer: "No. Entry to Road to Matchday is completely free and no purchase is necessary to enter." },
+    { question: "When do predictions close?", answer: "Predictions close on September 9th at 11:59pm BST. Late entries received after this time will not be accepted." },
+    { question: "How are the pre-match experience places chosen?", answer: "Winners are selected entirely at random using an independent random selection process, in accordance with the promotion's full Terms and Conditions." },
+    { question: "What counts as calling the match correctly?", answer: "The supporter(s) whose predictions most closely match the final result across all four questions will be recognised when results are published. This is for recognition purposes only and has no effect on your chances of winning the pre-match experience, which is decided by random draw." },
+    { question: "Who can enter?", answer: "Entry is open to individuals aged 18 or over. Full eligibility criteria are set out in the Terms and Conditions." },
+    { question: "Can I change my predictions?", answer: "No. Once submitted, predictions are final and cannot be amended. Please review your answers carefully before submitting, as only one entry is permitted per supporter." },
+    { question: "What happens to my details?", answer: "The information you provide is used solely to administer this promotion, including verifying entries and contacting winners, and is handled in accordance with our Privacy Policy. It will not be used for marketing purposes unless you have separately opted in." },
+    { question: "Full terms and conditions.", answer: "Full Terms and Conditions for Road to Matchday are available [here]." },
   ],
 };
 
@@ -541,60 +538,61 @@ export default function WHUxWrexham() {
       <section className="bg-white text-[#0F1A2E]">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
           <p className={`${EYEBROW} text-[#6B2338]`} style={HEADING_STYLE}>
-            {BUY_FOR_A_MATE.liveDateLabel}
+            {MARKETPLACE_OFFER.liveDateLabel}
           </p>
 
           <div className="mt-3 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <h2 className="text-4xl uppercase font-semibold leading-[0.95] text-[#0B2560] sm:text-5xl" style={HEADING_STYLE}>
-              {BUY_FOR_A_MATE.titleLine1}
+              {MARKETPLACE_OFFER.titleLine1}
               <br />
-              {BUY_FOR_A_MATE.titleLine2}
+              {MARKETPLACE_OFFER.titleLine2}
             </h2>
-            <p className="text-lg leading-relaxed text-[#0F1A2E]/80">{BUY_FOR_A_MATE.body}</p>
+            <p className="text-lg leading-relaxed text-[#0F1A2E]/80">{MARKETPLACE_OFFER.body}</p>
           </div>
 
-          <h3 className="mt-14 text-2xl uppercase leading-[0.95] text-[#52AAFC]" style={HEADING_STYLE}>
-            {BUY_FOR_A_MATE.marketplaceIntro}
-          </h3>
-
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {BUY_FOR_A_MATE.products.map((product) => (
-              <div
-                key={product.name}
-                className="flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm"
-              >
-                <div className="aspect-square w-full bg-gradient-to-br from-black/5 to-black/10" />
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <div>
-                    <p className="text-lg font-bold text-[#0B2560]" style={HEADING_STYLE}>
-                      {product.name}
-                    </p>
-                    <p className="text-sm text-[#0F1A2E]/60">{product.description}</p>
-                  </div>
-                  <div className="mt-auto flex items-center justify-between">
-                    <span className="font-bold text-[#0F1A2E]" style={HEADING_STYLE}>
-                      {product.cost}
-                    </span>
-                    <button
-                      type="button"
-                      className="rounded-full bg-[#0B2560] px-5 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-[#123073]"
-                      style={HEADING_STYLE}
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
+  {MARKETPLACE_OFFER.products.map((product) => (
+    <div
+      key={product.name}
+      className="flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm"
+    >
+      <div className="relative aspect-square w-full bg-black/5">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(min-width: 640px) 33vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div>
+          <p className="text-lg font-bold text-[#0B2560]" style={HEADING_STYLE}>
+            {product.name}
+          </p>
+          <p className="text-sm text-[#0F1A2E]/60">{product.description}</p>
+        </div>
+        <div className="mt-auto flex items-center justify-between">
+          <button
+            type="button"
+            className="rounded-full bg-[#0B2560] px-5 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-[#123073]"
+            style={HEADING_STYLE}
+          >
+            Buy
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
 
           <div className="mt-10 flex justify-center">
-            <a href={BUY_FOR_A_MATE.marketplaceCta.href} className={BTN_NAVY_OUTLINE} style={HEADING_STYLE}>
-              {BUY_FOR_A_MATE.marketplaceCta.label} &rarr;
+            <a href={MARKETPLACE_OFFER.marketplaceCta.href} className={BTN_NAVY_OUTLINE} style={HEADING_STYLE}>
+              {MARKETPLACE_OFFER.marketplaceCta.label} &rarr;
             </a>
           </div>
 
-          <p className="mt-6 text-center text-xs text-[#0F1A2E]/50">{BUY_FOR_A_MATE.fulfilmentNote}</p>
+          <p className="mt-6 text-center text-xs text-[#0F1A2E]/50">{MARKETPLACE_OFFER.fulfilmentNote}</p>
         </div>
       </section>
 
