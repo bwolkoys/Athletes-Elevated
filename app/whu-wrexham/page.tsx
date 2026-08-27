@@ -15,18 +15,18 @@ const HEADING = "var(--font-heading, 'Apotek Extended'), sans-serif";
 const BODY = "var(--font-body, 'DM Sans'), sans-serif";
 
 const SITE = {
-  matchLabel: "West Ham vs. Wrexham | Friday, September 11th",
+  matchLabel: "West Ham United vs. Wrexham | Friday, September 11th",
   predictionsCloseISO: "2026-09-07T17:59:00-04:00", // "Sept 7th at 11:59 PM EST / 4:59 BST"
 };
 
 const HERO = {
   badge: SITE.matchLabel,
-  backgroundImage: "/whu-wrexham-lp/homeBG.png",
+  backgroundImage: "/whu-wrexham-lp/BG.png",
   titleLine1: "Road To",
   titleLine2: "Matchday",
   subheadLine1: "Marlon's called it. Now you call it.",
   subheadLine2: "Now you call it.",
-  body: "Marlon has made his predictions. Now we want yours. Everyone who calls the match is in the running for the Athletes Elevated pre-match fan experience. Make three quick picks and receive one free entry for the chance to join us for a fan pre-match experience.",
+  body: "Marlon has made his predictions. Now it’s your turn. Make four quick picks for West Ham United vs. Wrexham for your chance to be randomly selected to join Athletes Elevated, with a guest, for our Road to Matchday pre-match pub experience on September 11. Get it right and you’ve earned the bragging rights. The winner is still chosen at random.",
   primaryCta: { label: "Call The Match", href: "#predict" },
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
@@ -40,24 +40,23 @@ const HOW_IT_WORKS = {
     {
       number: 1,
       title: "Watch Marlon Call It",
-      body: "He's given us his score, his first scorer, the minute the first one goes in and how many shots on goal WHU has. No hedging.",
+      body: "Marlon’s made his four calls for West Ham United vs. Wrexham. See where he lands before you make yours.",
     },
     {
       number: 2,
       title: "Call It Yourself",
-      body: "Answer the same four questions. Takes under a minute. You're automatically entered into the pre-match fan experience.",
+      body: "Back your instincts and make your four picks. It takes less than a minute, and you’ll be in the draw for Athletes Elevated’s Road to Matchday on September 11.",
     },
     {
       number: 3,
       title: "Match-day Experience",
-      body: "You'll be notified by email on September 8th if you've won the September 11th match-day experience for you and a guest.",
+      body: "See You Before KickOff: If you’re selected, bring a mate and join Athletes Elevated for a proper pre-match gathering at an iconic WHU pub in London before West Ham United vs. Wrexham.",
     },
   ],
 };
 
 const MARLON = {
   picksTitle: "Marlon's Picks",
-  fourTitle: "Marlon's Four",
   videoUrl: "", // TODO: swap for the real video embed URL once Marlon's call is filmed.
   videoPlaceholderLabel: "Marlon's call — video coming soon",
   fourAnswers: [
@@ -66,8 +65,6 @@ const MARLON = {
     { label: "3. Minute of the First Goal", value: "??:??" }, // TODO
     { label: "4. WHU shots on goal", value: "??:??" },
   ],
-  ritualsTitle: "Marlon's Matchday Rituals",
-  ritualsQuote: "Placeholder text. Quote Marlon's ritual here.", // TODO
   beatHisPicksCta: { label: "Beat His Picks", href: "#predict" },
 };
 
@@ -75,53 +72,32 @@ const PLAYER_OPTIONS: string[] = [];
 
 const PREDICTIONS = {
   eyebrow: "Make Your Predictions",
-  titleLine1: "Three Questions.",
-  titleLine2: "One Minute.",
-  body: "Same three questions Marlon answered. Answer them honestly — the results get published either way.",
+  titleLine1: "September 11 | London",
+  titleLine2: "WHU vs. Wrexham",
+  body: "If selected, you and a guest will join Athletes Elevated at an iconic London pub from 12pm-3pm BST for drinks, snacks and a live performance by Joseph J. Jones. And who knows, Marlon may even make an appearance.",
   bullets: [
     {
-      strong: "Everyone who enters",
-      rest: "is in the draw for the Athletes Elevated pre-match fan experience on September 11.",
+      strong: "Please Note:",
+      rest: "Travel to and from London, accommodation and match tickets are not included.",
     },
     {
-      strong: "Your predictions are for fun and bragging rights.",
-      rest: "Prediction accuracy does not affect your chances of winning. Eligible winners are selected at random.",
+      strong: "",
+      rest: "Selected winners and their guests must be 18+. Winners will be notified by email on September 8 and must confirm attendance within 24 hours of the notification email being sent. If we don’t hear from you within that time, we may offer the spot to an alternate winner.",
     },
     {
-      strong: "No purchase required.",
-      rest: "Free to enter, one entry per supporter.",
+      strong: "",
+      rest: "Athletes Elevated plans to photograph and film the Road to Matchday experience and may use this content in post-event coverage across its website, email and social channels.",
     },
   ],
-  closesPill: "Predictions Close: Sept 7th at 11:59 PM BST",
-  formNote: "One entry per supporter. Predictions close Sept 7th.",
-};
-
-const WHATS_ON_THE_LINE = {
-  eyebrow: "What's on the Line",
-  titleLine1: "Two Chances to Win.",
-  titleLine2: "Your chance to join road to matchday.",
-  cardTag: "Sept 11 | Pre-Match",
-  cardTitle: "The Athletes Elevated Fan Experience",
-  winnerLine:
-    "One winner + one guest",
-  body: "Join Athletes Elevated for our Road to Matchday pre-game experience in London on September 11 before West Ham vs. Wrexham. This will take place at one of your favorite London pubs.",
-  includes: [
-    "Free food and drink voucher a performance by Joseph J. Jones. And who knows, perhaps Marlon will make an appearance?",
-  ],
-  excludes: ["Travel to/from London, accommodation or tickets to the game."],
-  eligibility:
-    "Selected winners must be 18+, available in London on September 11 and respond within 24 hours of the winner notification email being sent. If a selected winner does not respond within that 24-hour period, Athletes Elevated may select an alternate winner. Please note: Athletes Elevated plans to photograph and film the Road to Matchday experience and may use this content in post-event coverage across its website, email and social channels.",
-  oddsNote:
-    "Everyone who calls the match is entered. Accuracy does not matter.",
-  entryClosesLabel: "Entry Closes Sept 7",
-  winnersNotifiedLabel: "Winners Notified Sept 8",
+  closesPill: "Entry Closes Sept 7 · Winners Notified Sept 8",
+  formNote: "One entry per supporter. Predictions close Sept 7th 11:59pm BST.",
 };
 
 const MARKETPLACE_OFFER = {
   liveDateLabel: "Live Sept 1",
-  titleLine1: "Get 15% Off",
-  titleLine2: "The Marketplace",
-  body: "Sign up to the Athletes Elevated Marketplace with your first name, last name and email, and we'll send you 15% off — kit, gifting and more, all in one place.",
+  titleLine1: "Treat yourself",
+  titleLine2: "To Something New",
+  body: "Sign up to the Athletes Elevated Marketplace and get 15% off.",
   cta: { label: "Sign Up for 15% Off", href: "#" }, // TODO: real marketplace signup URL
   fulfilmentNote:
     "Discount code sent by email after signup. Offer managed through the Athletes Elevated Marketplace.",
@@ -149,55 +125,55 @@ const MARKETPLACE_OFFER = {
   marketplaceCta: { label: "Visit the Marketplace", href: "#" },
 };
 
-const TIMELINE = {
-  eyebrow: "The Road",
-  titleLine1: "What Happens",
-  titleLine2: "Between Now and Then",
-  milestones: [
-    {
-      date: "Thursday, August 27",
-      title: "Call the Match Opens",
-      body: "Marlon makes the first call. Predictions open to every supporter.",
-      status: "past",
-    },
-    {
-      date: "Tuesday, September 1",
-      title: "15% Off Goes Live",
-      body: "Selected West Ham kit and gifting opens through Athletes Elevated.",
-      status: "past",
-    },
-    {
-      date: "Friday, September 4",
-      title: "Matchday Momentum",
-      body: "Matchday rituals, Marlon vs. the fans, and where the supporter predictions are landing.",
-      status: "past",
-    },
-    {
-      date: "Monday, September 7",
-      title: "Last Call",
-      body: "Final chance to get your predictions in before they close.",
-      status: "past",
-    },
-    {
-      date: "Tuesday, September 8",
-      title: "Pre-Match Experience Winners",
-      body: "Selected supporters are notified by email.",
-      status: "past",
-    },
-    {
-      date: "Friday, September 11",
-      title: "West Ham vs. Wrexham",
-      body: "Matchday. Pre-match meetup, then the ninety minutes everyone's been calling.",
-      status: "current",
-    },
-    {
-      date: "Saturday, September 12",
-      title: "How Did You Do?",
-      body: "Full results, you against Marlon. Did you beat Marlon's picks?",
-      status: "future",
-    },
-  ],
-};
+// const TIMELINE = {
+//   eyebrow: "The Road",
+//   titleLine1: "What Happens",
+//   titleLine2: "Between Now and Then",
+//   milestones: [
+//     {
+//       date: "Thursday, August 27",
+//       title: "Call the Match Opens",
+//       body: "Marlon makes the first call. Predictions open to every supporter.",
+//       status: "past",
+//     },
+//     {
+//       date: "Tuesday, September 1",
+//       title: "15% Off Goes Live",
+//       body: "Selected West Ham kit and gifting opens through Athletes Elevated.",
+//       status: "past",
+//     },
+//     {
+//       date: "Friday, September 4",
+//       title: "Matchday Momentum",
+//       body: "Matchday rituals, Marlon vs. the fans, and where the supporter predictions are landing.",
+//       status: "past",
+//     },
+//     {
+//       date: "Monday, September 7",
+//       title: "Last Call",
+//       body: "Final chance to get your predictions in before they close.",
+//       status: "past",
+//     },
+//     {
+//       date: "Tuesday, September 8",
+//       title: "Pre-Match Experience Winners",
+//       body: "Selected supporters are notified by email.",
+//       status: "past",
+//     },
+//     {
+//       date: "Friday, September 11",
+//       title: "West Ham vs. Wrexham",
+//       body: "Matchday. Pre-match meetup, then the ninety minutes everyone's been calling.",
+//       status: "current",
+//     },
+//     {
+//       date: "Saturday, September 12",
+//       title: "How Did You Do?",
+//       body: "Full results, you against Marlon. Did you beat Marlon's picks?",
+//       status: "future",
+//     },
+//   ],
+// };
 
 type FaqItem = {
   question: string;
@@ -211,40 +187,47 @@ const FAQ = {
   title: "Before You Call It",
   items: [
     {
-      question: "Does it cost anything to enter?",
+      question: "What is the promotion period?",
       answer:
-        "No. Entry to Road to Matchday is completely free and no purchase is necessary to enter.",
+        "The Road to Matchday: Call the Match Free Prize Draw opens on August 27, 2026 and closes on September 7, 2026 at 11:59pm BST. Entries received before the opening time or after the closing time will not be eligible.",
     },
     {
-      question: "When do predictions close?",
+      question: "Who is eligible?",
       answer:
-        "Predictions close on September 7th at 11:59pm BST. Late entries received after this time will not be accepted.",
+        "The Promotion is open to legal residents of Great Britain (England, Scotland and Wales) who are 18 years of age or older at the time of entry. Employees, officers and directors of the Promoter, West Ham United, participating agencies and campaign partners, and members of their immediate households are not eligible to enter. Entrants must be available to attend the Road to Matchday pre-game experience in London on September 11, 2026 from 12pm-3pm BST if selected as a winner. Winners may bring one guest. Both the winner and guest must be 18 years of age or older and comply with any applicable venue requirements. Void where prohibited or restricted by law.",
     },
     {
-      question: "How are the pre-match experience places chosen?",
+      question: "How do I enter?",
       answer:
-        "Winners are selected entirely at random using an independent random selection process, in accordance with the promotion's full Terms and Conditions.",
+        "During the Promotion Period, visit [https://www.athleteselevated.com/whu-wrexham] and: Complete the four Call the Match prediction questions for West Ham vs. Wrexham. Provide your first name, last name, email address and country of residence. Confirm that you meet the eligibility requirements and agree to the Official Rules and Privacy Notice. Submit your entry. Limit one entry per person. No purchase is necessary to enter. Purchasing merchandise through Athletes Elevated, including through the 15% off AE promotion, does not create an entry, an additional entry or increase your chances of winning. Prediction accuracy has no effect on winner selection or your chances of winning. The predictions are for fan participation and bragging rights only. There are no bonus entry methods for this Promotion. Consent to receive marketing communications from Athletes Elevated is not required to enter.",
     },
     {
-      question: "What counts as calling the match correctly?",
+      question: "How and when are winners selected and what are my odds?",
       answer:
-        "The supporter(s) whose predictions most closely match the final result across all four questions will be recognised when results are published. This is for recognition purposes only and has no effect on your chances of winning the pre-match experience, which is decided by random draw.",
+        "Winners will be selected at random from all eligible entries on September 8, 2026, using a computer process that produces verifiably random results. The Promoter will retain evidence of the random selection process. The Promoter may also randomly select alternate winners from the remaining eligible entries in the event that an initially selected winner does not respond within the required time, cannot attend the experience, cannot verify eligibility or otherwise fails to comply with these Official Rules. Odds of winning depend on the total number of eligible entries received. Prediction answers and prediction accuracy have no effect on winner selection.",
     },
     {
-      question: "Who can enter?",
+      question: "What do I get for entering?",
       answer:
-        "Entry is open to individuals aged 18 or over. Full eligibility criteria are set out in the Terms and Conditions.",
+        "PRIZE Winners will each receive admission for themselves and one guest to the Athletes Elevated Road to Matchday pre-game experience in London on September 11, 2026, before West Ham vs. Wrexham. The experience will take place at an iconic London pub from approximately 12pm-3pm BST and will include: Drinks and snacks provided by Athletes Elevated; and A live performance by Joseph J. Jones. Approximate value of each prize: £100. The prize does not include travel to or from London, accommodation, transportation, match tickets, meals or drinks beyond those expressly provided as part of the experience, or any other personal expenses. Winners and their guests are responsible for arranging and paying for all transportation, accommodation and other costs required to attend. Both the winner and guest must be at least 18 years old and comply with venue requirements. The prize has no cash alternative and is not transferable. If a winner cannot attend, the Promoter may select an alternate winner in accordance with these Official Rules. Athletes Elevated intends to photograph and film the Road to Matchday experience and may use content from the event in post-event coverage, including on its website, email communications and social media channels. Winners and guests will be informed of applicable photography and filming arrangements before attending.",
     },
     {
-      question: "Can I change my predictions?",
+      question: "How will I be notified if I win?",
       answer:
-        "No. Once submitted, predictions are final and cannot be amended. Please review your answers carefully before submitting, as only one entry is permitted per supporter.",
+        "Selected winners will be notified by email on September 8, 2026, using the email address provided when entering. Each selected winner must respond and confirm attendance within 24 hours of the winner notification email being sent. If a selected winner: does not respond within that 24-hour period; cannot attend Road to Matchday on September 11, 2026; cannot verify that they meet the eligibility requirements; or otherwise fails to comply with these Official Rules, the prize may be forfeited and the Promoter may offer the prize to an alternate winner selected at random from the remaining eligible entries. The Promoter will make reasonable efforts to contact each selected winner using the information provided at entry.",
     },
     {
-      question: "What happens to my details?",
+      question: "How will you handle my data?",
       answer:
-        "The information you provide is used solely to administer this promotion, including verifying entries and contacting winners, and is handled in accordance with our Privacy Policy. It will not be used for marketing purposes unless you have separately opted in.",
+        "The Promoter will collect the personal information provided through the entry form, including the entrant's first name, last name, email address and country of residence, for the purpose of administering the Promotion. Personal information may be used to: verify eligibility; record and administer entries; conduct the random winner selection; contact selected winners and alternates; confirm attendance and administer the prize; demonstrate that prizes were properly awarded; comply with legal and regulatory obligations; and otherwise administer the Promotion. Personal information may be shared with service providers acting on behalf of the Promoter where reasonably necessary to administer the Promotion or provide the prize, subject to applicable data protection requirements. Entering the Promotion does not require entrants to consent to marketing. Entrants who separately choose to receive Athletes Elevated news, offers and updates may do so through the optional marketing consent box on the entry form and may unsubscribe at any time. Personal information will be retained only for as long as reasonably necessary for the purposes described above and to satisfy applicable legal or regulatory requirements. For additional information about how Athletes Elevated handles personal information and entrants' rights under applicable data protection law, see the privacy policy here.",
+    answerLinkText: "privacy policy here",
+    answerLinkHref: "https://www.athleteselevated.com/privacy-policy",
     },
+    {
+        question: "Who is the promoter?",
+        answer:
+          "The promoter of the Road to Matchday: Call the Match Free Prize Draw is: Athletes Elevated LLC. Email: ae@athleteselevated.com. WEST HAM UNITED IS NOT a promoter or administrator of this Promotion.",
+      },
     {
       question: "Full terms and conditions.",
       answer:
@@ -259,7 +242,7 @@ const CLOSING_CTA = {
   eyebrow: "Last Thing",
   titleLine1: "He's Called It.",
   titleLine2: "It's Your Turn.",
-  body: "Three questions, one minute, and a reason to care about every touch on September 11.",
+  body: "Four questions, one minute, and a reason to care about every touch on September 11. We hope to see you at the match!",
   cta: { label: "Call the Match", href: "#predict" },
 };
 
@@ -509,7 +492,6 @@ export default function WHUxWrexham() {
                   className="text-3xl uppercase leading-[0.95] text-[#52AAFC] sm:text-4xl"
                   style={HEADING_STYLE}
                 >
-                  {MARLON.fourTitle}
                 </h2>
                 <div className="mt-6 flex flex-col gap-4 rounded-2xl border-2 border-[#52AAFC]/70 p-6 sm:p-8">
                   {MARLON.fourAnswers.map((item) => (
@@ -526,20 +508,6 @@ export default function WHUxWrexham() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-
-            <div className="mt-16">
-              <h2
-                className="text-3xl uppercase leading-[0.95] text-[#52AAFC] sm:text-4xl"
-                style={HEADING_STYLE}
-              >
-                {MARLON.ritualsTitle}
-              </h2>
-              <div className="mt-6 rounded-2xl bg-[#6B2338] px-8 py-10">
-                <p className="text-lg italic leading-relaxed text-white/90">
-                  &ldquo;{MARLON.ritualsQuote}&rdquo;
-                </p>
               </div>
             </div>
 
@@ -605,91 +573,6 @@ export default function WHUxWrexham() {
                 playerOptions={PLAYER_OPTIONS}
                 formNote={PREDICTIONS.formNote}
               />
-            </div>
-          </div>
-        </section>
-
-        {/* ========================= WHAT'S ON THE LINE ==================== */}
-        <section className={`text-white ${CLARET_GRADIENT_BG}`}>
-          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
-            <p className={`${EYEBROW} text-[#52AAFC]`} style={HEADING_STYLE}>
-              {WHATS_ON_THE_LINE.eyebrow}
-            </p>
-            <h2
-              className="mt-3 text-4xl uppercase font-semibold leading-[0.95] text-white sm:text-5xl"
-              style={HEADING_STYLE}
-            >
-              {WHATS_ON_THE_LINE.titleLine1}
-              <br />
-              {WHATS_ON_THE_LINE.titleLine2}
-            </h2>
-
-            <div className="mt-12 rounded-2xl border-2 border-[#52AAFC] bg-[#0B2560] p-8 sm:p-10">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <h3
-                  className="text-2xl font-bold uppercase text-white"
-                  style={HEADING_STYLE}
-                >
-                  {WHATS_ON_THE_LINE.cardTitle}
-                </h3>
-                <span
-                  className={`${EYEBROW} shrink-0 rounded-full border-2 border-[#52AAFC] px-4 py-2 text-[#52AAFC]`}
-                  style={HEADING_STYLE}
-                >
-                  {WHATS_ON_THE_LINE.cardTag}
-                </span>
-              </div>
-
-              <p className="mt-6 font-bold text-white/90" style={HEADING_STYLE}>
-                {WHATS_ON_THE_LINE.winnerLine}
-              </p>
-              <p className="mt-4 leading-relaxed text-white/80">
-                {WHATS_ON_THE_LINE.body}
-              </p>
-
-              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <p
-                    className="text-sm font-bold uppercase tracking-wide text-[#52AAFC]"
-                    style={HEADING_STYLE}
-                  >
-                    Includes
-                  </p>
-                  <ul className="mt-2 list-inside list-disc text-white/80">
-                    {WHATS_ON_THE_LINE.includes.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p
-                    className="text-sm font-bold uppercase tracking-wide text-[#52AAFC]"
-                    style={HEADING_STYLE}
-                  >
-                    Does Not Include
-                  </p>
-                  <ul className="mt-2 list-inside list-disc text-white/80">
-                    {WHATS_ON_THE_LINE.excludes.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <p className="mt-6 text-sm leading-relaxed text-white/70">
-                {WHATS_ON_THE_LINE.eligibility}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                {WHATS_ON_THE_LINE.oddsNote}
-              </p>
-
-              <p
-                className="mt-8 text-center text-sm font-bold uppercase tracking-wide text-[#52AAFC]"
-                style={HEADING_STYLE}
-              >
-                {WHATS_ON_THE_LINE.entryClosesLabel} &middot;{" "}
-                {WHATS_ON_THE_LINE.winnersNotifiedLabel}
-              </p>
             </div>
           </div>
         </section>
@@ -773,7 +656,7 @@ export default function WHUxWrexham() {
         </section>
 
         {/* ============================ TIMELINE =========================== */}
-        <section className={`text-white ${NAVY_GRADIENT_BG}`}>
+        {/* <section className={`text-white ${NAVY_GRADIENT_BG}`}>
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
             <p className={`${EYEBROW} text-[#52AAFC]`} style={HEADING_STYLE}>
               {TIMELINE.eyebrow}
@@ -814,7 +697,7 @@ export default function WHUxWrexham() {
               ))}
             </ol>
           </div>
-        </section>
+        </section> */}
 
         {/* ================================ FAQ ============================= */}
         <FaqSection />

@@ -59,7 +59,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
       { type: "p", text: "The promoter is:" },
       {
         type: "lines",
-        items: ["Athletes Elevated, LLC", "2329 Creek Crossing Loop, Park City, UT 84098", "ae@athleteselevated.com"],
+        items: ["Athletes Elevated, LLC", "1892 W White Pine Rd, Park City, UT 84098", "ae@athleteselevated.com"],
       },
       { type: "p", text: "West Ham United is not the promoter or administrator of this promotion." },
     ],
