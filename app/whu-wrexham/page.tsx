@@ -710,20 +710,20 @@ export default function WHUxWrexham() {
         <FaqSection />
 
         {/* =========================== CLOSING CTA =========================== */}
-        <section className={`text-white ${NAVY_GRADIENT_BG}`}>
+        <section className={`text-[#092866] bg-white`}>
           <div className="mx-auto max-w-3xl px-6 py-20 text-center sm:px-10 sm:py-24">
             <p className={`${EYEBROW} text-[#52AAFC]`} style={HEADING_STYLE}>
               {CLOSING_CTA.eyebrow}
             </p>
             <h2
-              className="mt-3 text-4xl uppercase leading-[0.95] text-white sm:text-5xl"
+              className="mt-3 text-4xl uppercase leading-[0.95] text-[#092866] sm:text-5xl"
               style={HEADING_STYLE}
             >
               {CLOSING_CTA.titleLine1}
               <br />
               {CLOSING_CTA.titleLine2}
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#092866]">
               {CLOSING_CTA.body}
             </p>
             <a
