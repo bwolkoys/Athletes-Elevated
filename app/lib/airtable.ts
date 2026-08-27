@@ -5,7 +5,6 @@ export type PredictionPayload = {
     westHamScore: number;
     wrexhamScore: number;
     firstScorer: string;
-    bowenScores: "Yes" | "No";
     goalMinute: number;
     agreedToTerms: boolean;
     optedInToUpdates: boolean;
@@ -20,7 +19,6 @@ export type PredictionPayload = {
       "West Ham Score": payload.westHamScore,
       "Wrexham Score": payload.wrexhamScore,
       "First Goalscorer": payload.firstScorer,
-      "Bowen Scores": payload.bowenScores,
       "Goal Minute": payload.goalMinute,
       "Agreed To Terms": payload.agreedToTerms,
       "Opted In To Updates": payload.optedInToUpdates,

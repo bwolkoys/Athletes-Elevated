@@ -72,7 +72,6 @@ const MARLON = {
   fourAnswers: [
     { label: "Final Score", value: "WHU ?? vs Wrexham ??" }, // TODO
     { label: "Name of First Scorer", value: "????? ?????" }, // TODO
-    { label: "Jarrod Bowen Scores?", value: "Yes / No" }, // TODO
     { label: "Minute of the First Goal", value: "??:??" }, // TODO
   ],
   ritualsTitle: "Marlon's Matchday Rituals",
@@ -880,7 +879,7 @@ function PredictionForm({
         )}
       </fieldset>
 
-      <fieldset className="border-b border-black/10 py-6">
+      {/* <fieldset className="border-b border-black/10 py-6">
         <legend className={fieldLabelClass} style={HEADING_STYLE}>
           3 / Will Jarrod Bowen Score?
         </legend>
@@ -903,7 +902,7 @@ function PredictionForm({
             </button>
           ))}
         </div>
-      </fieldset>
+      </fieldset> */}
 
       <fieldset className="border-b border-black/10 py-6">
         <legend className={fieldLabelClass} style={HEADING_STYLE}>

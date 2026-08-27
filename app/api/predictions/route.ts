@@ -34,7 +34,6 @@ export async function POST(req: NextRequest) {
     westHamScore,
     wrexhamScore,
     firstScorer,
-    bowenScores,
     goalMinute,
     agreedToTerms,
     optedInToUpdates,
@@ -50,8 +49,6 @@ export async function POST(req: NextRequest) {
   if (!isFiniteNumber(wrexhamScore) || wrexhamScore < 0 || wrexhamScore > 30)
     errors.push("Wrexham score must be a number between 0 and 30.");
   if (!isNonEmptyString(firstScorer)) errors.push("First goalscorer is required (or \"Goalless\").");
-  if (bowenScores !== "Yes" && bowenScores !== "No")
-    errors.push('Bowen prediction must be "Yes" or "No".');
   if (!isFiniteNumber(goalMinute) || goalMinute < 0 || goalMinute > 90)
     errors.push("Goal minute must be a number between 0 and 90.");
   if (agreedToTerms !== true)
@@ -69,7 +66,6 @@ export async function POST(req: NextRequest) {
       westHamScore: westHamScore as number,
       wrexhamScore: wrexhamScore as number,
       firstScorer: (firstScorer as string).trim(),
-      bowenScores: bowenScores as "Yes" | "No",
       goalMinute: goalMinute as number,
       agreedToTerms: true,
       optedInToUpdates: optedInToUpdates === true,
