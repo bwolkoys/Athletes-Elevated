@@ -34,10 +34,10 @@ const HERO = {
   backgroundImage: "/whu-wrexham-lp/homeBG.png",
   titleLine1: "Road To",
   titleLine2: "Matchday",
-  subheadLine1: "Marlon's called it.",
+  subheadLine1: "Marlon's called it. Now you call it.",
   subheadLine2: "Now you call it.",
-  body: "Four questions. One match. Put your name to a scoreline and get closer to West Ham vs. Wrexham than the fixture list will ever get you — through Marlon, through the supporters around you, and through Athletes Elevated.",
-  primaryCta: { label: "Make Your Picks", href: "#predict" },
+  body: "Marlon has made his predictions. Now we want yours. Make four quick picks and receive one free entry for the chance to join us for the Road to Matchday pre-game experience.",
+  primaryCta: { label: "Call The Match", href: "#predict" },
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
     "Free to enter. Everyone who calls the match is in the running for the Athletes Elevated pre-match fan experience on September 11. No purchase necessary. Purchase does not increase your chances of winning.",
@@ -84,9 +84,9 @@ const PLAYER_OPTIONS: string[] = [];
 
 const PREDICTIONS = {
   eyebrow: "Make Your Predictions",
-  titleLine1: "Four Questions.",
+  titleLine1: "Three Questions.",
   titleLine2: "One Minute.",
-  body: "Same four questions Marlon answered. Answer them honestly — the results get published either way.",
+  body: "Same three questions Marlon answered. Answer them honestly — the results get published either way.",
   bullets: [
     {
       strong: "Everyone who enters",
@@ -107,13 +107,13 @@ const PREDICTIONS = {
 
 const WHATS_ON_THE_LINE = {
   eyebrow: "What's on the Line",
-  titleLine1: "One Way to Win.",
-  titleLine2: "Multiple Winners.",
+  titleLine1: "Two Chances to Win.",
+  titleLine2: "Your chance to join road to matchday.",
   cardTag: "Sept 11 | Pre-Match",
   cardTitle: "The Athletes Elevated Fan Experience",
   winnerLine:
-    "One winner + one guest (multiple winners chosen, each winner can bring a guest)",
-  body: "Join Athletes Elevated for our Road to Matchday pre-game experience in London on September 11 before West Ham vs. Wrexham.",
+    "One winner + one guest",
+  body: "Join Athletes Elevated for our Road to Matchday pre-game experience in London on September 11 before West Ham vs. Wrexham. This will take place at one of your favorite London pubs.",
   includes: [
     "Free food and drink voucher a performance by Joseph J. Jones. And who knows, perhaps Marlon will make an appearance?",
   ],
