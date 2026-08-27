@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
     wrexhamScore,
     firstScorer,
     goalMinute,
+    shotsGoal,
     agreedToTerms,
     optedInToUpdates,
   } = body;
@@ -53,6 +54,8 @@ export async function POST(req: NextRequest) {
   if (!isNonEmptyString(firstScorer)) errors.push("First goalscorer is required (or \"Goalless\").");
   if (!isFiniteNumber(goalMinute) || goalMinute < 0 || goalMinute > 90)
     errors.push("Goal minute must be a number between 0 and 90.");
+  if (!isFiniteNumber(shotsGoal) || shotsGoal < 0 || shotsGoal > 100)
+    errors.push("Shots on Goal must be a number between 0 and 100.");
   if (agreedToTerms !== true)
     errors.push("You must agree to the campaign terms and privacy policy.");
 
@@ -70,6 +73,7 @@ export async function POST(req: NextRequest) {
       wrexhamScore: wrexhamScore as number,
       firstScorer: (firstScorer as string).trim(),
       goalMinute: goalMinute as number,
+      shotsGoal: shotsGoal as number,
       agreedToTerms: true,
       optedInToUpdates: optedInToUpdates === true,
     });

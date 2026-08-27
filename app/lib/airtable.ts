@@ -7,6 +7,7 @@ export type PredictionPayload = {
     wrexhamScore: number;
     firstScorer: string;
     goalMinute: number;
+    shotsGoal: number;
     agreedToTerms: boolean;
     optedInToUpdates: boolean;
   };
@@ -22,6 +23,7 @@ export type PredictionPayload = {
       "Wrexham Score": payload.wrexhamScore,
       "First Goalscorer": payload.firstScorer,
       "Goal Minute": payload.goalMinute,
+      "Shots on Goal": payload.shotsGoal,
       "Agreed To Terms": payload.agreedToTerms,
       "Opted In To Updates": payload.optedInToUpdates,
     };

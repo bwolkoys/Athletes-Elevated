@@ -1,15 +1,5 @@
 "use client";
 
-/**
-
- * WHAT ELSE THIS PAGE NEEDS (delivered alongside this file, in sibling
- * folders — see the project README for the full integration guide):
- *   - app/api/predictions/route.ts   (the fetch() call below posts here)
- *   - lib/airtable.ts                 (used by that API route)
- *   - public/images/crest-west-ham.png
- *   - public/images/crest-wrexham.png
- */
-
 import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "../src/components/navBar";
@@ -36,11 +26,11 @@ const HERO = {
   titleLine2: "Matchday",
   subheadLine1: "Marlon's called it. Now you call it.",
   subheadLine2: "Now you call it.",
-  body: "Marlon has made his predictions. Now we want yours. Make four quick picks and receive one free entry for the chance to join us for the Road to Matchday pre-game experience.",
+  body: "Marlon has made his predictions. Now we want yours. Everyone who calls the match is in the running for the Athletes Elevated pre-match fan experience. Make three quick picks and receive one free entry for the chance to join us for a fan pre-match experience.",
   primaryCta: { label: "Call The Match", href: "#predict" },
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
-    "Free to enter. Everyone who calls the match is in the running for the Athletes Elevated pre-match fan experience on September 11. No purchase necessary. Purchase does not increase your chances of winning.",
+    "Free to enter. No purchase necessary. Purchase does not increase your chances of winning.",
 };
 
 const HOW_IT_WORKS = {
@@ -50,30 +40,31 @@ const HOW_IT_WORKS = {
     {
       number: 1,
       title: "Watch Marlon Call It",
-      body: "He's given us his score, his first scorer, his Bowen shout and the minute the first one goes in. No hedging.",
+      body: "He's given us his score, his first scorer, the minute the first one goes in and how many shots on goal WHU has. No hedging.",
     },
     {
       number: 2,
       title: "Call It Yourself",
-      body: "Answer the same four questions. Takes under a minute. You're then in for the pre-match fan experience on September 11.",
+      body: "Answer the same four questions. Takes under a minute. You're automatically entered into the pre-match fan experience.",
     },
     {
       number: 3,
-      title: "Find Out How You Did",
-      body: "We'll publish the results the day after the match — you against Marlon, and you against every other supporter who called it.",
+      title: "Match-day Experience",
+      body: "You'll be notified by email on September 8th if you've won the September 11th match-day experience for you and a guest.",
     },
   ],
 };
 
 const MARLON = {
   picksTitle: "Marlon's Picks",
-  fourTitle: "Marlon's Three",
+  fourTitle: "Marlon's Four",
   videoUrl: "", // TODO: swap for the real video embed URL once Marlon's call is filmed.
   videoPlaceholderLabel: "Marlon's call — video coming soon",
   fourAnswers: [
-    { label: "Final Score", value: "WHU ?? vs Wrexham ??" }, // TODO
-    { label: "Name of First Scorer", value: "????? ?????" }, // TODOF
-    { label: "Minute of the First Goal", value: "??:??" }, // TODO
+    { label: "1. Final Score", value: "WHU ?? vs Wrexham ??" }, // TODO
+    { label: "2. Who'll score the first goal", value: "????? ?????" }, // TODO
+    { label: "3. Minute of the First Goal", value: "??:??" }, // TODO
+    { label: "4. WHU shots on goal", value: "??:??" },
   ],
   ritualsTitle: "Marlon's Matchday Rituals",
   ritualsQuote: "Placeholder text. Quote Marlon's ritual here.", // TODO
@@ -227,7 +218,7 @@ const FAQ = {
     {
       question: "When do predictions close?",
       answer:
-        "Predictions close on September 9th at 11:59pm BST. Late entries received after this time will not be accepted.",
+        "Predictions close on September 7th at 11:59pm BST. Late entries received after this time will not be accepted.",
     },
     {
       question: "How are the pre-match experience places chosen?",
@@ -524,7 +515,7 @@ export default function WHUxWrexham() {
                   {MARLON.fourAnswers.map((item) => (
                     <div
                       key={item.label}
-                      className="rounded-full bg-[#6B2338] px-6 py-4 text-center"
+                      className="rounded-full bg-[#6B2338] px-6 py-4 text-left"
                     >
                       <span
                         className="text-sm font-bold uppercase tracking-wide text-white sm:text-base"
@@ -990,6 +981,7 @@ function PredictionForm({
       wrexhamScore: Number(data.get("wrexhamScore")),
       firstScorer: String(data.get("firstScorer") || "").trim(),
       goalMinute: Number(data.get("goalMinute")),
+      shotsGoal: Number(data.get("shotsGoal")),
       agreedToTerms: data.get("agreedToTerms") === "on",
       optedInToUpdates: data.get("optedInToUpdates") === "on",
     };
@@ -1142,6 +1134,27 @@ function PredictionForm({
           <span className="text-sm text-[#0F1A2E]/60">minutes</span>
         </div>
       </fieldset>
+      <fieldset className="border-b border-black/10 py-6">
+        <legend className={fieldLabelClass} style={HEADING_STYLE}>
+          4 / How many shots on goal will WHU have?
+        </legend>
+        <p className="mt-1 text-sm text-[#0F1A2E]/60">
+          0+
+        </p>
+        <div className="mt-4 flex items-center gap-3">
+          <input
+            required
+            type="number"
+            name="shotsGoal"
+            min={0}
+            max={100}
+            placeholder="00"
+            className="w-28 rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 text-lg focus:border-[#6B2338] focus:outline-none"
+          />
+          <span className="text-sm text-[#0F1A2E]/60">shots on goal</span>
+        </div>
+      </fieldset>
+
 
       <fieldset className="py-6">
         <legend
