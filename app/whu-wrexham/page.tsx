@@ -71,7 +71,7 @@ const MARLON = {
   videoPlaceholderLabel: "Marlon's call — video coming soon",
   fourAnswers: [
     { label: "Final Score", value: "WHU ?? vs Wrexham ??" }, // TODO
-    { label: "Name of First Scorer", value: "????? ?????" }, // TODO
+    { label: "Name of First Scorer", value: "????? ?????" }, // TODOF
     { label: "Minute of the First Goal", value: "??:??" }, // TODO
   ],
   ritualsTitle: "Marlon's Matchday Rituals",
@@ -743,7 +743,6 @@ function PredictionForm({
   type Status = "idle" | "submitting" | "success" | "error";
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [bowenScores, setBowenScores] = useState<"Yes" | "No" | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -759,16 +758,10 @@ function PredictionForm({
       westHamScore: Number(data.get("westHamScore")),
       wrexhamScore: Number(data.get("wrexhamScore")),
       firstScorer: String(data.get("firstScorer") || "").trim(),
-      bowenScores,
       goalMinute: Number(data.get("goalMinute")),
       agreedToTerms: data.get("agreedToTerms") === "on",
       optedInToUpdates: data.get("optedInToUpdates") === "on",
     };
-
-    if (!bowenScores) {
-      setErrorMessage("Let us know whether you think Bowen scores.");
-      return;
-    }
 
     setStatus("submitting");
     try {
@@ -787,7 +780,6 @@ function PredictionForm({
 
       setStatus("success");
       form.reset();
-      setBowenScores(null);
     } catch (err) {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
