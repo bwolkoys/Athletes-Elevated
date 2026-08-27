@@ -985,6 +985,7 @@ function PredictionForm({
       firstName: String(data.get("firstName") || "").trim(),
       lastName: String(data.get("lastName") || "").trim(),
       email: String(data.get("email") || "").trim(),
+      country: String(data.get("country") || "").trim(),
       westHamScore: Number(data.get("westHamScore")),
       wrexhamScore: Number(data.get("wrexhamScore")),
       firstScorer: String(data.get("firstScorer") || "").trim(),
@@ -1178,6 +1179,14 @@ function PredictionForm({
           autoComplete="email"
           className="mt-4 w-full rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 focus:border-[#6B2338] focus:outline-none"
         />
+        <input
+          required
+          type="text"
+          name="country"
+          placeholder="Country"
+          className="mt-4 w-full rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 focus:border-[#6B2338] focus:outline-none"
+        />
+        
       </fieldset>
 
       <div className="flex flex-col gap-3 border-t border-black/10 pt-6">

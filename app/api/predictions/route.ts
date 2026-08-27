@@ -31,6 +31,7 @@ export async function POST(req: NextRequest) {
     firstName,
     lastName,
     email,
+    country,
     westHamScore,
     wrexhamScore,
     firstScorer,
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
   if (!isNonEmptyString(lastName)) errors.push("Last name is required.");
   if (!isNonEmptyString(email) || !EMAIL_RE.test(email as string))
     errors.push("A valid email is required.");
+  if (!isNonEmptyString(country)) errors.push("country is required.");
   if (!isFiniteNumber(westHamScore) || westHamScore < 0 || westHamScore > 30)
     errors.push("West Ham score must be a number between 0 and 30.");
   if (!isFiniteNumber(wrexhamScore) || wrexhamScore < 0 || wrexhamScore > 30)
@@ -63,6 +65,7 @@ export async function POST(req: NextRequest) {
       firstName: (firstName as string).trim(),
       lastName: (lastName as string).trim(),
       email: (email as string).trim().toLowerCase(),
+      country: (country as string).trim(),
       westHamScore: westHamScore as number,
       wrexhamScore: wrexhamScore as number,
       firstScorer: (firstScorer as string).trim(),

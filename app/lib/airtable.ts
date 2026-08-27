@@ -2,6 +2,7 @@ export type PredictionPayload = {
     firstName: string;
     lastName: string;
     email: string;
+    country: string;
     westHamScore: number;
     wrexhamScore: number;
     firstScorer: string;
@@ -16,6 +17,7 @@ export type PredictionPayload = {
       "First Name": payload.firstName,
       "Last Name": payload.lastName,
       "Email": payload.email,
+      "Country": payload.country,
       "West Ham Score": payload.westHamScore,
       "Wrexham Score": payload.wrexhamScore,
       "First Goalscorer": payload.firstScorer,
