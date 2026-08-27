@@ -299,19 +299,26 @@ export default function WHUxWrexham() {
         style={{ fontFamily: BODY }}
       >
         {/* ============================ HERO ============================ */}
-        <section className="relative overflow-hidden text-white">
-          <Image
-            src={HERO.backgroundImage}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+        <section
+          className={`relative overflow-hidden pt-6 text-white ${NAVY_GRADIENT_BG}`}
+        >
+          {/* Background photo — hidden on mobile so small screens get a
+              plain navy gradient instead of the image; shown from `sm:` up. */}
+          <div className="absolute inset-0 hidden sm:block">
+            <Image
+              src={HERO.backgroundImage}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
           {/* Left-to-right fade so the headline stays legible over the photo,
               matching the reference: solid navy behind the text, fading out
               to the photo on the right. Tune the opacity stops if your photo
-              needs more/less darkening. */}
+              needs more/less darkening. On mobile (no photo underneath) this
+              still reads fine since it's sitting on the navy gradient above. */}
           <div className="absolute inset-0 bg-[linear-gradient(90deg,#0B2560_0%,rgba(11,37,96,0.92)_30%,rgba(11,37,96,0.55)_55%,rgba(11,37,96,0.1)_80%,transparent_100%)]" />
 
           <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-14 sm:px-10 sm:pt-20 lg:pt-24">
@@ -578,22 +585,22 @@ export default function WHUxWrexham() {
         </section>
 
         {/* =========================== BUY FOR A MATE ====================== */}
-        <section className="bg-white text-[#0F1A2E]">
+        <section className="bg-[linear-gradient(180deg,#0B2560_0%,#081A45_100%)] text-white">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
-            <p className={`${EYEBROW} text-[#6B2338]`} style={HEADING_STYLE}>
+            <p className={`${EYEBROW} text-[#52aafc]`} style={HEADING_STYLE}>
               {MARKETPLACE_OFFER.liveDateLabel}
             </p>
 
             <div className="mt-3 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
               <h2
-                className="text-4xl uppercase font-semibold leading-[0.95] text-[#0B2560] sm:text-5xl"
+                className="text-4xl uppercase font-semibold leading-[0.95] text-white sm:text-5xl"
                 style={HEADING_STYLE}
               >
                 {MARKETPLACE_OFFER.titleLine1}
                 <br />
                 {MARKETPLACE_OFFER.titleLine2}
               </h2>
-              <p className="text-lg leading-relaxed text-[#0F1A2E]/80">
+              <p className="text-lg leading-relaxed text-white/80">
                 {MARKETPLACE_OFFER.body}
               </p>
             </div>
@@ -642,14 +649,14 @@ export default function WHUxWrexham() {
             <div className="mt-10 flex justify-center">
               <a
                 href={MARKETPLACE_OFFER.marketplaceCta.href}
-                className={BTN_NAVY_OUTLINE}
+                className={BTN_OUTLINE}
                 style={HEADING_STYLE}
               >
                 {MARKETPLACE_OFFER.marketplaceCta.label} &rarr;
               </a>
             </div>
 
-            <p className="mt-6 text-center text-xs text-[#0F1A2E]/50">
+            <p className="mt-6 text-center text-xs text-white]/50">
               {MARKETPLACE_OFFER.fulfilmentNote}
             </p>
           </div>
@@ -1082,7 +1089,7 @@ function PredictionForm({
           placeholder="Country"
           className="mt-4 w-full rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 focus:border-[#6B2338] focus:outline-none"
         />
-        
+
       </fieldset>
 
       <div className="flex flex-col gap-3 border-t border-black/10 pt-6">
