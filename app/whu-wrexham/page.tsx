@@ -148,7 +148,7 @@ const TIMELINE = {
     },
     {
       date: "Tuesday, September 1",
-      title: "Buy for a Mate Goes Live",
+      title: "15% Off Goes Live",
       body: "Selected West Ham kit and gifting opens through Athletes Elevated.",
       status: "past",
     },
