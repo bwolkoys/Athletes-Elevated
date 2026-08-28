@@ -850,8 +850,7 @@ function PredictionForm({
           Call Locked In
         </h3>
         <p className="mt-3 text-[#0F1A2E]/80">
-          You&rsquo;re in the running for the Athletes Elevated pre-match fan
-          experience. You&rsquo;ll be contacted on September 8th. You&rsquo;ll need to RSVP within 24 hours for you and a guest. 
+        You&rsquo;re officially in the running for the Athletes Elevated pre-match fan experience. If you&rsquo;re selected, we&rsquo;ll reach out on September 8th, and you&rsquo;ll have 24 hours to RSVP for yourself and a guest. 
         </p>
       </div>
     );
