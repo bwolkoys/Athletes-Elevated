@@ -906,7 +906,7 @@ function PredictionForm({
           2 / Who Will Score the First Goal?
         </legend>
         <p className="mt-1 text-sm text-[#0F1A2E]/60">
-          Pick a player, or call it goalless.
+          Want to take it further? Guess the individual who will score first too!
         </p>
         {playerOptions.length > 0 ? (
           <select
