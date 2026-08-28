@@ -26,11 +26,12 @@ const HERO = {
   titleLine2: "Matchday",
   subheadLine1: "Marlon's called it. Now you call it.",
   subheadLine2: "Now you call it.",
-  body: "Marlon has made his predictions. Now it’s your turn. Make four quick picks for West Ham United vs. Wrexham for your chance to be randomly selected to join Athletes Elevated, with a guest, for our Road to Matchday pre-match pub experience on September 11. Get it right and you’ve earned the bragging rights. The winner is still chosen at random.",
+  body: "Marlon has made his predictions. Now it’s your turn. Make four quick picks for West Ham United vs. Wrexham for your chance to be randomly selected to join Athletes Elevated, with a guest, for our Road to Matchday pre-match fan experience on September 11. Get it right and you’ve earned the bragging rights. The winner is still chosen at random.",
   primaryCta: { label: "Call The Match", href: "#predict" },
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
-    "Free to enter. No purchase necessary. Purchase does not increase your chances of winning.",
+    "Free to enter. No purchase necessary. Purchase does not increase your chances of winning. For Great Britain residence only. Deadline to enter is September 7th 11:59pm BST.",
+    disclaimer2: { label: "Read the terms and conditions here.", href: "/whu-wrexham/rules" },
 };
 
 const HOW_IT_WORKS = {
@@ -50,7 +51,7 @@ const HOW_IT_WORKS = {
     {
       number: 3,
       title: "Match-day Experience",
-      body: "See You Before KickOff: If you’re selected, bring a mate and join Athletes Elevated for a proper pre-match gathering at an iconic WHU pub in London before West Ham United vs. Wrexham.",
+      body: "If you’re selected, bring a mate and join Athletes Elevated for a proper pre-match gathering at an iconic WHU pub in London before West Ham United vs. Wrexham.",
     },
   ],
 };
@@ -58,12 +59,13 @@ const HOW_IT_WORKS = {
 const MARLON = {
   picksTitle: "Marlon's Picks",
   videoUrl: "", // TODO: swap for the real video embed URL once Marlon's call is filmed.
+  imageUrl: "/1705925606114.jpeg",
   videoPlaceholderLabel: "Marlon's call — video coming soon",
   fourAnswers: [
-    { label: "1. Final Score", value: "WHU ?? vs Wrexham ??" }, // TODO
-    { label: "2. Who'll score the first goal", value: "????? ?????" }, // TODO
-    { label: "3. Minute of the First Goal", value: "??:??" }, // TODO
-    { label: "4. WHU shots on goal", value: "??:??" },
+    { label: "1. Final Score", value: "WHU 3 vs Wrexham 1" },
+    { label: "2. Who'll score the first goal", value: "WHU" }, 
+    { label: "3. Minute of the First Goal", value: "15:00" },
+    { label: "4. WHU shots on goal", value: "14" },
   ],
   beatHisPicksCta: { label: "Beat His Picks", href: "#predict" },
 };
@@ -125,55 +127,6 @@ const MARKETPLACE_OFFER = {
   marketplaceCta: { label: "Visit the Marketplace", href: "#" },
 };
 
-// const TIMELINE = {
-//   eyebrow: "The Road",
-//   titleLine1: "What Happens",
-//   titleLine2: "Between Now and Then",
-//   milestones: [
-//     {
-//       date: "Thursday, August 27",
-//       title: "Call the Match Opens",
-//       body: "Marlon makes the first call. Predictions open to every supporter.",
-//       status: "past",
-//     },
-//     {
-//       date: "Tuesday, September 1",
-//       title: "15% Off Goes Live",
-//       body: "Selected West Ham kit and gifting opens through Athletes Elevated.",
-//       status: "past",
-//     },
-//     {
-//       date: "Friday, September 4",
-//       title: "Matchday Momentum",
-//       body: "Matchday rituals, Marlon vs. the fans, and where the supporter predictions are landing.",
-//       status: "past",
-//     },
-//     {
-//       date: "Monday, September 7",
-//       title: "Last Call",
-//       body: "Final chance to get your predictions in before they close.",
-//       status: "past",
-//     },
-//     {
-//       date: "Tuesday, September 8",
-//       title: "Pre-Match Experience Winners",
-//       body: "Selected supporters are notified by email.",
-//       status: "past",
-//     },
-//     {
-//       date: "Friday, September 11",
-//       title: "West Ham vs. Wrexham",
-//       body: "Matchday. Pre-match meetup, then the ninety minutes everyone's been calling.",
-//       status: "current",
-//     },
-//     {
-//       date: "Saturday, September 12",
-//       title: "How Did You Do?",
-//       body: "Full results, you against Marlon. Did you beat Marlon's picks?",
-//       status: "future",
-//     },
-//   ],
-// };
 
 type FaqItem = {
   question: string;
@@ -406,7 +359,9 @@ export default function WHUxWrexham() {
             </div>
 
             <p className="mt-8 max-w-2xl text-xs leading-relaxed text-white/70">
-              {HERO.disclaimer}
+              {HERO.disclaimer} <a href={HERO.disclaimer2.href} className="underline" target="_blank" rel="noopener noreferrer">
+  {HERO.disclaimer2.label}
+</a>
             </p>
           </div>
 
@@ -468,7 +423,30 @@ export default function WHUxWrexham() {
                 >
                   {MARLON.picksTitle}
                 </h2>
-                <div className="mt-6 flex aspect-video items-center justify-center rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
+
+                <div className="mt-6 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
+  {MARLON.imageUrl ? (
+    <img
+      src={MARLON.imageUrl}
+      className="h-full w-full rounded-2xl object-cover"
+    />
+  ) : (
+    <div className="flex flex-col items-center gap-3 text-white/70">
+      <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
+        <svg
+          viewBox="0 0 24 24"
+          className="h-10 w-10 fill-white"
+          aria-hidden="true"
+        >
+          <path d="M8 5v14l11-7-11-7z" />
+        </svg>
+      </span>
+    </div>
+  )}
+</div>
+
+                {/* uncomment when the video is ready */}
+                {/* <div className="mt-6 flex aspect-video items-center justify-center rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
                   {MARLON.videoUrl ? (
                     <video
                       controls
@@ -491,7 +469,7 @@ export default function WHUxWrexham() {
                       </span>
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
 
               <div>
@@ -585,7 +563,7 @@ export default function WHUxWrexham() {
         </section>
 
         {/* =========================== BUY FOR A MATE ====================== */}
-        <section className="bg-[linear-gradient(180deg,#0B2560_0%,#081A45_100%)] text-white">
+        {/* <section className="bg-[linear-gradient(180deg,#0B2560_0%,#081A45_100%)] text-white">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
             <p className={`${EYEBROW} text-[#52aafc]`} style={HEADING_STYLE}>
               {MARKETPLACE_OFFER.liveDateLabel}
@@ -659,50 +637,6 @@ export default function WHUxWrexham() {
             <p className="mt-6 text-center text-xs text-white]/50">
               {MARKETPLACE_OFFER.fulfilmentNote}
             </p>
-          </div>
-        </section>
-
-        {/* ============================ TIMELINE =========================== */}
-        {/* <section className={`text-white ${NAVY_GRADIENT_BG}`}>
-          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
-            <p className={`${EYEBROW} text-[#52AAFC]`} style={HEADING_STYLE}>
-              {TIMELINE.eyebrow}
-            </p>
-            <h2
-              className="mt-3 text-4xl uppercase font-semibold leading-[0.95] text-white sm:text-5xl"
-              style={HEADING_STYLE}
-            >
-              {TIMELINE.titleLine1}
-              <br />
-              {TIMELINE.titleLine2}
-            </h2>
-
-            <ol className="mt-14 border-l-2 border-[#6B2338]/60 pl-8 sm:pl-10">
-              {TIMELINE.milestones.map((m) => (
-                <li key={m.title} className="relative pb-12 last:pb-0">
-                  <span
-                    className={`absolute -left-[41px] top-1 h-4 w-4 rounded-full border-2 sm:-left-[49px] ${
-                      m.status === "current"
-                        ? "border-[#52AAFC] bg-[#52AAFC]"
-                        : "border-[#6B2338] bg-[#0B2560]"
-                    }`}
-                  />
-                  <p
-                    className="text-sm font-bold uppercase tracking-wide text-[#52AAFC]"
-                    style={HEADING_STYLE}
-                  >
-                    {m.date}
-                  </p>
-                  <p
-                    className="mt-1 text-xl font-bold uppercase text-white"
-                    style={HEADING_STYLE}
-                  >
-                    {m.title}
-                  </p>
-                  <p className="mt-1 max-w-2xl text-white/75">{m.body}</p>
-                </li>
-              ))}
-            </ol>
           </div>
         </section> */}
 
@@ -917,8 +851,7 @@ function PredictionForm({
         </h3>
         <p className="mt-3 text-[#0F1A2E]/80">
           You&rsquo;re in the running for the Athletes Elevated pre-match fan
-          experience. We&rsquo;ll publish full results the day after the match —
-          you against Marlon.
+          experience. You&rsquo;ll be contacted on September 8th. You&rsquo;ll need to RSVP within 24 hours for you and a guest. 
         </p>
       </div>
     );
@@ -1009,7 +942,7 @@ function PredictionForm({
           3 / What Minute Will the First Goal Be Scored?
         </legend>
         <p className="mt-1 text-sm text-[#0F1A2E]/60">
-          1–90. If you&rsquo;ve called no goals, put 0.
+          If you&rsquo;ve called no goals, put 0.
         </p>
         <div className="mt-4 flex items-center gap-3">
           <input
@@ -1017,7 +950,7 @@ function PredictionForm({
             type="number"
             name="goalMinute"
             min={0}
-            max={90}
+            max={120}
             placeholder="00"
             className="w-28 rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 text-lg focus:border-[#6B2338] focus:outline-none"
           />
@@ -1102,11 +1035,11 @@ function PredictionForm({
           />
           <span>
             * I&rsquo;m 18 or over and I agree to the{" "}
-            <a href="#" className="font-bold text-[#6B2338] underline">
+            <a href="/whu-wrexham/rules" target="_blank" rel="noopener noreferrer" className="font-bold text-[#6B2338] underline">
               campaign terms
             </a>{" "}
             and the{" "}
-            <a href="#" className="font-bold text-[#6B2338] underline">
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-bold text-[#6B2338] underline">
               Athletes Elevated privacy policy
             </a>
             .
@@ -1230,7 +1163,7 @@ function FaqAnswer({ item }: { item: FaqItem }) {
       {before}
       <a
         href={item.answerLinkHref}
-        className="font-bold text-[#52AAFC] underline"
+        className="font-bold text-[#52AAFC] underline" target="_blank" rel="noopener noreferrer"
       >
         {linkText}
       </a>

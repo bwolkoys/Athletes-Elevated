@@ -52,8 +52,8 @@ export async function POST(req: NextRequest) {
   if (!isFiniteNumber(wrexhamScore) || wrexhamScore < 0 || wrexhamScore > 30)
     errors.push("Wrexham score must be a number between 0 and 30.");
   if (!isNonEmptyString(firstScorer)) errors.push("First goalscorer is required (or \"Goalless\").");
-  if (!isFiniteNumber(goalMinute) || goalMinute < 0 || goalMinute > 90)
-    errors.push("Goal minute must be a number between 0 and 90.");
+  if (!isFiniteNumber(goalMinute) || goalMinute < 0 || goalMinute > 120)
+    errors.push("Goal minute must be a number between 0 and 120.");
   if (!isFiniteNumber(shotsGoal) || shotsGoal < 0 || shotsGoal > 100)
     errors.push("Shots on Goal must be a number between 0 and 100.");
   if (agreedToTerms !== true)
