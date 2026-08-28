@@ -65,7 +65,7 @@ const MARLON = {
     { label: "1. Final Score", value: "WHU 3 vs Wrexham 1" },
     { label: "2. Who'll score the first goal", value: "WHU" }, 
     { label: "3. Minute of the First Goal", value: "15:00" },
-    { label: "4. WHU shots on goal", value: "14" },
+    { label: "4. Combined shots on goal", value: "14" },
   ],
   beatHisPicksCta: { label: "Beat His Picks", href: "#predict" },
 };
