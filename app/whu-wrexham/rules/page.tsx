@@ -86,7 +86,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
       { type: "p", text: "The Promotion begins:" },
       { type: "lines", items: ["August 27, 2026"] },
       { type: "p", text: "and ends:" },
-      { type: "lines", items: ["September 7, 2026 at 11:59pm BST"] },
+      { type: "lines", items: ["September 7, 2026 at 23:59 BST"] },
       { type: "p", text: "Entries received after the closing time are not eligible." },
     ],
   },
@@ -156,7 +156,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
       },
       {
         type: "p",
-        text: "Entries close at 11:59pm BST on September 7, 2026. Winners will be selected on September 8, 2026.",
+        text: "Entries close at 23:59 BST on September 7, 2026. Winners will be selected on September 8, 2026.",
       },
       {
         type: "p",
@@ -211,7 +211,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
       },
       {
         type: "p",
-        text: "Where an entrant objects or requests reduced disclosure, the Promoter may still be required to provide the relevant winner information to the Advertising Standards Authority if challenged. If you do not wish to be filmed or photographed, please email us at ae@athleteselevated.com at least 12 hours before the experience so that reasonable steps can be taken to avoid featuring you in close-up or identifiable shots. Please note we cannot guarantee exclusion from wide shots, crowd footage, or general event coverage.",
+        text: "Where an entrant objects or requests reduced disclosure, the Promoter may still be required to provide the relevant winner information to the Advertising Standards Authority if challenged.",
       },
       { type: "p", text: "The privacy of prize winners will not be prejudiced by the publication of personal information." },
     ],
@@ -278,7 +278,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
     body: [
       {
         type: "p",
-        text: "By attending this event, you acknowledge that photography, video, and audio recording may take place, and that you may appear in these recordings. Athletes Elevated (and its appointed photographers/videographers) may use this content across our website, social media channels, marketing materials, and those of our partners, without further notice or compensation.",
+        text: "By attending this event, you acknowledge that photography, video, and audio recording may take place, and that you may appear in these recordings. Athletes Elevated (and its appointed photographers/videographers) may use this content across our website, social media channels, marketing materials, and those of our partners, without further notice or compensation. If you do not wish to be filmed or photographed, please email us at ae@athleteselevated.com at least 12 hours before the experience so that reasonable steps can be taken to avoid featuring you in close-up or identifiable shots. Please note we cannot guarantee exclusion from wide shots, crowd footage, or general event coverage.",
       },
       {
         type: "p",

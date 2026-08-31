@@ -30,7 +30,7 @@ const HERO = {
   primaryCta: { label: "Call The Match", href: "#predict" },
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
-    "Free to enter. No purchase necessary. Purchase does not increase your chances of winning. For Great Britain residence only. Deadline to enter is September 7th 11:59pm BST.",
+    "Free to enter. No purchase necessary. Purchase does not increase your chances of winning. For Great Britain residence only. Deadline to enter is September 7th 23:59 BST.",
     disclaimer2: { label: "Read the terms and conditions here.", href: "/whu-wrexham/rules" },
 };
 
@@ -76,7 +76,7 @@ const PREDICTIONS = {
   eyebrow: "Make Your Predictions",
   titleLine1: "September 11 | London",
   titleLine2: "WHU vs. Wrexham",
-  body: "If selected, you and a guest will join Athletes Elevated at an iconic London pub from 12pm-3pm BST for drinks, snacks and a live performance by Joseph J. Jones. And who knows, Marlon may even make an appearance.",
+  body: "If selected, you and a guest will join Athletes Elevated at an iconic London pub from 12:00-15:00 BST for drinks, snacks and a live performance by Joseph J. Jones. And who knows, Marlon may even make an appearance.",
   bullets: [
     {
       strong: "Please Note:",
@@ -92,7 +92,7 @@ const PREDICTIONS = {
     },
   ],
   closesPill: "Entry Closes Sept 7 · Winners Notified Sept 8",
-  formNote: "One entry per supporter. Predictions close Sept 7th 11:59pm BST.",
+  formNote: "One entry per supporter. Predictions close Sept 7th 23:59 BST.",
 };
 
 const MARKETPLACE_OFFER = {
@@ -142,12 +142,12 @@ const FAQ = {
     {
       question: "What is the promotion period?",
       answer:
-        "The Road to Matchday: Call the Match Free Prize Draw opens on August 27, 2026 and closes on September 7, 2026 at 11:59pm BST. Entries received before the opening time or after the closing time will not be eligible.",
+        "The Road to Matchday: Call the Match Free Prize Draw opens on August 27, 2026 and closes on September 7, 2026 at 23:59 BST. Entries received before the opening time or after the closing time will not be eligible.",
     },
     {
       question: "Who is eligible?",
       answer:
-        "The Promotion is open to legal residents of Great Britain (England, Scotland and Wales) who are 18 years of age or older at the time of entry. Employees, officers and directors of the Promoter, West Ham United, participating agencies and campaign partners, and members of their immediate households are not eligible to enter. Entrants must be available to attend the Road to Matchday pre-game experience in London on September 11, 2026 from 12pm-3pm BST if selected as a winner. Winners may bring one guest. Both the winner and guest must be 18 years of age or older and comply with any applicable venue requirements. Void where prohibited or restricted by law.",
+        "The Promotion is open to legal residents of Great Britain (England, Scotland and Wales) who are 18 years of age or older at the time of entry. Employees, officers and directors of the Promoter, West Ham United, participating agencies and campaign partners, and members of their immediate households are not eligible to enter. Entrants must be available to attend the Road to Matchday pre-game experience in London on September 11, 2026 from 12:00-15:00pm BST if selected as a winner. Winners may bring one guest. Both the winner and guest must be 18 years of age or older and comply with any applicable venue requirements. Void where prohibited or restricted by law.",
     },
     {
       question: "How do I enter?",
@@ -162,7 +162,7 @@ const FAQ = {
     {
       question: "What do I get for entering?",
       answer:
-        "PRIZE Winners will each receive admission for themselves and one guest to the Athletes Elevated Road to Matchday pre-game experience in London on September 11, 2026, before West Ham vs. Wrexham. The experience will take place at an iconic London pub from approximately 12pm-3pm BST and will include: Drinks and snacks provided by Athletes Elevated; and A live performance by Joseph J. Jones. Approximate value of each prize: £100. The prize does not include travel to or from London, accommodation, transportation, match tickets, meals or drinks beyond those expressly provided as part of the experience, or any other personal expenses. Winners and their guests are responsible for arranging and paying for all transportation, accommodation and other costs required to attend. Both the winner and guest must be at least 18 years old and comply with venue requirements. The prize has no cash alternative and is not transferable. If a winner cannot attend, the Promoter may select an alternate winner in accordance with these Official Rules. Athletes Elevated intends to photograph and film the Road to Matchday experience and may use content from the event in post-event coverage, including on its website, email communications and social media channels. Winners and guests will be informed of applicable photography and filming arrangements before attending.",
+        "PRIZE Winners will each receive admission for themselves and one guest to the Athletes Elevated Road to Matchday pre-game experience in London on September 11, 2026, before West Ham vs. Wrexham. The experience will take place at an iconic London pub from approximately 12:00-15:00 BST and will include: Drinks and snacks provided by Athletes Elevated; and A live performance by Joseph J. Jones. Approximate value of each prize: £100. The prize does not include travel to or from London, accommodation, transportation, match tickets, meals or drinks beyond those expressly provided as part of the experience, or any other personal expenses. Winners and their guests are responsible for arranging and paying for all transportation, accommodation and other costs required to attend. Both the winner and guest must be at least 18 years old and comply with venue requirements. The prize has no cash alternative and is not transferable. If a winner cannot attend, the Promoter may select an alternate winner in accordance with these Official Rules. Athletes Elevated intends to photograph and film the Road to Matchday experience and may use content from the event in post-event coverage, including on its website, email communications and social media channels. Winners and guests will be informed of applicable photography and filming arrangements before attending. If you do not wish to be filmed or photographed, please email us at ae@athleteselevated.com at least 12 hours before the experience so that reasonable steps can be taken to avoid featuring you in close-up or identifiable shots. Please note we cannot guarantee exclusion from wide shots, crowd footage, or general event coverage.",
     },
     {
       question: "How will I be notified if I win?",
