@@ -211,7 +211,7 @@ const RULES: Array<{ number: number; heading: string; body: RuleBlock[] }> = [
       },
       {
         type: "p",
-        text: "Where an entrant objects or requests reduced disclosure, the Promoter may still be required to provide the relevant winner information to the Advertising Standards Authority if challenged.",
+        text: "Where an entrant objects or requests reduced disclosure, the Promoter may still be required to provide the relevant winner information to the Advertising Standards Authority if challenged. If you do not wish to be filmed or photographed, please email us at ae@athleteselevated.com at least 12 hours before the experience so that reasonable steps can be taken to avoid featuring you in close-up or identifiable shots. Please note we cannot guarantee exclusion from wide shots, crowd footage, or general event coverage.",
       },
       { type: "p", text: "The privacy of prize winners will not be prejudiced by the publication of personal information." },
     ],
