@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Navbar from "../src/components/navBar";
 import Footer from "../src/components/footer";
@@ -31,7 +31,10 @@ const HERO = {
   secondaryCta: { label: "See Marlon's Picks", href: "#marlon" },
   disclaimer:
     "Free to enter. No purchase necessary. Purchase does not increase your chances of winning. For Great Britain residence only. Deadline to enter is September 7th 23:59 BST.",
-    disclaimer2: { label: "Read the terms and conditions here.", href: "/whu-wrexham/rules" },
+  disclaimer2: {
+    label: "Read the terms and conditions here.",
+    href: "/whu-wrexham/rules",
+  },
 };
 
 const HOW_IT_WORKS = {
@@ -58,12 +61,13 @@ const HOW_IT_WORKS = {
 
 const MARLON = {
   picksTitle: "Marlon's Picks",
-  videoUrl: "", // TODO: swap for the real video embed URL once Marlon's call is filmed.
-  imageUrl: "/1705925606114.jpeg",
+  videoUrl:
+    "/MarlonPicks (7).mp4", // TODO: swap for the real video embed URL once Marlon's call is filmed.
+  //   imageUrl: "/1705925606114.jpeg",
   videoPlaceholderLabel: "Marlon's call — video coming soon",
   fourAnswers: [
     { label: "1. Final Score", value: "WHU 3 vs Wrexham 1" },
-    { label: "2. Who'll score the first goal", value: "WHU" }, 
+    { label: "2. Who'll score the first goal", value: "WHU" },
     { label: "3. Minute of the First Goal", value: "15:00" },
     { label: "4. Combined shots on goal", value: "14" },
   ],
@@ -127,7 +131,6 @@ const MARKETPLACE_OFFER = {
   marketplaceCta: { label: "Visit the Marketplace", href: "#" },
 };
 
-
 type FaqItem = {
   question: string;
   answer: string;
@@ -173,14 +176,14 @@ const FAQ = {
       question: "How will you handle my data?",
       answer:
         "The Promoter will collect the personal information provided through the entry form, including the entrant's first name, last name, email address and country of residence, for the purpose of administering the Promotion. Personal information may be used to: verify eligibility; record and administer entries; conduct the random winner selection; contact selected winners and alternates; confirm attendance and administer the prize; demonstrate that prizes were properly awarded; comply with legal and regulatory obligations; and otherwise administer the Promotion. Personal information may be shared with service providers acting on behalf of the Promoter where reasonably necessary to administer the Promotion or provide the prize, subject to applicable data protection requirements. Entering the Promotion does not require entrants to consent to marketing. Entrants who separately choose to receive Athletes Elevated news, offers and updates may do so through the optional marketing consent box on the entry form and may unsubscribe at any time. Personal information will be retained only for as long as reasonably necessary for the purposes described above and to satisfy applicable legal or regulatory requirements. For additional information about how Athletes Elevated handles personal information and entrants' rights under applicable data protection law, see the privacy policy here.",
-    answerLinkText: "privacy policy here",
-    answerLinkHref: "https://www.athleteselevated.com/privacy-policy",
+      answerLinkText: "privacy policy here",
+      answerLinkHref: "https://www.athleteselevated.com/privacy-policy",
     },
     {
-        question: "Who is the promoter?",
-        answer:
-          "The promoter of the Road to Matchday: Call the Match Free Prize Draw is: Athletes Elevated LLC. Email: ae@athleteselevated.com. WEST HAM UNITED IS NOT a promoter or administrator of this Promotion.",
-      },
+      question: "Who is the promoter?",
+      answer:
+        "The promoter of the Road to Matchday: Call the Match Free Prize Draw is: Athletes Elevated LLC. Email: ae@athleteselevated.com. WEST HAM UNITED IS NOT a promoter or administrator of this Promotion.",
+    },
     {
       question: "Full terms and conditions.",
       answer:
@@ -359,9 +362,15 @@ export default function WHUxWrexham() {
             </div>
 
             <p className="mt-8 max-w-2xl text-xs leading-relaxed text-white/70">
-              {HERO.disclaimer} <a href={HERO.disclaimer2.href} className="underline" target="_blank" rel="noopener noreferrer">
-  {HERO.disclaimer2.label}
-</a>
+              {HERO.disclaimer}{" "}
+              <a
+                href={HERO.disclaimer2.href}
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {HERO.disclaimer2.label}
+              </a>
             </p>
           </div>
 
@@ -424,36 +433,32 @@ export default function WHUxWrexham() {
                   {MARLON.picksTitle}
                 </h2>
 
-                <div className="mt-6 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
-  {MARLON.imageUrl ? (
-    <img
-      src={MARLON.imageUrl}
-      className="h-full w-full rounded-2xl object-cover"
-    />
-  ) : (
-    <div className="flex flex-col items-center gap-3 text-white/70">
-      <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
-        <svg
-          viewBox="0 0 24 24"
-          className="h-10 w-10 fill-white"
-          aria-hidden="true"
-        >
-          <path d="M8 5v14l11-7-11-7z" />
-        </svg>
-      </span>
-    </div>
-  )}
-</div>
-
-                {/* uncomment when the video is ready */}
-                {/* <div className="mt-6 flex aspect-video items-center justify-center rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
-                  {MARLON.videoUrl ? (
-                    <video
-                      controls
-                      className="h-full w-full rounded-2xl"
-                      src={MARLON.videoUrl}
+                {/* <div className="mt-6 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
+                  {MARLON.imageUrl ? (
+                    <img
+                      src={MARLON.imageUrl}
+                      className="h-full w-full rounded-2xl object-cover"
                     />
                   ) : (
+                    <div className="flex flex-col items-center gap-3 text-white/70">
+                      <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-10 w-10 fill-white"
+                          aria-hidden="true"
+                        >
+                          <path d="M8 5v14l11-7-11-7z" />
+                        </svg>
+                      </span>
+                    </div>
+                  )}
+                </div> */}
+
+                {/* uncomment when the video is ready */}
+                {MARLON.videoUrl ? (
+                  <MarlonVideoPlayer src={MARLON.videoUrl} />
+                ) : (
+                  <div className="mt-6 flex aspect-video items-center justify-center rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
                     <div className="flex flex-col items-center gap-3 text-white/70">
                       <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
                         <svg
@@ -468,16 +473,15 @@ export default function WHUxWrexham() {
                         {MARLON.videoPlaceholderLabel}
                       </span>
                     </div>
-                  )}
-                </div> */}
+                  </div>
+                )}
               </div>
 
               <div>
                 <h2
                   className="text-3xl uppercase leading-[0.95] text-[#52AAFC] sm:text-4xl"
                   style={HEADING_STYLE}
-                >
-                </h2>
+                ></h2>
                 <div className="mt-6 flex flex-col gap-4 rounded-2xl border-2 border-[#52AAFC]/70 p-6 sm:p-8">
                   {MARLON.fourAnswers.map((item) => (
                     <div
@@ -696,6 +700,70 @@ export default function WHUxWrexham() {
    They reference the module-level HEADING/BODY constants directly.
 ============================================================================ */
 
+function MarlonVideoPlayer({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play().catch((err) => setError(err.message || "Playback failed."));
+    } else {
+      video.pause();
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
+
+  return (
+    <>
+      <div className="mt-6 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
+        <video
+          ref={videoRef}
+          playsInline
+          className="h-full w-full rounded-2xl object-cover"
+          src={src}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onError={(e) => {
+            const v = e.currentTarget;
+            setError(
+              v.error?.message || `Video error (code ${v.error?.code ?? "unknown"})`
+            );
+          }}
+        />
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <button
+          type="button"
+          onClick={togglePlay}
+          className="rounded-full bg-[#6B2338] px-5 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-[#7C2C41]"
+        >
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+        <button
+          type="button"
+          onClick={toggleMute}
+          className="rounded-full border border-white/40 px-5 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-white/10"
+        >
+          {isMuted ? "Unmute" : "Mute"}
+        </button>
+      </div>
+      {error && (
+        <p className="mt-2 text-xs text-red-300">Playback error: {error}</p>
+      )}
+    </>
+  );
+}
+
 function Countdown({ targetISO }: { targetISO: string }) {
   type TimeLeft = {
     days: number;
@@ -756,8 +824,15 @@ function Countdown({ targetISO }: { targetISO: string }) {
           suppressHydrationWarning
         >
           {units.map((unit) => (
-            <p key={unit.key} className="whitespace-nowrap" style={HEADING_STYLE}>
-              <span className="text-2xl font-bold sm:text-3xl" suppressHydrationWarning>
+            <p
+              key={unit.key}
+              className="whitespace-nowrap"
+              style={HEADING_STYLE}
+            >
+              <span
+                className="text-2xl font-bold sm:text-3xl"
+                suppressHydrationWarning
+              >
                 {display[unit.key]}
               </span>{" "}
               <span className="text-base font-semibold text-[#0B2560]/70 sm:text-lg">
@@ -850,7 +925,10 @@ function PredictionForm({
           Call Locked In
         </h3>
         <p className="mt-3 text-[#0F1A2E]/80">
-        You&rsquo;re officially in the running for the Athletes Elevated pre-match fan experience. If you&rsquo;re selected, we&rsquo;ll reach out on September 8th, and you&rsquo;ll have 24 hours to RSVP for yourself and a guest. 
+          You&rsquo;re officially in the running for the Athletes Elevated
+          pre-match fan experience. If you&rsquo;re selected, we&rsquo;ll reach
+          out on September 8th, and you&rsquo;ll have 24 hours to RSVP for
+          yourself and a guest.
         </p>
       </div>
     );
@@ -906,7 +984,8 @@ function PredictionForm({
           2 / Who Will Score the First Goal?
         </legend>
         <p className="mt-1 text-sm text-[#0F1A2E]/60">
-          Want to take it further? Guess the individual who will score first too!
+          Want to take it further? Guess the individual who will score first
+          too!
         </p>
         {playerOptions.length > 0 ? (
           <select
@@ -960,9 +1039,7 @@ function PredictionForm({
         <legend className={fieldLabelClass} style={HEADING_STYLE}>
           4 / How many shots on goal will WHU have?
         </legend>
-        <p className="mt-1 text-sm text-[#0F1A2E]/60">
-          0+
-        </p>
+        <p className="mt-1 text-sm text-[#0F1A2E]/60">0+</p>
         <div className="mt-4 flex items-center gap-3">
           <input
             required
@@ -976,7 +1053,6 @@ function PredictionForm({
           <span className="text-sm text-[#0F1A2E]/60">shots on goal</span>
         </div>
       </fieldset>
-
 
       <fieldset className="py-6">
         <legend
@@ -1021,7 +1097,6 @@ function PredictionForm({
           placeholder="Country"
           className="mt-4 w-full rounded-lg border border-black/15 bg-[#F7F8FA] px-4 py-3 focus:border-[#6B2338] focus:outline-none"
         />
-
       </fieldset>
 
       <div className="flex flex-col gap-3 border-t border-black/10 pt-6">
@@ -1034,11 +1109,21 @@ function PredictionForm({
           />
           <span>
             * I&rsquo;m 18 or over and I agree to the{" "}
-            <a href="/whu-wrexham/rules" target="_blank" rel="noopener noreferrer" className="font-bold text-[#6B2338] underline">
+            <a
+              href="/whu-wrexham/rules"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-[#6B2338] underline"
+            >
               campaign terms
             </a>{" "}
             and the{" "}
-            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-bold text-[#6B2338] underline">
+            <a
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-[#6B2338] underline"
+            >
               Athletes Elevated privacy policy
             </a>
             .
@@ -1162,7 +1247,9 @@ function FaqAnswer({ item }: { item: FaqItem }) {
       {before}
       <a
         href={item.answerLinkHref}
-        className="font-bold text-[#52AAFC] underline" target="_blank" rel="noopener noreferrer"
+        className="font-bold text-[#52AAFC] underline"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {linkText}
       </a>
