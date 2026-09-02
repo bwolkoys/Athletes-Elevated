@@ -74,6 +74,15 @@ const MARLON = {
   beatHisPicksCta: { label: "Beat His Picks", href: "#predict" },
 };
 
+const GAMEDAY_RITUAL = {
+  anchorId: "gameday-ritual",
+  eyebrow: "Before Kickoff",
+  title: "Marlon's Gameday Ritual",
+  body: "Every matchday starts the same way. Here's what Marlon does before every West Ham United kickoff.",
+  videoUrl: "/Marlons-Pre-GameRitual_Rev_1.mp4", // TODO: swap in the gameday ritual video URL once it's uploaded.
+  videoPlaceholderLabel: "",
+};
+
 const PLAYER_OPTIONS: string[] = [];
 
 const PREDICTIONS = {
@@ -433,27 +442,6 @@ export default function WHUxWrexham() {
                   {MARLON.picksTitle}
                 </h2>
 
-                {/* <div className="mt-6 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border-2 border-[#52AAFC]/70 bg-[#123073]">
-                  {MARLON.imageUrl ? (
-                    <img
-                      src={MARLON.imageUrl}
-                      className="h-full w-full rounded-2xl object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center gap-3 text-white/70">
-                      <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-10 w-10 fill-white"
-                          aria-hidden="true"
-                        >
-                          <path d="M8 5v14l11-7-11-7z" />
-                        </svg>
-                      </span>
-                    </div>
-                  )}
-                </div> */}
-
                 {/* uncomment when the video is ready */}
                 {MARLON.videoUrl ? (
                   <MarlonVideoPlayer src={MARLON.videoUrl} />
@@ -509,6 +497,51 @@ export default function WHUxWrexham() {
                 {MARLON.beatHisPicksCta.label} &rarr;
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* ==================== MARLON'S GAMEDAY RITUAL ==================== */}
+        {/* Standalone anchor section so this can be linked to directly, e.g.
+            https://www.athleteselevated.com/whu-wrexham#gameday-ritual —
+            send that URL out on its own to point straight at this video. */}
+        <section
+          id={GAMEDAY_RITUAL.anchorId}
+          className="scroll-mt-24 bg-[#123073] text-white"
+        >
+          <div className="mx-auto max-w-3xl px-6 py-16 text-center sm:px-10 sm:py-20">
+            <p className={`${EYEBROW} text-[#52AAFC]`} style={HEADING_STYLE}>
+              {GAMEDAY_RITUAL.eyebrow}
+            </p>
+            <h2
+              className="mt-3 text-3xl uppercase leading-[0.95] text-white sm:text-4xl"
+              style={HEADING_STYLE}
+            >
+              {GAMEDAY_RITUAL.title}
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/80">
+              {GAMEDAY_RITUAL.body}
+            </p>
+
+            {GAMEDAY_RITUAL.videoUrl ? (
+              <MarlonVideoPlayer src={GAMEDAY_RITUAL.videoUrl} />
+            ) : (
+              <div className="mt-6 flex aspect-video items-center justify-center rounded-2xl border-2 border-[#52AAFC]/70 bg-[#0B2560]">
+                <div className="flex flex-col items-center gap-3 text-white/70">
+                  <span className="flex h-20 w-28 items-center justify-center rounded-2xl bg-[#FF0000]">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-10 w-10 fill-white"
+                      aria-hidden="true"
+                    >
+                      <path d="M8 5v14l11-7-11-7z" />
+                    </svg>
+                  </span>
+                  <span className="text-xs uppercase tracking-wide">
+                    {GAMEDAY_RITUAL.videoPlaceholderLabel}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
