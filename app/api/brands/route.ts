@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const {
       firstName, lastName, email, phone,
       brandName, website, hqCity, hqCountry,
-      productCategory, yearsOperating, distributionChannels, whyAFit,
+      industry, yearsOperating, distributionChannels, whyAFit,
     } = await req.json();
 
     if (!firstName || !lastName || !email || !brandName || !whyAFit) {
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
           'Website':              website || '',
           'HQ City':              hqCity || '',
           'HQ Country':           hqCountry || '',
-          'Product Category':     productCategory || '',
+          'Industry':     industry || '',
           'Years Operating':      yearsOperating || '',
           'Distribution Channels': distributionChannels || '',
           'Why a Fit':            whyAFit,

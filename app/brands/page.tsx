@@ -72,7 +72,7 @@ function BrandForm() {
     const [form, setForm] = useState({
       firstName: '', lastName: '', email: '', phone: '',
       brandName: '', website: '', hqCity: '', hqCountry: '',
-      productCategory: '', yearsOperating: '', distributionChannels: '', whyAFit: '',
+      industry: '', yearsOperating: '', distributionChannels: '', whyAFit: '',
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
    
@@ -166,21 +166,26 @@ function BrandForm() {
           </div>
         </div>
    
-        {/* Product Category + Years Operating */}
-        <div style={row}>
-          <div>
-            <label style={labelStyle}>Product Category *</label>
-            <select value={form.productCategory} onChange={set('productCategory')} style={{ ...inputStyle, cursor: 'pointer' }}>
-              <option value="">Select…</option>
-              {['Apparel', 'Health/Nutrition', 'Wearables', 'Services/Experiences', 'Other'].map(c => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
+              {/* Industry */}
+              <div>
+          <label style={labelStyle}>Industry *</label>
+          <div style={{ fontSize: 13, color: '#6b7280', margin: '2px 0 6px', lineHeight: 1.5 }}>
+            <div>Health &amp; Wellness — beverages, supplements, pre-workout, protein.</div>
+            <div>Sports &amp; Athletics — gear, apparel, or equipment for athletes or the sidelines.</div>
+            <div>Other — not sure, or a charity looking to partner.</div>
           </div>
-          <div>
-            <label style={labelStyle}>Years Operating *</label>
-            <input type="text" value={form.yearsOperating} onChange={set('yearsOperating')} placeholder="e.g. 3" style={inputStyle} />
-          </div>
+          <select value={form.industry} onChange={set('industry')} style={{ ...inputStyle, cursor: 'pointer' }}>
+            <option value="">Select…</option>
+            {['Health & Wellness', 'Sports & Athletics', 'Other'].map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Years Operating */}
+        <div>
+          <label style={labelStyle}>Years Operating *</label>
+          <input type="text" value={form.yearsOperating} onChange={set('yearsOperating')} placeholder="e.g. 3" style={inputStyle} />
         </div>
    
         {/* Distribution Channels */}
