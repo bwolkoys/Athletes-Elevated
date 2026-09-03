@@ -11,10 +11,13 @@ type Product = {
   visual: string; // big watermark number (kits) or short monogram (accessories)
   description: string;
   features: string[];
-  // TODO: add real product photo path, e.g. "/whu-x-ae/home-shirt.jpg"
   image: string;
-  // TODO: insert the real West Ham store URL for this product
   shopUrl: string;
+  // Some kits (the Home/Away Elite shirts and their Women's versions) don't
+  // include the Athletes Elevated back-of-shirt branding by default — it has
+  // to be added as a free "personalisation" on the West Ham store. The Third
+  // kit shirts already come printed with it, so they don't need the guide.
+  needsPersonalization: boolean;
 };
 
 const PRODUCTS: Product[] = [
@@ -28,6 +31,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Elite Home Shirt", "HeiQ Smart Temp technology helps keep you cool and comfortable", "Lightweight engineered jacquard knit fabric", "Short sleeve design for unrestricted movement", "Finished with official Club branding in classic West Ham colours", "Made from 90% recycled polyester and 10% elastane"],
     image: "/marketplace/eliteHome.png",
     shopUrl: "https://tidd.ly/4wb1AlG",
+    needsPersonalization: true,
   },
   {
     id: 2,
@@ -38,6 +42,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Elite Away Shirt", "NB DRYx fast-drying technology helps wick moisture away from the skin", "HeiQ Smart Temp technology helps keep you cool and comfortable", "Lightweight engineered jacquard knit fabric", "Short sleeve design for unrestricted movement", "Finished with official West Ham United Club crest and New Balance branding in classic Away styling", "Made from 90% recycled polyester and 10% elastane"],
     image: "/marketplace/eliteAway.png",
     shopUrl: "https://tidd.ly/4vFyGca",
+    needsPersonalization: true,
   },
   {
     id: 3,
@@ -48,6 +53,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Women’s Elite Home Shirt", "NB DRYx fast-drying technology helps wick moisture away from the skin", "HeiQ Smart Temp technology helps keep you cool and comfortable", "Lightweight engineered jacquard knit fabric for a premium feel", "Short sleeve design for comfort and freedom of movement", "Finished with official Club branding in classic West Ham colours", "Made from 90% recycled polyester and 10% elastane"],
     image: "/marketplace/eliteHome.png",
     shopUrl: "https://tidd.ly/4prol1S",
+    needsPersonalization: true,
   },
   {
     id: 4,
@@ -59,6 +65,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Women’s Elite Away Shirt", "NB DRYx fast-drying technology helps wick moisture away from the skin", "HeiQ Smart Temp technology helps keep you cool and comfortable", "Lightweight engineered jacquard knit fabric", "Short sleeve design for unrestricted movement", "Designed for a women’s fit for enhanced comfort and wearability", "Finished with official West Ham United Club crest and New Balance branding in classic Away styling", "Made from 90% recycled polyester and 10% elastane"],
     image: "/marketplace/eliteAway.png",
     shopUrl: "https://tidd.ly/4f9lLdx",
+    needsPersonalization: true,
   },
   {
     id: 5,
@@ -69,6 +76,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Elite Third Shirt", "Distinctive bleach blue colour with fluid tonal graphics inspired by the vibrancy of summer", "NB DRYx fast-drying technology helps wick moisture away from the skin", "HeiQ Smart Temp technology helps keep you cool and comfortable", "Lightweight engineered jacquard knit fabric", "Short sleeve design for unrestricted movement", "Finished with official West Ham United Club crest and New Balance branding", "Made from 90% recycled polyester and 10% elastane"],
     image: "/marketplace/eliteThird.png",
     shopUrl: "https://tidd.ly/4c3SLBW",
+    needsPersonalization: false,
   },
   {
     id: 6,
@@ -79,6 +87,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Unsponsored Third Shirt", "Distinctive bleach blue colour with fluid tonal graphics", "Short sleeve design for a classic match-inspired look", "NB DRY fast-drying technology helps wick moisture away from the body", "Standard fit designed to provide a true-to-size feel", "Lightweight polyester material for a comfortable feel", "Finished with official West Ham United colours and club branding", "Made from 100% recycled polyester"],
     image: "/marketplace/third.png",
     shopUrl: "https://tidd.ly/4xk1TdP",
+    needsPersonalization: false,
   },
   {
     id: 7,
@@ -90,6 +99,7 @@ const PRODUCTS: Product[] = [
     features: ["Official West Ham United x New Balance 2026/27 Third Shirt", "Distinctive bleach blue colour with fluid tonal graphics", "Short sleeve design for a classic match-inspired look", "NB DRY fast-drying technology helps wick moisture away from the body", "Standard fit designed to provide a true-to-size feel", "Lightweight polyester material for a comfortable feel", "Finished with official West Ham United colours and club branding", "Made from 100% recycled polyester"],
     image: "/marketplace/third.png",
     shopUrl: "https://tidd.ly/456TLBB",
+    needsPersonalization: false,
   },
 ];
 
@@ -105,6 +115,98 @@ type LeadForm = {
   lastName: string;
   email: string;
 };
+
+// --- "How to add AE" walkthrough config -----------------------------------
+// Shown on the product detail page, between the product card and "You might
+// also like", for any kit that doesn't come with the Athletes Elevated
+// branding built in (see `needsPersonalization` on Product above). Verified
+// against the live West Ham store: on those shirts, click "Add
+// Personalisation," then under step 3 — "Select Adults Athletes Elevated EFL
+// Back of Shirt Sponsor" — choose that option (it's free).
+type PersonalizationStep = {
+  step: number;
+  title: string;
+  description: string;
+  // TODO: replace with a real screenshot from the West Ham personalisation
+  // flow, e.g. "/marketplace/personalize-step-1.png". Suggested crops:
+  //   1. The product page with the "Add Personalisation" button visible.
+  //   2. The opened panel scrolled to "3. Select Adults Athletes Elevated
+  //      EFL Back of Shirt Sponsor," with that option visible.
+  //   3. That option selected/checked, ready to add to bag.
+  image: string;
+};
+
+const PERSONALIZATION_STEPS: PersonalizationStep[] = [
+  {
+    step: 1,
+    title: "Click “Add Personalisation”",
+    description:
+      "On the product page over on the West Ham store, click Add Personalisation, just above Add to Bag.",
+    image: "/marketplace/5.png",
+  },
+  {
+    step: 2,
+    title: "Choose the Athletes Elevated option",
+    description:
+      "Scroll to “Select Adults Athletes Elevated EFL Back of Shirt Sponsor” and choose it — it's a free add-on.",
+    image: "/marketplace/6.png",
+  },
+  {
+    step: 3,
+    title: "Add to bag",
+    description:
+      "Finish any other personalisation you want, then add to bag. That's it — same shirt, same branding as the players.",
+    image: "/marketplace/7.png",
+  },
+];
+
+function StepVisual({ step }: { step: PersonalizationStep }) {
+  return (
+    <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-neutral-100 sm:h-48">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={step.image}
+        alt={step.title}
+        className="h-full w-full object-cover"
+      />
+      <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#7A1F2B] text-sm font-bold text-white shadow-md">
+        {step.step}
+      </span>
+    </div>
+  );
+}
+
+function PersonalizationGuide() {
+  return (
+    <div className="mt-10 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-8">
+      <p className="text-xs font-bold uppercase tracking-wide text-[#1B90BC]">
+        Wear what the players wear
+      </p>
+      <h3 className="mt-1 text-xl font-bold text-neutral-900 sm:text-2xl">
+        Add the Athletes Elevated personalisation and you&apos;re in the same
+        shirt the players wear on the field.
+      </h3>
+      <p className="mt-2 text-sm text-neutral-500">
+        This shirt doesn&apos;t come with the AE branding by default — here&apos;s
+        how to add it for free on the West Ham United store.
+      </p>
+
+      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {PERSONALIZATION_STEPS.map((step) => (
+          <div key={step.step}>
+            <StepVisual step={step} />
+            <p className="mt-3 text-sm font-semibold text-neutral-900">
+              {step.title}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-neutral-500">
+              {step.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProductVisual({ product, size }: { product: Product; size: "sm" | "lg" }) {
   const heightClass = size === "lg" ? "h-90 sm:h-110" : "h-50";
@@ -190,10 +292,10 @@ function Header() {
                 <span
                   key={j}
                   className="mx-6 flex shrink-0 items-center gap-6 text-lg font-bold uppercase tracking-wide text-white"
-                >
+                > <span className="text-[#8FD5F7]">•</span>
                   {TICKER_TEXT}
                   <span className="text-[#8FD5F7]">•</span>
-                  West Ham United.
+                  West Ham United
                 </span>
               ))}
             </div>
@@ -449,6 +551,9 @@ export default function Page() {
       <section className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-12">
         {!selected ? (
           <>
+          <p className="text-center pb-8 text-[#1B90BC] italic font-bold ">
+          Add the Athletes Elevated personalization and step out in the exact shirt the players wear on the pitch — one click away.
+        </p>
             <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
               {PRODUCTS.map((product) => (
                 <button
@@ -481,6 +586,9 @@ export default function Page() {
             >
               <span aria-hidden="true">←</span> Back to all products
             </button>
+            <p className="text-center pb-8 text-[#1B90BC] italic font-bold">
+            How to add the Athletes Elevated logo to your jersey, FREE, in 3 easy steps below, to ensure you have the official gameday kit that the players wear!
+        </p>
 
             <div className="grid gap-10 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-8 md:grid-cols-2">
               <ProductVisual product={selected} size="lg" />
@@ -521,6 +629,8 @@ export default function Page() {
                 </p>
               </div>
             </div>
+
+            {selected.needsPersonalization && <PersonalizationGuide />}
 
             <div className="mt-12">
               <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-500">
