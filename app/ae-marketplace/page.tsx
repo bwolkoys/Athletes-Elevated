@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../src/components/footer";
 import Navbar from "../src/components/navBar";
 
@@ -93,6 +93,19 @@ const PRODUCTS: Product[] = [
   },
 ];
 
+// --- Access gate + discount popup config ---------------------------------
+// Key used to remember (in this browser) that the visitor already submitted
+// the gate form, so they aren't asked again on repeat visits.
+const ACCESS_STORAGE_KEY = "ae_marketplace_access";
+const LEAD_STORAGE_KEY = "ae_marketplace_lead";
+const DISCOUNT_CODE = "AE15OFF";
+
+type LeadForm = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 function ProductVisual({ product, size }: { product: Product; size: "sm" | "lg" }) {
   const heightClass = size === "lg" ? "h-90 sm:h-110" : "h-50";
 
@@ -180,7 +193,7 @@ function Header() {
                 >
                   {TICKER_TEXT}
                   <span className="text-[#8FD5F7]">•</span>
-                  West Ham United
+                  West Ham United.
                 </span>
               ))}
             </div>
@@ -191,12 +204,242 @@ function Header() {
   );
 }
 
+// Full-screen form that must be completed before the marketplace is visible.
+function AccessGate({
+  onSubmit,
+}: {
+  onSubmit: (lead: LeadForm) => void;
+}) {
+  const [form, setForm] = useState<LeadForm>({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+  const [error, setError] = useState("");
+
+  function handleChange(field: keyof LeadForm) {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const firstName = form.firstName.trim();
+    const lastName = form.lastName.trim();
+    const email = form.email.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!firstName || !lastName || !email) {
+      setError("Please fill out all fields.");
+      return;
+    }
+    if (!emailPattern.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    setError("");
+    onSubmit({ firstName, lastName, email });
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/70 px-4 py-10 backdrop-blur-sm">
+      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
+        <p className="text-xs font-bold uppercase tracking-wide text-[#1B90BC]">
+          West Ham United x Athletes Elevated
+        </p>
+        <h1 className="mt-2 text-2xl font-bold text-neutral-900">
+          Enter to unlock the marketplace
+        </h1>
+        <p className="mt-2 text-sm text-neutral-500">
+          Tell us who you are and we&apos;ll get you straight in — plus a
+          discount code for your first shirt.
+        </p>
+
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="mb-1 block text-sm font-medium text-neutral-700"
+            >
+              First name
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              autoComplete="given-name"
+              value={form.firstName}
+              onChange={handleChange("firstName")}
+              className="w-full rounded-xl border border-neutral-300 px-4 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-[#7A1F2B] focus:ring-2 focus:ring-[#7A1F2B]/20"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="lastName"
+              className="mb-1 block text-sm font-medium text-neutral-700"
+            >
+              Last name
+            </label>
+            <input
+              id="lastName"
+              type="text"
+              autoComplete="family-name"
+              value={form.lastName}
+              onChange={handleChange("lastName")}
+              className="w-full rounded-xl border border-neutral-300 px-4 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-[#7A1F2B] focus:ring-2 focus:ring-[#7A1F2B]/20"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-neutral-700"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={handleChange("email")}
+              className="w-full rounded-xl border border-neutral-300 px-4 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-[#7A1F2B] focus:ring-2 focus:ring-[#7A1F2B]/20"
+              required
+            />
+          </div>
+
+          {error && <p className="text-sm text-red-600">{error}</p>}
+
+          <button
+            type="submit"
+            className="mt-2 w-full rounded-xl bg-[#7A1F2B] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#7A1F2B]/30 transition hover:-translate-y-0.5 hover:bg-[#621826]"
+          >
+            Enter marketplace
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// Popup shown once, immediately after the access form is submitted, with a
+// copyable discount code.
+function DiscountPopup({ onClose }: { onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/70 px-4 py-10 backdrop-blur-sm">
+      <div className="relative w-full max-w-sm rounded-3xl bg-white p-8 text-center shadow-2xl">
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-4 top-4 text-neutral-400 transition hover:text-neutral-700"
+        >
+          ✕
+        </button>
+
+        <p className="text-xs font-bold uppercase tracking-wide text-[#1B90BC]">
+          You&apos;re in!
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-neutral-900">
+          Here&apos;s 15% off
+        </h2>
+        <p className="mt-2 text-sm text-neutral-500">
+          Use this code at checkout on your next shirt.
+        </p>
+
+        <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border-2 border-dashed border-[#7A1F2B]/40 bg-[#7A1F2B]/5 px-4 py-3">
+          <span className="text-lg font-bold tracking-widest text-[#7A1F2B]">
+            {DISCOUNT_CODE}
+          </span>
+          <button
+            onClick={handleCopy}
+            className="shrink-0 rounded-lg bg-[#7A1F2B] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#621826]"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+
+        <button
+          onClick={onClose}
+          className="mt-6 w-full rounded-xl bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-700"
+        >
+          Start shopping
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Page() {
   const [selected, setSelected] = useState<Product | null>(null);
+
+  // hasAccess: null = still checking localStorage, false = show gate,
+  // true = gate passed, show the marketplace.
+  const [hasAccess, setHasAccess] = useState<boolean | null>(null);
+  const [showDiscount, setShowDiscount] = useState(false);
+
+  useEffect(() => {
+    try {
+      setHasAccess(localStorage.getItem(ACCESS_STORAGE_KEY) === "true");
+    } catch {
+      // localStorage unavailable (e.g. blocked) — fall back to always
+      // showing the gate for this visit.
+      setHasAccess(false);
+    }
+  }, []);
+
+  function handleGateSubmit(lead: LeadForm) {
+    try {
+      localStorage.setItem(ACCESS_STORAGE_KEY, "true");
+      localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify(lead));
+    } catch {
+      // Ignore storage failures — access still granted for this session.
+    }
+
+    // Send the lead to our server so it's captured for future marketing
+    // (see app/api/leads/route.ts). Fire-and-forget: a slow or failed
+    // request shouldn't block the visitor from getting into the site.
+    fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lead),
+    }).catch((err) => {
+      console.error("Failed to submit lead:", err);
+    });
+
+    setHasAccess(true);
+    setShowDiscount(true);
+  }
 
   const related = selected
     ? PRODUCTS.filter((p) => p.id !== selected.id).slice(0, 3)
     : [];
+
+  // Avoid a flash of the gate (or the marketplace) before we've checked
+  // localStorage on mount.
+  if (hasAccess === null) {
+    return <main className="min-h-screen bg-neutral-50" />;
+  }
+
+  if (!hasAccess) {
+    return <AccessGate onSubmit={handleGateSubmit} />;
+  }
 
   return (
     <main className="min-h-screen bg-neutral-50">
@@ -303,6 +546,10 @@ export default function Page() {
         )}
       </section>
 <Footer />
+
+      {showDiscount && (
+        <DiscountPopup onClose={() => setShowDiscount(false)} />
+      )}
     </main>
   );
 }
