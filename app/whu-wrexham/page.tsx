@@ -109,13 +109,13 @@ const PREDICTIONS = {
 };
 
 const MARKETPLACE_OFFER = {
-  liveDateLabel: "Live Sept 1",
+  liveDateLabel: "Live Sept 4",
   titleLine1: "Treat yourself",
   titleLine2: "To Something New",
   body: "Sign up to the Athletes Elevated Marketplace and get 15% off.",
   cta: { label: "Sign Up for 15% Off", href: "#" }, // TODO: real marketplace signup URL
   fulfilmentNote:
-    "Discount code sent by email after signup. Offer managed through the Athletes Elevated Marketplace.",
+    "Discount code available after signup. Offer managed through the Athletes Elevated Marketplace.",
   // TODO: replace with real product photography, names, descriptions and prices.
   products: [
     {
@@ -137,7 +137,7 @@ const MARKETPLACE_OFFER = {
         "The West Ham United x New Balance 2026/27 Third Shirt — bold bleach blue with fast-drying NB DRY comfort.",
     },
   ],
-  marketplaceCta: { label: "Visit the Marketplace", href: "#" },
+  marketplaceCta: { label: "Visit the Marketplace", href: "/ae-marketplace" },
 };
 
 type FaqItem = {
@@ -600,7 +600,7 @@ export default function WHUxWrexham() {
         </section>
 
         {/* =========================== BUY FOR A MATE ====================== */}
-        {/* <section className="bg-[linear-gradient(180deg,#0B2560_0%,#081A45_100%)] text-white">
+        <section className="bg-[linear-gradient(180deg,#0B2560_0%,#081A45_100%)] text-white">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
             <p className={`${EYEBROW} text-[#52aafc]`} style={HEADING_STYLE}>
               {MARKETPLACE_OFFER.liveDateLabel}
@@ -675,7 +675,7 @@ export default function WHUxWrexham() {
               {MARKETPLACE_OFFER.fulfilmentNote}
             </p>
           </div>
-        </section> */}
+        </section>
 
         {/* ================================ FAQ ============================= */}
         <FaqSection />
