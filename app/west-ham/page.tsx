@@ -383,9 +383,9 @@ function StadiumForm() {
                       />
                       <span style={{ fontFamily: BODY, fontSize: 11, fontWeight: 400, color: 'rgba(0,0,0,0.65)', lineHeight: 1.55 }}>
                         I have read and agree to the{' '}
-                        <a href="/privacy" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
+                        <a href="/privacy-policy" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
                         {' '}and{' '}
-                        <a href="/terms" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
+                        <a href="/terms-and-conditions" style={{ color: '#000000', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
                         <span style={{ color: '#DC2626' }}>*</span>
                       </span>
                     </label>

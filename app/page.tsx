@@ -244,9 +244,9 @@ function WaitlistForm() {
           />
           <span style={{ fontFamily: BODY, fontSize: 12, fontWeight: 300, color: 'rgba(9,40,102,0.75)', lineHeight: 1.55 }}>
             I have read and agree to the{' '}
-            <a href="/privacy" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
+            <a href="/privacy-policy" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Privacy Policy</a>
             {' '}and{' '}
-            <a href="/terms" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
+            <a href="/terms-and-conditions" style={{ color: '#52aafc', textDecoration: 'underline', textUnderlineOffset: 2 }}>Terms of Use</a>.{' '}
             <span style={{ color: '#DC2626' }}>*</span>
           </span>
         </label>
