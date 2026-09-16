@@ -5,8 +5,10 @@ import Link from "next/link";
 import Navbar from "./components/navBar";
 
 // Athletes Elevated — Marketplace Homepage
-// Links out to the per-athlete and per-brand storefronts (AthleteStorefront.tsx / BrandStorefront.tsx).
-// Swap the slugs below for your actual route params once /athletes/[slug] and /brands/[slug] are wired up.
+// Links point at the two real storefronts you have live today: /storefront/picabo
+// and /storefront/teebox. "Browse all athletes/brands" and the footer's Stories/
+// About/Contact links point at pages that don't exist yet — they go to "#" for now
+// so nothing 404s; wire them up to real routes once those pages are built.
 
 interface CategoryTile {
   label: string;
@@ -26,25 +28,27 @@ interface FeaturedAthlete {
   slug: string;
   name: string;
   sport: string;
+  href: string;
 }
 
 const FEATURED_ATHLETES: FeaturedAthlete[] = [
-  { slug: "picabo-street", name: "Picabo Street", sport: "Alpine Skiing" },
-  { slug: "athlete-name", name: "Athlete Name", sport: "Sport" },
-  { slug: "athlete-name-2", name: "Athlete Name", sport: "Sport" },
+  { slug: "picabo-street", name: "Picabo Street", sport: "Alpine Skiing", href: "/storefront/picabo" },
+  { slug: "athlete-name", name: "Athlete Name", sport: "Sport", href: "#" },
+  { slug: "athlete-name-2", name: "Athlete Name", sport: "Sport", href: "#" },
 ];
 
 interface FeaturedBrand {
   slug: string;
   name: string;
   category: string;
+  href: string;
 }
 
 const FEATURED_BRANDS: FeaturedBrand[] = [
-  { slug: "teebox-golf", name: "TeeBox Golf", category: "Golf" },
-  { slug: "parkit", name: "Parkit", category: "Outdoor" },
-  { slug: "pinned-golf", name: "Pinned Golf", category: "Golf" },
-  { slug: "west-ham-united", name: "West Ham United", category: "Football" },
+  { slug: "teebox-golf", name: "TeeBox Golf", category: "Golf", href: "/storefront/teebox" },
+  { slug: "parkit", name: "Parkit", category: "Outdoor", href: "#" },
+  { slug: "pinned-golf", name: "Pinned Golf", category: "Golf", href: "#" },
+  { slug: "west-ham-united", name: "West Ham United", category: "Football", href: "#" },
 ];
 
 interface Pick {
@@ -137,7 +141,7 @@ export default function Homepage() {
           </span>
           Picabo Street x TeeBox Golf — Founding Drop 01
         </div>
-        <Link href="/athletes/picabo-street" className="text-xs font-bold uppercase text-[#52aafc]">
+        <Link href="/storefront/picabo" className="text-xs font-bold uppercase text-[#52aafc]">
           Shop the drop →
         </Link>
       </div>
@@ -193,7 +197,7 @@ export default function Homepage() {
               Each storefront hand-picked by the athlete themselves.
             </p>
           </div>
-          <Link href="/athletes" className="whitespace-nowrap text-sm font-bold uppercase tracking-wide text-[#146FF8]">
+          <Link href="#" className="whitespace-nowrap text-sm font-bold uppercase tracking-wide text-[#146FF8]">
             Browse all athletes →
           </Link>
         </div>
@@ -201,7 +205,7 @@ export default function Homepage() {
           {FEATURED_ATHLETES.map((athlete) => (
             <Link
               key={athlete.slug}
-              href={`/athletes/${athlete.slug}`}
+              href={athlete.href}
               className="w-[220px] flex-none rounded-lg bg-[#f4f4f4] pb-4 text-center"
             >
               <div className="flex h-[150px] items-center justify-center bg-gradient-to-br from-[#c7d6f0] to-[#8fa9d6] text-xs font-bold uppercase tracking-wide text-[#3a4a70]">
@@ -232,7 +236,7 @@ export default function Homepage() {
               Every brand hand-picked and vetted before it earns a spot here.
             </p>
           </div>
-          <Link href="/brands" className="whitespace-nowrap text-sm font-bold uppercase tracking-wide text-[#146FF8]">
+          <Link href="#" className="whitespace-nowrap text-sm font-bold uppercase tracking-wide text-[#146FF8]">
             Browse all brands →
           </Link>
         </div>
@@ -240,7 +244,7 @@ export default function Homepage() {
           {FEATURED_BRANDS.map((brand) => (
             <Link
               key={brand.slug}
-              href={`/brands/${brand.slug}`}
+              href={brand.href}
               className="w-[220px] flex-none rounded-lg bg-[#f4f4f4] pb-4 text-center"
             >
               <div className="flex h-[150px] items-center justify-center bg-gradient-to-br from-[#c7d6f0] to-[#8fa9d6] text-xs font-bold uppercase tracking-wide text-[#3a4a70]">
@@ -331,7 +335,7 @@ export default function Homepage() {
           Shop the products. Back the people. Lift the culture.
         </p>
         <Link
-          href="/about"
+          href="#"
           className="inline-block rounded-sm border border-white/50 px-7 py-3 text-xs font-bold uppercase tracking-wider text-white"
         >
           Learn More
@@ -375,18 +379,18 @@ export default function Homepage() {
           </div>
           <div>
             <h5 className="mb-3.5 text-xs font-extrabold uppercase tracking-wide">Shop</h5>
-            <Link href="/athletes" className="mb-2 block text-sm text-[#5b5f6b]">Athletes</Link>
-            <Link href="/brands" className="mb-2 block text-sm text-[#5b5f6b]">Brands</Link>
+            <Link href="/storefront/picabo" className="mb-2 block text-sm text-[#5b5f6b]">Athletes</Link>
+            <Link href="/storefront/teebox" className="mb-2 block text-sm text-[#5b5f6b]">Brands</Link>
           </div>
           <div>
             <h5 className="mb-3.5 text-xs font-extrabold uppercase tracking-wide">About</h5>
-            <Link href="/rewards" className="mb-2 block text-sm text-[#5b5f6b]">Rewards</Link>
-            <Link href="/about" className="mb-2 block text-sm text-[#5b5f6b]">Our Mission</Link>
+            <Link href="#" className="mb-2 block text-sm text-[#5b5f6b]">Rewards</Link>
+            <Link href="#" className="mb-2 block text-sm text-[#5b5f6b]">Our Mission</Link>
           </div>
           <div>
             <h5 className="mb-3.5 text-xs font-extrabold uppercase tracking-wide">Connect</h5>
-            <Link href="/stories" className="mb-2 block text-sm text-[#5b5f6b]">Stories</Link>
-            <Link href="/contact" className="mb-2 block text-sm text-[#5b5f6b]">Contact</Link>
+            <Link href="#" className="mb-2 block text-sm text-[#5b5f6b]">Stories</Link>
+            <Link href="#" className="mb-2 block text-sm text-[#5b5f6b]">Contact</Link>
           </div>
         </div>
         <div className="mx-auto flex max-w-[1200px] justify-between border-t border-[#ddd] px-6 py-4.5 text-xs text-[#5b5f6b] md:px-10">
