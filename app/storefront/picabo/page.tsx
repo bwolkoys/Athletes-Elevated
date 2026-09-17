@@ -3,24 +3,65 @@ import Navbar from "../components/navBar";
 // Athletes Elevated — Athlete Storefront
 // Data-driven so this same component can be reused for every athlete;
 // just pass a different `athlete` object in. Defaults below are Picabo Street.
+//
+// Each pick now takes an optional `image` (a URL or a local /public path,
+// e.g. "/images/products/tumbler.jpg"). Leave it out and that tile falls
+// back to the gradient placeholder, so you can fill images in one at a time.
 
 const DEFAULT_ATHLETE = {
   name: "Picabo Street",
   sport: "Alpine Skiing · Olympic Gold Medalist",
   tagline: "SHOP PICABO'S PICKS",
   bio: "Two-time Olympic medalist and the first American woman to win the World Cup overall title, Picabo Street built a career on speed, grit, and refusing to back down. Her storefront is a hand-picked lineup from the brands she actually trusts — on the mountain and off it.",
-  heroImageLabel: "Picabo Street — hero photo",
+  heroImageLabel: "/picabo/American-Olympic-skier-Picabo-Street-March-2025.webp",
   picks: [
-    { brand: "TeeBox Golf", name: "Performance Polo", price: "$68.00" },
-    { brand: "TeeBox Golf", name: "Tour Cap", price: "$32.00" },
-    { brand: "Parkit", name: "Insulated Tumbler", price: "$28.00" },
-    { brand: "Pinned Golf", name: "Rangefinder Pro", price: "$199.00" },
-    { brand: "West Ham United", name: "Training Jacket", price: "$85.00" },
-    { brand: "Brand Name", name: "Product Name", price: "$0.00" },
+    {
+      brand: "Purity Coffee",
+      name: "EASE: Dark Roast Whole Bean Coffee",
+      price: "$29.00",
+      image: "/picabo/purity.png",
+    },
+    {
+      brand: "Purity Coffee",
+      name: "PROTECT: Light-Medium Roast Whole Bean Coffee",
+      price: "$29.00",
+      image: "/picabo/pprotect.png",
+    },
+    {
+      brand: "CeraVe",
+      name: "PM Facial Moisturizing Lotion",
+      price: "$20.00",
+      image: "/picabo/cerave.png",
+    },
+    {
+      brand: "Head",
+      name: "Total Joy",
+      price: "$899.00",
+      image: "/picabo/head.png",
+    },
+    {
+      brand: "Collective Etc",
+      name: "Fire Guardian Emergency Fire Blanket",
+      price: "$20.00",
+      image: "/picabo/fire.png",
+    },
   ],
   impactNote:
     "Every purchase from this page supports Picabo directly and contributes to the charity she's chosen to back.",
 };
+
+function PickImage({ image, name }: { image?: string; name: string }) {
+  if (image) {
+    return (
+      <div className="mb-2.5 h-64 overflow-hidden rounded-lg bg-[#e6ecf7]">
+        <img src={image} alt={name} className="h-full w-full object-cover" />
+      </div>
+    );
+  }
+  return (
+    <div className="mb-2.5 h-28 rounded-lg bg-gradient-to-br from-[#e6ecf7] to-[#c3d1ec]" />
+  );
+}
 
 export default function AthleteStorefront({ athlete = DEFAULT_ATHLETE }) {
   return (
@@ -81,10 +122,10 @@ export default function AthleteStorefront({ athlete = DEFAULT_ATHLETE }) {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {athlete.picks.map((item, i) => (
             <div key={i} className="text-left">
-              <div className="mb-2.5 h-28 rounded-lg bg-gradient-to-br from-[#e6ecf7] to-[#c3d1ec]" />
+              <PickImage image={item.image} name={item.name} />
               <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#5b5f6b]">
                 {item.brand}
               </p>
@@ -99,24 +140,28 @@ export default function AthleteStorefront({ athlete = DEFAULT_ATHLETE }) {
       </section>
 
       {/* Story / impact */}
-      <section id="story" className="bg-[#f4f4f4] px-6 py-16 md:px-10">
-        <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-2 md:items-center">
-          <div className="flex h-64 items-center justify-center rounded-lg bg-gradient-to-br from-[#c7d6f0] to-[#8fa9d6] text-xs font-bold uppercase tracking-wide text-[#3a4a70]">
-            {athlete.heroImageLabel}
-          </div>
-          <div>
-            <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.1em] text-[#146FF8]">
-              Why It Matters
-            </p>
-            <h2 className="mb-4 text-2xl font-extrabold md:text-3xl">
-              More than a storefront.
-            </h2>
-            <p className="text-sm leading-relaxed text-[#5b5f6b] md:text-base">
-              {athlete.impactNote}
-            </p>
-          </div>
-        </div>
-      </section>
+<section id="story" className="bg-[#f4f4f4] px-6 py-16 md:px-10">
+  <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-2 md:items-center">
+    <div className="h-64 overflow-hidden rounded-lg bg-gradient-to-br from-[#c7d6f0] to-[#8fa9d6] md:h-96">
+      <img
+        src={athlete.heroImageLabel}
+        alt={athlete.name}
+        className="h-full w-full object-cover"
+      />
+    </div>
+    <div>
+      <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.1em] text-[#146FF8]">
+        Why It Matters
+      </p>
+      <h2 className="mb-4 text-2xl font-extrabold md:text-3xl">
+        More than a storefront.
+      </h2>
+      <p className="text-sm leading-relaxed text-[#5b5f6b] md:text-base">
+        {athlete.impactNote}
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* CTA band */}
       <section className="bg-gradient-to-br from-[#092866] to-[#071c4a] px-6 py-14 text-center text-white md:px-10">
