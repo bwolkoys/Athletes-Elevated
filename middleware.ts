@@ -4,9 +4,9 @@ const COOKIE_NAME = "ae_storefront_auth";
 const COOKIE_VALUE = "granted";
 
 export function middleware(request: NextRequest) {
-  const isAuthed = request.cookies.get(COOKIE_NAME)?.value === COOKIE_VALUE;
+  const cookie = request.cookies.get(COOKIE_NAME);
 
-  if (isAuthed) {
+  if (cookie?.value === COOKIE_VALUE) {
     return NextResponse.next();
   }
 
@@ -15,6 +15,9 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(loginUrl);
 }
 
+// Every URL under /storefront requires the password — this covers
+// /storefront, /storefront/picabo, and /storefront/teebox, plus any new
+// storefront page you add later, automatically.
 export const config = {
-  matcher: ["/storefront/:path*"],
+  matcher: ["/storefront", "/storefront/:path*"],
 };
