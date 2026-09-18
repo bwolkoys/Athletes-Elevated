@@ -97,28 +97,21 @@ export default function BrandStorefront({ brand = DEFAULT_BRAND }) {
     >
       <Navbar />
 
-      {/* Hero — just the background photo, buttons pinned to the bottom */}
-      <section className="relative flex min-h-[420px] items-end overflow-hidden px-6 pb-8 text-center text-white sm:min-h-[520px] sm:pb-10 md:min-h-[640px] md:px-10 md:pb-14">
-        {/* Background photo — a differently-cropped mobile version is optional */}
-        {brand.heroBackground ? (
-          <picture>
-            {brand.heroBackgroundMobile && (
-              <source media="(max-width: 767px)" srcSet={brand.heroBackgroundMobile} />
-            )}
-            <img
-              src={brand.heroBackground}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-          </picture>
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#092866] to-[#071c4a]" />
+    {/* Hero — sized by the photo itself, buttons layered on top at the bottom */}
+<section className="grid text-center text-white">
+  {brand.heroBackground ? (
+    <>
+      <picture className="col-start-1 row-start-1 block w-full">
+        {brand.heroBackgroundMobile && (
+          <source media="(max-width: 767px)" srcSet={brand.heroBackgroundMobile} />
         )}
+        <img src={brand.heroBackground} alt="" className="block h-auto w-full" />
+      </picture>
 
-        {/* Just a bottom fade so the buttons stay legible over any photo */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 to-transparent sm:h-40" />
+      <div className="relative col-start-1 row-start-1 flex w-full flex-col justify-end px-6 pb-8 sm:px-10 sm:pb-10 md:pb-14">
+        {/* Fade confined to roughly the bottom third of the photo, scales with it */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
 
-        {/* Buttons only, pinned to the bottom */}
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
           <a
             href="#products"
@@ -133,7 +126,27 @@ export default function BrandStorefront({ brand = DEFAULT_BRAND }) {
             About {brand.name}
           </a>
         </div>
-      </section>
+      </div>
+    </>
+  ) : (
+    <div className="flex min-h-[420px] flex-col items-center justify-end bg-gradient-to-br from-[#092866] to-[#071c4a] px-6 pb-8 sm:min-h-[520px] sm:pb-10 md:min-h-[640px] md:px-10 md:pb-14">
+      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+        <a
+          href="#products"
+          className="w-full rounded-sm border border-[#52aafc] bg-[#52aafc] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#092866] sm:w-auto sm:py-3"
+        >
+          {brand.tagline}
+        </a>
+        <a
+          href="#story"
+          className="w-full rounded-sm border border-white/70 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white sm:w-auto sm:py-3"
+        >
+          About {brand.name}
+        </a>
+      </div>
+    </div>
+  )}
+</section>
 
       {/* Scrolling marquee */}
       <Marquee items={marqueeItems} />
