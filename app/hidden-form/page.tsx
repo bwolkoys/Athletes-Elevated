@@ -30,7 +30,7 @@ export default async function FormTestPage({ searchParams }: PageProps) {
         className="airtable-embed"
         src={src}
         width="100%"
-        height="800"
+        height="533"
         style={{ background: "transparent", border: "1px solid #ccc" }}
         title="Airtable Form"
       />
