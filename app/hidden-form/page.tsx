@@ -14,12 +14,11 @@ type PageProps = {
 
 export default async function FormTestPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const ownerParam = params["owner guid"];
-  const owner = Array.isArray(ownerParam) ? ownerParam[0] : ownerParam ?? "";
+  const uidParam = params["eit_uid"];
+  const owner = Array.isArray(uidParam) ? uidParam[0] : uidParam ?? "";
 
   const formParams = new URLSearchParams({
-    "prefill_Contact Owner": owner,
-    "hide_Contact Owner": "true",
+    "prefill_Owner GUID": owner,
   });
 
   const src = `${BASE_URL}?${formParams.toString()}`;
@@ -27,6 +26,7 @@ export default async function FormTestPage({ searchParams }: PageProps) {
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "2rem 1rem" }}>
       <iframe
+        id="airtable-form"
         className="airtable-embed"
         src={src}
         width="100%"
