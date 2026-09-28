@@ -14,11 +14,11 @@ type PageProps = {
 
 export default async function FormTestPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const uidParam = params["eit_uid"];
-  const owner = Array.isArray(uidParam) ? uidParam[0] : uidParam ?? "";
+  const tokenParam = params["send_token"];
+  const sendToken = Array.isArray(tokenParam) ? tokenParam[0] : tokenParam ?? "";
 
   const formParams = new URLSearchParams({
-    "prefill_Owner GUID": owner,
+    "prefill_Send Token": sendToken,
   });
 
   const src = `${BASE_URL}?${formParams.toString()}`;
