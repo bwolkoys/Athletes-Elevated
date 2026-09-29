@@ -14,7 +14,7 @@ type PageProps = {
 
 export default async function FormTestPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const tokenParam = params["send_token"];
+  const tokenParam = params["eit_send"];
   const sendToken = Array.isArray(tokenParam) ? tokenParam[0] : tokenParam ?? "";
 
   const formParams = new URLSearchParams({
