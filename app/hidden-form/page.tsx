@@ -19,6 +19,7 @@ export default async function FormTestPage({ searchParams }: PageProps) {
 
   const formParams = new URLSearchParams({
     "prefill_Send Token": sendToken,
+    "hide_Send Token": "true",
   });
 
   const src = `${BASE_URL}?${formParams.toString()}`;
