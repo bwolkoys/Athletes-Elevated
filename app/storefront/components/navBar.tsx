@@ -10,6 +10,7 @@ import { useState } from "react";
 const NAV_LINKS = [
   { label: "Athletes", href: "/storefront/picabo" },
   { label: "Brands", href: "/storefront/teebox" },
+  { label: "BYLT", href: "/storefront/bylt" },
   { label: "Stories", href: "/stories" },
   { label: "About", href: "/about" },
 ];
