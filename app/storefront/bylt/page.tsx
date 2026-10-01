@@ -79,15 +79,15 @@ const STOREFRONT = {
       blurb: "Gronk's go-to looks after dark.",
       image: "",
       products: [
-        { name: "LUX Short Sleeve Button Down", price: "$75", image: "", href: "" },
-        { name: "Everyday Short Sleeve Button Down", price: "$80", image: "", href: "" },
-        { name: "Ribbed+ Short Sleeve Button Down", price: "$88", image: "", href: "" },
-        { name: "Seersucker Short Sleeve Button Down", price: "$85", image: "", href: "" },
-        { name: "Everyday Pant 2.0", price: "$128", image: "", href: "" },
-        { name: "Everyday Pant 2.0 — Classic Fit", price: "$128", image: "", href: "" },
-        { name: "Coastal Overshirt", price: "$125", image: "", href: "" },
-        { name: "Plaid Coastal Overshirt", price: "$125", image: "", href: "" },
-        { name: "Split Hem: LUX", price: "$40", image: "", href: "" },
+        { name: "LUX Short Sleeve Button Down", price: "$75", image: "/bylt/shirt.png", href: "" },
+        { name: "Everyday Short Sleeve Button Down", price: "$80", image: "/bylt/shirt1.png", href: "" },
+        { name: "Ribbed+ Short Sleeve Button Down", price: "$88", image: "/bylt/shirt2.png", href: "" },
+        { name: "Seersucker Short Sleeve Button Down", price: "$85", image: "/bylt/shirt3.png", href: "" },
+        { name: "Everyday Pant 2.0", price: "$128", image: "/bylt/pant.png", href: "" },
+        { name: "Everyday Pant 2.0 — Classic Fit", price: "$128", image: "/bylt/pant1.png", href: "" },
+        { name: "Coastal Overshirt", price: "$125", image: "/bylt/shirt4.png", href: "" },
+        { name: "Plaid Coastal Overshirt", price: "$125", image: "/bylt/shirt5.png", href: "" },
+        { name: "Split Hem: LUX", price: "$40", image: "/bylt/shirt6.png", href: "" },
       ],
     },
     {
@@ -96,7 +96,7 @@ const STOREFRONT = {
       blurb: "Train in it. Live in it.",
       image: "",
       products: [
-        { name: "The Gronk Short — Linerless", price: "$78", image: "", href: "", tag: "Gronk Signature" },
+        { name: "The Gronk Short — Linerless", price: "$78", image: "/bylt/short.png", href: "", tag: "Gronk Signature" },
       ],
     },
     {
@@ -105,7 +105,7 @@ const STOREFRONT = {
       blurb: "Designed by Gronk himself.",
       image: "",
       products: [
-        { name: "The Gronk × BYLT Underwear Collection", price: "", image: "", href: "", tag: "Designed by Gronk" },
+        { name: "The Gronk × BYLT Underwear Collection", price: "", image: "/bylt/underwear.png", href: "", tag: "Designed by Gronk" },
       ],
     },
   ] as Look[],
