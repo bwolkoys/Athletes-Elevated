@@ -12,6 +12,7 @@ const navLinks = [
   { label: 'Athletes', href: '/athletes' },
   { label: 'Brands', href: '/brands' },
   { label: 'West Ham United', href: '/west-ham' },
+  { label: 'Live PC Give PC', href: '/live-pc-give-pc' },
 ];
 
 export default function Navbar() {
@@ -61,7 +62,7 @@ export default function Navbar() {
             ))}
 
             <Link
-              href="/#waitlist"
+              href="https://athleteselevatedmarketplace.com/"
               style={{
                 fontFamily: BEBAS,
                 backgroundColor: '#52aafc',
@@ -76,7 +77,7 @@ export default function Navbar() {
               onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
               onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             >
-              EARLY ACCESS
+              MARKETPLACE
             </Link>
           </div>
 
@@ -138,7 +139,7 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="/#waitlist"
+            href="https://athleteselevatedmarketplace.com/"
             onClick={() => setMenuOpen(false)}
             style={{
               fontFamily: BEBAS,
@@ -152,7 +153,7 @@ export default function Navbar() {
               textAlign: 'center',
             }}
           >
-            EARLY ACCESS
+            MARKETPLACE
           </Link>
         </div>
       )}

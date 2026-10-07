@@ -127,7 +127,7 @@ export default function AthletesGrid({ athletes: ATHLETES }: { athletes: Athlete
               </p>
             </div>
             <Link
-              href="/marketplace"
+              href="https://athleteselevatedmarketplace.com/"
               className="inline-flex items-center gap-2 rounded-md bg-[#52aafc] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-[#092866] transition hover:bg-white"
             >
               Visit Marketplace
