@@ -33,7 +33,7 @@ export const metadata: Metadata = {
  * ========================================================================= */
 
 /** The full Athletes Elevated store (Shopify). */
-const STORE_URL = "https://athleteselevatedmarketplace.com/";
+const STORE_URL = "https://athleteselevatedmarketplace.com/collections/all-products";
 
 /**
  * "All products" section — the 4 product images in the collage.

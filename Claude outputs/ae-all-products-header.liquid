@@ -1,0 +1,148 @@
+{% comment %}
+  Athletes Elevated — "All Products" header (Shopify Custom Liquid section)
+
+  HOW TO ADD IT
+  1. Online Store → Themes → Customize.
+  2. Open the template for your All Products page
+     (Products → Collections → All products, or the default collection template).
+  3. Add section → "Custom Liquid", drag it to the top, paste this whole file in.
+{% endcomment %}
+
+{%- assign ae_heading = 'All Products' -%}
+{%- assign ae_subheading = 'Every product from every athlete and brand on Athletes Elevated — all in one place.' -%}
+
+{%- liquid
+  if collection and collection.handle != blank
+    assign ae_current = collection.handle
+  else
+    assign ae_current = 'all'
+  endif
+-%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  .ae-ph {
+    --ae-night: #050b18;
+    --ae-navy: #092866;
+    --ae-sky: #52aafc;
+    --ae-royal: #006aac;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    background:
+      radial-gradient(60% 90% at 85% 10%, rgba(82,170,252,.32) 0%, rgba(82,170,252,0) 60%),
+      radial-gradient(55% 80% at 10% 100%, rgba(0,106,172,.45) 0%, rgba(0,106,172,0) 65%),
+      linear-gradient(135deg, #050b18 0%, #092866 55%, #050b18 100%);
+  }
+  .ae-ph *, .ae-ph *::before, .ae-ph *::after { box-sizing: border-box; }
+
+  /* Fine grid, fading out toward the edges */
+  .ae-ph__grid {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 60% 40%, #000 30%, transparent 80%);
+            mask-image: radial-gradient(ellipse 75% 70% at 60% 40%, #000 30%, transparent 80%);
+  }
+
+  /* Diagonal speed streaks */
+  .ae-ph__streaks {
+    position: absolute; inset: -40% -10%; z-index: -1; pointer-events: none;
+    background: repeating-linear-gradient(
+      115deg,
+      transparent 0 120px,
+      rgba(82,170,252,.10) 120px 122px,
+      transparent 122px 260px
+    );
+    animation: ae-ph-drift 18s linear infinite;
+  }
+
+  /* Soft moving light sweep */
+  .ae-ph__sheen {
+    position: absolute; top: 0; bottom: 0; width: 45%; left: -50%; z-index: -1; pointer-events: none;
+    background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.07) 50%, transparent 100%);
+    transform: skewX(-18deg);
+    animation: ae-ph-sweep 9s ease-in-out infinite;
+  }
+
+  /* Giant outlined watermark */
+  .ae-ph__mark {
+    position: absolute; right: -2%; bottom: -18%; z-index: -1; pointer-events: none;
+    font-weight: 900; text-transform: uppercase; line-height: .8; letter-spacing: -.02em;
+    font-size: clamp(120px, 22vw, 340px);
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,.08);
+    white-space: nowrap; user-select: none;
+  }
+
+  @keyframes ae-ph-drift { from { transform: translateX(0); } to { transform: translateX(260px); } }
+  @keyframes ae-ph-sweep { 0%, 15% { left: -50%; } 60%, 100% { left: 130%; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ae-ph__streaks, .ae-ph__sheen { animation: none; }
+    .ae-ph__sheen { display: none; }
+  }
+
+  .ae-ph__inner {
+    position: relative; max-width: 1280px; margin: 0 auto;
+    padding: 80px 24px 64px;
+  }
+  @media (min-width: 900px) { .ae-ph__inner { padding: 120px 40px 96px; } }
+
+  .ae-ph__eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin: 0 0 20px; font-size: 11px; font-weight: 700;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--ae-sky);
+  }
+  .ae-ph__eyebrow::before { content: ""; width: 32px; height: 2px; background: var(--ae-sky); }
+  .ae-ph__title {
+    margin: 0; font-weight: 900; text-transform: uppercase;
+    font-size: clamp(48px, 9vw, 112px); line-height: .9; letter-spacing: -.01em;
+    color: #fff;
+    text-shadow: 0 10px 40px rgba(5,11,24,.45);
+  }
+  .ae-ph__title span {
+    background: linear-gradient(90deg, #52aafc 0%, #a9d4ff 50%, #52aafc 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .ae-ph__sub {
+    margin: 24px 0 0; max-width: 560px;
+    font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.78);
+  }
+  .ae-ph__stripe { height: 6px; background: linear-gradient(90deg, var(--ae-royal), var(--ae-sky), var(--ae-royal)); }
+</style>
+
+<section class="ae-ph" aria-labelledby="ae-ph-title">
+  <div class="ae-ph__grid" aria-hidden="true"></div>
+  <div class="ae-ph__streaks" aria-hidden="true"></div>
+  <div class="ae-ph__sheen" aria-hidden="true"></div>
+  <div class="ae-ph__mark" aria-hidden="true">Elevated</div>
+
+  <div class="ae-ph__inner">
+    <p class="ae-ph__eyebrow">Athletes Elevated Marketplace</p>
+    <h1 id="ae-ph-title" class="ae-ph__title">
+      {%- if ae_current == 'all' -%}
+        {{ ae_heading | split: ' ' | first }} <span>{{ ae_heading | split: ' ' | last }}</span>
+      {%- else -%}
+        <span>{{ collection.title | escape }}</span>
+      {%- endif -%}
+    </h1>
+    <p class="ae-ph__sub">
+      {%- if ae_current != 'all' and collection.description != blank -%}
+        {{ collection.description | strip_html | truncate: 180 }}
+      {%- elsif ae_current != 'all' -%}
+        Shop the {{ collection.title | escape }} collection — vetted and athlete-approved.
+      {%- else -%}
+        {{ ae_subheading }}
+      {%- endif -%}
+    </p>
+  </div>
+
+  <div class="ae-ph__stripe" aria-hidden="true"></div>
+</section>
