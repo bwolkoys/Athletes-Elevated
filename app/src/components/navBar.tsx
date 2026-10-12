@@ -62,7 +62,7 @@ export default function Navbar() {
             ))}
 
             <Link
-              href="https://athleteselevatedmarketplace.com/"
+              href="/marketplace"
               style={{
                 fontFamily: BEBAS,
                 backgroundColor: '#52aafc',
@@ -139,7 +139,7 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="https://athleteselevatedmarketplace.com/"
+            href="/marketplace"
             onClick={() => setMenuOpen(false)}
             style={{
               fontFamily: BEBAS,

@@ -22,6 +22,7 @@ import {
   type ContentItem,
   type Product,
 } from "../../lib/athletes";
+import Footer from "@/app/src/components/footer";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -45,14 +46,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: athlete.heroBlurb,
   };
 }
-
-const FOOTER_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Careers", href: "/careers" },
-  { label: "Press", href: "/press" },
-  { label: "Partnerships", href: "/partnerships" },
-  { label: "Contact", href: "/contact" },
-];
 
 export default async function AthleteSpotlightPage({ params }: PageProps) {
   const { slug } = await params;
@@ -216,31 +209,8 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
       )}
 
       {/* ============================== FOOTER ============================== */}
-      {/* Delete this block if your layout already renders a global footer. */}
-      <footer className="border-t border-[#c2c2c2]/60 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-12 md:flex-row md:px-10">
-          <span
-            className="text-sm font-extrabold uppercase tracking-wider text-[#092866]"
-            style={{ fontFamily: HEADLINE_FONT }}
-          >
-            Athletes Elevated
-          </span>
-          <nav className="flex flex-wrap justify-center gap-6">
-            {FOOTER_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-sm text-[#231f20]/70 transition hover:text-[#006aac]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <span className="text-xs text-[#231f20]/50">
-            © {new Date().getFullYear()} Athletes Elevated
-          </span>
-        </div>
-      </footer>
+      
+      <Footer />
     </main>
   );
 }

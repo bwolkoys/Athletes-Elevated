@@ -22,6 +22,7 @@ export const TABLES = {
     athletes: "Athletes",
     products: "Products",
     content: "Content",
+    brands: "Brands", // used by the marketplace page for brand photos
   } as const;
   
   const F = {
