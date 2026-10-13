@@ -184,13 +184,13 @@ function BrandForm() {
 
         {/* Years Operating */}
         <div>
-          <label style={labelStyle}>Years Operating *</label>
+          <label style={labelStyle}>Years Operating </label>
           <input type="text" value={form.yearsOperating} onChange={set('yearsOperating')} placeholder="e.g. 3" style={inputStyle} />
         </div>
    
         {/* Distribution Channels */}
         <div>
-          <label style={labelStyle}>Distribution Channels *</label>
+          <label style={labelStyle}>Distribution Channels </label>
           <input type="text" value={form.distributionChannels} onChange={set('distributionChannels')} placeholder="e.g. DTC, Retail, Amazon" style={inputStyle} />
         </div>
    
