@@ -56,6 +56,8 @@ export const TABLES = {
     productPrice: "Price",
     productImage: "Image",
     productLink: "Product Link",
+    productBlurb: "Why I Use It", // athlete's words on why they use it (carousel)
+    productStory: "Story Link", // optional article link (carousel "Read the full story")
     productAthlete: "Athletes",
     productSort: "Sort Order",
     productLive: "Live",
@@ -67,6 +69,14 @@ export const TABLES = {
     contentThumb: "Thumbnail",
     contentAthlete: "Athlete",
     contentSort: "Sort Order",
+    // Story page (/athletes/[athlete]/[story]) — fill Body or Video URL to get an on-site page
+    contentSlug: "Slug",
+    contentAuthor: "Author",
+    contentDate: "Publish Date",
+    contentBody: "Body",
+    contentQuote: "Pull Quote",
+    contentVideo: "Video URL",
+    contentProduct: "Product",
   } as const;
   
   /** How often (seconds) the site re-checks Airtable for changes. */
@@ -78,12 +88,34 @@ export const TABLES = {
   export type Pronoun = "she" | "he" | "they";
   export type Stat = { label: string };
   export type Cause = { name: string; description: string; href?: string };
-  export type Product = { name: string; brand?: string; price?: string; image?: string; href: string };
+  export type Product = {
+    name: string;
+    brand?: string;
+    price?: string;
+    image?: string;
+    href: string;
+    blurb?: string;
+    storyHref?: string;
+    id?: string;
+  };
   export type ContentItem = {
     type: "video" | "article" | "social";
     title: string;
+    /** Where the card links: the on-site story page if there is one, otherwise the external Link. */
     href: string;
     image?: string;
+    slug: string;
+    /** True when Body or Video URL is filled, so the story gets its own page on the site. */
+    hasPage: boolean;
+    externalHref?: string;
+    author?: string;
+    date?: string;
+    readMinutes?: number;
+    body: string[];
+    pullQuote?: string;
+    videoUrl?: string;
+    product?: Product;
+    productId?: string;
   };
   
   export type Athlete = {
@@ -177,6 +209,15 @@ export const TABLES = {
     return str(v) || undefined;
   }
   
+  /** Airtable date ("2026-10-13") → "Oct 13, 2026". */
+  function formatDate(v: unknown): string | undefined {
+    const d = str(v);
+    if (!d) return undefined;
+    const date = new Date(d.length === 10 ? `${d}T12:00:00Z` : d);
+    if (Number.isNaN(date.getTime())) return d;
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+  }
+
   function toSlug(s: string) {
     return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
@@ -209,6 +250,7 @@ export const TABLES = {
   
     // Group products & content by the athlete they're linked to
     const productsByAthlete = new Map<string, { sort: number; product: Product }[]>();
+    const productsById = new Map<string, Product>();
     for (const r of productRows) {
       const f = r.fields;
       if (F.productLive in f && !f[F.productLive]) continue; // skip if "Live" unticked
@@ -220,7 +262,11 @@ export const TABLES = {
         price: formatPrice(f[F.productPrice]),
         image: imageUrl(TABLES.products, r.id, f[F.productImage]) || undefined,
         href: str(f[F.productLink]),
+        blurb: str(f[F.productBlurb]) || undefined,
+        storyHref: str(f[F.productStory]) || undefined,
+        id: r.id,
       };
+      productsById.set(r.id, product);
       for (const athleteId of links(f[F.productAthlete])) {
         const list = productsByAthlete.get(athleteId) ?? [];
         list.push({ sort: num(f[F.productSort]), product });
@@ -233,11 +279,30 @@ export const TABLES = {
       const f = r.fields;
       const title = str(f[F.contentTitle]);
       if (!title) continue;
+      const body = str(f[F.contentBody])
+        .split(/\n\s*\n|\n/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+      const videoUrl = str(f[F.contentVideo]) || undefined;
+      const words = body.join(" ").split(/\s+/).filter(Boolean).length;
+      const productId = links(f[F.contentProduct])[0];
+      const externalHref = str(f[F.contentLink]) || undefined;
       const item: ContentItem = {
         type: toContentType(f[F.contentType]),
         title,
-        href: str(f[F.contentLink]) || "#",
+        href: externalHref || "#",
         image: imageUrl(TABLES.content, r.id, f[F.contentThumb]) || undefined,
+        slug: str(f[F.contentSlug]) ? toSlug(str(f[F.contentSlug])) : toSlug(title),
+        hasPage: body.length > 0 || Boolean(videoUrl),
+        externalHref,
+        author: str(f[F.contentAuthor]) || undefined,
+        date: formatDate(f[F.contentDate]),
+        readMinutes: words ? Math.max(1, Math.round(words / 200)) : undefined,
+        body,
+        pullQuote: str(f[F.contentQuote]) || undefined,
+        videoUrl,
+        productId,
+        product: productId ? productsById.get(productId) : undefined,
       };
       for (const athleteId of links(f[F.contentAthlete])) {
         const list = contentByAthlete.get(athleteId) ?? [];
@@ -270,13 +335,23 @@ export const TABLES = {
           .sort((a, b) => a.sort - b.sort)
           .map(({ product }) => ({ ...product, href: product.href || marketplaceHref }));
   
+        const athleteSlug = str(f[F.slug]) ? toSlug(str(f[F.slug])) : toSlug(name);
         const content = (contentByAthlete.get(r.id) ?? [])
           .sort((a, b) => a.sort - b.sort)
-          .map(({ item }) => item);
+          .map(({ item }) => ({
+            ...item,
+            href: item.hasPage ? `/athletes/${athleteSlug}/${item.slug}` : item.externalHref || "#",
+          }));
+        // "Read the full story" on a product falls back to this athlete's story about it.
+        for (const p of products) {
+          if (p.storyHref || !p.id) continue;
+          const story = content.find((c) => c.productId === p.id && c.hasPage);
+          if (story) p.storyHref = story.href;
+        }
   
         const athlete: Athlete & { _sort: number } = {
           _sort: num(f[F.sortOrder]),
-          slug: str(f[F.slug]) ? toSlug(str(f[F.slug])) : toSlug(name),
+          slug: athleteSlug,
           name,
           firstName: str(f[F.firstName]) || name.split(" ")[0],
           pronoun: toPronoun(f[F.pronoun]),
@@ -309,6 +384,16 @@ export const TABLES = {
     return athletes.map(({ _sort, ...a }) => a);
   }
   
+  /** One story page: the athlete, the story, and up to 3 more stories from the same athlete. */
+  export async function getStory(athleteSlug: string, storySlug: string) {
+    const athlete = await getAthlete(athleteSlug);
+    if (!athlete) return undefined;
+    const story = athlete.content.find((c) => c.hasPage && c.slug === storySlug);
+    if (!story) return undefined;
+    const more = athlete.content.filter((c) => c !== story).slice(0, 3);
+    return { athlete, story, more };
+  }
+
   export async function getAthlete(slug: string): Promise<Athlete | undefined> {
     const athletes = await getAthletes();
     return athletes.find((a) => a.slug === slug);

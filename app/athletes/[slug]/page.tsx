@@ -20,8 +20,8 @@ import {
   pronounWords,
   type Cause,
   type ContentItem,
-  type Product,
 } from "../../lib/athletes";
+import ProductCarousel from "./ProductCarousel";
 import Footer from "@/app/src/components/footer";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -119,83 +119,57 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
       </section>
       <div className="h-1.5 w-full bg-[#52aafc]" />
 
-      {/* ================ BIO + CAUSES  |  STICKY MARKETPLACE ================ */}
-      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[1fr_380px]">
-        {/* ---------- Left column ---------- */}
-        <div className="flex flex-col gap-10">
-          <div className="grid gap-8 md:grid-cols-[1fr_300px]">
-            <div>
-              <SectionHeading>About {athlete.firstName}</SectionHeading>
-              <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#231f20]/80">
-                {athlete.bio.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
+      {/* ============ WHAT THEY USE (rotating)  |  WHAT THEY STAND FOR ============ */}
+      <section className="bg-[#f4f6fb]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[1fr_360px] lg:items-start">
+          {/* ---------- Left: products, one at a time ---------- */}
+          <div>
+            <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#006aac]">
+                  Athlete products
+                </p>
+                <SectionHeading>What {athlete.firstName} Uses</SectionHeading>
               </div>
+              <Link
+                href={athlete.marketplaceHref}
+                className="inline-flex items-center gap-2 bg-[#092866] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#006aac]"
+              >
+                Shop {athlete.firstName}&apos;s Store
+                <ArrowIcon />
+              </Link>
             </div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg md:aspect-auto md:min-h-[220px] md:self-start md:h-[240px]">
-              {athlete.supportingImage ? (
-                <Image
-                  src={athlete.supportingImage}
-                  alt={`${athlete.name} supporting photo`}
-                  fill
-                  sizes="(min-width:768px) 300px, 100vw"
-                  className="object-cover"
-                />
+            <ProductCarousel
+              products={athlete.products}
+              firstName={athlete.firstName}
+              storeHref={athlete.marketplaceHref}
+            />
+          </div>
+
+          {/* ---------- Right: causes ---------- */}
+          <aside className="border border-[#c2c2c2]/70 bg-white p-6 md:p-7 lg:mt-[76px]">
+            <SectionHeading small>What {standsFor}</SectionHeading>
+            <div className="mt-5 flex flex-col gap-4">
+              {athlete.causes.length > 0 ? (
+                athlete.causes.map((c, i) => <CauseCard key={i} cause={c} />)
               ) : (
-                <Placeholder label="Supporting Photo" />
+                <div className="flex items-start gap-4 rounded-lg border border-dashed border-[#c2c2c2] p-5">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#52aafc]/10 text-[#006aac]/40">
+                    <HeartIcon />
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#231f20]/35">Cause coming soon</h3>
+                    <p className="mt-1 text-sm text-[#231f20]/35">The charity {athlete.firstName} supports will appear here.</p>
+                  </div>
+                </div>
               )}
             </div>
-          </div>
-
-          {athlete.causes.length > 0 && (
-            <div className="rounded-lg bg-[#092866]/[0.04] p-6 md:p-8">
-              <SectionHeading small>What {standsFor}</SectionHeading>
-              <div className="mt-5 flex flex-col gap-4">
-                {athlete.causes.map((c, i) => (
-                  <CauseCard key={i} cause={c} />
-                ))}
-              </div>
-            </div>
-          )}
+          </aside>
         </div>
-
-        {/* ---------- Right rail (sticky) ---------- */}
-        <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-lg border border-[#c2c2c2]/70 bg-white p-6 shadow-[0_18px_40px_-24px_rgba(9,40,102,0.35)]">
-            <SectionHeading small>Shop {possessive} Marketplace</SectionHeading>
-            <p className="mt-2 text-sm text-[#231f20]/70">
-              A hand-picked lineup from the brands {athlete.pronoun} actually trust
-              {athlete.pronoun === "they" ? "" : "s"}.
-            </p>
-            {athlete.products.length > 0 ? (
-              <>
-                <p className="mt-1 text-xs font-semibold text-[#006aac]">
-                  {athlete.products.length} {athlete.products.length === 1 ? "item" : "items"}{" "}
-                  currently live
-                </p>
-                <div className="mt-5 grid grid-cols-2 gap-4">
-                  {athlete.products.slice(0, 4).map((p, i) => (
-                    <ProductTile key={i} product={p} />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <p className="mt-4 text-xs font-semibold text-[#006aac]">New products coming soon.</p>
-            )}
-
-            <Link
-              href={athlete.marketplaceHref}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-[#092866] px-5 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#006aac]"
-            >
-              Visit Full Marketplace
-              <ArrowIcon />
-            </Link>
-          </div>
-        </aside>
       </section>
 
       {/* ========================= ORIGINAL CONTENT ========================= */}
-      {athlete.content.length > 0 && (
+      {(
         <section className="border-t border-[#c2c2c2]/60">
           <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
             <SectionHeading>In {possessive} Words</SectionHeading>
@@ -203,6 +177,10 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
               {athlete.content.map((item, i) => (
                 <ContentCard key={i} item={item} />
               ))}
+              {athlete.content.length === 0 &&
+                (["video", "article", "social"] as const).map((t) => (
+                  <ContentCard key={t} item={{ type: t, title: "Coming soon", href: "#", slug: t, hasPage: false, body: [] }} />
+                ))}
             </div>
           </div>
         </section>
@@ -234,9 +212,7 @@ function CauseCard({ cause }: { cause: Cause }) {
   const inner = (
     <div className="flex items-start gap-4 rounded-lg border border-[#c2c2c2]/70 bg-white p-5 transition hover:border-[#52aafc]">
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#52aafc]/15 text-[#006aac]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-        </svg>
+        <HeartIcon />
       </span>
       <div>
         <h3 className="text-sm font-bold text-[#231f20]">{cause.name}</h3>
@@ -250,35 +226,6 @@ function CauseCard({ cause }: { cause: Cause }) {
     </Link>
   ) : (
     inner
-  );
-}
-
-function ProductTile({ product }: { product: Product }) {
-  return (
-    <Link href={product.href} className="group block">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md">
-        {product.image ? (
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="170px"
-            className="object-cover transition duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <Placeholder small />
-        )}
-      </div>
-      {product.brand && (
-        <p className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-[#231f20]/50">
-          {product.brand}
-        </p>
-      )}
-      <p className="mt-1 text-xs font-medium text-[#231f20] group-hover:text-[#006aac]">
-        {product.name}
-      </p>
-      {product.price && <p className="text-xs font-bold text-[#092866]">{product.price}</p>}
-    </Link>
   );
 }
 
@@ -370,6 +317,14 @@ function ContentIcon({ type }: { type: ContentItem["type"] }) {
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
     </svg>
   );
 }
