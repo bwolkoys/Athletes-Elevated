@@ -55,11 +55,11 @@ const ATHLETES: Athlete[] = [
     cause: "",
   },
   {
-    name: "Nate Roberts",
-    sport: "Moguls",
-    highlight: "Park City · 2005 world champion · 2010 Olympian",
+    name: "Izzy Worthington",
+    sport: "Freestyle Skiing",
+    highlight: "Park City · World Cup halfpipe skier · Founder of IZLO",
     image: "",
-    donationUrl: "https://www.livepcgivepc.org/group/nroberts",
+    donationUrl: "https://www.livepcgivepc.org/group/iworthington",
     cause: "",
   },
   {
@@ -70,14 +70,14 @@ const ATHLETES: Athlete[] = [
     donationUrl: "https://www.livepcgivepc.org/group/hkearney",
     cause: "",
   },
-  {
-    name: "Devin Logan",
-    sport: "Freeskiing",
-    highlight: "Olympic silver medalist, slopestyle (2014)",
-    image: "/lpcgpc/devin_logan.jpeg",
-    donationUrl: "https://www.livepcgivepc.org/group/dlogan",
-    cause: "",
-  },
+  // {
+  //   name: "Devin Logan",
+  //   sport: "Freeskiing",
+  //   highlight: "Olympic silver medalist, slopestyle (2014)",
+  //   image: "/lpcgpc/devin_logan.jpeg",
+  //   donationUrl: "https://www.livepcgivepc.org/group/dlogan",
+  //   cause: "",
+  // },
   {
     name: "Nick Page",
     sport: "Moguls",
