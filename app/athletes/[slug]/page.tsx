@@ -53,6 +53,7 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
   if (!athlete) notFound();
 
   const { possessive, standsFor } = pronounWords(athlete.pronoun);
+  const showShop = athlete.hasStore && athlete.products.length > 0;
 
   return (
     <main className={`${montserrat.className} min-h-screen bg-white text-[#231f20]`}>
@@ -120,9 +121,15 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
       <div className="h-1.5 w-full bg-[#52aafc]" />
 
       {/* ============ WHAT THEY USE (rotating)  |  WHAT THEY STAND FOR ============ */}
+      {/* Products + "Shop store" only show when the athlete has a Marketplace Link AND at least one product */}
       <section className="bg-[#f4f6fb]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-10 md:py-20 lg:grid-cols-[1fr_360px] lg:items-start">
+        <div
+          className={`mx-auto grid gap-10 px-6 py-16 md:px-10 md:py-20 ${
+            showShop ? "max-w-7xl lg:grid-cols-[1fr_360px] lg:items-start" : "max-w-3xl"
+          }`}
+        >
           {/* ---------- Left: products, one at a time ---------- */}
+          {showShop && (
           <div>
             <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
               <div>
@@ -145,9 +152,10 @@ export default async function AthleteSpotlightPage({ params }: PageProps) {
               storeHref={athlete.marketplaceHref}
             />
           </div>
+          )}
 
           {/* ---------- Right: causes ---------- */}
-          <aside className="border border-[#c2c2c2]/70 bg-white p-6 md:p-7 lg:mt-[76px]">
+          <aside className={`border border-[#c2c2c2]/70 bg-white p-6 md:p-7 ${showShop ? "lg:mt-[76px]" : ""}`}>
             <SectionHeading small>What {standsFor}</SectionHeading>
             <div className="mt-5 flex flex-col gap-4">
               {athlete.causes.length > 0 ? (

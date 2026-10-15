@@ -148,6 +148,7 @@ export default async function StoryPage({ params }: PageProps) {
               Shop {athlete.firstName}&apos;s picks
             </p>
           )}
+          {athlete.hasStore && (
           <Link
             href={athlete.marketplaceHref}
             className={`flex w-full items-center justify-center gap-2 border-2 border-[#092866] px-5 py-3.5 text-[11px] font-bold uppercase tracking-[0.15em] text-[#092866] transition hover:bg-[#092866] hover:text-white ${
@@ -156,6 +157,7 @@ export default async function StoryPage({ params }: PageProps) {
           >
             Shop {athlete.firstName}&apos;s Store <ArrowIcon />
           </Link>
+          )}
           <p className="mt-4 text-xs leading-relaxed text-[#231f20]/55">{DISCLOSURE(athlete.firstName, her)}</p>
         </aside>
       </section>

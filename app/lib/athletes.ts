@@ -134,6 +134,8 @@ export const TABLES = {
     supportingImage?: string;
     causes: Cause[];
     marketplaceHref: string;
+    /** True when the athlete's own Marketplace Link is filled in Airtable */
+    hasStore: boolean;
     products: Product[];
     content: ContentItem[];
   };
@@ -373,6 +375,7 @@ export const TABLES = {
           supportingImage: imageUrl(TABLES.athletes, r.id, f[F.supportingPhoto]) || undefined,
           causes,
           marketplaceHref,
+          hasStore: Boolean(str(f[F.marketplaceLink])),
           products,
           content,
         };

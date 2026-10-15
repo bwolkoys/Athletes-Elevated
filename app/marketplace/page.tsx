@@ -62,6 +62,7 @@ const A = {
   storefront: "Marketplace Link", // each athlete's own store collection
   featured: "Featured",
   published: "Published",
+  onMarketplace: "On Marketplace", // only ticked athletes appear on /marketplace
   sort: "Sort Order",
 } as const;
 
@@ -195,7 +196,8 @@ type Brand = {
 
 async function getMarketplace() {
   const [athleteRows, productRows, brandRows] = await Promise.all([
-    fetchTable(T.athletes, `{${A.published}}`),
+    // Published AND On Marketplace — /athletes still lists every published athlete
+    fetchTable(T.athletes, `AND({${A.published}}, {${A.onMarketplace}})`),
     fetchTable(T.products),
     fetchTable(T.brands, `{${B.published}}`),
   ]);

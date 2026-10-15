@@ -63,22 +63,6 @@ const ATHLETES: Athlete[] = [
     cause: "",
   },
   {
-    name: "Hannah Kearney",
-    sport: "Moguls",
-    highlight: "Olympic gold (2010) & bronze (2014) · 46 World Cup wins",
-    image: "/lpcgpc/hannah_kearney.webp",
-    donationUrl: "https://www.livepcgivepc.org/group/hkearney",
-    cause: "",
-  },
-  // {
-  //   name: "Devin Logan",
-  //   sport: "Freeskiing",
-  //   highlight: "Olympic silver medalist, slopestyle (2014)",
-  //   image: "/lpcgpc/devin_logan.jpeg",
-  //   donationUrl: "https://www.livepcgivepc.org/group/dlogan",
-  //   cause: "",
-  // },
-  {
     name: "Nick Page",
     sport: "Moguls",
     highlight: "Park City · 2× Olympian (2022, 2026)",
