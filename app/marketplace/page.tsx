@@ -33,7 +33,8 @@ export const metadata: Metadata = {
  * ========================================================================= */
 
 /** The full Athletes Elevated store (Shopify). */
-const STORE_URL = "https://athleteselevatedmarketplace.com/collections/all-products";
+const STORE_ORIGIN = "https://athleteselevatedmarketplace.com";
+const STORE_URL = `${STORE_ORIGIN}/collections/all-products`;
 
 /**
  * "All products" section — the 4 product images in the collage.
@@ -58,7 +59,7 @@ const A = {
   sport: "Sport",
   photo: "Card Photo",
   quote: "Quote",
-  storefront: "Storefront Link",
+  storefront: "Marketplace Link", // each athlete's own store collection
   featured: "Featured",
   published: "Published",
   sort: "Sort Order",
@@ -223,7 +224,7 @@ async function getMarketplace() {
         tagline: str(f[A.tagline]) || str(f[A.sport]),
         photo: img("athletes", r.id, f[A.photo]),
         quote: str(f[A.quote]),
-        storefront: str(f[A.storefront]),
+        storefront: storeUrl(str(f[A.storefront])),
         featured: Boolean(f[A.featured]),
         productCount: products.length,
         thumbs: products.filter(Boolean).slice(0, 3),
@@ -242,7 +243,7 @@ async function getMarketplace() {
         description: str(f[B.description]),
         photo: img("brands", r.id, f[B.photo]),
         logo: img("brands", r.id, f[B.logo]),
-        storefront: str(f[B.storefront]),
+        storefront: storeUrl(str(f[B.storefront])),
         partner: Boolean(f[B.partner]),
         sort: num(f[B.sort]),
       };
@@ -310,7 +311,7 @@ export default async function MarketplacePage() {
                   Choose an Athlete
                 </a>
                 <a
-                  href={STORE_URL}
+                  href={STORE_URL} {...ext(STORE_URL)}
                   className="inline-flex items-center justify-center gap-2 border border-white/40 px-7 py-4 text-xs font-extrabold uppercase tracking-[0.2em] text-white transition hover:border-white hover:bg-white hover:text-[#080F1C]"
                 >
                   Browse All Products
@@ -383,7 +384,7 @@ export default async function MarketplacePage() {
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-5">
                 <a
-                  href={STORE_URL}
+                  href={STORE_URL} {...ext(STORE_URL)}
                   className="mk-btn inline-flex items-center gap-2 px-7 py-4 text-xs font-extrabold uppercase tracking-[0.2em] text-white"
                   style={{ backgroundColor: NAVY }}
                 >
@@ -476,8 +477,16 @@ function isExternal(href: string) {
   return /^https?:\/\//.test(href);
 }
 
+/** Every link that leaves this page opens in a new tab (in-page "#" jumps stay put). */
 function ext(href: string) {
-  return isExternal(href) ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  return href.startsWith("#") ? {} : { target: "_blank", rel: "noopener noreferrer" };
+}
+
+/** Turns "/collections/x" into a full store link so it never points at this site by mistake. */
+function storeUrl(href: string) {
+  if (!href) return "";
+  if (isExternal(href)) return href;
+  return new URL(href.replace(/^\/*/, "/"), STORE_ORIGIN).toString();
 }
 
 function SectionHead({
@@ -507,7 +516,7 @@ function SectionHead({
         )}
       </div>
       {link && (
-        <a href={link.href} className="group inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em]">
+        <a href={link.href} {...ext(link.href)} className="group inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em]">
           {link.label}
           <span className="transition-transform group-hover:translate-x-1">→</span>
         </a>
@@ -620,7 +629,7 @@ function AthleteStoreCard({ a }: { a: AthleteCard }) {
             Shop {a.firstName}&apos;s Store
           </a>
           <a
-            href={`/athletes/${a.slug}`}
+            href={`/athletes/${a.slug}`} {...ext(`/athletes/${a.slug}`)}
             className="mt-1 block py-1.5 text-center text-[11px] font-semibold underline-offset-4 hover:underline sm:mt-2 sm:text-xs"
             style={{ color: ROYAL }}
           >
@@ -761,7 +770,7 @@ function FeaturedPlaceholder() {
         </h2>
         <p className="mt-4 text-sm text-[#092866]/45">Our featured athlete storefront will appear here.</p>
         <a
-          href={STORE_URL}
+          href={STORE_URL} {...ext(STORE_URL)}
           className="mk-btn mt-7 inline-flex w-fit items-center gap-2 px-6 py-3.5 text-[11px] font-extrabold uppercase tracking-[0.2em] text-white"
           style={{ backgroundColor: NAVY }}
         >
