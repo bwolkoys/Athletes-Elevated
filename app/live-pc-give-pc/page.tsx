@@ -58,7 +58,7 @@ const ATHLETES: Athlete[] = [
     name: "Izzy Worthington",
     sport: "Freestyle Skiing",
     highlight: "Park City · World Cup halfpipe skier · Founder of IZLO",
-    image: "",
+    image: "/lpcgpc/izzy-worthington.png",
     donationUrl: "https://www.livepcgivepc.org/group/iworthington",
     cause: "",
   },
@@ -216,7 +216,7 @@ export default function LivePcGivePc() {
               </h2>
             </div>
             <p className="max-w-sm text-sm text-[#092866]/70">
-              Olympians, world champions and a three-time Slam Dunk champ — all giving back to the
+              Olympians and world champions — all giving back to the
               mountain town that shaped them.
             </p>
           </div>
@@ -338,7 +338,7 @@ function AthleteCard({ athlete, index }: { athlete: Athlete; index: number }) {
           {athlete.sport}
         </span>
         <span className="absolute right-4 top-4 text-[10px] font-bold uppercase tracking-[0.25em] text-white/70">
-          {String(index + 1).padStart(2, "0")} / 09
+          {String(index + 1).padStart(2, "0")} / 06
         </span>
       </div>
 
